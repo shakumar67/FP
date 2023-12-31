@@ -1,4 +1,5 @@
 ﻿@model FP.Models.RegisterViewModel
+    @using FP.Manager
 @{
     ViewBag.Title = "Register";
 }
@@ -13,21 +14,39 @@
         <hr />
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="row">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
+            @Html.LabelFor(m => m.Roles, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.Roles, CommonModel.GetRole(true), null, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
+            @Html.LabelFor(m => m.DistrictID, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.DistrictID, new List<SelectListItem>(), null, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
+            @Html.LabelFor(m => m.BlockID, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.BlockID, new List<SelectListItem>(), null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.PanchayatId, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.VillageId, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.VillageId, new List<SelectListItem>(), null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.EmpName, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
@@ -40,4 +59,26 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/JS/Master.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#Roles').change(function () {
+                var url = '@Url.Action("Register", "Account")';
+                window.location.href = url + '?Roles=' + $(this).val();
+            });
+
+            GetDistrict("DistrictId");
+            $('#BlockId').change(function () {
+                GetBlock("BlockId", 0, $(this).val());
+            });
+            $('#PanchayatId').change(function () {
+                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
+            });
+            $('#VillageId').change(function () {
+                GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+            });
+
+        })
+</script>
 }

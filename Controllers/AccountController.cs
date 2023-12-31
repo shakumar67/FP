@@ -137,8 +137,10 @@ namespace FP.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string Roles = "B5421964-4F00-426A-8254-4297B6DB9204")
         {
+            RegisterViewModel model=new RegisterViewModel();   
+            model.Roles = Roles;
             return View();
         }
 
