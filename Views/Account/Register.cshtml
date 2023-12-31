@@ -16,19 +16,19 @@
         <div class="row">
             @Html.LabelFor(m => m.Roles, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Roles, CommonModel.GetRole(true), null, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.Roles, CommonModel.GetRole(), null, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
-            @Html.LabelFor(m => m.DistrictID, new { @class = "col-md-2 col-form-label" })
+            @Html.LabelFor(m => m.DistrictId, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.DistrictID, new List<SelectListItem>(), null, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
-            @Html.LabelFor(m => m.BlockID, new { @class = "col-md-2 col-form-label" })
+            @Html.LabelFor(m => m.BlockId, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.BlockID, new List<SelectListItem>(), null, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
@@ -44,11 +44,12 @@
             </div>
         </div>
         <div class="row">
-            
+            <span class="text-danger">*</span>@Html.Label(Model.DisplayName1, htmlAttributes: new { @class = "" })
             <div class="col-md-10">
                 @Html.TextBoxFor(m => m.EmpName, new { @class = "form-control" })
             </div>
         </div>
+       
         <div class="row">
             <div class="offset-md-2 col-md-10">
                 <input type="submit" value="Register" class="btn btn-outline-dark" />
@@ -68,14 +69,14 @@
                 window.location.href = url + '?Roles=' + $(this).val();
             });
 
-            GetDistrict("DistrictId");
-            $('#BlockId').change(function () {
+        GetDistrict("DistrictId",0);
+        $('#DistrictId').change(function () {
                 GetBlock("BlockId", 0, $(this).val());
             });
-            $('#PanchayatId').change(function () {
+        $('#BlockId').change(function () {
                 GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
             });
-            $('#VillageId').change(function () {
+        $('#PanchayatId').change(function () {
                 GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
             });
 

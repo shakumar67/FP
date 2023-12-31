@@ -20,7 +20,7 @@ using System.Collections.Generic;
 
 namespace FP.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class MasterController : BaseController
     {
         FP_DBEntities db = new FP_DBEntities();

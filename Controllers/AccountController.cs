@@ -141,7 +141,8 @@ namespace FP.Controllers
         {
             RegisterViewModel model=new RegisterViewModel();   
             model.Roles = Roles;
-            return View();
+            
+            return View(model);
         }
 
         //

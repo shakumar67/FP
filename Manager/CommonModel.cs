@@ -26,6 +26,14 @@ namespace FP.Manager
     public class CommonModel
     {
         private static FP_DBEntities dbe = new FP_DBEntities();
+        //private static FP_DBEntities dbe;
+        //public CommonModel()
+        //{
+        //    if (dbe==null)
+        //    {
+        //        dbe = new FP_DBEntities();
+        //    }
+        //}
 
         #region BaseUrl
         public static string GetBaseUrl()

@@ -278,7 +278,6 @@ function printDiv(elem) {
 
 /* -------------------------------------------- Bind DDL Code -------------------------------*/
 function GetDistrict(Ele, Sel) {
-
     $('#' + Ele).empty();
     $('#' + Ele).prop("disabled", false);
     $('#' + Ele).append($("<option>").val('').text('Select'));

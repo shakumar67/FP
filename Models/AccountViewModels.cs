@@ -88,9 +88,9 @@ namespace FP.Models
         [Display(Name = "Role")]
         public string Roles { get; set; }
         [Display(Name = "District")]
-        public Nullable<int> DistrictID { get; set; }
+        public Nullable<int> DistrictId { get; set; }
         [Display(Name = "Block")]
-        public Nullable<int> BlockID { get; set; }
+        public Nullable<int> BlockId { get; set; }
         [Display(Name = "Panchayat")]
         public Nullable<int> PanchayatId { get; set; }
         [Display(Name = "Other Panchayat")]
