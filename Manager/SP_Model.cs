@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FP.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FP.Manager
 {
@@ -40,6 +41,14 @@ namespace FP.Manager
             sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
             sp.Command.AddParameter("@BlockId", BlockId, DbType.Int32);
             sp.Command.AddParameter("@PanchayatId", PanchayatId, DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SpUserDetails(string Roleid,string CutUser)
+        {
+            StoredProcedure sp = new StoredProcedure("Usp_UserDetails");
+            sp.Command.AddParameter("@Roleid", Roleid, DbType.String);
+            sp.Command.AddParameter("@CutUser", CutUser, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

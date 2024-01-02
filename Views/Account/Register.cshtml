@@ -20,6 +20,12 @@
             </div>
         </div>
         <div class="row">
+            @Html.LabelFor(m => m.Gender, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Gender, CommonModel.GetGender(), null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
             @Html.LabelFor(m => m.DistrictId, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-control" })
@@ -49,7 +55,13 @@
                 @Html.TextBoxFor(m => m.EmpName, new { @class = "form-control" })
             </div>
         </div>
-       
+        <div class="row">
+            <span class="text-danger">*</span> @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control" })
+            </div>
+        </div>
+
         <div class="row">
             <div class="offset-md-2 col-md-10">
                 <input type="submit" value="Register" class="btn btn-outline-dark" />

@@ -31,7 +31,7 @@ namespace FP.Models
         public virtual DbSet<District_Master> District_Master { get; set; }
         public virtual DbSet<Panchayat_Master> Panchayat_Master { get; set; }
         public virtual DbSet<State_Master> State_Master { get; set; }
-        public virtual DbSet<TBL_Emp> TBL_Emp { get; set; }
         public virtual DbSet<VO_Master> VO_Master { get; set; }
+        public virtual DbSet<TBL_Emp> TBL_Emp { get; set; }
     }
 }

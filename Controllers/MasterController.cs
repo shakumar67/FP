@@ -245,17 +245,17 @@ namespace FP.Controllers
             RegisterViewModel model = new RegisterViewModel();
             return View(model);
         }
-        public ActionResult GetUserDetailData()
+        public ActionResult GetUserDetailData(string Roles="")
         {
             try
             {
                 bool IsCheck = false;
-                var tbllist = CommonModel.GetSPCutUserlist();
-                if (tbllist != null)
+                var tbllist = SP_Model.SpUserDetails(Roles,User.Identity.Name);
+                if (tbllist.Rows.Count>0)
                 {
                     IsCheck = true;
                 }
-                var html = ConvertViewToString("_UserDetailData", tbllist);
+                var html = ConvertViewToString("_UserDData", tbllist);
                 var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
                 res.MaxJsonLength = int.MaxValue;
                 return res;

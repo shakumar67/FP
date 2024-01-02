@@ -1,0 +1,42 @@
+﻿@{
+
+}
+
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row">
+        <div id="subdata"></div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/JS/Master.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            BindData();
+        });
+        function BindData() {
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Master/GetUserDetailData",
+                data: JSON.stringify({ 'Roles': '' }),
+                cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+                    }
+                    $("#subdata").html(res.Data);
+                },
+                 error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+    </script>
+    }
+

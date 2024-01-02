@@ -15,6 +15,7 @@ namespace FP.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        FP_DBEntities db_ = new FP_DBEntities();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -141,7 +142,6 @@ namespace FP.Controllers
         {
             RegisterViewModel model=new RegisterViewModel();   
             model.Roles = Roles;
-            
             return View(model);
         }
 
@@ -152,14 +152,45 @@ namespace FP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            FP_DBEntities dbe = new FP_DBEntities();
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser { UserName = model.MobileNo, Email = model.MobileNo };
+                var result = await UserManager.CreateAsync(user, model.MobileNo);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    var rolename = db_.AspNetRoles.Find(model.Roles).Name;
+                    var result1 = UserManager.AddToRole(user.Id, rolename);
+
+                    TBL_Emp tbl = new TBL_Emp();
+                    tbl.EmpID_pk = Guid.NewGuid();
+                    tbl.UserID_fk = user.Id;
+                    tbl.RoleID_fk = model.Roles;
+                    tbl.DistrictID = model.DistrictId;
+                    tbl.BlockID = model.BlockId;
+                    tbl.Village = model.VillageId;
+                    tbl.Other_Vo = model.Other_Vo;
+                    tbl.Panchayat = model.PanchayatId;
+                    tbl.Panchayat_Other = model.Panchayat_Other;
+                    tbl.EmpName = model.EmpName.Trim();
+                    tbl.Gender = model.Gender;
+                    tbl.MobileNo = model.MobileNo.Trim();
+                    tbl.IsActive = true;
+                    tbl.CreatedBy = User.Identity.Name;
+                    tbl.CreatedOn = DateTime.Now;
+                    db_.TBL_Emp.Add(tbl);
+                    int res = db_.SaveChanges();  
+
+                    var ap = dbe.AspNetUsers.Find(user.Id);
+                    ap.CreatedOn = DateTime.Now;
+                    ap.Emp_ID = tbl.EmpID_pk;
+                    dbe.SaveChanges();
+                   
                     
+
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

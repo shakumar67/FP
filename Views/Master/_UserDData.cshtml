@@ -1,0 +1,52 @@
+﻿@using System.Data
+@{ 
+	DataTable dt = new DataTable();
+	dt = Model;
+}
+
+
+<table class="table table-bordered table-striped" id="tbl">
+	<thead>
+		<tr>
+			<th>Srno.</th>
+			<th>District</th>
+			<th>Block</th>
+			<th>Panchayat</th>
+			<th>Village</th>
+			<th>Role</th>
+			<th>Name</th>
+			<th>Gender</th>
+			<th>Mobile No</th>
+		</tr>
+	</thead>
+	<tbody>
+		@{ 
+			if (dt.Rows.Count>0)
+			{
+
+				int srno = 1;
+				foreach (DataRow dr in dt.Rows)
+				{
+					<tr>
+						<td>@(srno++)</td>
+						<td>@dr["DistrictName"]</td>
+						<td>@dr["Block"]</td>
+						<td>@dr["Panchayat"]</td>
+						<td>@dr["Village_Organization"]</td>
+						<td>@dr["Rolename"]</td>
+						<td>@dr["EmpName"]</td>
+						<td>@dr["Gender"]</td>
+						<td>@dr["MobileNo"]</td>
+					</tr>
+				}
+			}
+			else
+			{
+				<tr>
+					<td colspan="10" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+				</tr>
+			}
+		}
+	</tbody>
+
+</table>

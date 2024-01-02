@@ -280,6 +280,14 @@ namespace FP.Manager
         #endregion
 
         #region Master 
+        public static List<SelectListItem> GetGender()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "Male", Text = "Male" });
+            list.Add(new SelectListItem { Value = "Female", Text = "Female" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         public static List<SelectListItem> GetRole(bool IsAll = false)
         {
             try
