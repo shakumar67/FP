@@ -58,7 +58,7 @@
         <div class="row">
             <span class="text-danger">*</span> @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control numberonly", @maxlength="10" })
             </div>
         </div>
 
@@ -77,21 +77,32 @@
 <script>
     $(document).ready(function () {
         $('#Roles').change(function () {
-                var url = '@Url.Action("Register", "Account")';
-                window.location.href = url + '?Roles=' + $(this).val();
-            });
+            var url = '@Url.Action("Register", "Account")';
+            window.location.href = url + '?Roles=' + $(this).val();
+        });
 
-        GetDistrict("DistrictId",0);
+        GetDistrict("DistrictId", 0);
         $('#DistrictId').change(function () {
-                GetBlock("BlockId", 0, $(this).val());
-            });
+            GetBlock("BlockId", 0, $(this).val());
+        });
         $('#BlockId').change(function () {
-                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
-            });
+            GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
+        });
         $('#PanchayatId').change(function () {
-                GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
-            });
+            GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+        });
 
-        })
+        //$('#MobileNo').change(function () {
+        //    var input = document.getElementById('MobileNo');
+        //    var pattern = /^[6-9][0-9]{0,9}$/;
+        //    var value = input.value;
+        //    !pattern.test(value) && (input.value = value = '');
+        //    input.addEventListener('input', function () {
+        //        var currentValue = this.value;
+        //        if (currentValue && !pattern.test(currentValue)) this.value = value;
+        //        else value = currentValue;
+        //    });
+        //});
+    });
 </script>
 }
