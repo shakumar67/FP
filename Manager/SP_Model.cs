@@ -52,6 +52,15 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SPVillagelist(int DistrictId, int BlockId, int PanchayatId)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_Villagelist");
+            sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
+            sp.Command.AddParameter("@BlockId", BlockId, DbType.Int32);
+            sp.Command.AddParameter("@PanchayatId", PanchayatId, DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
 
     }
 }

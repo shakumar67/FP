@@ -268,10 +268,43 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
             }
         }
-
+        public ActionResult GetVillagedetaillist(int DistrictId=0 ,int BlockId=0,int PanchayatId=0)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SPVillagelist(DistrictId, BlockId,PanchayatId);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_VillageData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
         public ActionResult VillMaster(int id = 0)
         {
+            FP_DBEntities db_ = new FP_DBEntities();
             VillageModel model = new VillageModel();
+            if (id>0)
+            {
+                var tbl = db_.VO_Master.Find(id);
+                if (tbl!=null)
+                {
+                    model.Void_pk = tbl.Void_pk;
+                    model.DistrictId_fk = tbl.DistrictId_fk;
+                    model.BlockId_fk = tbl.BlockId_fk;
+                    model.Panchayatid_fk = tbl.Panchayatid_fk;
+                    model.Village_Organization = tbl.Village_Organization; 
+                }
+            }
             return View(model);
         }
         [AllowAnonymous]

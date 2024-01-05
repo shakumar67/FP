@@ -34,7 +34,9 @@
             <div class="col-md-12">
                 <input type="submit" name="btnsubmit" id="btnsubmit"  value="Submit" />
             </div>
-
+            <div class="col-md-12">
+                <div id="subdata" style="height:400px; overflow:scroll;"></div>
+            </div>
         }
     </div>
 </div>
@@ -53,27 +55,67 @@
         });
         $('#BlockId_fk').change(function () {
             GetPanchayat("Panchayatid_fk", 0, $('#DistrictId_fk').val(), $(this).val());
-        });
-        //$('#PanchayatId').change(function () {
-        //    GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
-        //});
+            });
+            if ('@Model.Void_pk' != '0') {
+                $('#Void_pk').val('@Model.Void_pk');
+                $('#DistrictId_fk').val('@Model.DistrictId_fk');
+                GetBlock("BlockId_fk", 0, $('#DistrictId_fk').val());
+                $('#BlockId_fk').val('@Model.BlockId_fk');
+                GetPanchayat("Panchayatid_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
+                $('#Panchayatid_fk').val('@Model.Panchayatid_fk');
+                $('#Village_Organization').val('@Model.Village_Organization');
+            }
+
             $("#btnsubmit").click(function (e) {
                 e.preventDefault();
                 CUVill();
+              
             });
-
-         
+            BindData();
        
         });
 
+        function BindData() {
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Master/GetVillagedetaillist",
+                data: JSON.stringify({ 'DistrictId': $('#DistrictId_fk').val(), 'BlockId': $('#BlockId_fk').val(), 'PanchayatId': $('#Panchayatid_fk').val() }),
+                cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+                    }
+                    $("#subdata").html(res.Data);
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+
         function CUVill() {
             debugger;
-            if ($('#DistrictId_fk').val()!='') {
-                toastr.success("Error", '');
+            var IsCheck = true;
+            if ($('#DistrictId_fk').val()=='') {
+                toastr.error("Error", 'Please Select District');
+                IsCheck = false;
             }
-            if ($('#DistrictId_fk').val() != '') {
-                toastr.success("Error", '');
+            if ($('#BlockId_fk').val() == '') {
+                toastr.error("Error", 'Please Select Block');
+                IsCheck = false;
             }
+            if ($('#Panchayatid_fk').val() == '') {
+                toastr.error("Error", 'Please Select Panchayat');
+                IsCheck = false;
+            }
+            if ($('#Village_Organization').val() == '') {
+                toastr.error("Error", 'Please enter Village Name');
+                IsCheck = false;
+            }
+
+
 
             //var VillageModel = [], model = [];
             //VillageModel.Void_pk = $('#Void_pk').val();
@@ -89,38 +131,45 @@
             formData.append('Panchayatid_fk', $('#Panchayatid_fk').val());
             formData.append('Village_Organization', $('#Village_Organization').val());
 
-
             //formData.append('v_model', JSON.stringify(MS_model));
 
-            $.ajax({
-                url: document.baseURI + "/Master/VillMaster",
-                type: "Post",
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-              //  contentType: "application/json; charset=utf-8",
-               // data: JSON.stringify(model),
-                //global: false,
-               // async: false,
-               // dataType: "json",
-                success: function (resp) {
-                    if (resp.StatusType == "success") {
-                        toastr.success("Success", resp.Message);
+            if (IsCheck) {
+                $.ajax({
+                    url: document.baseURI + "/Master/VillMaster",
+                    type: "Post",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    //contentType: "application/json; charset=utf-8",
+                    // data: JSON.stringify(model),
+                    //global: false,
+                    // async: false,
+                    // dataType: "json",
+                    success: function (resp) {
+                        if (resp.StatusType == "success") {
+                            toastr.success("Success", resp.Message);
+                            BindData();
+                            $('#Village_Organization').val('');
+                            //jQuery.event.trigger("ajaxStop");
+                        }
+                        else {
+                            toastr.error("Error", resp.Message);
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
                         //jQuery.event.trigger("ajaxStop");
+                        return false;
                     }
-                    else {
-                        toastr.error("Error", resp.Message);
-                    }
-                },
-                error: function (req, error) {
-                    if (error === 'error') { error = req.statusText; }
-                    var errormsg = 'There was a communication error: ' + error;
-                    toastr.error("Error", errormsg);
-                    jQuery.event.trigger("ajaxStop");
-                    return false;
-                }
-            });
+                });
+            }
+            else {
+                return false;
+            }
+           
         }
 
     </script>
