@@ -17,10 +17,12 @@ using System.Drawing.Imaging;
 using System.IO.Compression;
 using System.Collections.Generic;
 //using FileInfo = FP.Models.FileInfo;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 
 namespace FP.Controllers
 {
-   // [Authorize]
+    // [Authorize]
     public class MasterController : BaseController
     {
         FP_DBEntities db = new FP_DBEntities();
@@ -221,7 +223,7 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetVillageList(int DistrictId, int BlockId,int PanchayatId)
+        public ActionResult GetVillageList(int DistrictId, int BlockId, int PanchayatId)
         {
             try
             {
@@ -245,13 +247,13 @@ namespace FP.Controllers
             RegisterViewModel model = new RegisterViewModel();
             return View(model);
         }
-        public ActionResult GetUserDetailData(string Roles="")
+        public ActionResult GetUserDetailData(string Roles = "")
         {
             try
             {
                 bool IsCheck = false;
-                var tbllist = SP_Model.SpUserDetails(Roles,User.Identity.Name);
-                if (tbllist.Rows.Count>0)
+                var tbllist = SP_Model.SpUserDetails(Roles, User.Identity.Name);
+                if (tbllist.Rows.Count > 0)
                 {
                     IsCheck = true;
                 }
@@ -266,6 +268,60 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
             }
         }
+
+        public ActionResult VillMaster(int id = 0)
+        {
+            VillageModel model = new VillageModel();
+            return View(model);
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        [EnableCors("*")]
+        public JsonResult VillMaster(VillageModel model)
+        {
+            JsonResponseData response = new JsonResponseData();
+            //var MS_model = this.Request.Unvalidated.Form["v_model"];
+            //model = JsonConvert.DeserializeObject<VillageModel>(MS_model);
+
+            var tbl = model.Void_pk != 0 ? db.VO_Master.Find(model.Void_pk) : new VO_Master();
+            if (tbl != null && model != null)
+            {
+                tbl.Village_Organization = model.Village_Organization.Trim();
+                tbl.IsActive = true;
+                if (model.Void_pk == 0)
+                {
+                    tbl.DistrictId_fk = model.DistrictId_fk;
+                    tbl.BlockId_fk = model.BlockId_fk;
+                    tbl.Panchayatid_fk = model.Panchayatid_fk;
+                    tbl.CreatedBy = User.Identity.Name;
+                    tbl.CreatedOn = DateTime.Now;
+                    db.VO_Master.Add(tbl);
+                }
+                else
+                {
+                    tbl.UpdatedBy = User.Identity.Name;
+                    tbl.UpdatedOn = DateTime.Now;
+                }
+                int res = db.SaveChanges();
+                if (res > 0)
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+                    //ModelState.AddModelError("", Record Submitted Successfully!!!");
+                }
+                else
+                {
+
+                }
+            }
+            return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            //return Json();
+            //   return View();
+        }
+
+
 
         private string ConvertViewToString(string viewName, object model)
         {

@@ -23,5 +23,9 @@ namespace FP.Models
         public string F5 { get; set; }
         public string CRUD { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public string UpdatedBy { get; set; }
+        public Nullable<System.DateTime> UpdatedOn { get; set; }
     }
 }

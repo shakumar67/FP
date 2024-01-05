@@ -86,10 +86,11 @@
     <Property Name="RoleID_fk" Type="nvarchar(max)" />
     <Property Name="DistrictID" Type="int" />
     <Property Name="BlockID" Type="int" />
-    <Property Name="Village" Type="int" />
+    <Property Name="VillageId" Type="int" />
     <Property Name="Other_Vo" Type="nvarchar" MaxLength="500" />
-    <Property Name="Panchayat" Type="int" />
+    <Property Name="PanchayatId" Type="int" />
     <Property Name="Panchayat_Other" Type="nvarchar" MaxLength="500" />
+    <Property Name="NameOfTheVillageOrganization" Type="nvarchar" MaxLength="500" />
     <Property Name="EmpName" Type="nvarchar" MaxLength="500" />
     <Property Name="Gender" Type="nvarchar" MaxLength="20" />
     <Property Name="MobileNo" Type="nvarchar" MaxLength="50" />
@@ -112,6 +113,10 @@
     <Property Name="F5" Type="nvarchar" MaxLength="255" />
     <Property Name="CRUD" Type="nvarchar" MaxLength="255" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
   <Association Name="FK_Block_Master_District_Master">
     <End Role="District_Master" Type="Self.District_Master" Multiplicity="0..1" />

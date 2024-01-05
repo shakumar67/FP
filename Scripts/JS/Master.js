@@ -190,12 +190,12 @@ function GetTotalMonthsFromTwoDate(Date1, Date2) {
     }
 }
 
-function GetDOBByAgeYearAndMonth(Year, Month) {
-    console.log(Year, ', ' + Month);
-    var totalMonth = parseInt(Year != null ? (Year * 12) : 0) + parseInt(Month ?? 0);
-    var dob = moment().add(-totalMonth, 'months');
-    return dob;
-}
+//function GetDOBByAgeYearAndMonth(Year, Month) {
+//    console.log(Year, ', ' + Month);
+//    var totalMonth = parseInt(Year != null ? (Year * 12) : 0) + parseInt(Month ? 0);
+//    var dob = moment().add(-totalMonth, 'months');
+//    return dob;
+//}
 
 function GetQuarterFromDateRange(FromDate, ToDate) {
     //var fd = moment(FromDate, 'YYYY/MM/DD');

@@ -1,0 +1,127 @@
+﻿@model FP.Models.VillageModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row">
+        @using (Html.BeginForm("Vill_Master", "Master", FormMethod.Post, new { @class = "", @id = "formid" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Void_pk)
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.DistrictId_fk, new { @class = "Col-md-2 col-form-label" })
+            @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
+            @Html.ValidationMessageFor(m => m.DistrictId_fk, "", new { @class = "text-danger" })
+        </div>
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.BlockId_fk, new { @class = "Col-md-2 col-form-label" })
+                @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.Panchayatid_fk, new { @class = "Col-md-2 col-form-label" })
+                @Html.DropDownListFor(m => m.Panchayatid_fk, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
+            </div>
+            @*<div class="col-md-6">
+                @Html.LabelFor(m => m.Void_pk, new { @class = "Col-md-2 col-form-label" })
+                @Html.DropDownListFor(m => m.Void_pk, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
+            </div>*@
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.Village_Organization, new { @class = "Col-md-2 col-form-label" })
+                @Html.EditorFor(m => m.Village_Organization, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-12">
+                <input type="submit" name="btnsubmit" id="btnsubmit"  value="Submit" />
+            </div>
+
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/JS/Master.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            GetDistrict("DistrictId_fk", 0);
+        $('#DistrictId_fk').change(function () {
+            GetBlock("BlockId_fk", 0, $(this).val());
+        });
+        $('#BlockId_fk').change(function () {
+            GetPanchayat("Panchayatid_fk", 0, $('#DistrictId_fk').val(), $(this).val());
+        });
+        //$('#PanchayatId').change(function () {
+        //    GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+        //});
+            $("#btnsubmit").click(function (e) {
+                e.preventDefault();
+                CUVill();
+            });
+
+         
+       
+        });
+
+        function CUVill() {
+            debugger;
+            if ($('#DistrictId_fk').val()!='') {
+                toastr.success("Error", '');
+            }
+            if ($('#DistrictId_fk').val() != '') {
+                toastr.success("Error", '');
+            }
+
+            //var VillageModel = [], model = [];
+            //VillageModel.Void_pk = $('#Void_pk').val();
+            //VillageModel.DistrictId_fk = $('#DistrictId_fk').val();
+            //VillageModel.BlockId_fk = $('#BlockId_fk').val();
+            //VillageModel.Panchayatid_fk = $('#Panchayatid_fk').val();
+            //VillageModel.Village_Organization = $('#Village_Organization').val();
+            //model.push(VillageModel);
+            var formData = new FormData();
+            formData.append('Void_pk', $('#Void_pk').val());
+            formData.append('DistrictId_fk', $('#DistrictId_fk').val());
+            formData.append('BlockId_fk', $('#BlockId_fk').val());
+            formData.append('Panchayatid_fk', $('#Panchayatid_fk').val());
+            formData.append('Village_Organization', $('#Village_Organization').val());
+
+
+            //formData.append('v_model', JSON.stringify(MS_model));
+
+            $.ajax({
+                url: document.baseURI + "/Master/VillMaster",
+                type: "Post",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+              //  contentType: "application/json; charset=utf-8",
+               // data: JSON.stringify(model),
+                //global: false,
+               // async: false,
+               // dataType: "json",
+                success: function (resp) {
+                    if (resp.StatusType == "success") {
+                        toastr.success("Success", resp.Message);
+                        //jQuery.event.trigger("ajaxStop");
+                    }
+                    else {
+                        toastr.error("Error", resp.Message);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    toastr.error("Error", errormsg);
+                    jQuery.event.trigger("ajaxStop");
+                    return false;
+                }
+            });
+        }
+
+    </script>
+}

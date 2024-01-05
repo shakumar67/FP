@@ -76,44 +76,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="TBL_Emp">
-      <EntityTypeMapping TypeName="FP_DBModel.TBL_Emp">
-        <MappingFragment StoreEntitySet="TBL_Emp">
-          <ScalarProperty Name="EmpID_pk" ColumnName="EmpID_pk" />
-          <ScalarProperty Name="UserID_fk" ColumnName="UserID_fk" />
-          <ScalarProperty Name="RoleID_fk" ColumnName="RoleID_fk" />
-          <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-          <ScalarProperty Name="BlockID" ColumnName="BlockID" />
-          <ScalarProperty Name="Village" ColumnName="Village" />
-          <ScalarProperty Name="Other_Vo" ColumnName="Other_Vo" />
-          <ScalarProperty Name="Panchayat" ColumnName="Panchayat" />
-          <ScalarProperty Name="Panchayat_Other" ColumnName="Panchayat_Other" />
-          <ScalarProperty Name="EmpName" ColumnName="EmpName" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="VO_Master">
-      <EntityTypeMapping TypeName="FP_DBModel.VO_Master">
-        <MappingFragment StoreEntitySet="VO_Master">
-          <ScalarProperty Name="Void_pk" ColumnName="Void_pk" />
-          <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
-          <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
-          <ScalarProperty Name="Panchayatid_fk" ColumnName="Panchayatid_fk" />
-          <ScalarProperty Name="Panchayat" ColumnName="Panchayat" />
-          <ScalarProperty Name="Village_Organization" ColumnName="Village_Organization" />
-          <ScalarProperty Name="F5" ColumnName="F5" />
-          <ScalarProperty Name="CRUD" ColumnName="CRUD" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <AssociationSetMapping Name="AspNetUserRoles" TypeName="FP_DBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
       <EndProperty Name="AspNetRoles">
         <ScalarProperty Name="Id" ColumnName="RoleId" />
@@ -122,5 +84,48 @@
         <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="TBL_Emp">
+      <EntityTypeMapping TypeName="FP_DBModel.TBL_Emp">
+        <MappingFragment StoreEntitySet="TBL_Emp">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+          <ScalarProperty Name="NameOfTheVillageOrganization" ColumnName="NameOfTheVillageOrganization" />
+          <ScalarProperty Name="Panchayat_Other" ColumnName="Panchayat_Other" />
+          <ScalarProperty Name="PanchayatId" ColumnName="PanchayatId" />
+          <ScalarProperty Name="Other_Vo" ColumnName="Other_Vo" />
+          <ScalarProperty Name="VillageId" ColumnName="VillageId" />
+          <ScalarProperty Name="BlockID" ColumnName="BlockID" />
+          <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+          <ScalarProperty Name="RoleID_fk" ColumnName="RoleID_fk" />
+          <ScalarProperty Name="UserID_fk" ColumnName="UserID_fk" />
+          <ScalarProperty Name="EmpID_pk" ColumnName="EmpID_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VO_Master">
+      <EntityTypeMapping TypeName="FP_DBModel.VO_Master">
+        <MappingFragment StoreEntitySet="VO_Master">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CRUD" ColumnName="CRUD" />
+          <ScalarProperty Name="F5" ColumnName="F5" />
+          <ScalarProperty Name="Village_Organization" ColumnName="Village_Organization" />
+          <ScalarProperty Name="Panchayat" ColumnName="Panchayat" />
+          <ScalarProperty Name="Panchayatid_fk" ColumnName="Panchayatid_fk" />
+          <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
+          <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
+          <ScalarProperty Name="Void_pk" ColumnName="Void_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

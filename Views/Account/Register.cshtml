@@ -37,16 +37,22 @@
                 @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-control" })
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="div-panchid" style="display:none">
             @Html.LabelFor(m => m.PanchayatId, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-control" })
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="div-vid" style="display:none">
             @Html.LabelFor(m => m.VillageId, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.DropDownListFor(m => m.VillageId, new List<SelectListItem>(), null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row" id="div-voorg" style="display:none">
+            <span class="text-danger">*</span>@Html.LabelFor(m => m.NameOfTheVillageOrganization, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.NameOfTheVillageOrganization, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
@@ -58,7 +64,7 @@
         <div class="row">
             <span class="text-danger">*</span> @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control numberonly", @maxlength="10" })
+                @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control numberonly", @maxlength = "10" })
             </div>
         </div>
 
@@ -77,8 +83,45 @@
 <script>
     $(document).ready(function () {
         $('#Roles').change(function () {
-            var url = '@Url.Action("Register", "Account")';
-            window.location.href = url + '?Roles=' + $(this).val();
+           // var url = '@Url.Action("Register", "Account")';
+            // window.location.href = url + '?Roles=' + $(this).val();
+            debugger;
+            var rolen = $("#Roles option:selected").text();
+            if (rolen == "CM") {
+                $('#div-panchid').css('display', 'block');
+                $('#div-vid').show();
+                $('#div-voorg').show();
+                $('#Gender').val('Female');
+                $('#Gender').attr('readonly', true);
+                $('#NameOfTheVillageOrganization').val('');
+               // $('#PanchayatId').empty();
+                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
+                GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
+               
+            }
+           else if (rolen == "CNRP") {
+                $('#div-panchid').css('display', 'block');
+                $('#div-voorg').hide();
+                $('#div-vid').hide();
+                $('#Gender').val('Female');
+                $('#Gender').attr('readonly', true);
+                $('#NameOfTheVillageOrganization').val('');
+                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
+                GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
+            }
+            else {
+                $('#div-panchid').css('display', 'none');
+                $('#div-vid').hide();
+                $('#div-voorg').hide();
+                $('#Gender').attr('readonly', false);
+               // $('#PanchayatId').val('');
+               // $('#VillageId').val('');
+                $('#NameOfTheVillageOrganization').val('');
+                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
+                GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
+            }
+
+
         });
 
         GetDistrict("DistrictId", 0);

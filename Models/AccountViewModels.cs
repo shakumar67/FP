@@ -102,6 +102,8 @@ namespace FP.Models
         [Display(Name = "Other Village")]
         public string Other_Vo { get; set; }
         //[Display(Name = "Confirm password")]
+        [Display(Name = "Name Of Village Organization")]
+        public string NameOfTheVillageOrganization { get; set; }
         public string EmpName { get; set; }
         [Display(Name = "Gender")]
         public string Gender { get; set; }

@@ -170,11 +170,12 @@ namespace FP.Controllers
                     tbl.RoleID_fk = model.Roles;
                     tbl.DistrictID = model.DistrictId;
                     tbl.BlockID = model.BlockId;
-                    tbl.Village = model.VillageId;
+                    tbl.VillageId = model.VillageId;
                     tbl.Other_Vo = model.Other_Vo;
-                    tbl.Panchayat = model.PanchayatId;
+                    tbl.PanchayatId = model.PanchayatId;
                     tbl.Panchayat_Other = model.Panchayat_Other;
                     tbl.EmpName = model.EmpName.Trim();
+                    tbl.NameOfTheVillageOrganization = model.NameOfTheVillageOrganization;
                     tbl.Gender = model.Gender;
                     tbl.MobileNo = model.MobileNo.Trim();
                     tbl.IsActive = true;
