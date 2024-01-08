@@ -84,6 +84,11 @@ namespace FP.Models
         ////[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         //public string ConfirmPassword { get; set; }
 
+        public RegisterViewModel()
+        {
+            EmpID_pk = Guid.Empty;
+        }
+
         public System.Guid EmpID_pk { get; set; }
         public string UserID_fk { get; set; }
         public string RoleID_fk { get; set; }

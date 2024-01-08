@@ -10,6 +10,8 @@
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
     {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(m=>m.EmpID_pk)
+        @Html.HiddenFor(m=>m.UserID_fk)
         <h4>Create a new account.</h4>
         <hr />
         @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -134,6 +136,23 @@
         $('#PanchayatId').change(function () {
             GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
         });
+
+        if ('@Model.UserID_fk' != '') {
+            $('#DistrictId').val('@Model.DistrictId');
+            GetBlock("BlockId", 0, $('#DistrictId').val());
+            $('#BlockId').val('@Model.BlockId');
+            GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
+            $('#PanchayatId').val('@Model.PanchayatId');
+            GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
+            $('#VillageId').val('@Model.VillageId');
+            $('#EmpName').val('@Model.EmpName');
+            $('#NameOfTheVillageOrganization').val('@Model.NameOfTheVillageOrganization');
+            $('#MobileNo').val('@Model.MobileNo');
+            $('#EmpID_pk').val('@Model.EmpID_pk');
+            $('#UserID_fk').val('@Model.UserID_fk');
+        }
+
+
 
         //$('#MobileNo').change(function () {
         //    var input = document.getElementById('MobileNo');

@@ -103,6 +103,10 @@ warning 6013: The table/view 'FP_DB.dbo.tbl_BenefFollowup' does not have a prima
           </Key>
           <Property Name="Beneficiary_Id_pk" Type="uniqueidentifier" Nullable="false" />
           <Property Name="HindiEng" Type="int" />
+          <Property Name="DistrictId_fk" Type="int" />
+          <Property Name="BlockId_fk" Type="int" />
+          <Property Name="PanchayatId_fk" Type="int" />
+          <Property Name="VillageId_fk" Type="int" />
           <Property Name="Q1" Type="nvarchar" MaxLength="200" />
           <Property Name="Q2" Type="nvarchar" MaxLength="500" />
           <Property Name="Q3" Type="nvarchar" MaxLength="500" />
@@ -395,6 +399,10 @@ warning 6013: The table/view 'FP_DB.dbo.tbl_BenefFollowup' does not have a prima
           </Key>
           <Property Name="Beneficiary_Id_pk" Type="Guid" Nullable="false" />
           <Property Name="HindiEng" Type="Int32" />
+          <Property Name="DistrictId_fk" Type="Int32" />
+          <Property Name="BlockId_fk" Type="Int32" />
+          <Property Name="PanchayatId_fk" Type="Int32" />
+          <Property Name="VillageId_fk" Type="Int32" />
           <Property Name="Q1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Q2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Q3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -585,6 +593,10 @@ warning 6013: The table/view 'FP_DB.dbo.tbl_BenefFollowup' does not have a prima
                 <ScalarProperty Name="Q3" ColumnName="Q3" />
                 <ScalarProperty Name="Q2" ColumnName="Q2" />
                 <ScalarProperty Name="Q1" ColumnName="Q1" />
+                <ScalarProperty Name="VillageId_fk" ColumnName="VillageId_fk" />
+                <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
+                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
+                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
                 <ScalarProperty Name="HindiEng" ColumnName="HindiEng" />
                 <ScalarProperty Name="Beneficiary_Id_pk" ColumnName="Beneficiary_Id_pk" />
               </MappingFragment>

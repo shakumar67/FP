@@ -22,15 +22,17 @@ namespace FP.Controllers
         {
             return View();
         }
-        public ActionResult Beneficiary(int Id = 0)
+        public ActionResult Beneficiary(int Id = 0,int HindiEng=1)
         {
             BeneficiaryModel model = new BeneficiaryModel();
+            model.HindiEng = HindiEng;
             if (Id != 0)
             {
                 var tbl = db.TBL_Beneficiary.Find();
                 if (tbl != null)
                 {
                     model.Beneficiary_Id_pk = tbl.Beneficiary_Id_pk;
+                    model.HindiEng = tbl.HindiEng;
                     model.Q1 = tbl.Q1;
                     model.Q2 = tbl.Q2;
                     model.Q3 = tbl.Q3;

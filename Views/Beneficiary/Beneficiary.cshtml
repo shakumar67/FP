@@ -10,81 +10,110 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.Beneficiary_Id_pk)
             @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="row">
+                @Html.LabelFor(m => m.HindiEng, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.HindiEng, new List<SelectListItem>(), null, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(m => m.DistrictId_fk, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(m => m.BlockId_fk, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row" id="div-panchid" style="display:none">
+                @Html.LabelFor(m => m.PanchayatId_fk, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row" id="div-vid" style="display:none">
+                @Html.LabelFor(m => m.VillageId_fk, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.VillageId_fk, new List<SelectListItem>(), null, new { @class = "form-control" })
+                </div>
+            </div>
+
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q1D, htmlAttributes: new { @class = "" })
                 @Html.DropDownListFor(m => m.Q1, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
                 @Html.ValidationMessageFor(m => m.Q1, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q2D, htmlAttributes: new { @class = "" })
                 @Html.DropDownListFor(m => m.Q2, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q3D, htmlAttributes: new { @class = "" })
                 @Html.DropDownListFor(m => m.Q3, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q4D, htmlAttributes: new { @class = "" })
                 @Html.DropDownListFor(m => m.Q4, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q5D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q5, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q6D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q6, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q7D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q7, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q8D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q8, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q9D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q9, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q10D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q10, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q11D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q11, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q12D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q12_1, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
-            </div>
-            <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q12_2, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
+          
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q13D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q13, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q14D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q14, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q15D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q15, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q16D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q16, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q17D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q17, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-6">
-                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.Label(Model.Q18D, htmlAttributes: new { @class = "" })
                 @Html.EditorFor(m => m.Q18, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
             </div>
             <div class="col-md-12">

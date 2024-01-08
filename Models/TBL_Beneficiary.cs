@@ -16,6 +16,10 @@ namespace FP.Models
     {
         public System.Guid Beneficiary_Id_pk { get; set; }
         public Nullable<int> HindiEng { get; set; }
+        public Nullable<int> DistrictId_fk { get; set; }
+        public Nullable<int> BlockId_fk { get; set; }
+        public Nullable<int> PanchayatId_fk { get; set; }
+        public Nullable<int> VillageId_fk { get; set; }
         public string Q1 { get; set; }
         public string Q2 { get; set; }
         public string Q3 { get; set; }

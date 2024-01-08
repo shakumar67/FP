@@ -23,7 +23,7 @@ namespace FP.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -35,9 +35,9 @@ namespace FP.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -121,7 +121,7 @@ namespace FP.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -138,10 +138,24 @@ namespace FP.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register(string Roles = "B5421964-4F00-426A-8254-4297B6DB9204")
+        public ActionResult Register(string Roles = "B5421964-4F00-426A-8254-4297B6DB9204", string id = "", string empid = "")
         {
-            RegisterViewModel model=new RegisterViewModel();   
+            RegisterViewModel model = new RegisterViewModel();
             model.Roles = Roles;
+            if (!string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(empid))
+            {
+                var tblu = db_.AspNetUsers.Find(id);
+                var tblemp = db_.TBL_Emp.Find(Guid.Parse(empid));
+                model.UserID_fk = tblu.Id;
+                model.MobileNo = tblemp.MobileNo;
+                model.EmpID_pk = tblemp.EmpID_pk;
+                model.DistrictId = tblemp.DistrictID;
+                model.BlockId = tblemp.BlockID;
+                model.PanchayatId = tblemp.PanchayatId;
+                model.VillageId = tblemp.VillageId;
+                model.NameOfTheVillageOrganization = tblemp.NameOfTheVillageOrganization;
+                model.EmpName = tblemp.EmpName;
+            }
             return View(model);
         }
 
@@ -156,51 +170,73 @@ namespace FP.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.MobileNo, Email = model.MobileNo };
-                var result = await UserManager.CreateAsync(user, model.MobileNo);
-                if (result.Succeeded)
+                if (!string.IsNullOrWhiteSpace(model.UserID_fk) && model.EmpID_pk != Guid.Empty)
                 {
-                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    var rolename = db_.AspNetRoles.Find(model.Roles).Name;
-                    var result1 = UserManager.AddToRole(user.Id, rolename);
-
-                    TBL_Emp tbl = new TBL_Emp();
-                    tbl.EmpID_pk = Guid.NewGuid();
-                    tbl.UserID_fk = user.Id;
-                    tbl.RoleID_fk = model.Roles;
-                    tbl.DistrictID = model.DistrictId;
-                    tbl.BlockID = model.BlockId;
-                    tbl.VillageId = model.VillageId;
-                    tbl.Other_Vo = model.Other_Vo;
-                    tbl.PanchayatId = model.PanchayatId;
-                    tbl.Panchayat_Other = model.Panchayat_Other;
-                    tbl.EmpName = model.EmpName.Trim();
-                    tbl.NameOfTheVillageOrganization = model.NameOfTheVillageOrganization;
-                    tbl.Gender = model.Gender;
-                    tbl.MobileNo = model.MobileNo.Trim();
-                    tbl.IsActive = true;
-                    tbl.CreatedBy = User.Identity.Name;
-                    tbl.CreatedOn = DateTime.Now;
-                    db_.TBL_Emp.Add(tbl);
-                    int res = db_.SaveChanges();  
-
-                    var ap = dbe.AspNetUsers.Find(user.Id);
-                    ap.CreatedOn = DateTime.Now;
-                    ap.Emp_ID = tbl.EmpID_pk;
-                    dbe.SaveChanges();
-                   
-                    
-
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    var tbLu = dbe.AspNetUsers.Find(model.UserID_fk);
+                    var tbLe = dbe.TBL_Emp.Find(model.EmpID_pk);
+                    tbLe.EmpName = model.EmpName;
+                    tbLe.Gender = model.Gender;
+                    tbLe.MobileNo = model.MobileNo;
+                    tbLe.NameOfTheVillageOrganization = model.NameOfTheVillageOrganization;
+                    tbLu.UserName = model.MobileNo;
+                    tbLu.Email = model.MobileNo + "@gmail.com";
+                    tbLu.PhoneNumber = model.MobileNo;
+                    int res = dbe.SaveChanges();
+                    if (res > 0)
+                    {
+                        return RedirectToAction("UserDetaillist","Master");
+                    }
                 }
-                AddErrors(result);
+                else
+                {
+                    var user = new ApplicationUser { UserName = model.MobileNo, Email = model.MobileNo + "@gmail.com" };
+                    var result = await UserManager.CreateAsync(user, model.MobileNo);
+                    if (result.Succeeded)
+                    {
+                        //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                        var rolename = db_.AspNetRoles.Find(model.Roles).Name;
+                        var result1 = UserManager.AddToRole(user.Id, rolename);
+
+                        TBL_Emp tbl = new TBL_Emp();
+                        tbl.EmpID_pk = Guid.NewGuid();
+                        tbl.UserID_fk = user.Id;
+                        tbl.RoleID_fk = model.Roles;
+                        tbl.DistrictID = model.DistrictId;
+                        tbl.BlockID = model.BlockId;
+                        tbl.VillageId = model.VillageId;
+                        tbl.Other_Vo = model.Other_Vo;
+                        tbl.PanchayatId = model.PanchayatId;
+                        tbl.Panchayat_Other = model.Panchayat_Other;
+                        tbl.EmpName = model.EmpName.Trim();
+                        tbl.NameOfTheVillageOrganization = model.NameOfTheVillageOrganization;
+                        tbl.Gender = model.Gender;
+                        tbl.MobileNo = model.MobileNo.Trim();
+                        tbl.IsActive = true;
+                        tbl.CreatedBy = User.Identity.Name;
+                        tbl.CreatedOn = DateTime.Now;
+                        db_.TBL_Emp.Add(tbl);
+                        int res = db_.SaveChanges();
+
+                        var ap = dbe.AspNetUsers.Find(user.Id);
+                        ap.CreatedOn = DateTime.Now;
+                        ap.Emp_ID = tbl.EmpID_pk;
+                        ap.PhoneNumber = model.MobileNo;
+                        dbe.SaveChanges();
+
+
+
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                       // return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
+                    return RedirectToAction("UserDetaillist", "Master");
+                }
             }
 
             // If we got this far, something failed, redisplay form
