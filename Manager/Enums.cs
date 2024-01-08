@@ -46,7 +46,7 @@ namespace FP.Manager
 
         public enum eReturnReg
         {
-            [Description("Record has been saved successfully.")]
+            [Description("Record has been submitted successfully.")]
             Insert = 1,
             [Description("Record has been updated successfully.")]
             Update = 2,

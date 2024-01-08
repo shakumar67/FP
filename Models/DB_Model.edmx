@@ -82,6 +82,55 @@
           <Property Name="LGD_State_Code" Type="int" Nullable="false" />
           <Property Name="StateName" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'FP_DB.dbo.tbl_BenefFollowup' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tbl_BenefFollowup">
+          <Property Name="FollowupID_pk" Type="uniqueidentifier" />
+          <Property Name="BFYID_fk" Type="uniqueidentifier" />
+          <Property Name="Q19" Type="int" />
+          <Property Name="Q20" Type="nvarchar" MaxLength="500" />
+          <Property Name="Q21" Type="nvarchar" MaxLength="500" />
+          <Property Name="Q22" Type="date" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>-->
+        <EntityType Name="TBL_Beneficiary">
+          <Key>
+            <PropertyRef Name="Beneficiary_Id_pk" />
+          </Key>
+          <Property Name="Beneficiary_Id_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HindiEng" Type="int" />
+          <Property Name="Q1" Type="nvarchar" MaxLength="200" />
+          <Property Name="Q2" Type="nvarchar" MaxLength="500" />
+          <Property Name="Q3" Type="nvarchar" MaxLength="500" />
+          <Property Name="Q4" Type="int" />
+          <Property Name="Q5" Type="nvarchar" MaxLength="500" />
+          <Property Name="Q6" Type="date" />
+          <Property Name="Q7" Type="nvarchar" MaxLength="50" />
+          <Property Name="Q8" Type="int" />
+          <Property Name="Q9" Type="nvarchar" MaxLength="500" />
+          <Property Name="Q10" Type="nvarchar" MaxLength="50" />
+          <Property Name="Q11" Type="nvarchar" MaxLength="50" />
+          <Property Name="Q12_1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Q12_2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Q13" Type="nvarchar" MaxLength="200" />
+          <Property Name="Q14" Type="nvarchar" MaxLength="500" />
+          <Property Name="Q15" Type="int" />
+          <Property Name="Q16" Type="int" />
+          <Property Name="Q17" Type="int" />
+          <Property Name="Q18" Type="nvarchar" MaxLength="500" />
+          <Property Name="Q19" Type="int" />
+          <Property Name="Q20" Type="nvarchar" MaxLength="500" />
+          <Property Name="Q21" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="TBL_Emp">
           <Key>
             <PropertyRef Name="EmpID_pk" />
@@ -171,6 +220,7 @@
           <EntitySet Name="District_Master" EntityType="Self.District_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Panchayat_Master" EntityType="Self.Panchayat_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Beneficiary" EntityType="Self.TBL_Beneficiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Emp" EntityType="Self.TBL_Emp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VO_Master" EntityType="Self.VO_Master" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Block_Master_District_Master" Association="Self.FK_Block_Master_District_Master">
@@ -296,6 +346,7 @@
           </AssociationSet>
           <EntitySet Name="TBL_Emp" EntityType="FP_DBModel.TBL_Emp" />
           <EntitySet Name="VO_Master" EntityType="FP_DBModel.VO_Master" />
+          <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
         </EntityContainer>
         <EntityType Name="TBL_Emp">
           <Key>
@@ -336,6 +387,40 @@
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TBL_Beneficiary">
+          <Key>
+            <PropertyRef Name="Beneficiary_Id_pk" />
+          </Key>
+          <Property Name="Beneficiary_Id_pk" Type="Guid" Nullable="false" />
+          <Property Name="HindiEng" Type="Int32" />
+          <Property Name="Q1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Q2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q4" Type="Int32" />
+          <Property Name="Q5" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q6" Type="DateTime" Precision="0" />
+          <Property Name="Q7" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Q8" Type="Int32" />
+          <Property Name="Q9" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q10" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Q11" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Q12_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Q12_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Q13" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Q14" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q15" Type="Int32" />
+          <Property Name="Q16" Type="Int32" />
+          <Property Name="Q17" Type="Int32" />
+          <Property Name="Q18" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q19" Type="Int32" />
+          <Property Name="Q20" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q21" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
@@ -467,6 +552,41 @@
                 <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
                 <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
                 <ScalarProperty Name="Void_pk" ColumnName="Void_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Beneficiary">
+            <EntityTypeMapping TypeName="FP_DBModel.TBL_Beneficiary">
+              <MappingFragment StoreEntitySet="TBL_Beneficiary">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Q21" ColumnName="Q21" />
+                <ScalarProperty Name="Q20" ColumnName="Q20" />
+                <ScalarProperty Name="Q19" ColumnName="Q19" />
+                <ScalarProperty Name="Q18" ColumnName="Q18" />
+                <ScalarProperty Name="Q17" ColumnName="Q17" />
+                <ScalarProperty Name="Q16" ColumnName="Q16" />
+                <ScalarProperty Name="Q15" ColumnName="Q15" />
+                <ScalarProperty Name="Q14" ColumnName="Q14" />
+                <ScalarProperty Name="Q13" ColumnName="Q13" />
+                <ScalarProperty Name="Q12_2" ColumnName="Q12_2" />
+                <ScalarProperty Name="Q12_1" ColumnName="Q12_1" />
+                <ScalarProperty Name="Q11" ColumnName="Q11" />
+                <ScalarProperty Name="Q10" ColumnName="Q10" />
+                <ScalarProperty Name="Q9" ColumnName="Q9" />
+                <ScalarProperty Name="Q8" ColumnName="Q8" />
+                <ScalarProperty Name="Q7" ColumnName="Q7" />
+                <ScalarProperty Name="Q6" ColumnName="Q6" />
+                <ScalarProperty Name="Q5" ColumnName="Q5" />
+                <ScalarProperty Name="Q4" ColumnName="Q4" />
+                <ScalarProperty Name="Q3" ColumnName="Q3" />
+                <ScalarProperty Name="Q2" ColumnName="Q2" />
+                <ScalarProperty Name="Q1" ColumnName="Q1" />
+                <ScalarProperty Name="HindiEng" ColumnName="HindiEng" />
+                <ScalarProperty Name="Beneficiary_Id_pk" ColumnName="Beneficiary_Id_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

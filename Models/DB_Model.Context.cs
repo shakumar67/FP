@@ -33,5 +33,6 @@ namespace FP.Models
         public virtual DbSet<State_Master> State_Master { get; set; }
         public virtual DbSet<TBL_Emp> TBL_Emp { get; set; }
         public virtual DbSet<VO_Master> VO_Master { get; set; }
+        public virtual DbSet<TBL_Beneficiary> TBL_Beneficiary { get; set; }
     }
 }

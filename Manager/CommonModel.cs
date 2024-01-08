@@ -20,6 +20,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml;
 using System.Reflection;
 using SubSonic.Extensions;
+using System.ComponentModel.DataAnnotations;
 
 namespace FP.Manager
 {
@@ -280,6 +281,14 @@ namespace FP.Manager
         #endregion
 
         #region Master 
+        public static string GetEnumDisplayName(Enum enumValue)
+        {
+            return enumValue.GetType()
+              .GetMember(enumValue.ToString())
+              .First()
+              .GetCustomAttribute<DisplayAttribute>()
+              ?.GetName();
+        }
         public static List<SelectListItem> GetGender()
         {
             List<SelectListItem> list = new List<SelectListItem>();

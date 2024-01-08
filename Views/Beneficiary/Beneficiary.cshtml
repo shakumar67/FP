@@ -1,0 +1,226 @@
+﻿@model FP.Models.BeneficiaryModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row">
+        @using (Html.BeginForm("Beneficiary", "Beneficiary", FormMethod.Post, new { @class = "", @id = "formid" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Beneficiary_Id_pk)
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.DropDownListFor(m => m.Q1, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
+                @Html.ValidationMessageFor(m => m.Q1, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.DropDownListFor(m => m.Q2, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.DropDownListFor(m => m.Q3, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.DropDownListFor(m => m.Q4, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q5, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q6, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q7, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q8, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q9, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q10, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q11, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q12_1, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q12_2, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q13, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q14, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q15, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q16, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q17, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-6">
+                @Html.Label(Model.Q1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(m => m.Q18, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            </div>
+            <div class="col-md-12">
+                <input type="submit" name="btnsubmit" id="btnsubmit" value="Submit" />
+            </div>
+            <div class="col-md-12">
+                <div id="subdata" style="height:400px; overflow:scroll;"></div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/JS/Master.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+        GetDistrict("DistrictId_fk", 0);
+        $('#DistrictId_fk').change(function () {
+            GetBlock("BlockId_fk", 0, $(this).val());
+        });
+        $('#BlockId_fk').change(function () {
+            GetPanchayat("Panchayatid_fk", 0, $('#DistrictId_fk').val(), $(this).val());
+            });
+            if ('@Model.Beneficiary_Id_pk' != '00000000-0000-0000-0000-000000000000') {
+                $('#Void_pk').val('@Model.Beneficiary_Id_pk');
+                $('#DistrictId_fk').val('@Model.Q1');
+                GetBlock("BlockId_fk", 0, $('#DistrictId_fk').val());
+            }
+
+            $("#btnsubmit").click(function (e) {
+                e.preventDefault();
+                CUVill();
+
+            });
+            BindData();
+
+        });
+
+        function BindData() {
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Master/GetVillagedetaillist",
+                data: JSON.stringify({ 'DistrictId': $('#DistrictId_fk').val(), 'BlockId': $('#BlockId_fk').val(), 'PanchayatId': $('#Panchayatid_fk').val() }),
+                cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+                    }
+                    $("#subdata").html(res.Data);
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+
+        function CUVill() {
+            debugger;
+            var IsCheck = true;
+            if ($('#DistrictId_fk').val()=='') {
+                toastr.error("Error", 'Please Select District');
+                IsCheck = false;
+            }
+            if ($('#BlockId_fk').val() == '') {
+                toastr.error("Error", 'Please Select Block');
+                IsCheck = false;
+            }
+            if ($('#Panchayatid_fk').val() == '') {
+                toastr.error("Error", 'Please Select Panchayat');
+                IsCheck = false;
+            }
+            if ($('#Village_Organization').val() == '') {
+                toastr.error("Error", 'Please enter Village Name');
+                IsCheck = false;
+            }
+
+            //var VillageModel = [], model = [];
+            //VillageModel.Void_pk = $('#Void_pk').val();
+            //VillageModel.DistrictId_fk = $('#DistrictId_fk').val();
+            //VillageModel.BlockId_fk = $('#BlockId_fk').val();
+            //VillageModel.Panchayatid_fk = $('#Panchayatid_fk').val();
+            //VillageModel.Village_Organization = $('#Village_Organization').val();
+            //model.push(VillageModel);
+            var formData = new FormData();
+            formData.append('Void_pk', $('#Void_pk').val());
+            formData.append('DistrictId_fk', $('#DistrictId_fk').val());
+            formData.append('BlockId_fk', $('#BlockId_fk').val());
+            formData.append('Panchayatid_fk', $('#Panchayatid_fk').val());
+            formData.append('Village_Organization', $('#Village_Organization').val());
+
+            //formData.append('v_model', JSON.stringify(MS_model));
+
+            if (IsCheck) {
+                $.ajax({
+                    url: document.baseURI + "/Master/VillMaster",
+                    type: "Post",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    //contentType: "application/json; charset=utf-8",
+                    // data: JSON.stringify(model),
+                    //global: false,
+                    // async: false,
+                    // dataType: "json",
+                    success: function (resp) {
+                        if (resp.StatusType == "success") {
+                            toastr.success("Success", resp.Message);
+                            BindData();
+                            $('#Village_Organization').val('');
+                            //jQuery.event.trigger("ajaxStop");
+                        }
+                        else {
+                            toastr.error("Error", resp.Message);
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
+                        //jQuery.event.trigger("ajaxStop");
+                        return false;
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+
+        }
+
+    </script>
+}

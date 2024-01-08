@@ -15,6 +15,7 @@
         <AssociationConnector Association="FP_DBModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="FP_DBModel.TBL_Emp" Width="1.5" PointX="8.375" PointY="0.75" />
         <EntityTypeShape EntityType="FP_DBModel.VO_Master" Width="1.5" PointX="5.375" PointY="7.75" />
+        <EntityTypeShape EntityType="FP_DBModel.TBL_Beneficiary" Width="1.5" PointX="7.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

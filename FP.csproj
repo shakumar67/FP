@@ -296,6 +296,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BeneficiaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
@@ -319,6 +320,7 @@
     <Compile Include="Models\AspNetUser.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BeneficiaryModel.cs" />
     <Compile Include="Models\Block_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
@@ -346,6 +348,9 @@
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\State_Master.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_Beneficiary.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TBL_Emp.cs">
@@ -567,6 +572,7 @@
     <Content Include="Views\Master\_UserDData.cshtml" />
     <Content Include="Views\Master\VillMaster.cshtml" />
     <Content Include="Views\Master\_VillageData.cshtml" />
+    <Content Include="Views\Beneficiary\Beneficiary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
