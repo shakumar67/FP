@@ -19,11 +19,9 @@ namespace FP.Models
         public string RoleID_fk { get; set; }
         public Nullable<int> DistrictID { get; set; }
         public Nullable<int> BlockID { get; set; }
-        public Nullable<int> VillageId { get; set; }
-        public string Other_Vo { get; set; }
+        public Nullable<int> VOId_fk { get; set; }
         public Nullable<int> PanchayatId { get; set; }
-        public string Panchayat_Other { get; set; }
-        public string NameOfTheVillageOrganization { get; set; }
+        public string VillageName { get; set; }
         public string EmpName { get; set; }
         public string Gender { get; set; }
         public string MobileNo { get; set; }

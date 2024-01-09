@@ -22,8 +22,6 @@ namespace FP.Manager
             Jharkhand = 20
         }
 
-
-
         public enum eEnumExtension
         {
             [Description("image/*,application/pdf")]

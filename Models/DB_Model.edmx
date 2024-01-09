@@ -82,21 +82,6 @@
           <Property Name="LGD_State_Code" Type="int" Nullable="false" />
           <Property Name="StateName" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'FP_DB.dbo.tbl_BenefFollowup' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="tbl_BenefFollowup">
-          <Property Name="FollowupID_pk" Type="uniqueidentifier" />
-          <Property Name="BFYID_fk" Type="uniqueidentifier" />
-          <Property Name="Q19" Type="int" />
-          <Property Name="Q20" Type="nvarchar" MaxLength="500" />
-          <Property Name="Q21" Type="nvarchar" MaxLength="500" />
-          <Property Name="Q22" Type="date" />
-          <Property Name="IsActive" Type="bit" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
-          <Property Name="CreatedOn" Type="datetime" />
-          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
-          <Property Name="UpdatedOn" Type="datetime" />
-        </EntityType>-->
         <EntityType Name="TBL_Beneficiary">
           <Key>
             <PropertyRef Name="Beneficiary_Id_pk" />
@@ -144,11 +129,9 @@ warning 6013: The table/view 'FP_DB.dbo.tbl_BenefFollowup' does not have a prima
           <Property Name="RoleID_fk" Type="nvarchar(max)" />
           <Property Name="DistrictID" Type="int" />
           <Property Name="BlockID" Type="int" />
-          <Property Name="VillageId" Type="int" />
-          <Property Name="Other_Vo" Type="nvarchar" MaxLength="500" />
+          <Property Name="VOId_fk" Type="int" />
           <Property Name="PanchayatId" Type="int" />
-          <Property Name="Panchayat_Other" Type="nvarchar" MaxLength="500" />
-          <Property Name="NameOfTheVillageOrganization" Type="nvarchar" MaxLength="500" />
+          <Property Name="VillageName" Type="nvarchar" MaxLength="500" />
           <Property Name="EmpName" Type="nvarchar" MaxLength="500" />
           <Property Name="Gender" Type="nvarchar" MaxLength="20" />
           <Property Name="MobileNo" Type="nvarchar" MaxLength="50" />
@@ -348,33 +331,10 @@ warning 6013: The table/view 'FP_DB.dbo.tbl_BenefFollowup' does not have a prima
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="TBL_Emp" EntityType="FP_DBModel.TBL_Emp" />
           <EntitySet Name="VO_Master" EntityType="FP_DBModel.VO_Master" />
           <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
+          <EntitySet Name="TBL_Emp" EntityType="FP_DBModel.TBL_Emp" />
         </EntityContainer>
-        <EntityType Name="TBL_Emp">
-          <Key>
-            <PropertyRef Name="EmpID_pk" />
-          </Key>
-          <Property Name="EmpID_pk" Type="Guid" Nullable="false" />
-          <Property Name="UserID_fk" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="RoleID_fk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DistrictID" Type="Int32" />
-          <Property Name="BlockID" Type="Int32" />
-          <Property Name="VillageId" Type="Int32" />
-          <Property Name="Other_Vo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PanchayatId" Type="Int32" />
-          <Property Name="Panchayat_Other" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="NameOfTheVillageOrganization" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="EmpName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="VO_Master">
           <Key>
             <PropertyRef Name="Void_pk" />
@@ -425,6 +385,27 @@ warning 6013: The table/view 'FP_DB.dbo.tbl_BenefFollowup' does not have a prima
           <Property Name="Q19" Type="Int32" />
           <Property Name="Q20" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Q21" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TBL_Emp">
+          <Key>
+            <PropertyRef Name="EmpID_pk" />
+          </Key>
+          <Property Name="EmpID_pk" Type="Guid" Nullable="false" />
+          <Property Name="UserID_fk" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID_fk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DistrictID" Type="Int32" />
+          <Property Name="BlockID" Type="Int32" />
+          <Property Name="VOId_fk" Type="Int32" />
+          <Property Name="PanchayatId" Type="Int32" />
+          <Property Name="VillageName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmpName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
@@ -520,30 +501,6 @@ warning 6013: The table/view 'FP_DB.dbo.tbl_BenefFollowup' does not have a prima
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="TBL_Emp">
-            <EntityTypeMapping TypeName="FP_DBModel.TBL_Emp">
-              <MappingFragment StoreEntitySet="TBL_Emp">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
-                <ScalarProperty Name="NameOfTheVillageOrganization" ColumnName="NameOfTheVillageOrganization" />
-                <ScalarProperty Name="Panchayat_Other" ColumnName="Panchayat_Other" />
-                <ScalarProperty Name="PanchayatId" ColumnName="PanchayatId" />
-                <ScalarProperty Name="Other_Vo" ColumnName="Other_Vo" />
-                <ScalarProperty Name="VillageId" ColumnName="VillageId" />
-                <ScalarProperty Name="BlockID" ColumnName="BlockID" />
-                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-                <ScalarProperty Name="RoleID_fk" ColumnName="RoleID_fk" />
-                <ScalarProperty Name="UserID_fk" ColumnName="UserID_fk" />
-                <ScalarProperty Name="EmpID_pk" ColumnName="EmpID_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="VO_Master">
             <EntityTypeMapping TypeName="FP_DBModel.VO_Master">
               <MappingFragment StoreEntitySet="VO_Master">
@@ -599,6 +556,28 @@ warning 6013: The table/view 'FP_DB.dbo.tbl_BenefFollowup' does not have a prima
                 <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
                 <ScalarProperty Name="HindiEng" ColumnName="HindiEng" />
                 <ScalarProperty Name="Beneficiary_Id_pk" ColumnName="Beneficiary_Id_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Emp">
+            <EntityTypeMapping TypeName="FP_DBModel.TBL_Emp">
+              <MappingFragment StoreEntitySet="TBL_Emp">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="VillageName" ColumnName="VillageName" />
+                <ScalarProperty Name="PanchayatId" ColumnName="PanchayatId" />
+                <ScalarProperty Name="VOId_fk" ColumnName="VOId_fk" />
+                <ScalarProperty Name="BlockID" ColumnName="BlockID" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="RoleID_fk" ColumnName="RoleID_fk" />
+                <ScalarProperty Name="UserID_fk" ColumnName="UserID_fk" />
+                <ScalarProperty Name="EmpID_pk" ColumnName="EmpID_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -100,15 +100,10 @@ namespace FP.Models
         public Nullable<int> BlockId { get; set; }
         [Display(Name = "Panchayat")]
         public Nullable<int> PanchayatId { get; set; }
-        [Display(Name = "Other Panchayat")]
-        public string Panchayat_Other { get; set; }
-        [Display(Name = "Village")]
-        public Nullable<int> VillageId { get; set; }
-        [Display(Name = "Other Village")]
-        public string Other_Vo { get; set; }
-        //[Display(Name = "Confirm password")]
-        [Display(Name = "Name Of Village Organization")]
-        public string NameOfTheVillageOrganization { get; set; }
+        [Display(Name = "Village organization")]
+        public Nullable<int> VOId_fk { get; set; }
+        [Display(Name = "Village Name")]
+        public string VillageName { get; set; }
         public string EmpName { get; set; }
         [Display(Name = "Gender")]
         public string Gender { get; set; }

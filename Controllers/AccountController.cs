@@ -138,7 +138,7 @@ namespace FP.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register(string Roles = "B5421964-4F00-426A-8254-4297B6DB9204", string id = "", string empid = "")
+        public ActionResult Register(string Roles = "B00E969C-54F6-4578-A84C-E3550AB6F73D", string id = "", string empid = "")
         {
             RegisterViewModel model = new RegisterViewModel();
             model.Roles = Roles;
@@ -152,8 +152,8 @@ namespace FP.Controllers
                 model.DistrictId = tblemp.DistrictID;
                 model.BlockId = tblemp.BlockID;
                 model.PanchayatId = tblemp.PanchayatId;
-                model.VillageId = tblemp.VillageId;
-                model.NameOfTheVillageOrganization = tblemp.NameOfTheVillageOrganization;
+                model.VOId_fk = tblemp.VOId_fk;
+                model.VillageName = tblemp.VillageName;
                 model.EmpName = tblemp.EmpName;
             }
             return View(model);
@@ -177,7 +177,7 @@ namespace FP.Controllers
                     tbLe.EmpName = model.EmpName;
                     tbLe.Gender = model.Gender;
                     tbLe.MobileNo = model.MobileNo;
-                    tbLe.NameOfTheVillageOrganization = model.NameOfTheVillageOrganization;
+                    tbLe.VillageName = model.VillageName;
                     tbLu.UserName = model.MobileNo;
                     tbLu.Email = model.MobileNo + "@gmail.com";
                     tbLu.PhoneNumber = model.MobileNo;
@@ -189,7 +189,7 @@ namespace FP.Controllers
                 }
                 else
                 {
-                    var user = new ApplicationUser { UserName = model.MobileNo, Email = model.MobileNo + "@gmail.com" };
+                    var user = new ApplicationUser {PhoneNumber=model.MobileNo.Trim(), UserName = model.MobileNo.Trim(), Email = model.MobileNo + "@gmail.com" };
                     var result = await UserManager.CreateAsync(user, model.MobileNo);
                     if (result.Succeeded)
                     {
@@ -203,12 +203,10 @@ namespace FP.Controllers
                         tbl.RoleID_fk = model.Roles;
                         tbl.DistrictID = model.DistrictId;
                         tbl.BlockID = model.BlockId;
-                        tbl.VillageId = model.VillageId;
-                        tbl.Other_Vo = model.Other_Vo;
                         tbl.PanchayatId = model.PanchayatId;
-                        tbl.Panchayat_Other = model.Panchayat_Other;
+                        tbl.VOId_fk = model.VOId_fk;
                         tbl.EmpName = model.EmpName.Trim();
-                        tbl.NameOfTheVillageOrganization = model.NameOfTheVillageOrganization;
+                        tbl.VillageName = model.VillageName;
                         tbl.Gender = model.Gender;
                         tbl.MobileNo = model.MobileNo.Trim();
                         tbl.IsActive = true;
@@ -220,10 +218,8 @@ namespace FP.Controllers
                         var ap = dbe.AspNetUsers.Find(user.Id);
                         ap.CreatedOn = DateTime.Now;
                         ap.Emp_ID = tbl.EmpID_pk;
-                        ap.PhoneNumber = model.MobileNo;
+                        //ap.PhoneNumber = model.MobileNo;
                         dbe.SaveChanges();
-
-
 
 
                         // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -232,7 +228,7 @@ namespace FP.Controllers
                         // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                       // return RedirectToAction("Index", "Home");
+                        // return RedirectToAction("Index", "Home");
                     }
                     AddErrors(result);
                     return RedirectToAction("UserDetaillist", "Master");

@@ -1,5 +1,5 @@
 ﻿@model FP.Models.RegisterViewModel
-    @using FP.Manager
+@using FP.Manager
 @{
     ViewBag.Title = "Register";
 }
@@ -10,8 +10,8 @@
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
     {
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(m=>m.EmpID_pk)
-        @Html.HiddenFor(m=>m.UserID_fk)
+        @Html.HiddenFor(m => m.EmpID_pk)
+        @Html.HiddenFor(m => m.UserID_fk)
         <h4>Create a new account.</h4>
         <hr />
         @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -27,13 +27,13 @@
                 @Html.DropDownListFor(m => m.Gender, CommonModel.GetGender(), null, new { @class = "form-control" })
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="div-dis" style="display:none">
             @Html.LabelFor(m => m.DistrictId, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-control" })
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="div-blk" style="display:none">
             @Html.LabelFor(m => m.BlockId, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-control" })
@@ -46,15 +46,15 @@
             </div>
         </div>
         <div class="row" id="div-vid" style="display:none">
-            @Html.LabelFor(m => m.VillageId, new { @class = "col-md-2 col-form-label" })
+            @Html.LabelFor(m => m.VOId_fk, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.VillageId, new List<SelectListItem>(), null, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.VOId_fk, new List<SelectListItem>(), null, new { @class = "form-control" })
             </div>
         </div>
         <div class="row" id="div-voorg" style="display:none">
-            <span class="text-danger">*</span>@Html.LabelFor(m => m.NameOfTheVillageOrganization, new { @class = "col-md-2 col-form-label" })
+            <span class="text-danger">*</span>@Html.LabelFor(m => m.VillageName, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.NameOfTheVillageOrganization, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.VillageName, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
@@ -80,49 +80,63 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script src="~/Scripts/JS/Master.js"></script>
+    <script src="~/Scripts/JS/Master.js"></script>
 
-<script>
+    <script>
     $(document).ready(function () {
         $('#Roles').change(function () {
            // var url = '@Url.Action("Register", "Account")';
             // window.location.href = url + '?Roles=' + $(this).val();
             debugger;
+            GetDistrict("DistrictId", 0);
+            GetBlock("BlockId", 0, $('#DistrictId').val());
+            GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
+            GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
+            $('#VillageName').val('');
             var rolen = $("#Roles option:selected").text();
             if (rolen == "CM") {
+                $('#div-blk').css('display', 'block');
+                $('#div-dis').css('display', 'block');
                 $('#div-panchid').css('display', 'block');
                 $('#div-vid').show();
                 $('#div-voorg').show();
                 $('#Gender').val('Female');
                 $('#Gender').attr('readonly', true);
-                $('#NameOfTheVillageOrganization').val('');
-               // $('#PanchayatId').empty();
-                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
-                GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
-               
             }
-           else if (rolen == "CNRP") {
+            else if (rolen == "CNRP") {
+                $('#div-blk').css('display', 'block'); 
+                $('#div-dis').css('display', 'block'); 
                 $('#div-panchid').css('display', 'block');
                 $('#div-voorg').hide();
                 $('#div-vid').hide();
                 $('#Gender').val('Female');
                 $('#Gender').attr('readonly', true);
-                $('#NameOfTheVillageOrganization').val('');
-                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
-                GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
+            }
+            else if (rolen == "BPIU") {
+                $('#div-blk').css('display', 'block'); 
+                $('#div-dis').css('display', 'block');
+                $('#div-panchid').css('display', 'none');
+                $('#div-voorg').hide();
+                $('#div-vid').hide();
+                $('#Gender').val('Female');
+                $('#Gender').attr('readonly', false);
+            }
+            else if (rolen == "BPMU" || rolen == "District") {
+                $('#div-blk').css('display', 'none');
+                $('#div-panchid').css('display', 'none');
+                $('#div-voorg').hide();
+                $('#div-vid').hide();
+                $('#Gender').val('Female');
+                $('#Gender').attr('readonly', false);
             }
             else {
                 $('#div-panchid').css('display', 'none');
                 $('#div-vid').hide();
                 $('#div-voorg').hide();
                 $('#Gender').attr('readonly', false);
-               // $('#PanchayatId').val('');
-               // $('#VillageId').val('');
-                $('#NameOfTheVillageOrganization').val('');
-                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
-                GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
+                $('#div-blk').css('display', 'none'); 
+                $('#div-dis').css('display', 'none');
             }
-
 
         });
 
@@ -134,7 +148,7 @@
             GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
         });
         $('#PanchayatId').change(function () {
-            GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+            GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
         });
 
         if ('@Model.UserID_fk' != '') {
@@ -144,14 +158,13 @@
             GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
             $('#PanchayatId').val('@Model.PanchayatId');
             GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
-            $('#VillageId').val('@Model.VillageId');
+            $('#VOId_fk').val('@Model.VOId_fk');
             $('#EmpName').val('@Model.EmpName');
-            $('#NameOfTheVillageOrganization').val('@Model.NameOfTheVillageOrganization');
+            $('#VillageName').val('@Model.VillageName');
             $('#MobileNo').val('@Model.MobileNo');
             $('#EmpID_pk').val('@Model.EmpID_pk');
             $('#UserID_fk').val('@Model.UserID_fk');
         }
-
 
 
         //$('#MobileNo').change(function () {
@@ -166,5 +179,5 @@
         //    });
         //});
     });
-</script>
+    </script>
 }
