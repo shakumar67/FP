@@ -32,7 +32,12 @@ namespace FP.Models
         public virtual DbSet<Panchayat_Master> Panchayat_Master { get; set; }
         public virtual DbSet<State_Master> State_Master { get; set; }
         public virtual DbSet<VO_Master> VO_Master { get; set; }
-        public virtual DbSet<TBL_Beneficiary> TBL_Beneficiary { get; set; }
         public virtual DbSet<TBL_Emp> TBL_Emp { get; set; }
+        public virtual DbSet<Contraceptive_Child_Master> Contraceptive_Child_Master { get; set; }
+        public virtual DbSet<Contraceptive_Master> Contraceptive_Master { get; set; }
+        public virtual DbSet<Tbl_ExceptionHandle> Tbl_ExceptionHandle { get; set; }
+        public virtual DbSet<Month_Master> Month_Master { get; set; }
+        public virtual DbSet<Year_Master> Year_Master { get; set; }
+        public virtual DbSet<TBL_Beneficiary> TBL_Beneficiary { get; set; }
     }
 }

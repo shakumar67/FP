@@ -9,8 +9,19 @@ function getParameterByName(name, url = window.location.href) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+function maxLengthCheck(object) {
+    if (object.value.length > object.maxLength)
+        object.value = object.value.slice(0, object.maxLength)
+}
 $(function () {
+    jQuery('.numbersOnly').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
 
+    $('.datepicker').datepicker({
+        dateFormat: 'dd-M-yy',
+        maxDate: '0',
+    });
     //$('.datepicker').datepicker({
     //    format: 'dd-M-yyyy',
     //    //startDate: '-3d'
@@ -407,7 +418,6 @@ function OnChagBlocks(Ele, Sel, Para1,Para2) {
     if (Sel != 'undefined') {
         var d = Ele;
         GetPanchayat(Ele, '', Para1, Para2);
-        
     }
 }
 function OnChagPanchayats(Ele, Sel, Para1, Para2,Para3) {
@@ -416,20 +426,25 @@ function OnChagPanchayats(Ele, Sel, Para1, Para2,Para3) {
         GetVillage(Ele, '', Para1, Para2,Para3);
     }
 }
-
-function BindClassNo(CaseId,sele) {
+function GetContraceptive(Ele, Sel) {
+    debugger;
+    $('#' + Ele).empty();
+    $('#' + Ele).prop("disabled", false);
+    $('#' + Ele).append($("<option>").val('').text('Select'));
     $.ajax({
-        url: document.baseURI + "/Counsellor/GetClassno",
+        url: document.baseURI + "/Master/GetContraceptiveList",
         type: "Post",
-        data: JSON.stringify({ 'CaseId': CaseId }),
+        data: '',//JSON.stringify({ 'DistrictId': Para1, 'BlockId': Para2, 'PanchayatId': Para3 }),
         contentType: "application/json; charset=utf-8",
         global: false,
         async: false,
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
-                sele = JSON.parse(resp.res);
-                return sele;
+                var data = JSON.parse(resp.res);
+                $.each(data, function (i, exp) {
+                    $('#' + Ele).append($("<option>").val(exp.Value).text(exp.Text));
+                });
             }
         },
         error: function (req, error) {
@@ -438,5 +453,36 @@ function BindClassNo(CaseId,sele) {
             //Do To Message display
         }
     });
+    $('#' + Ele).trigger("chosen:updated");
 }
-
+function GetContraceptiveChildList(Ele, Sel, Para1) {
+    $('#' + Ele).empty();
+    $('#' + Ele).prop("disabled", false);
+    $('#' + Ele).append($("<option>").val('').text('Select'));
+    if (Para1) {
+        $.ajax({
+            url: document.baseURI + "/Master/GetContraceptiveChildList",
+            type: "Post",
+            data: JSON.stringify({ 'CID': Para1 }),
+            contentType: "application/json; charset=utf-8",
+            global: false,
+            async: false,
+            dataType: "json",
+            success: function (resp) {
+                if (resp.IsSuccess) {
+                    var data = JSON.parse(resp.res);
+                    $.each(data, function (i, exp) {
+                        $('#' + Ele).append($("<option>").val(exp.Value).text(exp.Text));
+                    });
+                }
+            },
+            error: function (req, error) {
+                if (error === 'error') { error = req.statusText; }
+                var errormsg = 'There was a communication error: ' + error;
+                //Do To Message display
+            }
+        });
+    }
+  
+    $('#' + Ele).trigger("chosen:updated");
+}

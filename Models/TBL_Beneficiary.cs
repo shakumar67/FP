@@ -20,6 +20,8 @@ namespace FP.Models
         public Nullable<int> BlockId_fk { get; set; }
         public Nullable<int> PanchayatId_fk { get; set; }
         public Nullable<int> VillageId_fk { get; set; }
+        public Nullable<System.DateTime> ReportingDate { get; set; }
+        public string HealthCenter { get; set; }
         public string Q1 { get; set; }
         public string Q2 { get; set; }
         public string Q3 { get; set; }
@@ -29,8 +31,8 @@ namespace FP.Models
         public string Q7 { get; set; }
         public Nullable<int> Q8 { get; set; }
         public string Q9 { get; set; }
-        public string Q10 { get; set; }
-        public string Q11 { get; set; }
+        public Nullable<int> Q10 { get; set; }
+        public Nullable<int> Q11 { get; set; }
         public string Q12_1 { get; set; }
         public string Q12_2 { get; set; }
         public string Q13 { get; set; }

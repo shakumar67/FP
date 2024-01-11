@@ -240,6 +240,40 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetContraceptiveList()
+        {
+            try
+            {
+                var items = CommonModel.GetContraceptive();
+                if (items != null)
+                {
+                    var data = JsonConvert.SerializeObject(items);
+                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetContraceptiveChildList(int CID)
+        {
+            try
+            {
+                var items = CommonModel.GetContraceptive_Child(CID);
+                if (items != null)
+                {
+                    var data = JsonConvert.SerializeObject(items);
+                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
         // GET: Master
         public ActionResult UserDetaillist()
@@ -353,7 +387,6 @@ namespace FP.Controllers
             //return Json();
             //   return View();
         }
-
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

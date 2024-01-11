@@ -83,7 +83,8 @@
     <script src="~/Scripts/JS/Master.js"></script>
 
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
+
         $('#Roles').change(function () {
            // var url = '@Url.Action("Register", "Account")';
             // window.location.href = url + '?Roles=' + $(this).val();
@@ -137,7 +138,6 @@
                 $('#div-blk').css('display', 'none'); 
                 $('#div-dis').css('display', 'none');
             }
-
         });
 
         GetDistrict("DistrictId", 0);
@@ -165,7 +165,6 @@
             $('#EmpID_pk').val('@Model.EmpID_pk');
             $('#UserID_fk').val('@Model.UserID_fk');
         }
-
 
         //$('#MobileNo').change(function () {
         //    var input = document.getElementById('MobileNo');

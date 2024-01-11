@@ -62,16 +62,27 @@ namespace FP.Controllers
         public ActionResult PostBeneficiary(List<BeneficiaryModel> model)
         {
             // if (ModelState.IsValid) { }
+            int res = 0;
             try
             {
                 JsonResponseData response = new JsonResponseData();
                 List<TBL_Beneficiary> tbllist = new List<TBL_Beneficiary>();
                 TBL_Beneficiary tbl;
+                if (model==null)
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = CommonModel.GetEnumDisplayName(Enums.eReturnReg.AllFieldsRequired), Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+
+                }
                 if (model.Count > 0)
                 {
                     foreach (var item in model)
                     {
                         tbl = new TBL_Beneficiary();
+                        tbl.HealthCenter= item.HealthCenter;
+                        tbl.ReportingDate = item.ReportingDate;
                         tbl.Q2 = item.Q2;
                         tbl.Q3 = item.Q3;
                         tbl.Q4 = item.Q4;
@@ -94,6 +105,11 @@ namespace FP.Controllers
                         if (item.Beneficiary_Id_pk == Guid.Empty)
                         {
                             tbl.Beneficiary_Id_pk = Guid.NewGuid();
+                            tbl.HindiEng = item.HindiEng;
+                            tbl.DistrictId_fk=item.DistrictId_fk;
+                            tbl.BlockId_fk=item.BlockId_fk;
+                            tbl.PanchayatId_fk=item.PanchayatId_fk;
+                            tbl.VillageId_fk=item.VillageId_fk;
                             tbl.CreatedBy = User.Identity.Name;
                             tbl.CreatedOn = DateTime.Now;
                             tbllist.Add(tbl);
@@ -102,7 +118,21 @@ namespace FP.Controllers
                         {
                             tbl.UpdatedBy = User.Identity.Name;
                             tbl.UpdatedOn = DateTime.Now;
+                            res += db.SaveChanges();
                         }
+                    }
+
+                    if (tbllist.Count > 0)
+                    {
+                        db.TBL_Beneficiary.AddRange(tbllist);
+                        res = db.SaveChanges();
+                    }
+                    if (res > 0)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = CommonModel.GetEnumDisplayName(Enums.eReturnReg.Insert), Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
                     }
                 }
                 else
@@ -112,14 +142,7 @@ namespace FP.Controllers
                     resResponse3.MaxJsonLength = int.MaxValue;
                     return resResponse3;
                 }
-                int res = db.SaveChanges();
-                if (res > 0)
-                {
-                    response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = CommonModel.GetEnumDisplayName(Enums.eReturnReg.Insert), Data = null };
-                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
-                    resResponse3.MaxJsonLength = int.MaxValue;
-                    return resResponse3;
-                }
+                
             }
             catch (Exception)
             {
@@ -134,7 +157,6 @@ namespace FP.Controllers
             resResponse4.MaxJsonLength = int.MaxValue;
             return resResponse4;
         }
-
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

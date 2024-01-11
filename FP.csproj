@@ -324,6 +324,12 @@
     <Compile Include="Models\Block_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Contraceptive_Child_Master.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contraceptive_Master.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DB_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -344,6 +350,9 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Month_Master.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Panchayat_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
@@ -356,8 +365,14 @@
     <Compile Include="Models\TBL_Emp.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Tbl_ExceptionHandle.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VillageModel.cs" />
     <Compile Include="Models\VO_Master.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Year_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -381,6 +396,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\jquery-ui.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\img\testimonial-1.jpg" />
     <Content Include="Content\img\testimonial-2.jpg" />
@@ -526,10 +542,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JS\jquery-ui.js" />
     <Content Include="Scripts\JS\jquery.autocompleteDropdown.js" />
     <Content Include="Scripts\JS\Master.js" />
     <Content Include="Scripts\JS\mgaccordion.js" />
     <Content Include="Scripts\JS\select2.min.js" />
+    <Content Include="Scripts\JS\textcounter.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

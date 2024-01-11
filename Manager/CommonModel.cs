@@ -299,9 +299,10 @@ namespace FP.Manager
         }
         public static List<SelectListItem> GetRole(bool IsAll = false)
         {
+            FP_DBEntities db_ = new FP_DBEntities();
             try
             {
-                var items = new SelectList(dbe.AspNetRoles, "ID", "Name").OrderBy(x => x.Text).ToList();
+                var items = new SelectList(db_.AspNetRoles, "ID", "Name").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -367,7 +368,7 @@ namespace FP.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetPanchayat(bool IsAll = false, int DistrictId=0, int BlockId = 0)
+        public static List<SelectListItem> GetPanchayat(bool IsAll = false, int DistrictId = 0, int BlockId = 0)
         {
             try
             {
@@ -383,7 +384,7 @@ namespace FP.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetVillage(bool IsAll = false, int DistrictId = 0, int BlockId = 0,int PanchayatId=0)
+        public static List<SelectListItem> GetVillage(bool IsAll = false, int DistrictId = 0, int BlockId = 0, int PanchayatId = 0)
         {
             try
             {
@@ -808,23 +809,37 @@ namespace FP.Manager
             //    String.Format("Age: {0} Year(s) {1} Month(s) {2} Day(s) {3} Hour(s) {4} Second(s)",
             //Years, Months, Days, Hours, Seconds);
         }
-        public static List<SelectListItem> GetMonthList()
+        public static List<SelectListItem> GetFunMonthList()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            for (int i = 0; i <= 11; i++)
+            for (int i = 1; i <= 11; i++)
             {
                 list.Add(new SelectListItem { Value = i.ToString(), Text = i.ToString() });
             }
             return list.ToList();
         }
-        public static List<SelectListItem> GetYearList()
+        public static List<SelectListItem> GetFunYearList(int isAddedSelect=0)
         {
             List<SelectListItem> list = new List<SelectListItem>();
+
             DateTime dt = DateTime.Now;
-            for (int i = 0; i <= 19; i++) //ToDo: Sunil - Change to 17 years after all backlog entry
+            var year = 0; 
+            if (isAddedSelect == 1)
             {
-                // dt = dt.AddYears(-1);
-                var year = i; //dt.Year;
+                list.Insert(0, new SelectListItem { Value = "", Text = "Select" });
+            }
+            for (int i = 1; i <= 20; i++) //ToDo: Sunil - Change to 17 years after all backlog entry
+            {
+                dt = dt.AddYears(-1);
+                if (dt.AddYears(1).Year == DateTime.Now.Year)
+                {
+                    year = DateTime.Now.Year;
+                }
+                else
+                {
+                    
+                    year = dt.Year;
+                }
                 list.Add(new SelectListItem { Value = year.ToString(), Text = year.ToString() });
             }
             return list.ToList();
@@ -887,64 +902,56 @@ namespace FP.Manager
             list.Add(new SelectListItem { Value = "Brother", Text = "Brother" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetInstitutionEng()
+        public static List<SelectListItem> GetSHGAffiliation()
         {
             List<SelectListItem> list = new List<SelectListItem>();
             //list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "Government", Text = "Government" });
-            list.Add(new SelectListItem { Value = "Private", Text = "Private" });
+            list.Add(new SelectListItem { Value = "1", Text = "Self" });
+            list.Add(new SelectListItem { Value = "2", Text = "Any Other family member" });
+            return list.OrderBy(x => x.Value).ToList();
+        }
+        public static List<SelectListItem> GetContraceptive()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list = new SelectList(dbe.Contraceptive_Master.Where(x => x.IsActive == true), "ID", "CName").OrderBy(x => x.Text).ToList();
             return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetInstitutionHindi()
+        public static List<SelectListItem> GetContraceptive_Child(int CID)
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "सरकारी", Text = "सरकारी" });
-            list.Add(new SelectListItem { Value = "गैर सरकारी", Text = "गैर सरकारी" });
+            if (CID == 1 || CID == 2)
+            {
+                list = new SelectList(dbe.Contraceptive_Child_Master.Where(x => x.IsActive == true && x.CID == CID), "ID", "MethodName").OrderBy(x => x.Text).ToList();
+            }
             return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetYesNoEng()
+        public static List<SelectListItem> GetYear(int isAddedSelect=0)
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "Yes", Text = "Yes" });
-            list.Add(new SelectListItem { Value = "No", Text = "No" });
-            list.Add(new SelectListItem { Value = "NA", Text = "NA" });
+            list = new SelectList(dbe.Year_Master, "ID", "Year").OrderBy(x => x.Text).ToList();
+            if (isAddedSelect==1)
+            {
+                list.Insert(0, new SelectListItem { Value = "", Text = "Select" });
+            }
+            else if (isAddedSelect == 2)
+            {
+                list.Insert(0, new SelectListItem { Value = "", Text = "All" });
+            }
             return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetYesNoHindi()
+        public static List<SelectListItem> GetMonth(int isAddedSelect=0)
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "हाँ", Text = "हाँ" });
-            list.Add(new SelectListItem { Value = "नहीं", Text = "नहीं" });
-            list.Add(new SelectListItem { Value = "एन.ए.", Text = "एन.ए." });
-            return list.OrderByDescending(x => x.Text).ToList();
-        }
-        public static List<SelectListItem> GetCategoryEng()
-        {
-            List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "All", Text = "All" });
-            list.Add(new SelectListItem { Value = "Other", Text = "Other" });
-            return list.OrderByDescending(x => x.Text).ToList();
-        }
-        public static List<SelectListItem> GetCategoryHindi()
-        {
-            List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "सभी", Text = "सभी" });
-            list.Add(new SelectListItem { Value = "अन्य", Text = "अन्य" });
-            return list.OrderByDescending(x => x.Text).ToList();
-        }
-        public static List<SelectListItem> GetResoDesignation()
-        {
-            List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "Homemaker", Text = "Homemaker" });
-            list.Add(new SelectListItem { Value = "Student ", Text = "Student " });
-            list.Add(new SelectListItem { Value = "Others", Text = "Others" });
-            return list.OrderByDescending(x => x.Text).ToList();
+            list = new SelectList(dbe.Month_Master, "ID", "MonthName").OrderBy(x => Convert.ToInt16(x.Value)).ToList();
+            if (isAddedSelect == 1)
+            {
+                list.Insert(0, new SelectListItem { Value = "", Text = "Select" });
+            }
+            else if (isAddedSelect == 2)
+            {
+                list.Insert(0, new SelectListItem { Value = "", Text = "All" });
+            }
+            return list.ToList();
         }
         #endregion
 
@@ -989,7 +996,7 @@ namespace FP.Manager
             {
                 if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    var items = new SelectList(dbe.AspNetRoles.Where(x=>x.Id.ToLower() == "2CAC5128-08C7-4B95-8C6A-DB61E6B40376" || x.Id.ToLower() == "D3CE11F6-847E-4158-91DB-C4EB555A9BD4" || x.Id.ToLower()== "BAA881FB-F8BD-4199-A6CA-6FCAF7E3A0C2"), "Name", "Name").OrderBy(x => x.Text).ToList();
+                    var items = new SelectList(dbe.AspNetRoles.Where(x => x.Id.ToLower() == "2CAC5128-08C7-4B95-8C6A-DB61E6B40376" || x.Id.ToLower() == "D3CE11F6-847E-4158-91DB-C4EB555A9BD4" || x.Id.ToLower() == "BAA881FB-F8BD-4199-A6CA-6FCAF7E3A0C2"), "Name", "Name").OrderBy(x => x.Text).ToList();
                     if (isAddedSelect)
                     {
                         items.Insert(0, new SelectListItem { Value = "", Text = "Select" });

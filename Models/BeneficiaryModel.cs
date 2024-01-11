@@ -18,6 +18,8 @@ namespace FP.Models
         public Nullable<int> BlockId_fk { get; set; }
         public Nullable<int> PanchayatId_fk { get; set; }
         public Nullable<int> VillageId_fk { get; set; }
+        public Nullable<System.DateTime> ReportingDate { get; set; }
+        public string HealthCenter { get; set; }
         public string Q1 { get; set; }
         public string Q2 { get; set; }
         public string Q3 { get; set; }
@@ -27,8 +29,8 @@ namespace FP.Models
         public string Q7 { get; set; }
         public Nullable<int> Q8 { get; set; }
         public string Q9 { get; set; }
-        public string Q10 { get; set; }
-        public string Q11 { get; set; }
+        public Nullable<int> Q10 { get; set; }
+        public Nullable<int> Q11 { get; set; }
         public string Q12_1 { get; set; }
         public string Q12_2 { get; set; }
         public string Q13 { get; set; }
@@ -45,6 +47,102 @@ namespace FP.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public string DDis
+        {
+            get
+            {
+                string CN = string.Empty;
+                if (HindiEng == 1)
+                {
+                    CN = "District";
+                }
+                else if (HindiEng == 2)
+                {
+                    CN = "ज़िला";
+                }
+                return CN;
+            }
+        }
+        public string DBlck
+        {
+            get
+            {
+                string CN = string.Empty;
+                if (HindiEng == 1)
+                {
+                    CN = "Block";
+                }
+                else if (HindiEng == 2)
+                {
+                    CN = "प्रखंड";
+                }
+                return CN;
+            }
+        }
+        public string DPanyt
+        {
+            get
+            {
+                string CN = string.Empty;
+                if (HindiEng == 1)
+                {
+                    CN = "Panchayat";
+                }
+                else if (HindiEng == 2)
+                {
+                    CN = "पंचायत";
+                }
+                return CN;
+            }
+        }
+        public string DVO
+        {
+            get
+            {
+                string CN = string.Empty;
+                if (HindiEng == 1)
+                {
+                    CN = "Name of village organization";
+                }
+                else if (HindiEng == 2)
+                {
+                    CN = "ग्राम संगठन का नाम";
+                }
+                return CN;
+            }
+        }
+        public string HealthCD
+        {
+            get
+            {
+                string CN = string.Empty;
+                if (HindiEng == 1)
+                {
+                    CN = "Health Center";
+                }
+                else if (HindiEng == 2)
+                {
+                    CN = "स्वास्थ्य केंद्र";
+                }
+                return CN;
+            }
+        }
+        public string ReportingDtD
+        {
+            get
+            {
+                string CN = string.Empty;
+                if (HindiEng == 1)
+                {
+                    CN = "Reporting Date";
+                }
+                else if (HindiEng == 2)
+                {
+                    CN = "रिपोर्टिंग की तारीख";
+                }
+                return CN;
+            }
+        }
         public string Q1D
         {
             get
