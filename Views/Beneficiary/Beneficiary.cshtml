@@ -4,23 +4,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>*@
 <div class="container-fluid pt-4 px-4" style="height:700px; overflow:scroll;">
     <div class="row">
-        @using (Html.BeginForm("Beneficiary", "Beneficiary", FormMethod.Post, new { @class = "", @id = "formid" }))
+        @using (Html.BeginForm("Beneficiary", "Beneficiary", FormMethod.Post, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.Beneficiary_Id_pk)
-            @Html.ValidationSummary("", new { @class = "text-danger" })
+            @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
             <div class="row">
                 @Html.LabelFor(m => m.HindiEng, new { @class = "col-md-2 col-form-label" })
                 <div class="col-md-10">
                     @Html.DropDownListFor(m => m.HindiEng, CommonModel.GetLanguangeType(), null, new { @class = "form-control" })
                 </div>
             </div>
-            <div class="col-md-6" style="display:none;">
+            <div class="col-md-6" style="display:none;" id="div-Q1">
                 @Html.Label(Model.Q1D, htmlAttributes: new { @class = "" })
-                @Html.DropDownListFor(m => m.Q1, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
-                @Html.ValidationMessageFor(m => m.Q1, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.Q1, htmlAttributes: new { @class = "form-control col-md-4" })
             </div>
             <div class="col-md-6">
                 @Html.Label(Model.DDis, htmlAttributes: new { @class = "" })
@@ -150,9 +150,7 @@
                 <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
                 <a href="~/Beneficiary/Beneficiary" class="btn btn-info"><i class="fa fa-refresh"></i> Reset</a>
             </div>
-            <div class="col-md-12">
-                <div id="subdata" style="height:400px; overflow:scroll;"></div>
-            </div>
+           
         }
     </div>
 </div>
@@ -164,19 +162,11 @@
     @*<link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
           rel='stylesheet'>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>*@
+    
 
 <script>
         $(document).ready(function () {
 
-            //$('#HealthCenter').textcounter({
-            //    //min: 4,
-            //    ////countDownText: "%d characters remaining"
-            //    //max: 5,
-            //    //stopInputAtMaximum: false,
-            //    //counterText: "Max : %d",
-            //    maxLength: 140,
-            //    countText: 'Max',
-            //});
 
             $('.count-input').unbind('keyup change input paste').bind('keyup change input paste', function (e) {
                 var $this = $(this);
@@ -217,6 +207,10 @@
             $('#HindiEng').change(function () {
                 var url = '@Url.Action("Beneficiary", "Beneficiary")';
                 window.location.href = url + '?HindiEng=' + $(this).val();
+                if ('@Model.Beneficiary_Id_pk' != '00000000-0000-0000-0000-000000000000') {
+                    window.location.href = url + '?HindiEng=' + $(this).val() + '&&Id=' + '@Model.Beneficiary_Id_pk';
+                    BindEdit();
+                    }//End Edit Function
             });
             GetDistrict("DistrictId_fk", 0);
             GetContraceptive("Q15", 0);
@@ -233,22 +227,28 @@
                 $('#Q18').val('');
                 GetContraceptiveChildList("Q16", 0, "");
                 GetContraceptiveChildList("Q17", 0, "");
+                $('#Q16').removeAttr('required');
+                $('#Q17').removeAttr('required');
+                $('#Q18').removeAttr('required');
                 if ($(this).val() == "1") {
                     GetContraceptiveChildList("Q16", 0, 1);
                     $('#div-Q18').css('display', 'none');
                     $('#div-Q17').css('display', 'none');
                     $('#div-Q16').css('display', 'block');
+                    $('#Q16').attr('required', 'required');
                 }
                 else if ($(this).val() == "2") {
                     GetContraceptiveChildList("Q17", 0, 2);
                     $('#div-Q18').css('display', 'none');
                     $('#div-Q17').css('display', 'block');
                     $('#div-Q16').css('display', 'none');
+                    $('#Q17').attr('required', 'required');
                 }
                 else if ($(this).val() == "4") {
                     $('#div-Q18').css('display', 'block');
                     $('#div-Q17').css('display', 'none');
                     $('#div-Q16').css('display', 'none');
+                    $('#Q18').attr('required', 'required');
                 }
                 else {
                     $('#div-Q18').css('display', 'none');
@@ -261,79 +261,14 @@
             });
             if ('@Model.Beneficiary_Id_pk' != '00000000-0000-0000-0000-000000000000') {
                 debugger;
-                $('#Beneficiary_Id_pk').val('@Model.Beneficiary_Id_pk');
-                $('#HindiEng').val('@Model.HindiEng');
-                $('#DistrictId_fk').val('@Model.DistrictId_fk');
-                GetBlock("BlockId_fk", 0, $('#DistrictId_fk').val());
-                $('#BlockId_fk').val('@Model.BlockId_fk');
-                GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
-                $('#PanchayatId_fk').val('@Model.PanchayatId_fk');
-                GetVillage("VillageId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#PanchayatId_fk').val());
-                $('#VillageId_fk').val('@Model.VillageId_fk');
-                $('#ReportingDate').val('@Model.ReportingDate');
-                $('#HealthCenter').val('@Model.HealthCenter');
-                $('#Q1').val('@Model.Q1');
-                $('#Q2').val('@Model.Q2');
-                $('#Q3').val('@Model.Q3');
-                $('#Q4').val('@Model.Q4');
-                $('#Q5').val('@Model.Q5');
-                $('#Q6').val('@Model.Q6');
-                $('#Q7').val('@Model.Q7');
-                $('#Q8').val('@Model.Q8');
-                if ($('#Q8').val() == "1") {
-                    $('#div-q9').show();
-                    $('#Q9').val('@Model.Q9');
-                    $('#Q9').attr('required', 'required');
-                }
-                else {
-                    $('#div-q9').hide(); $('#Q9').val('');
-                    $('#Q9').removeAttr('required');
-                }
-                $('#Q10').val('@Model.Q10');
-                $('#Q11').val('@Model.Q11');
-                $('#Q12_1').val('@Model.Q12_1');
-                $('#Q12_2').val('@Model.Q12_2');
-                $('#Q13').val('@Model.Q13');
-                $('#Q14').val('@Model.Q14');
-                $('#Q15').val('@Model.Q15');
-               
-
-               $('#Q18').val('');
-                GetContraceptiveChildList("Q16", 0, "");
-                GetContraceptiveChildList("Q17", 0, "");
-                if ($('#Q15').val() == "1") {
-                    GetContraceptiveChildList("Q16", 0, 1);
-                    $('#div-Q18').css('display', 'none');
-                    $('#div-Q17').css('display', 'none');
-                    $('#div-Q16').css('display', 'block');
-                    $('#Q16').val('@Model.Q16');
-                }
-                else if ($('#Q15').val() == "2") {
-                    GetContraceptiveChildList("Q17", 0, 2);
-                    $('#div-Q18').css('display', 'none');
-                    $('#div-Q17').css('display', 'block');
-                    $('#div-Q16').css('display', 'none');
-                    $('#Q17').val('@Model.Q17');
-                }
-                else if ($('#Q15').val() == "4") {
-                    $('#div-Q18').css('display', 'block');
-                    $('#div-Q17').css('display', 'none');
-                    $('#div-Q16').css('display', 'none');
-                    $('#Q18').val('@Model.Q18');
-                }
-                else {
-                    $('#div-Q18').css('display', 'none');
-                    $('#div-Q17').css('display', 'none');
-                    $('#div-Q16').css('display', 'none');
-                }
-
+                BindEdit();
             }//End Edit Function
 
             $("#btnsubmit").click(function (e) {
                 e.preventDefault();
                 CUVill();
             });
-            BindData();
+            //BindData();
         });
 
         function BindData() {
@@ -358,6 +293,9 @@
 
         function CUVill() {
             debugger;
+            //var vl = $.validator.unobtrusive.parse("#formid");
+           //var Isvalid= $("#formid").validate();
+            var isvalid = $("#formid").valid();
             var IsCheck = true;
             if ($('#DistrictId_fk').val()=='') {
                 toastr.error("Error", 'Please Select District');
@@ -412,6 +350,8 @@
             //formData.append('Q18', $('#Q18').val());
 
            // formData.append('BM', JSON.stringify(BM_model));
+
+            if (isvalid && IsCheck) {
             var BeneficiaryModel = {};var model = [];
             BeneficiaryModel.Beneficiary_Id_pk = $('#Beneficiary_Id_pk').val();
             BeneficiaryModel.HindiEng = $('#HindiEng').val();
@@ -428,7 +368,7 @@
             BeneficiaryModel.Q5= $('#Q5').val();
             BeneficiaryModel.Q6= $('#Q6').val();
             BeneficiaryModel.Q7= $('#Q7').val();
-            BeneficiaryModel.Q8= $('#Q8').val();
+            BeneficiaryModel.Q8= $('input[name=Q8]:checked').val();
             BeneficiaryModel.Q9= $('#Q9').val();
             BeneficiaryModel.Q10= $('#Q10').val();
             BeneficiaryModel.Q11= $('#Q11').val();
@@ -443,7 +383,6 @@
 
             model.push(BeneficiaryModel);
 
-            if (IsCheck) {
                 $.ajax({
                     url: document.baseURI + "/Beneficiary/PostBeneficiary",
                     type: "Post",
@@ -480,6 +419,81 @@
             }
 
         }
+
+       function BindEdit() {
+             $('#Beneficiary_Id_pk').val('@Model.Beneficiary_Id_pk');
+             $('#HindiEng').val('@Model.HindiEng');
+             $('#DistrictId_fk').val('@Model.DistrictId_fk');
+             GetBlock("BlockId_fk", 0, $('#DistrictId_fk').val());
+             $('#BlockId_fk').val('@Model.BlockId_fk');
+             GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
+             $('#PanchayatId_fk').val('@Model.PanchayatId_fk');
+             GetVillage("VillageId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#PanchayatId_fk').val());
+             $('#VillageId_fk').val('@Model.VillageId_fk');
+             $('#ReportingDate').val(moment('@Model.ReportingDate').format("DD-MMM-YYYY"));
+             $('#HealthCenter').val('@Model.HealthCenter');
+             $('#Q1').val('@Model.Q1');
+             $('#Q2').val('@Model.Q2');
+             $('#Q3').val('@Model.Q3');
+             $('#Q4').val('@Model.Q4');
+             $('#Q5').val('@Model.Q5');
+             $('#Q6').val(moment('@Model.Q6').format("DD-MMM-YYYY"));
+             $('#Q7').val('@Model.Q7');
+             $("#Q8" + '@Model.Q8').attr('checked', true);
+             //$('input[name=Q8]:checked').val('@Model.Q8')
+            // $('#Q8').val('@Model.Q8');
+             if ($('input[name=Q8]:checked').val() == "1") {
+                 $('#div-q9').show();
+                 $('#Q9').val('@Model.Q9');
+                 $('#Q9').attr('required', 'required');
+             }
+             else {
+                 $('#div-q9').hide(); $('#Q9').val('');
+                 $('#Q9').removeAttr('required');
+             }
+             $('#Q10').val('@Model.Q10');
+             $('#Q11').val('@Model.Q11');
+             $('#Q12_1').val('@Model.Q12_1');
+             $('#Q12_2').val('@Model.Q12_2');
+             $('#Q13').val('@Model.Q13');
+             $('#Q14').val('@Model.Q14');
+             $('#Q15').val('@Model.Q15');
+
+            $('#Q18').val('');
+            $('#Q16').removeAttr('required');
+            $('#Q17').removeAttr('required');
+            $('#Q18').removeAttr('required');
+             GetContraceptiveChildList("Q16", 0, "");
+             GetContraceptiveChildList("Q17", 0, "");
+             if ($('#Q15').val() == "1") {
+                 GetContraceptiveChildList("Q16", 0, 1);
+                 $('#div-Q18').css('display', 'none');
+                 $('#div-Q17').css('display', 'none');
+                 $('#div-Q16').css('display', 'block');
+                 $('#Q16').val('@Model.Q16');
+                 $('#Q16').attr('required', 'required');
+             }
+             else if ($('#Q15').val() == "2") {
+                 GetContraceptiveChildList("Q17", 0, 2);
+                 $('#div-Q18').css('display', 'none');
+                 $('#div-Q17').css('display', 'block');
+                 $('#div-Q16').css('display', 'none');
+                 $('#Q17').val('@Model.Q17');
+                 $('#Q17').attr('required', 'required');
+             }
+             else if ($('#Q15').val() == "4") {
+                 $('#div-Q18').css('display', 'block');
+                 $('#div-Q17').css('display', 'none');
+                 $('#div-Q16').css('display', 'none');
+                 $('#Q18').val('@Model.Q18');
+                 $('#Q18').attr('required', 'required');
+             }
+             else {
+                 $('#div-Q18').css('display', 'none');
+                 $('#div-Q17').css('display', 'none');
+                 $('#div-Q16').css('display', 'none');
+             }
+    }
 
 </script>
 }

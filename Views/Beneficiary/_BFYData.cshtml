@@ -1,4 +1,5 @@
 ﻿@using System.Data
+@using FP.Manager
 @{
     DataTable dt = new DataTable();
     dt = Model;
@@ -6,7 +7,7 @@
 
 
 <table class="table table-bordered table-striped" id="tbl">
-    <thead>
+    <thead class="text-center">
         <tr>
             <th>Srno.</th>
             <th>Beneficiary<br /> ID</th>
@@ -29,17 +30,17 @@
                 foreach (DataRow dr in dt.Rows)
                 {
                     <tr>
-                        <td>@(srno++)</td>
-                        <td>@dr["BFYID"]</td>
-                        <td>@dr["DistrictName"]</td>
-                        <td>@dr["Block"]</td>
-                        <td>@dr["Panchayat"]</td>
-                        <td>@dr["VO"]</td>
-                        <td>@dr["ReportingDate"]</td>
-                        <td>@dr["HealthCenter"]</td>
-                        <td>@dr["BFYName"]</td>
-                        <td>@dr["BFYMobileNo"]</td>
-                        <td>
+                        <td class="text-center">@(srno++)</td>
+                        <td class="text-center">@dr["BFYID"]</td>
+                        <td class="text-left">@dr["DistrictName"]</td>
+                        <td class="text-left">@dr["Block"]</td>
+                        <td class="text-left">@dr["Panchayat"]</td>
+                        <td class="text-left">@dr["VO"]</td>
+                        <td class="text-center">@CommonModel.FormateDtDMY(dr["ReportingDate"].ToString())</td>
+                        <td class="text-left">@dr["HealthCenter"]</td>
+                        <td class="text-left">@dr["BFYName"]</td>
+                        <td class="text-center">@dr["BFYMobileNo"]</td>
+                        <td class="text-center">
                             <a href="~/Beneficiary/Beneficiary?id=@dr["BpkID"]" class="btn btn-primary">Edit <i class="fa fa-edit"></i></a>
                         </td>
                     </tr>

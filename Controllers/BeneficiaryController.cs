@@ -32,7 +32,7 @@ namespace FP.Controllers
                 if (tbl != null)
                 {
                     model.Beneficiary_Id_pk = tbl.Beneficiary_Id_pk;
-                    model.HindiEng = tbl.HindiEng;
+                   // model.HindiEng = tbl.HindiEng;
                     model.DistrictId_fk=tbl.DistrictId_fk;
                     model.BlockId_fk=tbl.BlockId_fk;
                     model.PanchayatId_fk=tbl.PanchayatId_fk;
@@ -71,12 +71,14 @@ namespace FP.Controllers
             int res = 0;
             try
             {
+                FP_DBEntities _db = new FP_DBEntities();
                 JsonResponseData response = new JsonResponseData();
                 List<TBL_Beneficiary> tbllist = new List<TBL_Beneficiary>();
                 TBL_Beneficiary tbl;
-                if (model==null)
+                if (!ModelState.IsValid)
                 {
-                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = CommonModel.GetEnumDisplayName(Enums.eReturnReg.AllFieldsRequired), Data = null };
+                    var d = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired);
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired), Data = null };
                     var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                     resResponse3.MaxJsonLength = int.MaxValue;
                     return resResponse3;
@@ -86,7 +88,8 @@ namespace FP.Controllers
                 {
                     foreach (var item in model)
                     {
-                        tbl = new TBL_Beneficiary();
+                        tbl= item.Beneficiary_Id_pk != Guid.Empty? _db.TBL_Beneficiary.Find(item.Beneficiary_Id_pk): new TBL_Beneficiary();
+                        
                         tbl.HealthCenter= item.HealthCenter;
                         tbl.ReportingDate = item.ReportingDate;
                         tbl.Q2 = item.Q2;
@@ -104,9 +107,9 @@ namespace FP.Controllers
                         tbl.Q13 = item.Q13;
                         tbl.Q14 = item.Q14;
                         tbl.Q15 = item.Q15;
-                        tbl.Q16 = item.Q16;
-                        tbl.Q17 = item.Q17;
-                        tbl.Q18 = item.Q18;
+                        tbl.Q16 =item.Q15==1? item.Q16:null;
+                        tbl.Q17 = item.Q15 == 2 ? item.Q17 : null;
+                        tbl.Q18 = item.Q15 == 4 ? item.Q18:null;
                         tbl.IsActive = true;
                         if (item.Beneficiary_Id_pk == Guid.Empty)
                         {
@@ -124,7 +127,7 @@ namespace FP.Controllers
                         {
                             tbl.UpdatedBy = User.Identity.Name;
                             tbl.UpdatedOn = DateTime.Now;
-                            res += db.SaveChanges();
+                            res += _db.SaveChanges();
                         }
                     }
 
@@ -135,7 +138,7 @@ namespace FP.Controllers
                     }
                     if (res > 0)
                     {
-                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = CommonModel.GetEnumDisplayName(Enums.eReturnReg.Insert), Data = null };
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Insert), Data = null };
                         var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse3.MaxJsonLength = int.MaxValue;
                         return resResponse3;
@@ -143,7 +146,7 @@ namespace FP.Controllers
                 }
                 else
                 {
-                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = CommonModel.GetEnumDisplayName(Enums.eReturnReg.AllFieldsRequired), Data = null };
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired), Data = null };
                     var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                     resResponse3.MaxJsonLength = int.MaxValue;
                     return resResponse3;
@@ -152,13 +155,13 @@ namespace FP.Controllers
             }
             catch (Exception)
             {
-                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = CommonModel.GetEnumDisplayName(Enums.eReturnReg.Error), Data = null };
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Error), Data = null };
                 var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                 resResponse3.MaxJsonLength = int.MaxValue;
                 return resResponse3;
             }
 
-            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = CommonModel.GetEnumDisplayName(Enums.eReturnReg.AllFieldsRequired), Data = null };
+            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired), Data = null };
             var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
             resResponse4.MaxJsonLength = int.MaxValue;
             return resResponse4;

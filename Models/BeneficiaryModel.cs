@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Foolproof;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -14,30 +16,54 @@ namespace FP.Models
 
         public System.Guid Beneficiary_Id_pk { get; set; }
         public Nullable<int> HindiEng { get; set; }
+        [Required]
         public Nullable<int> DistrictId_fk { get; set; }
+        [Required]
         public Nullable<int> BlockId_fk { get; set; }
+        [Required]
         public Nullable<int> PanchayatId_fk { get; set; }
+        [Required]
         public Nullable<int> VillageId_fk { get; set; }
+        [Required]
         public Nullable<System.DateTime> ReportingDate { get; set; }
+        [Required]
         public string HealthCenter { get; set; }
         public string Q1 { get; set; }
+        [Required]
         public string Q2 { get; set; }
+        [Required]
         public string Q3 { get; set; }
+        [Required]
         public Nullable<int> Q4 { get; set; }
+        [Required]
         public string Q5 { get; set; }
+        [Required]
         public Nullable<System.DateTime> Q6 { get; set; }
+        [Required]
         public string Q7 { get; set; }
+        [Required]
         public Nullable<int> Q8 { get; set; }
+        [RequiredIf("Q8", 1)]
         public string Q9 { get; set; }
+        [Required]
         public Nullable<int> Q10 { get; set; }
+        [Required]
         public Nullable<int> Q11 { get; set; }
+        [Required]
         public string Q12_1 { get; set; }
+        [Required]
         public string Q12_2 { get; set; }
+        [Required]
         public string Q13 { get; set; }
+        [Required]
         public string Q14 { get; set; }
+        [Required]
         public Nullable<int> Q15 { get; set; }
+        [RequiredIf("Q15", 1)]
         public Nullable<int> Q16 { get; set; }
+        [RequiredIf("Q15", 2)]
         public Nullable<int> Q17 { get; set; }
+        [RequiredIf("Q15", 4)]
         public string Q18 { get; set; }
         public Nullable<int> Q19 { get; set; }
         public string Q20 { get; set; }
