@@ -1,0 +1,57 @@
+﻿@using System.Data
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+
+
+<table class="table table-bordered table-striped" id="tbl">
+    <thead>
+        <tr>
+            <th>Srno.</th>
+            <th>Beneficiary<br /> ID</th>
+            <th>District</th>
+            <th>Block</th>
+            <th>Panchayat</th>
+            <th>Village <br />Organization</th>
+            <th>Reporting <br />Date</th>
+            <th>Health <br />Center </th>
+            <th>Name of<br />Beneficiary</th>
+            <th>Mobile no. of beneficiary</th>
+            <th>Modify</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (dt.Rows.Count > 0)
+            {
+                int srno = 1;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    <tr>
+                        <td>@(srno++)</td>
+                        <td>@dr["BFYID"]</td>
+                        <td>@dr["DistrictName"]</td>
+                        <td>@dr["Block"]</td>
+                        <td>@dr["Panchayat"]</td>
+                        <td>@dr["VO"]</td>
+                        <td>@dr["ReportingDate"]</td>
+                        <td>@dr["HealthCenter"]</td>
+                        <td>@dr["BFYName"]</td>
+                        <td>@dr["BFYMobileNo"]</td>
+                        <td>
+                            <a href="~/Beneficiary/Beneficiary?id=@dr["BpkID"]" class="btn btn-primary">Edit <i class="fa fa-edit"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="12" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>

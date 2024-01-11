@@ -62,5 +62,16 @@ namespace FP.Manager
             return dt;
         }
 
+        #region Beneficiary
+        public static DataTable SPBFYList(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_BFYList");
+           // sp.Command.AddParameter("@Roleid", Roleid, DbType.String);
+          //  sp.Command.AddParameter("@CutUser", CutUser, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        #endregion
+
     }
 }

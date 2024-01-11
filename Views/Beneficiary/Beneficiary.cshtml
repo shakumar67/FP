@@ -165,9 +165,9 @@
           rel='stylesheet'>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>*@
 
-    <script>
+<script>
         $(document).ready(function () {
-           
+
             //$('#HealthCenter').textcounter({
             //    //min: 4,
             //    ////countDownText: "%d characters remaining"
@@ -208,7 +208,7 @@
                     $('#div-q9').show();
                     $('#Q9').attr('required', 'required');
                 }
-                else {  
+                else {
                     $('#div-q9').hide();
                     $('#Q9').removeAttr('required');
                 }
@@ -260,12 +260,75 @@
                 GetPanchayat("Panchayatid_fk", 0, $('#DistrictId_fk').val(), $(this).val());
             });
             if ('@Model.Beneficiary_Id_pk' != '00000000-0000-0000-0000-000000000000') {
+                debugger;
                 $('#Beneficiary_Id_pk').val('@Model.Beneficiary_Id_pk');
-                $('#DistrictId_fk').val('@Model.Q1');
+                $('#HindiEng').val('@Model.HindiEng');
+                $('#DistrictId_fk').val('@Model.DistrictId_fk');
                 GetBlock("BlockId_fk", 0, $('#DistrictId_fk').val());
+                $('#BlockId_fk').val('@Model.BlockId_fk');
                 GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
+                $('#PanchayatId_fk').val('@Model.PanchayatId_fk');
                 GetVillage("VillageId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#PanchayatId_fk').val());
-            }
+                $('#VillageId_fk').val('@Model.VillageId_fk');
+                $('#ReportingDate').val('@Model.ReportingDate');
+                $('#HealthCenter').val('@Model.HealthCenter');
+                $('#Q1').val('@Model.Q1');
+                $('#Q2').val('@Model.Q2');
+                $('#Q3').val('@Model.Q3');
+                $('#Q4').val('@Model.Q4');
+                $('#Q5').val('@Model.Q5');
+                $('#Q6').val('@Model.Q6');
+                $('#Q7').val('@Model.Q7');
+                $('#Q8').val('@Model.Q8');
+                if ($('#Q8').val() == "1") {
+                    $('#div-q9').show();
+                    $('#Q9').val('@Model.Q9');
+                    $('#Q9').attr('required', 'required');
+                }
+                else {
+                    $('#div-q9').hide(); $('#Q9').val('');
+                    $('#Q9').removeAttr('required');
+                }
+                $('#Q10').val('@Model.Q10');
+                $('#Q11').val('@Model.Q11');
+                $('#Q12_1').val('@Model.Q12_1');
+                $('#Q12_2').val('@Model.Q12_2');
+                $('#Q13').val('@Model.Q13');
+                $('#Q14').val('@Model.Q14');
+                $('#Q15').val('@Model.Q15');
+               
+
+               $('#Q18').val('');
+                GetContraceptiveChildList("Q16", 0, "");
+                GetContraceptiveChildList("Q17", 0, "");
+                if ($('#Q15').val() == "1") {
+                    GetContraceptiveChildList("Q16", 0, 1);
+                    $('#div-Q18').css('display', 'none');
+                    $('#div-Q17').css('display', 'none');
+                    $('#div-Q16').css('display', 'block');
+                    $('#Q16').val('@Model.Q16');
+                }
+                else if ($('#Q15').val() == "2") {
+                    GetContraceptiveChildList("Q17", 0, 2);
+                    $('#div-Q18').css('display', 'none');
+                    $('#div-Q17').css('display', 'block');
+                    $('#div-Q16').css('display', 'none');
+                    $('#Q17').val('@Model.Q17');
+                }
+                else if ($('#Q15').val() == "4") {
+                    $('#div-Q18').css('display', 'block');
+                    $('#div-Q17').css('display', 'none');
+                    $('#div-Q16').css('display', 'none');
+                    $('#Q18').val('@Model.Q18');
+                }
+                else {
+                    $('#div-Q18').css('display', 'none');
+                    $('#div-Q17').css('display', 'none');
+                    $('#div-Q16').css('display', 'none');
+                }
+
+            }//End Edit Function
+
             $("#btnsubmit").click(function (e) {
                 e.preventDefault();
                 CUVill();
@@ -397,7 +460,7 @@
                         if (resp.StatusType == "success") {
                             toastr.success("Success", resp.Message);
                             BindData();
-                           
+
                         }
                         else {
                             toastr.error("Error", resp.Message);
@@ -418,5 +481,5 @@
 
         }
 
-    </script>
+</script>
 }

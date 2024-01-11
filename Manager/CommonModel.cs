@@ -941,8 +941,9 @@ namespace FP.Manager
         }
         public static List<SelectListItem> GetMonth(int isAddedSelect=0)
         {
+            FP_DBEntities _db = new FP_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
-            list = new SelectList(dbe.Month_Master, "ID", "MonthName").OrderBy(x => Convert.ToInt16(x.Value)).ToList();
+            list = new SelectList(_db.Month_Master, "ID", "MonthName").OrderBy(x => Convert.ToInt16(x.Value)).ToList();
             if (isAddedSelect == 1)
             {
                 list.Insert(0, new SelectListItem { Value = "", Text = "Select" });

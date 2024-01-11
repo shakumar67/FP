@@ -348,6 +348,7 @@
     <Compile Include="Models\District_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Month_Master.cs">
@@ -591,6 +592,8 @@
     <Content Include="Views\Master\VillMaster.cshtml" />
     <Content Include="Views\Master\_VillageData.cshtml" />
     <Content Include="Views\Beneficiary\Beneficiary.cshtml" />
+    <Content Include="Views\Beneficiary\BFYList.cshtml" />
+    <Content Include="Views\Beneficiary\_BFYData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

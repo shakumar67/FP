@@ -22,17 +22,23 @@ namespace FP.Controllers
         {
             return View();
         }
-        public ActionResult Beneficiary(int Id = 0,int HindiEng=1)
+        public ActionResult Beneficiary(Guid ?Id,int HindiEng=1)
         {
             BeneficiaryModel model = new BeneficiaryModel();
             model.HindiEng = HindiEng;
-            if (Id != 0)
+            if (Id !=Guid.Empty)
             {
-                var tbl = db.TBL_Beneficiary.Find();
+                var tbl = db.TBL_Beneficiary.Find(Id);
                 if (tbl != null)
                 {
                     model.Beneficiary_Id_pk = tbl.Beneficiary_Id_pk;
                     model.HindiEng = tbl.HindiEng;
+                    model.DistrictId_fk=tbl.DistrictId_fk;
+                    model.BlockId_fk=tbl.BlockId_fk;
+                    model.PanchayatId_fk=tbl.PanchayatId_fk;
+                    model.VillageId_fk=tbl.VillageId_fk;
+                    model.ReportingDate=tbl.ReportingDate;
+                    model.HealthCenter=tbl.HealthCenter;
                     model.Q1 = tbl.Q1;
                     model.Q2 = tbl.Q2;
                     model.Q3 = tbl.Q3;
@@ -157,6 +163,34 @@ namespace FP.Controllers
             resResponse4.MaxJsonLength = int.MaxValue;
             return resResponse4;
         }
+
+        public ActionResult BFYList()
+        {
+            FilterModel model = new FilterModel();
+            return View(model);
+        }
+        public ActionResult GetBFYList(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SPBFYList(model);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_BFYData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;
