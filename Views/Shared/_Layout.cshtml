@@ -3,18 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - FP</title>
+    <title>FP | Family Planning</title>
     <base href="@FP.Manager.CommonModel.GetBaseUrl()" />
 
     @*@Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")*@
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link src="~/Content/img/icon.png" rel="icon" />
 
     <!-- layout end-->
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
@@ -34,33 +32,54 @@
     <link href="~/Content/css/jquery-ui.css" rel="stylesheet">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type='text/css' />
-
+    <style>
+        .page-layout {
+            min-height: 520px;
+        }
+        .breadcrumb {
+            margin: auto;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px ;
+        }
+        .breadcrumb h2 {
+            font-size: 22px;
+        }
+        .flexer {
+            display: flex;
+            gap: 15px;
+            margin-top: -40px;
+        }
+    </style>
 
 </head>
 <body>
 
-    <div class="container-xxl position-relative">
+    <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        @*<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
+        </div>*@
             <!-- Spinner End -->
             @Html.Partial("_Navbar")
 
             <div class="content">
                 @Html.Partial("_Header")
-
-                @RenderBody()
+                <div class="page-layout">
+                    @RenderBody()
+                </div>                
 
                 @Html.Partial("_Footer")
             </div>
 
         </div>
-    </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 
     @if (TempData["ToastMsg"] != null)
@@ -77,9 +96,9 @@
         </script>
     }
     <!-- JavaScript Libraries -->
-    @*<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-    <script src="~/Scripts/JS/jquery-ui.js"></script>
+    @*<script src="~/Scripts/JS/jquery-ui.js"></script>*@
 
     <!--layout-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -94,7 +113,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <!-- Template Javascript -->
-    @*<script src="~/Content/js/main.js"></script>*@
+    <script src="~/Content/js/main.js"></script>
 
 </body>
 </html>

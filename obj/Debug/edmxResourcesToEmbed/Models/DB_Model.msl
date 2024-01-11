@@ -84,30 +84,6 @@
         <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="TBL_Emp">
-      <EntityTypeMapping TypeName="FP_DBModel.TBL_Emp">
-        <MappingFragment StoreEntitySet="TBL_Emp">
-          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="EmpName" ColumnName="EmpName" />
-          <ScalarProperty Name="NameOfTheVillageOrganization" ColumnName="NameOfTheVillageOrganization" />
-          <ScalarProperty Name="Panchayat_Other" ColumnName="Panchayat_Other" />
-          <ScalarProperty Name="PanchayatId" ColumnName="PanchayatId" />
-          <ScalarProperty Name="Other_Vo" ColumnName="Other_Vo" />
-          <ScalarProperty Name="VillageId" ColumnName="VillageId" />
-          <ScalarProperty Name="BlockID" ColumnName="BlockID" />
-          <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-          <ScalarProperty Name="RoleID_fk" ColumnName="RoleID_fk" />
-          <ScalarProperty Name="UserID_fk" ColumnName="UserID_fk" />
-          <ScalarProperty Name="EmpID_pk" ColumnName="EmpID_pk" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="VO_Master">
       <EntityTypeMapping TypeName="FP_DBModel.VO_Master">
         <MappingFragment StoreEntitySet="VO_Master">
@@ -124,6 +100,121 @@
           <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
           <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
           <ScalarProperty Name="Void_pk" ColumnName="Void_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Emp">
+      <EntityTypeMapping TypeName="FP_DBModel.TBL_Emp">
+        <MappingFragment StoreEntitySet="TBL_Emp">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+          <ScalarProperty Name="VillageName" ColumnName="VillageName" />
+          <ScalarProperty Name="PanchayatId" ColumnName="PanchayatId" />
+          <ScalarProperty Name="VOId_fk" ColumnName="VOId_fk" />
+          <ScalarProperty Name="BlockID" ColumnName="BlockID" />
+          <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+          <ScalarProperty Name="RoleID_fk" ColumnName="RoleID_fk" />
+          <ScalarProperty Name="UserID_fk" ColumnName="UserID_fk" />
+          <ScalarProperty Name="EmpID_pk" ColumnName="EmpID_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contraceptive_Child_Master">
+      <EntityTypeMapping TypeName="FP_DBModel.Contraceptive_Child_Master">
+        <MappingFragment StoreEntitySet="Contraceptive_Child_Master">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+          <ScalarProperty Name="CID" ColumnName="CID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contraceptive_Master">
+      <EntityTypeMapping TypeName="FP_DBModel.Contraceptive_Master">
+        <MappingFragment StoreEntitySet="Contraceptive_Master">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CName" ColumnName="CName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_ExceptionHandle">
+      <EntityTypeMapping TypeName="FP_DBModel.Tbl_ExceptionHandle">
+        <MappingFragment StoreEntitySet="Tbl_ExceptionHandle">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="E_Exception" ColumnName="E_Exception" />
+          <ScalarProperty Name="Method" ColumnName="Method" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="Controller" ColumnName="Controller" />
+          <ScalarProperty Name="Table" ColumnName="Table" />
+          <ScalarProperty Name="Id_pk" ColumnName="Id_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Month_Master">
+      <EntityTypeMapping TypeName="FP_DBModel.Month_Master">
+        <MappingFragment StoreEntitySet="Month_Master">
+          <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Year_Master">
+      <EntityTypeMapping TypeName="FP_DBModel.Year_Master">
+        <MappingFragment StoreEntitySet="Year_Master">
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Beneficiary">
+      <EntityTypeMapping TypeName="FP_DBModel.TBL_Beneficiary">
+        <MappingFragment StoreEntitySet="TBL_Beneficiary">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Q21" ColumnName="Q21" />
+          <ScalarProperty Name="Q20" ColumnName="Q20" />
+          <ScalarProperty Name="Q19" ColumnName="Q19" />
+          <ScalarProperty Name="Q18" ColumnName="Q18" />
+          <ScalarProperty Name="Q17" ColumnName="Q17" />
+          <ScalarProperty Name="Q16" ColumnName="Q16" />
+          <ScalarProperty Name="Q15" ColumnName="Q15" />
+          <ScalarProperty Name="Q14" ColumnName="Q14" />
+          <ScalarProperty Name="Q13" ColumnName="Q13" />
+          <ScalarProperty Name="Q12_2" ColumnName="Q12_2" />
+          <ScalarProperty Name="Q12_1" ColumnName="Q12_1" />
+          <ScalarProperty Name="Q11" ColumnName="Q11" />
+          <ScalarProperty Name="Q10" ColumnName="Q10" />
+          <ScalarProperty Name="Q9" ColumnName="Q9" />
+          <ScalarProperty Name="Q8" ColumnName="Q8" />
+          <ScalarProperty Name="Q7" ColumnName="Q7" />
+          <ScalarProperty Name="Q6" ColumnName="Q6" />
+          <ScalarProperty Name="Q5" ColumnName="Q5" />
+          <ScalarProperty Name="Q4" ColumnName="Q4" />
+          <ScalarProperty Name="Q3" ColumnName="Q3" />
+          <ScalarProperty Name="Q2" ColumnName="Q2" />
+          <ScalarProperty Name="Q1" ColumnName="Q1" />
+          <ScalarProperty Name="HealthCenter" ColumnName="HealthCenter" />
+          <ScalarProperty Name="ReportingDate" ColumnName="ReportingDate" />
+          <ScalarProperty Name="VillageId_fk" ColumnName="VillageId_fk" />
+          <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
+          <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
+          <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
+          <ScalarProperty Name="HindiEng" ColumnName="HindiEng" />
+          <ScalarProperty Name="Beneficiary_Id_pk" ColumnName="Beneficiary_Id_pk" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

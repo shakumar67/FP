@@ -47,6 +47,23 @@
     <Property Name="BlockId_pk1" Type="int" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
+  <EntityType Name="Contraceptive_Child_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="CID" Type="int" />
+    <Property Name="MethodName" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Contraceptive_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="CName" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
   <EntityType Name="District_Master">
     <Key>
       <PropertyRef Name="DistrictId_pk" />
@@ -57,6 +74,13 @@
     <Property Name="DistrictName" Type="nvarchar" MaxLength="255" />
     <Property Name="FPCP_District" Type="nvarchar" MaxLength="255" />
     <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Month_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="MonthName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Panchayat_Master">
     <Key>
@@ -77,6 +101,46 @@
     <Property Name="LGD_State_Code" Type="int" Nullable="false" />
     <Property Name="StateName" Type="nvarchar" MaxLength="255" />
   </EntityType>
+  <EntityType Name="TBL_Beneficiary">
+    <Key>
+      <PropertyRef Name="Beneficiary_Id_pk" />
+    </Key>
+    <Property Name="Beneficiary_Id_pk" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="HindiEng" Type="int" />
+    <Property Name="DistrictId_fk" Type="int" />
+    <Property Name="BlockId_fk" Type="int" />
+    <Property Name="PanchayatId_fk" Type="int" />
+    <Property Name="VillageId_fk" Type="int" />
+    <Property Name="ReportingDate" Type="date" />
+    <Property Name="HealthCenter" Type="nvarchar" MaxLength="500" />
+    <Property Name="Q1" Type="nvarchar" MaxLength="200" />
+    <Property Name="Q2" Type="nvarchar" MaxLength="500" />
+    <Property Name="Q3" Type="nvarchar" MaxLength="500" />
+    <Property Name="Q4" Type="int" />
+    <Property Name="Q5" Type="nvarchar" MaxLength="500" />
+    <Property Name="Q6" Type="date" />
+    <Property Name="Q7" Type="nvarchar" MaxLength="50" />
+    <Property Name="Q8" Type="int" />
+    <Property Name="Q9" Type="nvarchar" MaxLength="500" />
+    <Property Name="Q10" Type="int" />
+    <Property Name="Q11" Type="int" />
+    <Property Name="Q12_1" Type="nvarchar" MaxLength="50" />
+    <Property Name="Q12_2" Type="nvarchar" MaxLength="50" />
+    <Property Name="Q13" Type="nvarchar" MaxLength="200" />
+    <Property Name="Q14" Type="nvarchar" MaxLength="500" />
+    <Property Name="Q15" Type="int" />
+    <Property Name="Q16" Type="int" />
+    <Property Name="Q17" Type="int" />
+    <Property Name="Q18" Type="nvarchar" MaxLength="500" />
+    <Property Name="Q19" Type="int" />
+    <Property Name="Q20" Type="nvarchar" MaxLength="500" />
+    <Property Name="Q21" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
   <EntityType Name="TBL_Emp">
     <Key>
       <PropertyRef Name="EmpID_pk" />
@@ -86,14 +150,28 @@
     <Property Name="RoleID_fk" Type="nvarchar(max)" />
     <Property Name="DistrictID" Type="int" />
     <Property Name="BlockID" Type="int" />
-    <Property Name="VillageId" Type="int" />
-    <Property Name="Other_Vo" Type="nvarchar" MaxLength="500" />
+    <Property Name="VOId_fk" Type="int" />
     <Property Name="PanchayatId" Type="int" />
-    <Property Name="Panchayat_Other" Type="nvarchar" MaxLength="500" />
-    <Property Name="NameOfTheVillageOrganization" Type="nvarchar" MaxLength="500" />
+    <Property Name="VillageName" Type="nvarchar" MaxLength="500" />
     <Property Name="EmpName" Type="nvarchar" MaxLength="500" />
     <Property Name="Gender" Type="nvarchar" MaxLength="20" />
     <Property Name="MobileNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tbl_ExceptionHandle">
+    <Key>
+      <PropertyRef Name="Id_pk" />
+    </Key>
+    <Property Name="Id_pk" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Table" Type="nvarchar" MaxLength="200" />
+    <Property Name="Controller" Type="nvarchar" MaxLength="200" />
+    <Property Name="Action" Type="nvarchar" MaxLength="200" />
+    <Property Name="Method" Type="nvarchar" MaxLength="200" />
+    <Property Name="E_Exception" Type="nvarchar(max)" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CreatedOn" Type="datetime" />
@@ -118,6 +196,13 @@
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
+  <EntityType Name="Year_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Year" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <Association Name="FK_Block_Master_District_Master">
     <End Role="District_Master" Type="Self.District_Master" Multiplicity="0..1" />
     <End Role="Block_Master" Type="Self.Block_Master" Multiplicity="*" />
@@ -127,6 +212,18 @@
       </Principal>
       <Dependent Role="Block_Master">
         <PropertyRef Name="DistrictId_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contraceptive_Child_Master_Contraceptive_Master">
+    <End Role="Contraceptive_Master" Type="Self.Contraceptive_Master" Multiplicity="0..1" />
+    <End Role="Contraceptive_Child_Master" Type="Self.Contraceptive_Child_Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contraceptive_Master">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Contraceptive_Child_Master">
+        <PropertyRef Name="CID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -163,14 +260,24 @@
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Block_Master" EntityType="Self.Block_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contraceptive_Child_Master" EntityType="Self.Contraceptive_Child_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contraceptive_Master" EntityType="Self.Contraceptive_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="District_Master" EntityType="Self.District_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Month_Master" EntityType="Self.Month_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Panchayat_Master" EntityType="Self.Panchayat_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Beneficiary" EntityType="Self.TBL_Beneficiary" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBL_Emp" EntityType="Self.TBL_Emp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_ExceptionHandle" EntityType="Self.Tbl_ExceptionHandle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VO_Master" EntityType="Self.VO_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Year_Master" EntityType="Self.Year_Master" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Block_Master_District_Master" Association="Self.FK_Block_Master_District_Master">
       <End Role="District_Master" EntitySet="District_Master" />
       <End Role="Block_Master" EntitySet="Block_Master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contraceptive_Child_Master_Contraceptive_Master" Association="Self.FK_Contraceptive_Child_Master_Contraceptive_Master">
+      <End Role="Contraceptive_Master" EntitySet="Contraceptive_Master" />
+      <End Role="Contraceptive_Child_Master" EntitySet="Contraceptive_Child_Master" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />

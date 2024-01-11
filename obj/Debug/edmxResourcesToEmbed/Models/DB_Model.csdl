@@ -104,32 +104,19 @@
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
-    <EntitySet Name="TBL_Emp" EntityType="FP_DBModel.TBL_Emp" />
     <EntitySet Name="VO_Master" EntityType="FP_DBModel.VO_Master" />
+    <EntitySet Name="TBL_Emp" EntityType="FP_DBModel.TBL_Emp" />
+    <EntitySet Name="Contraceptive_Child_Master" EntityType="FP_DBModel.Contraceptive_Child_Master" />
+    <EntitySet Name="Contraceptive_Master" EntityType="FP_DBModel.Contraceptive_Master" />
+    <AssociationSet Name="FK_Contraceptive_Child_Master_Contraceptive_Master" Association="FP_DBModel.FK_Contraceptive_Child_Master_Contraceptive_Master">
+      <End Role="Contraceptive_Master" EntitySet="Contraceptive_Master" />
+      <End Role="Contraceptive_Child_Master" EntitySet="Contraceptive_Child_Master" />
+    </AssociationSet>
+    <EntitySet Name="Tbl_ExceptionHandle" EntityType="FP_DBModel.Tbl_ExceptionHandle" />
+    <EntitySet Name="Month_Master" EntityType="FP_DBModel.Month_Master" />
+    <EntitySet Name="Year_Master" EntityType="FP_DBModel.Year_Master" />
+    <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
   </EntityContainer>
-  <EntityType Name="TBL_Emp">
-    <Key>
-      <PropertyRef Name="EmpID_pk" />
-    </Key>
-    <Property Name="EmpID_pk" Type="Guid" Nullable="false" />
-    <Property Name="UserID_fk" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="RoleID_fk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="DistrictID" Type="Int32" />
-    <Property Name="BlockID" Type="Int32" />
-    <Property Name="VillageId" Type="Int32" />
-    <Property Name="Other_Vo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="PanchayatId" Type="Int32" />
-    <Property Name="Panchayat_Other" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="NameOfTheVillageOrganization" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="EmpName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-  </EntityType>
   <EntityType Name="VO_Master">
     <Key>
       <PropertyRef Name="Void_pk" />
@@ -146,6 +133,128 @@
     <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
     <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TBL_Emp">
+    <Key>
+      <PropertyRef Name="EmpID_pk" />
+    </Key>
+    <Property Name="EmpID_pk" Type="Guid" Nullable="false" />
+    <Property Name="UserID_fk" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="RoleID_fk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DistrictID" Type="Int32" />
+    <Property Name="BlockID" Type="Int32" />
+    <Property Name="VOId_fk" Type="Int32" />
+    <Property Name="PanchayatId" Type="Int32" />
+    <Property Name="VillageName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EmpName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Contraceptive_Child_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="CID" Type="Int32" />
+    <Property Name="MethodName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Contraceptive_Master" Relationship="FP_DBModel.FK_Contraceptive_Child_Master_Contraceptive_Master" FromRole="Contraceptive_Child_Master" ToRole="Contraceptive_Master" />
+  </EntityType>
+  <EntityType Name="Contraceptive_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="CName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Contraceptive_Child_Master" Relationship="FP_DBModel.FK_Contraceptive_Child_Master_Contraceptive_Master" FromRole="Contraceptive_Master" ToRole="Contraceptive_Child_Master" />
+  </EntityType>
+  <Association Name="FK_Contraceptive_Child_Master_Contraceptive_Master">
+    <End Type="FP_DBModel.Contraceptive_Master" Role="Contraceptive_Master" Multiplicity="0..1" />
+    <End Type="FP_DBModel.Contraceptive_Child_Master" Role="Contraceptive_Child_Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contraceptive_Master">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Contraceptive_Child_Master">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Tbl_ExceptionHandle">
+    <Key>
+      <PropertyRef Name="Id_pk" />
+    </Key>
+    <Property Name="Id_pk" Type="Guid" Nullable="false" />
+    <Property Name="Table" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Controller" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Action" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Method" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="E_Exception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Month_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="MonthName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Year_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="TBL_Beneficiary">
+    <Key>
+      <PropertyRef Name="Beneficiary_Id_pk" />
+    </Key>
+    <Property Name="Beneficiary_Id_pk" Type="Guid" Nullable="false" />
+    <Property Name="HindiEng" Type="Int32" />
+    <Property Name="DistrictId_fk" Type="Int32" />
+    <Property Name="BlockId_fk" Type="Int32" />
+    <Property Name="PanchayatId_fk" Type="Int32" />
+    <Property Name="VillageId_fk" Type="Int32" />
+    <Property Name="ReportingDate" Type="DateTime" Precision="0" />
+    <Property Name="HealthCenter" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Q1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Q2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Q3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Q4" Type="Int32" />
+    <Property Name="Q5" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Q6" Type="DateTime" Precision="0" />
+    <Property Name="Q7" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Q8" Type="Int32" />
+    <Property Name="Q9" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Q10" Type="Int32" />
+    <Property Name="Q11" Type="Int32" />
+    <Property Name="Q12_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Q12_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Q13" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Q14" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Q15" Type="Int32" />
+    <Property Name="Q16" Type="Int32" />
+    <Property Name="Q17" Type="Int32" />
+    <Property Name="Q18" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Q19" Type="Int32" />
+    <Property Name="Q20" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Q21" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>
