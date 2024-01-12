@@ -4,7 +4,6 @@
     dt = Model;
 }
 
-
 <table class="table table-bordered table-striped" id="tbl">
     <thead>
         <tr>
@@ -41,7 +40,7 @@
                         <td>@dr["Gender"]</td>
                         <td>@dr["MobileNo"]</td>
                         <td>
-                            <a href="~/Account/Register?id=@dr["UserId"]&&empid=@dr["EmpID_pk"]" class="btn btn-primary">Edit <i class="fa fa-edit"></i></a>
+                            <a href="~/Account/Register?id=@dr["UserId"]&&empid=@dr["EmpID_pk"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                         </td>
                     </tr>
                 }
