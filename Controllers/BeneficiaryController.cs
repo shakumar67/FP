@@ -11,6 +11,7 @@ using static FP.Manager.Enums;
 
 namespace FP.Controllers
 {
+    [Authorize]
     public class BeneficiaryController : BaseController
     {
         FP_DBEntities db = new FP_DBEntities();
@@ -36,8 +37,9 @@ namespace FP.Controllers
                     model.DistrictId_fk=tbl.DistrictId_fk;
                     model.BlockId_fk=tbl.BlockId_fk;
                     model.PanchayatId_fk=tbl.PanchayatId_fk;
-                    model.VillageId_fk=tbl.VillageId_fk;
-                    model.ReportingDate=tbl.ReportingDate;
+                    model.VillageOId_fk=tbl.VillageOId_fk;
+                    model.ReportingMonth=tbl.ReportingMonth;
+                    model.ReportingYear=tbl.ReportingYear;
                     model.HealthCenter=tbl.HealthCenter;
                     model.Q1 = tbl.Q1;
                     model.Q2 = tbl.Q2;
@@ -50,14 +52,16 @@ namespace FP.Controllers
                     model.Q9 = tbl.Q9;
                     model.Q10 = tbl.Q10;
                     model.Q11 = tbl.Q11;
-                    model.Q12_1 = tbl.Q12_1;
-                    model.Q12_2 = tbl.Q12_2;
+                    model.Q12 = tbl.Q12;
                     model.Q13 = tbl.Q13;
                     model.Q14 = tbl.Q14;
                     model.Q15 = tbl.Q15;
                     model.Q16 = tbl.Q16;
                     model.Q17 = tbl.Q17;
                     model.Q18 = tbl.Q18;
+                    model.Q20 = tbl.Q20;
+                    model.Q21 = tbl.Q21;
+                    model.BFYVillageName = tbl.BFYVillageName;
                 }
             }
             return View(model);
@@ -91,7 +95,9 @@ namespace FP.Controllers
                         tbl= item.Beneficiary_Id_pk != Guid.Empty? _db.TBL_Beneficiary.Find(item.Beneficiary_Id_pk): new TBL_Beneficiary();
                         
                         tbl.HealthCenter= item.HealthCenter;
-                        tbl.ReportingDate = item.ReportingDate;
+                        tbl.ReportingMonth = item.ReportingMonth;
+                        tbl.ReportingYear = item.ReportingYear;
+                        tbl.BFYVillageName = item.BFYVillageName;
                         tbl.Q2 = item.Q2;
                         tbl.Q3 = item.Q3;
                         tbl.Q4 = item.Q4;
@@ -102,14 +108,15 @@ namespace FP.Controllers
                         tbl.Q9 = item.Q9;
                         tbl.Q10 = item.Q10;
                         tbl.Q11 = item.Q11;
-                        tbl.Q12_1 = item.Q12_1;
-                        tbl.Q12_2 = item.Q12_2;
+                        tbl.Q12 = item.Q12;
                         tbl.Q13 = item.Q13;
                         tbl.Q14 = item.Q14;
                         tbl.Q15 = item.Q15;
                         tbl.Q16 =item.Q15==1? item.Q16:null;
                         tbl.Q17 = item.Q15 == 2 ? item.Q17 : null;
                         tbl.Q18 = item.Q15 == 4 ? item.Q18:null;
+                        tbl.Q20 = item.Q20;
+                        tbl.Q21 = item.Q21;
                         tbl.IsActive = true;
                         if (item.Beneficiary_Id_pk == Guid.Empty)
                         {
@@ -118,7 +125,7 @@ namespace FP.Controllers
                             tbl.DistrictId_fk=item.DistrictId_fk;
                             tbl.BlockId_fk=item.BlockId_fk;
                             tbl.PanchayatId_fk=item.PanchayatId_fk;
-                            tbl.VillageId_fk=item.VillageId_fk;
+                            tbl.VillageOId_fk=item.VillageOId_fk;
                             tbl.CreatedBy = User.Identity.Name;
                             tbl.CreatedOn = DateTime.Now;
                             tbllist.Add(tbl);
@@ -193,7 +200,6 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
             }
         }
-
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

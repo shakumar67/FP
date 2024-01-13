@@ -80,6 +80,14 @@
           <Property Name="FPCP_District" Type="nvarchar" MaxLength="255" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="ModuleRollout_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ModuleName" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="Month_Master">
           <Key>
             <PropertyRef Name="ID" />
@@ -115,13 +123,15 @@
           <Property Name="DistrictId_fk" Type="int" />
           <Property Name="BlockId_fk" Type="int" />
           <Property Name="PanchayatId_fk" Type="int" />
-          <Property Name="VillageId_fk" Type="int" />
-          <Property Name="ReportingDate" Type="date" />
+          <Property Name="VillageOId_fk" Type="int" />
+          <Property Name="ReportingMonth" Type="int" />
+          <Property Name="ReportingYear" Type="int" />
           <Property Name="HealthCenter" Type="nvarchar" MaxLength="500" />
+          <Property Name="BFYVillageName" Type="nvarchar" MaxLength="1000" />
           <Property Name="Q1" Type="nvarchar" MaxLength="200" />
           <Property Name="Q2" Type="nvarchar" MaxLength="500" />
           <Property Name="Q3" Type="nvarchar" MaxLength="500" />
-          <Property Name="Q4" Type="int" />
+          <Property Name="Q4" Type="float" />
           <Property Name="Q5" Type="nvarchar" MaxLength="500" />
           <Property Name="Q6" Type="date" />
           <Property Name="Q7" Type="nvarchar" MaxLength="50" />
@@ -129,8 +139,7 @@
           <Property Name="Q9" Type="nvarchar" MaxLength="500" />
           <Property Name="Q10" Type="int" />
           <Property Name="Q11" Type="int" />
-          <Property Name="Q12_1" Type="nvarchar" MaxLength="50" />
-          <Property Name="Q12_2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Q12" Type="float" />
           <Property Name="Q13" Type="nvarchar" MaxLength="200" />
           <Property Name="Q14" Type="nvarchar" MaxLength="500" />
           <Property Name="Q15" Type="int" />
@@ -138,7 +147,7 @@
           <Property Name="Q17" Type="int" />
           <Property Name="Q18" Type="nvarchar" MaxLength="500" />
           <Property Name="Q19" Type="int" />
-          <Property Name="Q20" Type="nvarchar" MaxLength="500" />
+          <Property Name="Q20" Type="int" />
           <Property Name="Q21" Type="int" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
@@ -268,6 +277,7 @@
           <EntitySet Name="Contraceptive_Child_Master" EntityType="Self.Contraceptive_Child_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contraceptive_Master" EntityType="Self.Contraceptive_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District_Master" EntityType="Self.District_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModuleRollout_Master" EntityType="Self.ModuleRollout_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Month_Master" EntityType="Self.Month_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Panchayat_Master" EntityType="Self.Panchayat_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
@@ -412,6 +422,7 @@
           <EntitySet Name="Tbl_ExceptionHandle" EntityType="FP_DBModel.Tbl_ExceptionHandle" />
           <EntitySet Name="Month_Master" EntityType="FP_DBModel.Month_Master" />
           <EntitySet Name="Year_Master" EntityType="FP_DBModel.Year_Master" />
+          <EntitySet Name="ModuleRollout_Master" EntityType="FP_DBModel.ModuleRollout_Master" />
           <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
         </EntityContainer>
         <EntityType Name="VO_Master">
@@ -514,6 +525,14 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ModuleRollout_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ModuleName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
         <EntityType Name="TBL_Beneficiary">
           <Key>
             <PropertyRef Name="Beneficiary_Id_pk" />
@@ -523,13 +542,15 @@
           <Property Name="DistrictId_fk" Type="Int32" />
           <Property Name="BlockId_fk" Type="Int32" />
           <Property Name="PanchayatId_fk" Type="Int32" />
-          <Property Name="VillageId_fk" Type="Int32" />
-          <Property Name="ReportingDate" Type="DateTime" Precision="0" />
+          <Property Name="VillageOId_fk" Type="Int32" />
+          <Property Name="ReportingMonth" Type="Int32" />
+          <Property Name="ReportingYear" Type="Int32" />
           <Property Name="HealthCenter" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BFYVillageName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Q1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Q2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Q3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Q4" Type="Int32" />
+          <Property Name="Q4" Type="Double" />
           <Property Name="Q5" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Q6" Type="DateTime" Precision="0" />
           <Property Name="Q7" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -537,8 +558,7 @@
           <Property Name="Q9" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Q10" Type="Int32" />
           <Property Name="Q11" Type="Int32" />
-          <Property Name="Q12_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Q12_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Q12" Type="Double" />
           <Property Name="Q13" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Q14" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Q15" Type="Int32" />
@@ -546,7 +566,7 @@
           <Property Name="Q17" Type="Int32" />
           <Property Name="Q18" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Q19" Type="Int32" />
-          <Property Name="Q20" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q20" Type="Int32" />
           <Property Name="Q21" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -736,6 +756,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ModuleRollout_Master">
+            <EntityTypeMapping TypeName="FP_DBModel.ModuleRollout_Master">
+              <MappingFragment StoreEntitySet="ModuleRollout_Master">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBL_Beneficiary">
             <EntityTypeMapping TypeName="FP_DBModel.TBL_Beneficiary">
               <MappingFragment StoreEntitySet="TBL_Beneficiary">
@@ -753,8 +782,7 @@
                 <ScalarProperty Name="Q15" ColumnName="Q15" />
                 <ScalarProperty Name="Q14" ColumnName="Q14" />
                 <ScalarProperty Name="Q13" ColumnName="Q13" />
-                <ScalarProperty Name="Q12_2" ColumnName="Q12_2" />
-                <ScalarProperty Name="Q12_1" ColumnName="Q12_1" />
+                <ScalarProperty Name="Q12" ColumnName="Q12" />
                 <ScalarProperty Name="Q11" ColumnName="Q11" />
                 <ScalarProperty Name="Q10" ColumnName="Q10" />
                 <ScalarProperty Name="Q9" ColumnName="Q9" />
@@ -766,9 +794,11 @@
                 <ScalarProperty Name="Q3" ColumnName="Q3" />
                 <ScalarProperty Name="Q2" ColumnName="Q2" />
                 <ScalarProperty Name="Q1" ColumnName="Q1" />
+                <ScalarProperty Name="BFYVillageName" ColumnName="BFYVillageName" />
                 <ScalarProperty Name="HealthCenter" ColumnName="HealthCenter" />
-                <ScalarProperty Name="ReportingDate" ColumnName="ReportingDate" />
-                <ScalarProperty Name="VillageId_fk" ColumnName="VillageId_fk" />
+                <ScalarProperty Name="ReportingYear" ColumnName="ReportingYear" />
+                <ScalarProperty Name="ReportingMonth" ColumnName="ReportingMonth" />
+                <ScalarProperty Name="VillageOId_fk" ColumnName="VillageOId_fk" />
                 <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
                 <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
                 <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />

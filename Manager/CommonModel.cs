@@ -902,6 +902,12 @@ namespace FP.Manager
             list.Add(new SelectListItem { Value = "Brother", Text = "Brother" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
+        public static List<SelectListItem> GetModuleRollout()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list = new SelectList(dbe.ModuleRollout_Master.Where(x => x.IsActive == true), "ID", "ModuleName").OrderBy(x => x.Text).ToList();
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         public static List<SelectListItem> GetSHGAffiliation()
         {
             List<SelectListItem> list = new List<SelectListItem>();

@@ -24,7 +24,7 @@ namespace FP.Models
         public Nullable<int> Panchayatid_fk { get; set; }
         public string Panchayat { get; set; }
         [Required]
-        [Display(Name = "Village")]
+        [Display(Name = "Village Organization")]
         public string Village_Organization { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }

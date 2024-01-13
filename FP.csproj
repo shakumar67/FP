@@ -354,6 +354,9 @@
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ModuleRollout_Master.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Month_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
@@ -435,6 +438,7 @@
     <Content Include="Content\lib\tempusdominus\js\tempusdominus-bootstrap-4.min.js" />
     <Content Include="Content\lib\waypoints\links.php" />
     <Content Include="Content\lib\waypoints\waypoints.min.js" />
+    <Content Include="Content\Logincss.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -581,7 +585,7 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Login_old.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
@@ -605,6 +609,7 @@
     <Content Include="Views\Beneficiary\Beneficiary.cshtml" />
     <Content Include="Views\Beneficiary\BFYList.cshtml" />
     <Content Include="Views\Beneficiary\_BFYData.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,171 +12,186 @@
     .table td {
         font-size: 13px;
     }
+
     .checkbox input {
         margin-right: 3px;
     }
+
     .check-spacer {
         display: inline-block;
         margin-right: 15px;
     }
 </style>
 <div class="breadcrumb">
-    <h2>Beneficiary</h2>
-    <p><a href="/"><i class="fa fa-home"></i></a> / Beneficiary</p>
+    <h2>Add Beneficiary</h2>
+    <p><a href="/"><i class="fa fa-home"></i></a> / Add Beneficiary</p>
 </div>
-<div class="container-fluid pt-4 px-4" style="height:700px; overflow:scroll;">
+<div class="container-fluid pt-4 px-4">
     <div class="row g-4ss">
         @using (Html.BeginForm("Beneficiary", "Beneficiary", FormMethod.Post, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.Beneficiary_Id_pk)
             @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
-        <div class="bg-light rounded h-100 p-4">
-            <div class="mb-3">
-                @Html.LabelFor(m => m.HindiEng, new { @class = "col-md-2 col-form-label" })
-                <div class="col-md-10">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.HindiEng, new { @class = "col-md-2 col-form-label" })
                     @Html.DropDownListFor(m => m.HindiEng, CommonModel.GetLanguangeType(), null, new { @class = "form-select mb-3" })
                 </div>
-            </div>
-            <div class="mb-3" style="display:none;" id="div-Q1">
-                @Html.Label(Model.Q1D, htmlAttributes: new { @class = "" })
-                @Html.LabelFor(m => m.Q1, htmlAttributes: new { @class = "form-control col-md-4" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.DDis, htmlAttributes: new { @class = "" })
-                @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                @Html.ValidationMessageFor(m => m.DistrictId_fk, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.DBlck, htmlAttributes: new { @class = "" })
-                @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                @Html.ValidationMessageFor(m => m.BlockId_fk, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.DPanyt, htmlAttributes: new { @class = "" })
-                @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                @Html.ValidationMessageFor(m => m.PanchayatId_fk, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.DVO, htmlAttributes: new { @class = "" })
-                @Html.DropDownListFor(m => m.VillageId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                @Html.ValidationMessageFor(m => m.VillageId_fk, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.ReportingDtD, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.ReportingDate, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker", maxlength = "12" } })
-                @Html.ValidationMessageFor(m => m.ReportingDate, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.HealthCD, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.HealthCenter, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
-                @Html.ValidationMessageFor(m => m.HealthCenter, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q2D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q2, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
-                @Html.ValidationMessageFor(m => m.Q2, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q3D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q3, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
-                @Html.ValidationMessageFor(m => m.Q3, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q4D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q4, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "10", max = "99", maxlength = "2", oninput = "maxLengthCheck(this)", } })
-                @Html.ValidationMessageFor(m => m.Q4, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q5D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q5, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
-                @Html.ValidationMessageFor(m => m.Q5, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q6D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q6, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker", maxlength = "12" } })
-                @Html.ValidationMessageFor(m => m.Q6, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q7D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q7, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "10", maxlength = "10", } })
-                @Html.ValidationMessageFor(m => m.Q7, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                <div class="position-relative form-group">
-                    @Html.Label(Model.Q8D, htmlAttributes: new { @class = "" })
-                    <div class="checkbox">
-                        @foreach (var item in CommonModel.GetSHGAffiliation())
-                        {
-                        <span class="check-spacer">
-                            @Html.RadioButtonFor(model => model.Q8, item.Value, new { id = "Q8" + item.Value, @required = "required" }) @item.Text
-                        </span>
-                        }
-                        @Html.ValidationMessageFor(model => model.Q8, "", new { @class = "text-danger" })
+                <div class="mb-3" style="display:none;" id="div-Q1">
+                    @Html.Label(Model.Q1D, htmlAttributes: new { @class = "" })
+                    @Html.LabelFor(m => m.Q1, htmlAttributes: new { @class = "form-control col-md-4" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.DDis, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                    @Html.ValidationMessageFor(m => m.DistrictId_fk, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.DBlck, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                    @Html.ValidationMessageFor(m => m.BlockId_fk, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.DPanyt, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                    @Html.ValidationMessageFor(m => m.PanchayatId_fk, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.DVO, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.VillageOId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                    @Html.ValidationMessageFor(m => m.VillageOId_fk, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.ReportingDtD, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.ReportingMonth, CommonModel.GetMonth(1), null, new { @class = "form-control col-md-4" })
+                    @Html.ValidationMessageFor(m => m.ReportingMonth, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(m => m.ReportingYear, CommonModel.GetYear(1), null, new { @class = "form-control col-md-4" })
+                    @Html.ValidationMessageFor(m => m.ReportingYear, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.HealthCD, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.HealthCenter, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
+                    @Html.ValidationMessageFor(m => m.HealthCenter, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q2D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q2, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
+                    @Html.ValidationMessageFor(m => m.Q2, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q3D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q3, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
+                    @Html.ValidationMessageFor(m => m.Q3, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q4D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q4, new { htmlAttributes = new { @class = "form-control col-md-4", min = "10", max = "99.99", maxlength = "5", oninput = "maxLengthCheck(this)" } })
+                    @Html.ValidationMessageFor(m => m.Q4, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q5D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q5, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
+                    @Html.ValidationMessageFor(m => m.Q5, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q6D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q6, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker", maxlength = "12" } })
+                    @Html.ValidationMessageFor(m => m.Q6, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q7D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q7, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "10", maxlength = "10", } })
+                    @Html.ValidationMessageFor(m => m.Q7, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    <div class="position-relative form-group">
+                        @Html.Label(Model.Q8D, htmlAttributes: new { @class = "" })
+                        <div class="checkbox">
+                            @foreach (var item in CommonModel.GetSHGAffiliation())
+                            {
+                                <span class="check-spacer">
+                                    @Html.RadioButtonFor(model => model.Q8, item.Value, new { id = "Q8" + item.Value, @required = "required" }) @item.Text
+                                </span>
+                            }
+                            @Html.ValidationMessageFor(model => model.Q8, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
+                <div class="mb-3" id="div-q9" style="display:none;">
+                    @Html.Label(Model.Q9D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q9, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
+                    @Html.ValidationMessageFor(m => m.Q9, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q10D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q10, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "99", maxlength = "2" } })
+                    @Html.ValidationMessageFor(m => m.Q10, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q11D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q11, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "99", maxlength = "2" } })
+                    @Html.ValidationMessageFor(m => m.Q11, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q12D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q12, new { htmlAttributes = new { @class = "form-control col-md-4", min = "0", max = "99.99", maxlength = "4", oninput = "maxLengthCheck(this)" } })
+                    @Html.ValidationMessageFor(m => m.Q12, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.DBFYVillage, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.BFYVillageName, new { htmlAttributes = new { @class = "form-control col-md-4", maxlength = "400" } })
+                    @Html.ValidationMessageFor(m => m.BFYVillageName, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q13D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q13, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+                    @Html.ValidationMessageFor(m => m.Q13, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q14D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q14, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+                    @Html.ValidationMessageFor(m => m.Q14, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q15D, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.Q15, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                    @Html.ValidationMessageFor(m => m.Q15, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3" id="div-Q16" style="display:none;">
+                    @Html.Label(Model.Q16D, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.Q16, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                    @Html.ValidationMessageFor(m => m.Q16, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3" id="div-Q17" style="display:none;">
+                    @Html.Label(Model.Q17D, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.Q17, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                    @Html.ValidationMessageFor(m => m.Q17, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3" id="div-Q18" style="display:none;">
+                    @Html.Label(Model.Q18D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q18, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+                    @Html.ValidationMessageFor(m => m.Q18, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q20D, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(m => m.Q20, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "999", maxlength = "3" } })
+                    @Html.ValidationMessageFor(m => m.Q20, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.Label(Model.Q21D, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.Q21, CommonModel.GetModuleRollout(), "Select", new { @class = "form-control col-md-4" })
+                    @Html.ValidationMessageFor(m => m.Q21, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    <span class="check-spacer">
+                        <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
+                    </span>
+                    <span class="check-spacer">
+                        <a href="~/Beneficiary/Beneficiary" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
+                    </span>
+                </div>
             </div>
-            <div class="mb-3" id="div-q9" style="display:none;">
-                @Html.Label(Model.Q9D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q9, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
-                @Html.ValidationMessageFor(m => m.Q9, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q10D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q10, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "99", maxlength = "2" } })
-                @Html.ValidationMessageFor(m => m.Q10, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q11D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q11, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "99", maxlength = "2" } })
-                @Html.ValidationMessageFor(m => m.Q11, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q12D, htmlAttributes: new { @class = "" })
-                @Html.DropDownListFor(m => m.Q12_1, CommonModel.GetMonth(1), null, new { @class = "form-select mb-3" })
-                @Html.ValidationMessageFor(m => m.Q12_1, "", new { @class = "text-danger" })
-                @Html.DropDownListFor(m => m.Q12_2, CommonModel.GetFunYearList(1), null, new { @class = "form-select mb-3" })
-                @Html.ValidationMessageFor(m => m.Q12_2, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q13D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q13, new { htmlAttributes = new { @class = "form-control col-md-4" } })
-                @Html.ValidationMessageFor(m => m.Q13, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q14D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q14, new { htmlAttributes = new { @class = "form-control col-md-4" } })
-                @Html.ValidationMessageFor(m => m.Q14, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.Label(Model.Q15D, htmlAttributes: new { @class = "" })
-                @Html.DropDownListFor(m => m.Q15, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                @Html.ValidationMessageFor(m => m.Q15, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3" id="div-Q16" style="display:none;">
-                @Html.Label(Model.Q16D, htmlAttributes: new { @class = "" })
-                @Html.DropDownListFor(m => m.Q16, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                @Html.ValidationMessageFor(m => m.Q16, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3" id="div-Q17" style="display:none;">
-                @Html.Label(Model.Q17D, htmlAttributes: new { @class = "" })
-                @Html.DropDownListFor(m => m.Q17, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                @Html.ValidationMessageFor(m => m.Q17, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3" id="div-Q18" style="display:none;">
-                @Html.Label(Model.Q18D, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(m => m.Q18, new { htmlAttributes = new { @class = "form-control col-md-4" } })
-                @Html.ValidationMessageFor(m => m.Q18, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                <span class="check-spacer">
-                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
-                </span>
-                <span class="check-spacer">
-                    <a href="~/Beneficiary/Beneficiary" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
-                </span>
-            </div>
-        </div>
         }
     </div>
 </div>
@@ -189,10 +204,8 @@
               rel='stylesheet'>
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>*@
 
-
     <script>
         $(document).ready(function () {
-
 
             $('.count-input').unbind('keyup change input paste').bind('keyup change input paste', function (e) {
                 var $this = $(this);
@@ -220,7 +233,7 @@
 
             $('input[name=Q8]').click(function () {
                 $('#Q9').val('');
-                if ($(this).val() == "1") {
+                if ($(this).val() == "2") {
                     $('#div-q9').show();
                     $('#Q9').attr('required', 'required');
                 }
@@ -247,7 +260,7 @@
                 GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $(this).val());
             });
             $('#PanchayatId_fk').change(function () {
-                GetVillage("VillageId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
+                GetVillage("VillageOId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
             });
             $('#Q15').change(function () {
                 $('#Q18').val('');
@@ -335,7 +348,7 @@
                 toastr.error("Error", 'Please Select Panchayat');
                 IsCheck = false;
             }
-            if ($('#VillageId_fk').val() == '') {
+            if ($('#VillageOId_fk').val() == '') {
                 toastr.error("Error", 'Please enter Village Name');
                 IsCheck = false;
             }
@@ -352,7 +365,7 @@
             //formData.append('HindiEng', $('#HindiEng').val());
             //formData.append('DistrictId_fk', $('#DistrictId_fk').val());
             //formData.append('BlockId_fk', $('#BlockId_fk').val());
-            //formData.append('VillageId_fk', $('#VillageId_fk').val());
+            //formData.append('VillageOId_fk', $('#VillageOId_fk').val());
             //formData.append('ReportingDate', $('#ReportingDate').val());
             //formData.append('HealthCenter', $('#HealthCenter').val());
             //formData.append('Q1', $('#Q1').val());
@@ -384,8 +397,9 @@
             BeneficiaryModel.DistrictId_fk = $('#DistrictId_fk').val();
             BeneficiaryModel.BlockId_fk = $('#BlockId_fk').val();
             BeneficiaryModel.PanchayatId_fk = $('#PanchayatId_fk').val();
-            BeneficiaryModel.VillageId_fk = $('#VillageId_fk').val();
-            BeneficiaryModel.ReportingDate = $('#ReportingDate').val();
+            BeneficiaryModel.VillageOId_fk = $('#VillageOId_fk').val();
+            BeneficiaryModel.ReportingMonth = $('#ReportingMonth').val();
+            BeneficiaryModel.ReportingYear = $('#ReportingYear').val();
             BeneficiaryModel.HealthCenter = $('#HealthCenter').val();
             BeneficiaryModel.Q1= $('#Q1').val();
             BeneficiaryModel.Q2= $('#Q2').val();
@@ -398,14 +412,16 @@
             BeneficiaryModel.Q9= $('#Q9').val();
             BeneficiaryModel.Q10= $('#Q10').val();
             BeneficiaryModel.Q11= $('#Q11').val();
-            BeneficiaryModel.Q12_1 = $('#Q12_1').val();
-            BeneficiaryModel.Q12_2 = $('#Q12_2').val();
-            BeneficiaryModel.Q13= $('#Q13').val();
+            BeneficiaryModel.Q12 = $('#Q12').val();
+            BeneficiaryModel.Q13 = $('#Q13').val();
+            BeneficiaryModel.BFYVillageName = $('#BFYVillageName').val();
             BeneficiaryModel.Q14= $('#Q14').val();
             BeneficiaryModel.Q15= $('#Q15').val();
             BeneficiaryModel.Q16= $('#Q16').val();
             BeneficiaryModel.Q17= $('#Q17').val();
             BeneficiaryModel.Q18= $('#Q18').val();
+            BeneficiaryModel.Q20 = $('#Q20').val();
+            BeneficiaryModel.Q21 = $('#Q21').val();
 
             model.push(BeneficiaryModel);
 
@@ -446,7 +462,8 @@
 
         }
 
-       function BindEdit() {
+        function BindEdit() {
+            debugger
              $('#Beneficiary_Id_pk').val('@Model.Beneficiary_Id_pk');
              $('#HindiEng').val('@Model.HindiEng');
              $('#DistrictId_fk').val('@Model.DistrictId_fk');
@@ -454,9 +471,10 @@
              $('#BlockId_fk').val('@Model.BlockId_fk');
              GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
              $('#PanchayatId_fk').val('@Model.PanchayatId_fk');
-             GetVillage("VillageId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#PanchayatId_fk').val());
-             $('#VillageId_fk').val('@Model.VillageId_fk');
-             $('#ReportingDate').val(moment('@Model.ReportingDate').format("DD-MMM-YYYY"));
+             GetVillage("VillageOId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#PanchayatId_fk').val());
+             $('#VillageOId_fk').val('@Model.VillageOId_fk');
+           $('#ReportingMonth').val('@Model.ReportingMonth');
+           $('#ReportingYear').val('@Model.ReportingYear');
              $('#HealthCenter').val('@Model.HealthCenter');
              $('#Q1').val('@Model.Q1');
              $('#Q2').val('@Model.Q2');
@@ -468,7 +486,7 @@
              $("#Q8" + '@Model.Q8').attr('checked', true);
              //$('input[name=Q8]:checked').val('@Model.Q8')
             // $('#Q8').val('@Model.Q8');
-             if ($('input[name=Q8]:checked').val() == "1") {
+             if ($('input[name=Q8]:checked').val() == "2") {
                  $('#div-q9').show();
                  $('#Q9').val('@Model.Q9');
                  $('#Q9').attr('required', 'required');
@@ -479,9 +497,9 @@
              }
              $('#Q10').val('@Model.Q10');
              $('#Q11').val('@Model.Q11');
-             $('#Q12_1').val('@Model.Q12_1');
-             $('#Q12_2').val('@Model.Q12_2');
+             $('#Q12').val('@Model.Q12');
              $('#Q13').val('@Model.Q13');
+             $('#BFYVillageName').val('@Model.BFYVillageName');
              $('#Q14').val('@Model.Q14');
              $('#Q15').val('@Model.Q15');
 
@@ -518,7 +536,9 @@
                  $('#div-Q18').css('display', 'none');
                  $('#div-Q17').css('display', 'none');
                  $('#div-Q16').css('display', 'none');
-             }
+           }
+            $('#Q20').val('@Model.Q20');
+            $('#Q21').val('@Model.Q21');
     }
 
     </script>

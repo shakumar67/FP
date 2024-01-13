@@ -15,6 +15,7 @@ namespace FP.Models
         }
 
         public System.Guid Beneficiary_Id_pk { get; set; }
+        [Display(Name = "Language")]
         public Nullable<int> HindiEng { get; set; }
         [Required]
         public Nullable<int> DistrictId_fk { get; set; }
@@ -23,18 +24,22 @@ namespace FP.Models
         [Required]
         public Nullable<int> PanchayatId_fk { get; set; }
         [Required]
-        public Nullable<int> VillageId_fk { get; set; }
+        public Nullable<int> VillageOId_fk { get; set; }
         [Required]
-        public Nullable<System.DateTime> ReportingDate { get; set; }
+        public Nullable<int> ReportingMonth { get; set; }
+        [Required]
+        public Nullable<int> ReportingYear { get; set; }
         [Required]
         public string HealthCenter { get; set; }
+        [Required]
+        public string BFYVillageName { get; set; }
         public string Q1 { get; set; }
         [Required]
         public string Q2 { get; set; }
         [Required]
         public string Q3 { get; set; }
         [Required]
-        public Nullable<int> Q4 { get; set; }
+        public Nullable<double> Q4 { get; set; }
         [Required]
         public string Q5 { get; set; }
         [Required]
@@ -50,9 +55,7 @@ namespace FP.Models
         [Required]
         public Nullable<int> Q11 { get; set; }
         [Required]
-        public string Q12_1 { get; set; }
-        [Required]
-        public string Q12_2 { get; set; }
+        public Nullable<double> Q12 { get; set; }
         [Required]
         public string Q13 { get; set; }
         [Required]
@@ -66,7 +69,9 @@ namespace FP.Models
         [RequiredIf("Q15", 4)]
         public string Q18 { get; set; }
         public Nullable<int> Q19 { get; set; }
-        public string Q20 { get; set; }
+        [Required]
+        public Nullable<int> Q20 { get; set; }
+        [Required]
         public Nullable<int> Q21 { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
@@ -153,6 +158,22 @@ namespace FP.Models
                 return CN;
             }
         }
+        public string DBFYVillage
+        {
+            get
+            {
+                string CN = string.Empty;
+                if (HindiEng == 1)
+                {
+                    CN = "Village Name";
+                }
+                else if (HindiEng == 2)
+                {
+                    CN = "गाँव";
+                }
+                return CN;
+            }
+        }
         public string ReportingDtD
         {
             get
@@ -160,11 +181,11 @@ namespace FP.Models
                 string CN = string.Empty;
                 if (HindiEng == 1)
                 {
-                    CN = "Reporting Date";
+                    CN = "Reporting Month";
                 }
                 else if (HindiEng == 2)
                 {
-                    CN = "रिपोर्टिंग की तारीख";
+                    CN = "रिपोर्टिंग की माह";
                 }
                 return CN;
             }
@@ -272,7 +293,7 @@ namespace FP.Models
                 string CN = string.Empty;
                 if (HindiEng == 1)
                 {
-                    CN = "Mobile no. of beneficiary";
+                    CN = "Mobile No";
                 }
                 else if (HindiEng == 2)
                 {
@@ -320,7 +341,7 @@ namespace FP.Models
                 string CN = string.Empty;
                 if (HindiEng == 1)
                 {
-                    CN = "No. of male child at present";
+                    CN = "No of male child at present";
                 }
                 else if (HindiEng == 2)
                 {
@@ -336,7 +357,7 @@ namespace FP.Models
                 string CN = string.Empty;
                 if (HindiEng == 1)
                 {
-                    CN = "No. of female child at present";
+                    CN = "No of female child at present";
                 }
                 else if (HindiEng == 2)
                 {
@@ -368,7 +389,7 @@ namespace FP.Models
                 string CN = string.Empty;
                 if (HindiEng == 1)
                 {
-                    CN = "Code no. of related AWC";
+                    CN = "Code no of related AWC";
                 }
                 else if (HindiEng == 2)
                 {
@@ -480,7 +501,7 @@ namespace FP.Models
                 string CN = string.Empty;
                 if (HindiEng == 1)
                 {
-                    CN = "SHGs where module was rolled out";
+                    CN = "Number of SHGs where module was rolled out";
                 }
                 else if (HindiEng == 2)
                 {
@@ -505,9 +526,6 @@ namespace FP.Models
                 return CN;
             }
         }
-
-
-
 
 
     }

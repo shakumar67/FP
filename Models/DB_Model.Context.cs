@@ -38,6 +38,7 @@ namespace FP.Models
         public virtual DbSet<Tbl_ExceptionHandle> Tbl_ExceptionHandle { get; set; }
         public virtual DbSet<Month_Master> Month_Master { get; set; }
         public virtual DbSet<Year_Master> Year_Master { get; set; }
+        public virtual DbSet<ModuleRollout_Master> ModuleRollout_Master { get; set; }
         public virtual DbSet<TBL_Beneficiary> TBL_Beneficiary { get; set; }
     }
 }
