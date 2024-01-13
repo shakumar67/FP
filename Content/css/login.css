@@ -1,0 +1,153 @@
+body {
+	margin: 0 auto;
+	padding: 0;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12px;
+	color: #464032;
+}
+a {
+	text-decoration: none;
+	color: #A7430F;
+}
+img {
+	width: 100%;
+	height: auto;
+	border: 0px;
+}
+.breaker {
+	clear: both;
+	height: 0.1px;
+}
+.break {
+	clear: both;
+	height: 12px;
+}
+.main-header {
+	width: 100%;
+	position: absolute;
+	z-index: 9;
+	background: #fff;
+	padding: 8px 0 6px;
+	display: flex;
+}
+.main-header .logo {
+	flex: 1;
+	text-align: center;
+}
+.csf img {
+	width: 55px;
+}
+.rtr img {
+	width: 60px;
+}
+.kpmg img {
+	width: 70px;
+}
+.ci img {
+	width: 150px;
+}
+.transparent-bg {
+	position: absolute;
+	z-index: 5;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	/* background-color: rgba(42, 58, 74, 0.5); */
+	background-color: rgba(31, 54, 98, 0.6);
+}
+.page-login {
+	margin: auto;
+	width: 50%;
+	position: relative;
+	z-index: 9999;
+	padding-top: 120px;
+	color: #fff;
+}
+.page-login h2 {
+	font-size: 35px;
+	font-family: 'Ubuntu';
+	font-weight: normal;
+	letter-spacing: 1px;
+	line-height: 45px;
+	text-align: center
+}
+.login-field {
+	margin: auto;
+	max-width: 300px;
+	padding: 12px 20px 10px 20px;
+	border-radius: 10px;
+	background: #fff;
+	/* background-color: rgba(255, 255, 255, 0.96); */
+}
+.login-field label {
+	color: #222;
+	text-align: left !important;
+	font-size: 13px;
+	padding-bottom: 4px;
+	display: block;
+	margin-top: 15px;
+}
+.login-field a {
+	color: #0056FF;
+	text-align: center;
+	font-size: 14px;
+}
+	.login-field p {
+		text-align: center !important;
+	}
+	.page-login input[type="text"], .page-login input[type="password"] {
+		border: 1px solid #DFDFDF;
+		font-size: 14px;
+		padding: 9px 3%;
+		background: #fff;
+		width: 100%;
+		color: #A9A4A6;
+		border-radius: 5px;
+		margin: 3px 0 5px 0;
+	}
+.submit-btn {
+	display: block;
+	padding: 10px 0;
+	background: #ED7016;
+	color: #fff;
+	cursor: pointer;
+	width: 100%;
+	border: none;
+	margin-top: 23px;
+	font-size: 14px;
+	border-radius: 4px;
+	margin-bottom: 20px
+}
+.page-login .text-danger {
+	text-align: left;
+	color: #fa0000;
+	font-size: 11px;
+}
+.checkbox {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+.checkbox input {
+	margin-top: 12px;
+}
+@media all and (max-width: 768px) {
+	.page-login h2 {
+		font-size: 30px;
+		line-height: 40px;
+	}
+	.page-login {
+		width: 70%;
+	}
+}
+@media all and (max-width: 600px) {
+	.page-login h2 {
+		font-size: 26px;
+		line-height: 36px;
+	}
+
+	.page-login {
+		width: 80%;
+	}
+}
