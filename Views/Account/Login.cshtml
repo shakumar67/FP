@@ -4,47 +4,133 @@
     ViewBag.Title = "Log in";
     Layout = null;
 }
-
-<!DOCTYPE html>
-<html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Family Planning</title>
-    <link href="~/Content/Logincss.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Family Planning | FP</title>
+    <link href="~/Content/img/icon.png" rel="icon" />
+    <link href="~/Content/banner/style.css" rel="stylesheet" />
+    <link href="~/Content/css/login.css" rel="stylesheet" />
+    <link href="~/Content/css/responsive.css" rel="stylesheet" />
+    <link href="~/Content/css/fonts.css" rel="stylesheet" />
+    <script src="~/Content/js/submenu-2.js"></script>
 </head>
 <body>
-    <div class="form-bg">
-        <div><h2 class="title text-center" style="color: #137777 !important; font-weight: 600;"> Family Planning</h2></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4" style="margin-left:33% !important;">
-                    <div class="form-container">
-                        <h3 class="title">User Login</h3>
-                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <div class="form-icon">
-                                @*<img src="~/img/logo.png" alt="Alternate Text" />*@
-                                <i class="fa fa-user-circle"></i>
-                            </div>
-                            <h5 class="text-left text-danger">@Html.ValidationSummary(true, "", new { @class = "text-danger" })</h5>
-                            <div class="form-group">
-                                <span class="input-icon"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control" name="Email" placeholder="User name" required>
-                            </div>
-                            <div class="form-group">
-                                <span class="input-icon"><i class="fa fa-lock"></i></span>
-                                <input type="password" class="form-control" name="Password" placeholder="Password" required>
-                                <span class="text-danger"></span>
-                            </div>
-                            <button class="btn signin">Login</button>
+    <!-- Transparent Bg -->
+    <div class="transparent-bg"></div>
+    <!-- Banner -->
+    <div class="counter-page">
+        <div class="slider">
+            <script>
+                gallery_set = [{
+                    type: "image", image: "/Content/banner/ban1.jpg",
+                }, {
+                    type: "image", image: "/Content/banner/ban2.jpg",
+                }, {
+                    type: "image", image: "/Content/banner/ban3.jpg",
+                }, {
+                    type: "image", image: "/Content/banner/ban4.jpg",
+                },]
+                jQuery(document).ready(function () {
+                    jQuery('html').addClass('hasPag');
+                    jQuery('.custom_bg').remove();
+                    jQuery('body').fs_gallery({
+                        fx: 'fade',
+                        fit: 'no_fit',
+                        slide_time: 4000,
+                        autoplay: 1,
+                        show_controls: 1,
+                        slides: gallery_set
+                    });
+                    jQuery('.fs_share').click(function () {
+                        jQuery('.fs_fadder').removeClass('hided');
+                        jQuery('.fs_sharing_wrapper').removeClass('hided');
+                        jQuery('.fs_share_close').removeClass('hided');
+                    });
+                    jQuery('.fs_share_close').click(function () {
+                        jQuery('.fs_fadder').addClass('hided');
+                        jQuery('.fs_sharing_wrapper').addClass('hided');
+                        jQuery('.fs_share_close').addClass('hided');
+                    });
+                    jQuery('.fs_fadder').click(function () {
+                        jQuery('.fs_fadder').addClass('hided');
+                        jQuery('.fs_sharing_wrapper').addClass('hided');
+                        jQuery('.fs_share_close').addClass('hided');
+                    });
+
+                    jQuery('.fs_controls').addClass('up_me');
+                    jQuery('.fs_title_wrapper ').addClass('up_me');
+
+                    jQuery('.close_controls').click(function () {
+                        if (jQuery(this).hasClass('open_controls')) {
+                            jQuery('.fs_controls').removeClass('hide_me');
+                            jQuery('.fs_title_wrapper ').removeClass('hide_me');
+                            jQuery('.fs_thmb_viewport').removeClass('hide_me');
+                            jQuery('header.main_header').removeClass('hide_me');
+                            jQuery(this).removeClass('open_controls');
+                        } else {
+                            jQuery('header.main_header').addClass('hide_me');
+                            jQuery('.fs_controls').addClass('hide_me');
+                            jQuery('.fs_title_wrapper ').addClass('hide_me');
+                            jQuery('.fs_thmb_viewport').addClass('hide_me');
+                            jQuery(this).addClass('open_controls');
                         }
-                    </div>
-                </div>
-            </div>
+                    });
+                });
+            </script>
         </div>
     </div>
+    <!-- Header -->
+    <div class="main-header">
+        <div class="logo csf">
+            <img src="~/Content/img/fp-logo.png" alt="jeevika" />
+        </div>
+        <div class="logo rtr">
+            <img src="~/Content/img/pci.png" alt="pci" />
+        </div>
+        <div class="logo kpmg">
+            <img src="~/Content/img/nrh.png" alt="ational health" />
+        </div>
+        @*<div class="logo ci">
+            <img src="~/Content/img/fp-logo.png" alt="" />
+        </div>*@
+    </div>
+    <!-- Login -->
+    <div class="page-login">
+        <h2>Family Planning (FP)</h2>
+        <div class="login-field">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <!-- <h3>Login</h3> -->
+                <label>Email Address</label>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "example@gmail.com" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                <label>Password</label>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "123456" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe)
+                </div>
+                @*<a href="#">Forgot Password</a>*@
+                <div class="breaker"></div>
+                <input type="submit" value="Login" class="submit-btn" />
+                <p>
+                    @Html.ActionLink("Register now", "Register")
+                </p>
+            }
+        </div>
+    </div>
+    
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+
+    <script src="~/Content/banner/js/themed19b.js"></script>
+    <script src="~/Content/banner/js/fs_galleryd19b.js"></script>
 </body>
-</html>
