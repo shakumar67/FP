@@ -21,8 +21,8 @@
         <EntityTypeShape EntityType="FP_DBModel.Tbl_ExceptionHandle" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="FP_DBModel.Month_Master" Width="1.5" PointX="10.375" PointY="0.75" />
         <EntityTypeShape EntityType="FP_DBModel.Year_Master" Width="1.5" PointX="10.375" PointY="8.75" />
-        <EntityTypeShape EntityType="FP_DBModel.ModuleRollout_Master" Width="1.5" PointX="9.375" PointY="11.75" />
-        <EntityTypeShape EntityType="FP_DBModel.TBL_Beneficiary" Width="1.5" PointX="11.375" PointY="11.75" />
+        <EntityTypeShape EntityType="FP_DBModel.ModuleRollout_Master" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="FP_DBModel.TBL_Beneficiary" Width="1.5" PointX="7.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

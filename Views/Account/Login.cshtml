@@ -105,23 +105,23 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <!-- <h3>Login</h3> -->
-                <label>Email Address</label>
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "example@gmail.com" })
+                <label>User Name</label>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "User Name" })
                 @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
 
                 <label>Password</label>
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "123456" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 <div class="checkbox">
-                    @Html.CheckBoxFor(m => m.RememberMe)
-                    @Html.LabelFor(m => m.RememberMe)
+                    @*@Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe)*@
                 </div>
                 @*<a href="#">Forgot Password</a>*@
                 <div class="breaker"></div>
                 <input type="submit" value="Login" class="submit-btn" />
-                <p>
+                @*<p>
                     @Html.ActionLink("Register now", "Register")
-                </p>
+                </p>*@
             }
         </div>
     </div>

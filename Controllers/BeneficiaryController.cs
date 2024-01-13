@@ -27,7 +27,7 @@ namespace FP.Controllers
         {
             BeneficiaryModel model = new BeneficiaryModel();
             model.HindiEng = HindiEng;
-            if (Id !=Guid.Empty)
+            if (Id !=Guid.Empty && Id !=null)
             {
                 var tbl = db.TBL_Beneficiary.Find(Id);
                 if (tbl != null)

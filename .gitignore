@@ -29,3 +29,5 @@ obj/Debug/edmxResourcesToEmbed/Models/DB_Model.msl
 /obj/Debug/TempPE/Models.DB_Model.Designer.cs.dll
 /.vs/FP/v17/.suo
 /.gitignore
+*.cache
+*.cache
