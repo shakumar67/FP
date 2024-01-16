@@ -888,7 +888,7 @@ namespace FP.Manager
         {
             List<SelectListItem> list = new List<SelectListItem>();
             //list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "2", Text = "No" });
+            list.Add(new SelectListItem { Value = "0", Text = "No" });
             list.Add(new SelectListItem { Value = "1", Text = "Yes" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
@@ -906,6 +906,12 @@ namespace FP.Manager
         {
             List<SelectListItem> list = new List<SelectListItem>();
             list = new SelectList(dbe.ModuleRollout_Master.Where(x => x.IsActive == true), "ID", "ModuleName").OrderBy(x => x.Text).ToList();
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
+        public static List<SelectListItem> GetSubject()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list = new SelectList(dbe.Subject_Master.Where(x => x.IsActive == true), "ID", "Subject").OrderBy(x => x.Text).ToList();
             return list.OrderByDescending(x => x.Text).ToList();
         }
         public static List<SelectListItem> GetSHGAffiliation()
@@ -1736,6 +1742,16 @@ namespace FP.Manager
         {
             return Decimal.TryParse(str, out decimal res) ? res : 0M;
         }
-
+        public class RoleName
+        {
+            public string Admin = "Admin";
+            public string BPMU = "BPMU";
+            public string BPIU = "BPIU";
+            public string State = "State";
+            public string Viewer = "Viewer";
+            public string District = "District";
+            public string CNRP = "CNRP";
+            public string CM = "CM";
+        }
     }
 }

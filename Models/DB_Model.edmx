@@ -114,6 +114,37 @@
           <Property Name="LGD_State_Code" Type="int" Nullable="false" />
           <Property Name="StateName" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="Subject_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_Achvt">
+          <Key>
+            <PropertyRef Name="AchvtID_pk" />
+          </Key>
+          <Property Name="AchvtID_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PlanId_fk" Type="uniqueidentifier" />
+          <Property Name="BFYId_fk" Type="uniqueidentifier" />
+          <Property Name="IsPeerPresent" Type="bit" />
+          <Property Name="IsFollowUpHV" Type="bit" />
+          <Property Name="IsContraception" Type="bit" />
+          <Property Name="ContraceptionId_fk" Type="int" />
+          <Property Name="UseMethodId_fk" Type="int" />
+          <Property Name="Isservice" Type="bit" />
+          <Property Name="ServiceRevcDt" Type="date" />
+          <Property Name="ServiceProvider" Type="int" />
+          <Property Name="Location" Type="nvarchar(max)" />
+          <Property Name="CMEligible" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CNRPEligible" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="TBL_Beneficiary">
           <Key>
             <PropertyRef Name="Beneficiary_Id_pk" />
@@ -190,6 +221,28 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Plan">
+          <Key>
+            <PropertyRef Name="PlanID_pk" />
+          </Key>
+          <Property Name="PlanID_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DistrictId_fk" Type="int" />
+          <Property Name="BlockId_fk" Type="int" />
+          <Property Name="PanchayatId_fk" Type="int" />
+          <Property Name="VoId_fk" Type="int" />
+          <Property Name="PlanDt" Type="date" />
+          <Property Name="HVDt" Type="date" />
+          <Property Name="IsBFY" Type="int" />
+          <Property Name="DOMDt" Type="date" />
+          <Property Name="DOMHVDt" Type="date" />
+          <Property Name="SubjectId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsCount" Type="int" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="VO_Master">
@@ -281,9 +334,12 @@
           <EntitySet Name="Month_Master" EntityType="Self.Month_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Panchayat_Master" EntityType="Self.Panchayat_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject_Master" EntityType="Self.Subject_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Achvt" EntityType="Self.tbl_Achvt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Beneficiary" EntityType="Self.TBL_Beneficiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Emp" EntityType="Self.TBL_Emp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_ExceptionHandle" EntityType="Self.Tbl_ExceptionHandle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Plan" EntityType="Self.tbl_Plan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VO_Master" EntityType="Self.VO_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Year_Master" EntityType="Self.Year_Master" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Block_Master_District_Master" Association="Self.FK_Block_Master_District_Master">
@@ -424,6 +480,9 @@
           <EntitySet Name="Year_Master" EntityType="FP_DBModel.Year_Master" />
           <EntitySet Name="ModuleRollout_Master" EntityType="FP_DBModel.ModuleRollout_Master" />
           <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
+          <EntitySet Name="Subject_Master" EntityType="FP_DBModel.Subject_Master" />
+          <EntitySet Name="tbl_Achvt" EntityType="FP_DBModel.tbl_Achvt" />
+          <EntitySet Name="tbl_Plan" EntityType="FP_DBModel.tbl_Plan" />
         </EntityContainer>
         <EntityType Name="VO_Master">
           <Key>
@@ -572,6 +631,59 @@
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Subject_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tbl_Achvt">
+          <Key>
+            <PropertyRef Name="AchvtID_pk" />
+          </Key>
+          <Property Name="AchvtID_pk" Type="Guid" Nullable="false" />
+          <Property Name="PlanId_fk" Type="Guid" />
+          <Property Name="BFYId_fk" Type="Guid" />
+          <Property Name="IsPeerPresent" Type="Boolean" />
+          <Property Name="IsFollowUpHV" Type="Boolean" />
+          <Property Name="IsContraception" Type="Boolean" />
+          <Property Name="ContraceptionId_fk" Type="Int32" />
+          <Property Name="UseMethodId_fk" Type="Int32" />
+          <Property Name="Isservice" Type="Boolean" />
+          <Property Name="ServiceRevcDt" Type="DateTime" Precision="0" />
+          <Property Name="ServiceProvider" Type="Int32" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CMEligible" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CNRPEligible" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Plan">
+          <Key>
+            <PropertyRef Name="PlanID_pk" />
+          </Key>
+          <Property Name="PlanID_pk" Type="Guid" Nullable="false" />
+          <Property Name="DistrictId_fk" Type="Int32" />
+          <Property Name="BlockId_fk" Type="Int32" />
+          <Property Name="PanchayatId_fk" Type="Int32" />
+          <Property Name="VoId_fk" Type="Int32" />
+          <Property Name="PlanDt" Type="DateTime" Precision="0" />
+          <Property Name="HVDt" Type="DateTime" Precision="0" />
+          <Property Name="IsBFY" Type="Int32" />
+          <Property Name="DOMDt" Type="DateTime" Precision="0" />
+          <Property Name="DOMHVDt" Type="DateTime" Precision="0" />
+          <Property Name="SubjectId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsCount" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
@@ -804,6 +916,62 @@
                 <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
                 <ScalarProperty Name="HindiEng" ColumnName="HindiEng" />
                 <ScalarProperty Name="Beneficiary_Id_pk" ColumnName="Beneficiary_Id_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subject_Master">
+            <EntityTypeMapping TypeName="FP_DBModel.Subject_Master">
+              <MappingFragment StoreEntitySet="Subject_Master">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Achvt">
+            <EntityTypeMapping TypeName="FP_DBModel.tbl_Achvt">
+              <MappingFragment StoreEntitySet="tbl_Achvt">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CNRPEligible" ColumnName="CNRPEligible" />
+                <ScalarProperty Name="CMEligible" ColumnName="CMEligible" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ServiceProvider" ColumnName="ServiceProvider" />
+                <ScalarProperty Name="ServiceRevcDt" ColumnName="ServiceRevcDt" />
+                <ScalarProperty Name="Isservice" ColumnName="Isservice" />
+                <ScalarProperty Name="UseMethodId_fk" ColumnName="UseMethodId_fk" />
+                <ScalarProperty Name="ContraceptionId_fk" ColumnName="ContraceptionId_fk" />
+                <ScalarProperty Name="IsContraception" ColumnName="IsContraception" />
+                <ScalarProperty Name="IsFollowUpHV" ColumnName="IsFollowUpHV" />
+                <ScalarProperty Name="IsPeerPresent" ColumnName="IsPeerPresent" />
+                <ScalarProperty Name="BFYId_fk" ColumnName="BFYId_fk" />
+                <ScalarProperty Name="PlanId_fk" ColumnName="PlanId_fk" />
+                <ScalarProperty Name="AchvtID_pk" ColumnName="AchvtID_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Plan">
+            <EntityTypeMapping TypeName="FP_DBModel.tbl_Plan">
+              <MappingFragment StoreEntitySet="tbl_Plan">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsCount" ColumnName="IsCount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="DOMHVDt" ColumnName="DOMHVDt" />
+                <ScalarProperty Name="DOMDt" ColumnName="DOMDt" />
+                <ScalarProperty Name="IsBFY" ColumnName="IsBFY" />
+                <ScalarProperty Name="HVDt" ColumnName="HVDt" />
+                <ScalarProperty Name="PlanDt" ColumnName="PlanDt" />
+                <ScalarProperty Name="VoId_fk" ColumnName="VoId_fk" />
+                <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
+                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
+                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
+                <ScalarProperty Name="PlanID_pk" ColumnName="PlanID_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

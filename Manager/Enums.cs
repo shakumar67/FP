@@ -89,7 +89,6 @@ namespace FP.Manager
             Numeric = 1,
             [Description("Boolean")]
             Boolean = 2,
-
         }
         public enum OptionYesNo
         {
@@ -132,8 +131,6 @@ namespace FP.Manager
             SPMULeadReview = 4,
             [Description("Finalize Weekly Report")]
             SPMULeadFinalize = 5,
-
-
             [Description("Requested For Compiled Lead Revision")]
             CompiledLeadRevisionRequest = 6,
         }

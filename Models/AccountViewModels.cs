@@ -168,6 +168,25 @@ namespace FP.Models
         }
     }
 
+    public class UserViewModel
+    {
+        public string Id { get; set; }
+        public string PhoneNumber { get; set; }
+        public string DistrictId { get; set; }
+        public string District { get; set; }
+        public string BlockId { get; set; }
+        public string Block { get; set; }
+        public string Panchayatid { get; set; }
+        public string Panchayat { get; set; }
+        public string Void { get; set; }
+        public string Village_Organization { get; set; }
+        public string Role { get; set; }
+        public string RoleId { get; set; }
+        public string Name { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string LockoutEnabled { get; set; }
+    }
     public class ResetPasswordViewModel
     {
         [Required]
