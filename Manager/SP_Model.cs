@@ -61,6 +61,18 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataSet SPContraceptive(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("USP_Contraceptive");
+            sp.Command.AddParameter("@DistrictId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlockId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@PanchayatId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Role", "", DbType.String);
+            sp.Command.AddParameter("@CutUser", "", DbType.String);
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
 
         #region Beneficiary
         public static DataTable SPBFYList(FilterModel model)
