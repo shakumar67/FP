@@ -117,16 +117,36 @@ namespace FP.Manager
         {
             if (HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                if (HttpContext.Current.User.IsInRole("Consultant"))
+                if (HttpContext.Current.User.IsInRole("Admin")|| HttpContext.Current.User.IsInRole("State"))
                 {
-                    return "Consultant";
+                    return "all";
                 }
-                if (HttpContext.Current.User.IsInRole("Teacher"))
+                else if (HttpContext.Current.User.IsInRole("CNRP"))
                 {
-                    return "Teacher";
+                    return "CNRP";
+                }
+                else if (HttpContext.Current.User.IsInRole("CM"))
+                {
+                    return "CM";
+                }
+                else if (HttpContext.Current.User.IsInRole("BPIU"))
+                {
+                    return "BPIU";
+                }
+                else if (HttpContext.Current.User.IsInRole("BPMU"))
+                {
+                    return "BPMU";
+                }
+                else if(HttpContext.Current.User.IsInRole("Viewer"))
+                {
+                    return "Viewer";
+                }
+                else if (HttpContext.Current.User.IsInRole("District"))
+                {
+                    return "District";
                 }
             }
-            return "All";
+            return "all";
         }
         public static string GetUserRoleConsultantDist()
         {
@@ -254,12 +274,14 @@ namespace FP.Manager
             public int StateId { get; set; }
             public int DistrictId { get; set; }
             public int BlockId { get; set; }
-            public int ClusterId { get; set; }
+            public int PanchayatId { get; set; }
+            public int VoId { get; set; }
             public string UserId { get; set; }
             public string UserName { get; set; }
             public string DistrictName { get; set; }
             public string BlockName { get; set; }
-            public string ClusterName { get; set; }
+            public string PanchayatName { get; set; }
+            public string VillageOrgName { get; set; }
             public string Name { get; set; }
             public string PhoneNumber { get; set; }
             public string RoleId { get; set; }

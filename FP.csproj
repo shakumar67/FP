@@ -49,6 +49,9 @@
     <Reference Include="FoolproofValidation, Version=0.9.5851.39121, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Foolproof.0.9.4518\lib\net45\FoolproofValidation.dll</HintPath>
     </Reference>
+    <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ImageResizer.4.2.8\lib\net45\ImageResizer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNetCore.Authentication.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
     </Reference>
@@ -306,6 +309,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\Alert.cs" />
+    <Compile Include="Helper\Healpers.cs" />
+    <Compile Include="Helper\ImageUpload.cs" />
+    <Compile Include="Helper\MyHelper.cs" />
     <Compile Include="Manager\Alert.cs" />
     <Compile Include="Manager\APIService.cs" />
     <Compile Include="Manager\AppConstants.cs" />
@@ -462,6 +469,7 @@
     <Content Include="Content\lib\waypoints\waypoints.min.js" />
     <Content Include="Content\Logincss.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\DB_Model.Context.tt">
@@ -570,6 +578,10 @@
     <Content Include="Models\DB_Model.edmx.diagram">
       <DependentUpon>DB_Model.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -580,6 +592,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JS\accessibility.js" />
+    <Content Include="Scripts\JS\export-data.js" />
+    <Content Include="Scripts\JS\exporting.js" />
+    <Content Include="Scripts\JS\highcharts.js" />
     <Content Include="Scripts\JS\jquery-ui.js" />
     <Content Include="Scripts\JS\jquery.autocompleteDropdown.js" />
     <Content Include="Scripts\JS\Master.js" />
