@@ -21,6 +21,9 @@ $(function () {
     $('.datepicker').datepicker({
         dateFormat: 'dd-M-yy',
         maxDate: '0',
+        maxDate: "+1M +10D",
+        changeMonth: true,
+        changeYear: true,
     });
     //$('.datepicker').datepicker({
     //    format: 'dd-M-yyyy',

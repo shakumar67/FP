@@ -12,7 +12,7 @@ namespace FP.Models
         {
             PlanID_pk = Guid.Empty;
         }
-        [Key]
+        //[Key]
         public System.Guid PlanID_pk { get; set; }
         public Nullable<int> DistrictId_fk { get; set; }
         public Nullable<int> BlockId_fk { get; set; }
@@ -21,6 +21,7 @@ namespace FP.Models
         public Nullable<System.DateTime> PlanDt { get; set; }
         public Nullable<System.DateTime> HVDt { get; set; }
         public Nullable<int> IsBFY { get; set; }
+        public bool IsCheckBFY { get; set; }
         public Nullable<System.DateTime> DOMDt { get; set; }
         public Nullable<System.DateTime> DOMHVDt { get; set; }
         public Nullable<int> SubjectId { get; set; }

@@ -936,6 +936,14 @@ namespace FP.Manager
             list = new SelectList(dbe.Subject_Master.Where(x => x.IsActive == true), "ID", "Subject").OrderBy(x => x.Text).ToList();
             return list.OrderByDescending(x => x.Text).ToList();
         }
+        public static List<SelectListItem> GetHVPMG()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem { Value = "1", Text = "Peer Group Meeting" });
+            list.Add(new SelectListItem { Value = "2", Text = "Home Visit" });
+            list.Add(new SelectListItem { Value = "3", Text = "Peer Group Meeting & Home Visit" });
+            return list.OrderBy(x => x.Value).ToList();
+        }
         public static List<SelectListItem> GetSHGAffiliation()
         {
             List<SelectListItem> list = new List<SelectListItem>();
