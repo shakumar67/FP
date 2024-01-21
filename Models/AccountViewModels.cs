@@ -92,6 +92,7 @@ namespace FP.Models
         public System.Guid EmpID_pk { get; set; }
         public string UserID_fk { get; set; }
         public string RoleID_fk { get; set; }
+        [Required]
         [Display(Name = "Role")]
         public string Roles { get; set; }
         [Display(Name = "District")]
@@ -104,9 +105,12 @@ namespace FP.Models
         public Nullable<int> VOId_fk { get; set; }
         [Display(Name = "Village Name")]
         public string VillageName { get; set; }
+        [Required]
+        [Display (Name ="Name")]
         public string EmpName { get; set; }
         [Display(Name = "Gender")]
         public string Gender { get; set; }
+        [Required]
         [Display(Name = "Mobile No")]
         public string MobileNo { get; set; }
         public Nullable<bool> IsActive { get; set; }

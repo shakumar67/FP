@@ -1764,16 +1764,16 @@ namespace FP.Manager
         {
             return Decimal.TryParse(str, out decimal res) ? res : 0M;
         }
-        public class RoleName
+        public class RoleNameCont
         {
-            public string Admin = "Admin";
-            public string BPMU = "BPMU";
-            public string BPIU = "BPIU";
-            public string State = "State";
-            public string Viewer = "Viewer";
-            public string District = "District";
-            public string CNRP = "CNRP";
-            public string CM = "CM";
+            public const string Admin = "Admin";
+            public const string BPMU = "BPMU";
+            public const string BPIU = "BPIU";
+            public const string State = "State";
+            public const string Viewer = "Viewer";
+            public const string District = "District";
+            public const string CNRP = "CNRP";
+            public const string CM = "CM";
         }
     }
 }

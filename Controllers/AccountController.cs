@@ -58,6 +58,7 @@ namespace FP.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            Session["CUser"] = null;
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -185,44 +186,45 @@ namespace FP.Controllers
                     int res = dbe.SaveChanges();
                     if (res > 0)
                     {
-                        return RedirectToAction("UserDetaillist","Master");
+                        return RedirectToAction("UserDetaillist", "Master");
                     }
                 }
                 else
                 {
-                    var user = new ApplicationUser {PhoneNumber=model.MobileNo.Trim(), UserName = model.MobileNo.Trim(), Email = model.MobileNo + "@gmail.com" };
+                    var user = new ApplicationUser { PhoneNumber = model.MobileNo.Trim(), UserName = model.MobileNo.Trim(), Email = model.MobileNo + "@gmail.com" };
                     var result = await UserManager.CreateAsync(user, model.MobileNo);
                     if (result.Succeeded)
                     {
                         //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                         var rolename = db_.AspNetRoles.Find(model.Roles).Name;
                         var result1 = UserManager.AddToRole(user.Id, rolename);
+                        if (!dbe.TBL_Emp.Any(x => x.MobileNo == user.PhoneNumber.Trim()))
+                        {
+                            TBL_Emp tbl = new TBL_Emp();
+                            tbl.EmpID_pk = Guid.NewGuid();
+                            tbl.UserID_fk = user.Id;
+                            tbl.RoleID_fk = model.Roles;
+                            tbl.DistrictID = model.DistrictId;
+                            tbl.BlockID = model.BlockId;
+                            tbl.PanchayatId = model.PanchayatId;
+                            tbl.VOId_fk = model.VOId_fk;
+                            tbl.EmpName = model.EmpName.Trim();
+                            tbl.VillageName = model.VillageName;
+                            tbl.Gender = model.Gender;
+                            tbl.MobileNo = model.MobileNo.Trim();
+                            tbl.IsActive = true;
+                            tbl.CreatedBy = User.Identity.Name;
+                            tbl.CreatedOn = DateTime.Now;
+                            db_.TBL_Emp.Add(tbl);
+                            int res = db_.SaveChanges();
 
-                        TBL_Emp tbl = new TBL_Emp();
-                        tbl.EmpID_pk = Guid.NewGuid();
-                        tbl.UserID_fk = user.Id;
-                        tbl.RoleID_fk = model.Roles;
-                        tbl.DistrictID = model.DistrictId;
-                        tbl.BlockID = model.BlockId;
-                        tbl.PanchayatId = model.PanchayatId;
-                        tbl.VOId_fk = model.VOId_fk;
-                        tbl.EmpName = model.EmpName.Trim();
-                        tbl.VillageName = model.VillageName;
-                        tbl.Gender = model.Gender;
-                        tbl.MobileNo = model.MobileNo.Trim();
-                        tbl.IsActive = true;
-                        tbl.CreatedBy = User.Identity.Name;
-                        tbl.CreatedOn = DateTime.Now;
-                        db_.TBL_Emp.Add(tbl);
-                        int res = db_.SaveChanges();
+                            var ap = dbe.AspNetUsers.Find(user.Id);
+                            ap.CreatedOn = DateTime.Now;
+                            ap.Emp_ID = tbl.EmpID_pk;
+                            //ap.PhoneNumber = model.MobileNo;
+                            dbe.SaveChanges();
 
-                        var ap = dbe.AspNetUsers.Find(user.Id);
-                        ap.CreatedOn = DateTime.Now;
-                        ap.Emp_ID = tbl.EmpID_pk;
-                        //ap.PhoneNumber = model.MobileNo;
-                        dbe.SaveChanges();
-
-
+                        }
                         // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                         // Send an email with this link
                         // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

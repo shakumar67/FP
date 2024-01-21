@@ -306,6 +306,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\PlanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -370,6 +371,7 @@
     <Compile Include="Models\Panchayat_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PlanModel.cs" />
     <Compile Include="Models\State_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
@@ -600,6 +602,7 @@
     <Content Include="Scripts\JS\jquery.autocompleteDropdown.js" />
     <Content Include="Scripts\JS\Master.js" />
     <Content Include="Scripts\JS\mgaccordion.js" />
+    <Content Include="Scripts\JS\Rolewise.js" />
     <Content Include="Scripts\JS\select2.min.js" />
     <Content Include="Scripts\JS\textcounter.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -647,6 +650,7 @@
     <Content Include="Views\Beneficiary\BFYList.cshtml" />
     <Content Include="Views\Beneficiary\_BFYData.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Plan\CreatePlan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

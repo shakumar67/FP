@@ -15,5 +15,7 @@ namespace FP.Models
         public string ToDt { get; set; }
         public string Name { get; set; }
         public string DOB { get; set; }
+        public string RoleId { get; set; }
+        public string Roles { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model FP.Models.FilterModel
+@using FP.Manager
+@{
 
 }
 <style>
@@ -15,38 +17,65 @@
     <p><a href="~/Account/Register"><i class="fa fa-add"></i>Register</a>  /User List</p>
 </div>
 <div class="container-fluid pt-4 px-4">
-    <div class="row">
-        <div id="subdata"></div>
+    @using (Html.BeginForm("GetUser", "Master", FormMethod.Post, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+    {
+        <div class="bg-light rounded h-100 p-4">
+            <div class="row">
+                @Html.LabelFor(m => m.RoleId, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.RoleId, CommonModel.GetRole(), null, new { @class = "form-select mb-3" })
+                </div>
+            </div>
+        </div>
+    }
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="subdata"></div>
+            </div>
+        </div>
     </div>
-</div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/JS/Master.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/JS/Master.js"></script>
 
-    <script>
-        $(document).ready(function () {
+<script>
+    $(document).ready(function () {
+        $('#Roles').change(function () {
             BindData();
         });
-        function BindData() {
-            $.ajax({
-                type: "GET",
-                url: document.baseURI + "/Master/GetUserDetailData",
-                data: JSON.stringify({ 'Roles': '' }),
-                cache: false,
-                success: function (res) {
-                    if (res.IsSuccess) {
-                        $("#subdata").html(res.Data);
-                    }
-                    $("#subdata").html(res.Data);
-                },
-                 error: function (req, error) {
-                    if (error === 'error') { error = req.statusText; }
-                    var errormsg = 'There was a communication error: ' + error;
-                    //Do To Message display
-                }
-            });
+        if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role'
+        || '@CommonModel.RoleNameCont.District' === '@MvcApplication.CUser.Role'
+        || '@CommonModel.RoleNameCont.BPIU' === '@MvcApplication.CUser.Role'
+        || '@CommonModel.RoleNameCont.BPMU' === '@MvcApplication.CUser.Role'
+        || '@CommonModel.RoleNameCont.District' === '@MvcApplication.CUser.Role'
+        ) {
+            $('#RoleId').val('@MvcApplication.CUser.RoleId');
+            $('#RoleId').attr("style", "pointer-events: none;");
+            BindData();
         }
-    </script>
+    });
+    function BindData() {
+        var rl = $('#RoleId').val();
+        $.ajax({
+            type: "GET",
+            url: document.baseURI + "/Master/GetUserDetailData",
+            data: { 'Roles': rl },
+            cache: false,
+            success: function (res) {
+                if (res.IsSuccess) {
+                    $("#subdata").html(res.Data);
+                }
+                $("#subdata").html(res.Data);
+            },
+            error: function (req, error) {
+                if (error === 'error') { error = req.statusText; }
+                var errormsg = 'There was a communication error: ' + error;
+                //Do To Message display
+            }
+        });
     }
+</script>
+}
 

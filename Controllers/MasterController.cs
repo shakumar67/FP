@@ -278,7 +278,7 @@ namespace FP.Controllers
         // GET: Master
         public ActionResult UserDetaillist()
         {
-            RegisterViewModel model = new RegisterViewModel();
+            FilterModel model = new FilterModel();
             return View(model);
         }
         public ActionResult GetUserDetailData(string Roles = "")
