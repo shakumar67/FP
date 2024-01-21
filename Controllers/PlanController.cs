@@ -97,7 +97,6 @@ namespace FP.Controllers
             resResponse4.MaxJsonLength = int.MaxValue;
             return resResponse4;
         }
-    }
         public ActionResult Details() 
         {
            return RedirectToAction("Index");
