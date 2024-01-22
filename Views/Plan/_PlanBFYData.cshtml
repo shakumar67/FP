@@ -1,0 +1,59 @@
+﻿@using System.Data
+@using FP.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+
+
+<table class="table table-bordered table-striped" id="tbl">
+    <thead class="text-center">
+        <tr>
+            <th>Srno.</th>
+            <th>Beneficiary<br /> ID</th>
+            @*<th>District</th>
+                <th>Block</th>
+                <th>Panchayat</th>
+                <th>Village <br />Organization</th>*@
+            <th>Reporting <br />Month</th>
+            <th>Health <br />Center </th>
+            <th>Name of<br />Beneficiary</th>
+            <th>Mobile no. of beneficiary</th>
+            <th>Modify</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (dt.Rows.Count > 0)
+            {
+                int srno = 1;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    <tr>
+                        <td class="text-center">@(srno++)</td>
+                        <td class="text-center">@dr["BFYID"]</td>
+                        @*<td class="text-left">@dr["DistrictName"]</td>
+                            <td class="text-left">@dr["Block"]</td>
+                            <td class="text-left">@dr["Panchayat"]</td>
+                            <td class="text-left">@dr["VO"]</td>*@
+                        <td class="text-center">@CommonModel.FormateDtDMY(dr["ReportingDate"].ToString())</td>
+                        <td class="text-left">@dr["HealthCenter"]</td>
+                        <td class="text-left">@dr["BFYName"]</td>
+                        <td class="text-center">@dr["BFYMobileNo"]</td>
+                        <td class="text-center">
+                            @*<a href="~/Beneficiary/Beneficiary?id=@dr["BpkID"]" class="btn btn-primary btn-sm"><i class="fa fa-add"></i></a>*@
+                            <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BpkID"]')" class="btn btn-primary btn-sm"><i class="fa fa-add"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>

@@ -48,7 +48,7 @@ namespace FP.Models
         public string Q7 { get; set; }
         [Required]
         public Nullable<int> Q8 { get; set; }
-        [RequiredIf("Q8", 1)]
+        [RequiredIf("Q8", 2)]
         public string Q9 { get; set; }
         [Required]
         public Nullable<int> Q10 { get; set; }

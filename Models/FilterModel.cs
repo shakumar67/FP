@@ -17,5 +17,8 @@ namespace FP.Models
         public string DOB { get; set; }
         public string RoleId { get; set; }
         public string Roles { get; set; }
+        public string CutUser { get; set; }
+        public string Month { get; set; }
+        public string Year { get; set; }
     }
 }

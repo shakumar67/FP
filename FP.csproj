@@ -651,6 +651,8 @@
     <Content Include="Views\Beneficiary\_BFYData.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Plan\CreatePlan.cshtml" />
+    <Content Include="Views\Plan\_PlanBFYData.cshtml" />
+    <Content Include="Views\Plan\_BFYPOP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

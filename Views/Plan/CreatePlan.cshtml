@@ -7,122 +7,144 @@
 <h2>CreatePlan</h2>
 
 
-@using (Html.BeginForm("CreatePlan", "Plan", FormMethod.Post, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.PlanID_pk)
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.DistrictId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
-            @Html.ValidationMessageFor(model => model.DistrictId_fk, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.BlockId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
-            @Html.ValidationMessageFor(model => model.BlockId_fk, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PanchayatId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
-            @Html.ValidationMessageFor(model => model.PanchayatId_fk, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.VoId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.VoId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
-            @Html.ValidationMessageFor(model => model.VoId_fk, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PlanDt, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PlanDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
-            @Html.ValidationMessageFor(model => model.PlanDt, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.HVDt, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HVDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
-            @Html.ValidationMessageFor(model => model.HVDt, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.IsBFY, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.IsBFY, CommonModel.GetHVPMG(), "Select", new { @class = "form-control" })
-            @*<div class="position-relative form-group">
-                    <div class="checkbox">
-                        @foreach (var item in CommonModel.GetHVPMG())
-                        {
-                            <span class="check-spacer">
-                                @Html.CheckBoxFor(model => model.IsCheckBFY, new { id = "IsCheckBFY" + item.Value, @required = "required" }) @item.Text
-                            </span>
-                        }
-                        @Html.ValidationMessageFor(model => model.IsCheckBFY, "", new { @class = "text-danger" })
+<div class="breadcrumb">
+    <h2>Create Plan</h2>
+    <p><a href="/"><i class="fa fa-home"></i></a> / Plan </p>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <div class="row">
+        @using (Html.BeginForm("CreatePlan", "Plan", FormMethod.Post, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.PlanID_pk)
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DistrictId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.DistrictId_fk, "", new { @class = "text-danger" })
                     </div>
-                </div>*@
-            @Html.ValidationMessageFor(model => model.IsBFY, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.DOMDt, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DOMDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
-            @Html.ValidationMessageFor(model => model.DOMDt, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BlockId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.BlockId_fk, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.DOMHVDt, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DOMHVDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
-            @Html.ValidationMessageFor(model => model.DOMHVDt, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PanchayatId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.PanchayatId_fk, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.SubjectId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.SubjectId, CommonModel.GetSubject(), "Select", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.VoId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.VoId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.VoId_fk, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-    <div class="mb-3">
-        <span class="check-spacer">
-            <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
-        </span>
-        <span class="check-spacer">
-            <a href="~/Plan/CreatePlan" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
-        </span>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PlanDt, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PlanDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.ValidationMessageFor(model => model.PlanDt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HVDt, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.HVDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.ValidationMessageFor(model => model.HVDt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsBFY, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.IsBFY, CommonModel.GetHVPMG(), "Select", new { @class = "form-control" })
+                        @*<div class="position-relative form-group">
+                                <div class="checkbox">
+                                    @foreach (var item in CommonModel.GetHVPMG())
+                                    {
+                                        <span class="check-spacer">
+                                            @Html.CheckBoxFor(model => model.IsCheckBFY, new { id = "IsCheckBFY" + item.Value, @required = "required" }) @item.Text
+                                        </span>
+                                    }
+                                    @Html.ValidationMessageFor(model => model.IsCheckBFY, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
+                        @Html.ValidationMessageFor(model => model.IsBFY, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" id="div-DOMDt" style="display:none;">
+                    @Html.LabelFor(model => model.DOMDt, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DOMDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.ValidationMessageFor(model => model.DOMDt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" id="div-DOMHVDt" style="display:none;">
+                    @Html.LabelFor(model => model.DOMHVDt, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DOMHVDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.ValidationMessageFor(model => model.DOMHVDt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SubjectId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SubjectId, CommonModel.GetSubject(), "Select", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <span class="check-spacer">
+                        <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
+                    </span>
+                    <span class="check-spacer">
+                        <a href="~/Plan/CreatePlan" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
+                    </span>
+                </div>
+
+            </div>
+        }
+       
+        <div class="row">
+            <div class="col=md-12" id="div-download"></div>
+            <div class="col=md-6"></div>
+            <div class="col=md-6"></div>
+            <div class="col=md-6"></div>
+            <div class="col-md-12">
+                <div id="subdata"></div>
+            </div>
+        </div>
+
     </div>
 </div>
-}
+
+@Html.Partial("_BFYPOP")
 
 @*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script src="~/Scripts/JS/Master.js"></script>
-<script>
+    <script src="~/Scripts/JS/Master.js"></script>
+    <script>
     $(document).ready(function () {
 
         var dateFormat = "mm/dd/yy",
@@ -155,11 +177,19 @@
             return date;
         }
 
-        $('input[name="IsCheckBFY"]').change(function () {
-        //    var Ischeck1 = this.checked;
-     //       var chckid1 = this.id;
-           // bindIscheck();
-           
+        $('#IsBFY').change(function () {
+            $('#DOMDt').val(''); $('#div-DOMDt').hide();
+            $('#DOMHVDt').val(''); $('#div-DOMHVDt').hide();
+            if ($(this).val() == "1") {
+                $('#div-DOMDt').show();
+            }
+            else if ($(this).val() == "2") {
+                $('#div-DOMHVDt').show();
+            }
+            else if ($(this).val() == "3") {
+                $('#div-DOMHVDt').show();
+                $('#div-DOMDt').show();
+            }
         });
 
             @*if ('@Model.PlanID_pk' != '00000000-0000-0000-0000-000000000000') {
@@ -169,7 +199,7 @@
 
             $("#btnsubmit").click(function (e) {
                 e.preventDefault();
-                CUVill();
+                CUData();
             });
 
             GetDistrict("DistrictId_fk", 0);
@@ -181,6 +211,9 @@
             });
             $('#PanchayatId_fk').change(function () {
                 GetVillage("VoId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
+            });
+            $('#VoId_fk').change(function () {
+                BindData();
             });
             if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
                 $('#DistrictId_fk').val(('@MvcApplication.CUser.DistrictId').toLowerCase());
@@ -219,59 +252,50 @@
             IsCheck = false;
         }
 
-       
-a        if (isvalid && IsCheck) {
-            var BeneficiaryModel = {}; var model = [];
-            PlanModel.Beneficiary_Id_pk = $('#Beneficiary_Id_pk').val();
-            PlanModel.HindiEng = $('#HindiEng').val();
+        if (isvalid && IsCheck) {
+            var PlanModel = new Object(); var model = [];
+            PlanModel.PlanID_pk = $('#PlanID_pk').val();
             PlanModel.DistrictId_fk = $('#DistrictId_fk').val();
             PlanModel.BlockId_fk = $('#BlockId_fk').val();
             PlanModel.PanchayatId_fk = $('#PanchayatId_fk').val();
-            PlanModel.VillageOId_fk = $('#VillageOId_fk').val();
-            PlanModel.ReportingMonth = $('#ReportingMonth').val();
-            PlanModel.ReportingYear = $('#ReportingYear').val();
-            PlanModel.HealthCenter = $('#HealthCenter').val();
-            PlanModel.Q1 = $('#Q1').val();
-            PlanModel.Q2 = $('#Q2').val();
-            PlanModel.Q3 = $('#Q3').val();
-            PlanModel.Q4 = $('#Q4').val();
-            PlanModel.Q5 = $('#Q5').val();
-            PlanModel.Q6 = $('#Q6').val();
-            PlanModel.Q7 = $('#Q7').val();
-            PlanModel.Q8 = $('input[name=Q8]:checked').val();
-            PlanModel.Q9 = $('#Q9').val();
-            PlanModel.Q10 = $('#Q10').val();
-            PlanModel.Q11 = $('#Q11').val();
-            PlanModel.Q12 = $('#Q12').val();
-            PlanModel.Q13 = $('#Q13').val();
-            PlanModel.BFYVillageName = $('#BFYVillageName').val();
-            PlanModel.Q14 = $('#Q14').val();
-            PlanModel.Q15 = $('#Q15').val();
-            PlanModel.Q16 = $('#Q16').val();
-            PlanModel.Q17 = $('#Q17').val();
-            PlanModel.Q18 = $('#Q18').val();
-            PlanModel.Q20 = $('#Q20').val();
-            PlanModel.Q21 = $('#Q21').val();
+            PlanModel.VillageOId_fk = $('#VoId_fk').val();
+            PlanModel.PlanDt = $('#PlanDt').val();
+            PlanModel.HVDt = $('#HVDt').val();
+            PlanModel.IsBFY = $('#IsBFY').val();
+            PlanModel.DOMDt = $('#DOMDt').val();
+            PlanModel.DOMHVDt = $('#DOMHVDt').val();
+            PlanModel.SubjectId = $('#SubjectId').val();
 
             model.push(PlanModel);
+
+            //let formData = new FormData();
+            //formData.append('PlanID_pk', $('#PlanID_pk').val());
+            //formData.append('DistrictId_fk', $('#DistrictId_fk').val());
+            //formData.append('BlockId_fk', $('#BlockId_fk').val());
+            //formData.append('PanchayatId_fk', $('#PanchayatId_fk').val());
+            //formData.append('VoId_fk', $('#VoId_fk').val());
+            //formData.append('PlanDt', $('#PlanDt').val());
+            //formData.append('HVDt', $('#HVDt').val());
+            //formData.append('IsBFY', $('#IsBFY').val());
+            //formData.append('DOMDt', $('#DOMDt').val());
+            //formData.append('DOMHVDt', $('#DOMHVDt').val());
+            //formData.append('SubjectId', $('#SubjectId').val());
+            var formData = $('#formid').serialize();
 
             $.ajax({
                 url: document.baseURI + "/Plan/CreatePlan",
                 type: "Post",
-                //data: formData,
+                data: formData,
+                //contentType: "application/json; charset=utf-8",
+                dataType: "json",
                 //cache: false,
                 //contentType: false,
                 //processData: false,
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(model),
-                global: false,
-                async: false,
-                dataType: "json",
+                //data: JSON.stringify(model),
                 success: function (resp) {
                     if (resp.StatusType == "success") {
                         toastr.success("Success", resp.Message);
-                        BindData();
-
+                        //BindData();
                     }
                     else {
                         toastr.error("Error", resp.Message);
@@ -292,37 +316,41 @@ a        if (isvalid && IsCheck) {
 
     }
 
-    function bindIscheck() {
-        var i_1 = 0; var i_2 = 0;
-        $('input[name="IsCheckBFY"]').each(function () {
-            var chckid = this.id;
-            var Ischeck = this.checked;
-            if ("IsCheckBFY3" == chckid && Ischeck) {
-                $(this).prop('checked', true);
-                $('#IsCheckBFY2').prop('checked', false);
-                $('#IsCheckBFY1').prop('checked', false);
-                $('#IsCheckBFY2').prop('readonly', false);
-                $('#IsCheckBFY1').prop('readonly', false);
-                i_1 = 0; i_2 = 0;
-                return false;
-            }
-            else if ("IsCheckBFY1" == chckid && Ischeck) {
-                i_1 = 1;
-            }
-            else if ("IsCheckBFY2" == chckid && Ischeck) {
-                i_2 = 1;
-            }
-            else {
-                $('#IsCheckBFY3').prop('checked', false);
-                $('#IsCheckBFY2').prop('checked', false);
-                $('#IsCheckBFY1').prop('checked', false);
-            }
-            if (i_1 == 1 && i_2 == 1) {
-                $('#IsCheckBFY2').prop('readonly', false);
-                $('#IsCheckBFY1').prop('readonly', false);
-            }
+        function BindData() {
+            var filtermodel = new Object();
+           filtermodel.DistrictId = $('#DistrictId_fk').val();
+           filtermodel.BlockId = $('#BlockId_fk').val();
+            filtermodel.PanchayatId = $('#PanchayatId_fk').val();
+           filtermodel.VoId = $('#VoId_fk').val();
 
+
+        $.ajax({
+            type: "GET",
+            url: document.baseURI + "/Plan/GetPlanBFYList",
+            data: filtermodel, //JSON.stringify({ 'DistrictId': $('#DistrictId_fk').val(), 'BlockId': $('#BlockId_fk').val(), 'PanchayatId': $('#Panchayatid_fk').val() }),
+            //cache: false,
+            success: function (res) {
+                if (res.IsSuccess) {
+                    $("#subdata").html(res.Data);
+                }
+                $("#subdata").html(res.Data);
+            },
+            error: function (req, error) {
+                if (error === 'error') { error = req.statusText; }
+                var errormsg = 'There was a communication error: ' + error;
+                //Do To Message display
+            }
         });
     }
-</script>
+
+
+    function DisplayPOP(BFYID) {
+        debugger;
+        //$('#exampleModalLong').modal();
+        //$('#myModal').modal('toggle');
+        //$('#myModal').modal('show');
+        $('#myModal').modal('show'); 
+    }
+
+    </script>
 }
