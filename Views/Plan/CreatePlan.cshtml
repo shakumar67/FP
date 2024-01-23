@@ -4,16 +4,13 @@
     ViewBag.Title = "CreatePlan";
 }
 
-<h2>CreatePlan</h2>
-
-
 <div class="breadcrumb">
     <h2>Create Plan</h2>
-    <p><a href="/"><i class="fa fa-home"></i></a> / Plan </p>
+    <p><a href="~/Plan/PlanList"><i class="fa fa-list"></i></a>Planning Lists / Add Plan </p>
 </div>
 <div class="container-fluid pt-4 px-4">
     <div class="row">
-        @using (Html.BeginForm("CreatePlan", "Plan", FormMethod.Post, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        @using (Html.BeginForm("CreatePlan", "Plan", FormMethod.Post, new { @class = "", @id = "CreatePlanformid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.PlanID_pk)
@@ -70,7 +67,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.IsBFY, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.IsBFY, CommonModel.GetHVPMG(), "Select", new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.IsBFY, CommonModel.GetHVPMG(1), null, new { @class = "form-control" })
                         @*<div class="position-relative form-group">
                                 <div class="checkbox">
                                     @foreach (var item in CommonModel.GetHVPMG())
@@ -105,7 +102,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.SubjectId, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.SubjectId, CommonModel.GetSubject(), "Select", new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.SubjectId, CommonModel.GetSubject(1), null, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -135,7 +132,7 @@
     </div>
 </div>
 
-@Html.Partial("_BFYPOP")
+@Html.Partial("_BFYPOP",Model.AchBFYModel)
 
 @*<div>
         @Html.ActionLink("Back to List", "Index")
@@ -145,95 +142,183 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/JS/Master.js"></script>
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        var dateFormat = "mm/dd/yy",
-            from = $("#PlanDt")
-                .datepicker({
+            var dateFormat = "mm/dd/yy",
+                from = $("#PlanDt")
+                    .datepicker({
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 3
+                    })
+                    .on("change", function () {
+                        to.datepicker("option", "minDate", getDate(this));
+                    }),
+                to = $("#DOMDt").datepicker({
                     defaultDate: "+1w",
                     changeMonth: true,
                     numberOfMonths: 3
                 })
-                .on("change", function () {
-                    to.datepicker("option", "minDate", getDate(this));
-                }),
-            to = $("#DOMDt").datepicker({
-                defaultDate: "+1w",
-                changeMonth: true,
-                numberOfMonths: 3
-            })
-                .on("change", function () {
-                    from.datepicker("option", "maxDate", getDate(this));
-                });
+                    .on("change", function () {
+                        from.datepicker("option", "maxDate", getDate(this));
+                    });
 
-        function getDate(element) {
-            var date;
-            try {
-                date = $.datepicker.parseDate(dateFormat, element.value);
-            } catch (error) {
-                date = null;
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
             }
 
-            return date;
-        }
+            $('#IsBFY').change(function () {
+                IsPGYHV();
+            });
 
-        $('#IsBFY').change(function () {
-            $('#DOMDt').val(''); $('#div-DOMDt').hide();
-            $('#DOMHVDt').val(''); $('#div-DOMHVDt').hide();
-            if ($(this).val() == "1") {
-                $('#div-DOMDt').show();
-            }
-            else if ($(this).val() == "2") {
-                $('#div-DOMHVDt').show();
-            }
-            else if ($(this).val() == "3") {
-                $('#div-DOMHVDt').show();
-                $('#div-DOMDt').show();
-            }
-        });
+             GetDistrict("DistrictId_fk", 0);
+             $('#DistrictId_fk').change(function () {
+                 GetBlock("BlockId_fk", 0, $(this).val());
+             });
+             $('#BlockId_fk').change(function () {
+                 GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $(this).val());
+             });
+             $('#PanchayatId_fk').change(function () {
+                 GetVillage("VoId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
+             });
+             $('#VoId_fk').change(function () {
+                 BindData();
+             });
+             if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
+                 $('#DistrictId_fk').val(('@MvcApplication.CUser.DistrictId').toLowerCase());
+                 $('#DistrictId_fk').attr("style", "pointer-events: none;");
+                 GetBlock('BlockId_fk', 0, $('#DistrictId_fk').val());
+                 $('#BlockId_fk').val(('@MvcApplication.CUser.BlockId').toLowerCase());
+                 $('#BlockId_fk').attr("style", "pointer-events: none;");
+                 GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
+                 $('#PanchayatId_fk').val(('@MvcApplication.CUser.Panchayatid').toLowerCase());
+                 $('#PanchayatId_fk').attr("style", "pointer-events: none;");
+                 GetVillage("VoId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#PanchayatId_fk').val());
+             }
 
-            @*if ('@Model.PlanID_pk' != '00000000-0000-0000-0000-000000000000') {
+            if ('@Model.PlanID_pk' != '00000000-0000-0000-0000-000000000000') {
                 debugger;
-                BindEdit();
-            }//End Edit Function*@
+                BindPlanEdit();
+            }//End Edit Function
 
-            $("#btnsubmit").click(function (e) {
+            $("#CreatePlanformid").submit(function (e) {
                 e.preventDefault();
-                CUData();
+                CUCreatePlanData();
             });
 
-            GetDistrict("DistrictId_fk", 0);
-            $('#DistrictId_fk').change(function () {
-                GetBlock("BlockId_fk", 0, $(this).val());
+            /* Achievement Function Start */
+            $('input[name=IsPeerPresent]').change(function () {
+                var value = $('input[name=IsPeerPresent]:checked').val();
+                $('#div-IsContraception').hide();
+                var value1 = $('input[name=IsFollowUpHV]:checked').val();
+                if (value == "true" || value1 =="true") {
+                    $('#div-IsContraception').show();
+                }
             });
-            $('#BlockId_fk').change(function () {
-                GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $(this).val());
+            $('input[name=IsFollowUpHV]').change(function () {
+                var value = $('input[name=IsFollowUpHV]:checked').val();
+                var value1 = $('input[name=IsPeerPresent]:checked').val();
+                $('#div-IsContraception').hide();
+                if (value == "true" || value1 == "true") {
+                    $('#div-IsContraception').show();
+                }
             });
-            $('#PanchayatId_fk').change(function () {
-                GetVillage("VoId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
+            $('input[name=IsContraception]').change(function () {
+                var value = $('input[name=IsContraception]:checked').val();
+                $('#div-ContraceptionId_fk').hide();
+                if (value == "true") {
+                    $('#div-ContraceptionId_fk').show();
+                }
             });
-            $('#VoId_fk').change(function () {
-                BindData();
+            $('input[name=Isservice]').change(function () {
+                var value = $('input[name=Isservice]:checked').val();
+                $('#div-Service').hide();
+                //$('#div-ServiceRevcDt').hide();
+                //$('#div-ServiceProvider').hide();
+                //$('#div-Location').hide();
+                if (value == "true") {
+                    $('#div-Service').show();
+                    $('#ServiceRevcDt').datepicker({
+                        dateFormat: 'dd-M-yy',
+                        maxDate: '0',
+                        maxDate: "+1M +10D",
+                        changeMonth: true,
+                        changeYear: true,
+                    });
+                    //$('#div-ServiceRevcDt').show();
+                    // $('#div-ServiceProvider').show();
+                    // $('#div-Location').show();
+                }
             });
-            if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
-                $('#DistrictId_fk').val(('@MvcApplication.CUser.DistrictId').toLowerCase());
-                $('#DistrictId_fk').attr("style", "pointer-events: none;");
-                GetBlock('BlockId_fk', 0, $('#DistrictId_fk').val());
-                $('#BlockId_fk').val(('@MvcApplication.CUser.BlockId').toLowerCase());
-                $('#BlockId_fk').attr("style", "pointer-events: none;");
-                GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
-                $('#PanchayatId_fk').val(('@MvcApplication.CUser.Panchayatid').toLowerCase());
-                $('#PanchayatId_fk').attr("style", "pointer-events: none;");
-                GetVillage("VoId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#PanchayatId_fk').val());
-            }
+            GetContraceptive("ContraceptionId_fk", 0);
+            $('#ContraceptionId_fk').change(function () {
+                $('#ContraceptionOther').val('');
+                $('#div-ContraceptionOther').hide();
+                $('#ContraceptionOther').removeAttr('required');
+                $('#div-UseMethodId_fk').hide();
+                $('#div-Isservice').hide();
+                $('#div-Service').hide();
+                GetContraceptiveChildList("UseMethodId_fk", 0, "");
+                $('#UseMethodId_fk').removeAttr('required');
+
+                if ($(this).val() == "1") {
+                    $('#div-UseMethodId_fk').show();
+                    GetContraceptiveChildList("UseMethodId_fk", 0, 1);
+                    $('#UseMethodId_fk').attr('required', 'required');
+                    $('#div-Isservice').show();
+                }
+                else if ($(this).val() == "2") {
+                    $('#div-UseMethodId_fk').show();
+                    GetContraceptiveChildList("UseMethodId_fk", 0, 2);
+                    $('#UseMethodId_fk').attr('required', 'required');
+                    $('#div-Isservice').show();
+                }
+                else if ($(this).val() == "4") {
+                    $('#ContraceptionOther').attr('required', 'required');
+                    $('#div-ContraceptionOther').show();
+                }
+                else {
+                    $('#div-ContraceptionOther').css('display', 'none');
+                    $('#div-UseMethodId_fk').css('display', 'none');
+                }
+
+            });
+
+            $("#AchBFYformid").submit(function (e) {
+                e.preventDefault();
+                CUAchBFYData();
+            });
+            /* Achievement Function End */
 
     });
 
-    function CUData() {
+        function IsPGYHV() {
+            $('#DOMDt').val(''); $('#div-DOMDt').hide();
+            $('#DOMHVDt').val(''); $('#div-DOMHVDt').hide();
+            if ($('#IsBFY').val() == "1") {
+                $('#div-DOMDt').show();
+            }
+            else if ($('#IsBFY').val() == "2") {
+                $('#div-DOMHVDt').show();
+            }
+            else if ($('#IsBFY').val() == "3") {
+                $('#div-DOMHVDt').show();
+                $('#div-DOMDt').show();
+            }
+        }
+
+    function CUCreatePlanData() {
         debugger;
         //var vl = $.validator.unobtrusive.parse("#formid");
-        //var Isvalid= $("#formid").validate();
-        var isvalid = $("#formid").valid();
+        //var Isvalid= $("#formid").validate();//CreatePlanformid
+        var isvalid = $("#CreatePlanformid").valid();
         var IsCheck = true;
         if ($('#DistrictId_fk').val() == '') {
             toastr.error("Error", 'Please Select District');
@@ -280,7 +365,7 @@
             //formData.append('DOMDt', $('#DOMDt').val());
             //formData.append('DOMHVDt', $('#DOMHVDt').val());
             //formData.append('SubjectId', $('#SubjectId').val());
-            var formData = $('#formid').serialize();
+            var formData = $('#CreatePlanformid').serialize();
 
             $.ajax({
                 url: document.baseURI + "/Plan/CreatePlan",
@@ -314,9 +399,39 @@
             return false;
         }
 
+        }
+    function BindPlanEdit() {
+        debugger;
+        $('#PlanID_pk').val('@Model.PlanID_pk');
+        $('#DistrictId_fk').val('@Model.DistrictId_fk');
+        GetBlock('BlockId_fk', 0, $('#DistrictId_fk').val());
+        $('#BlockId_fk').val('@Model.BlockId_fk');
+        GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
+        $('#PanchayatId_fk').val('@Model.PanchayatId_fk');
+        GetVillage("VoId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#PanchayatId_fk').val());
+        $('#VoId_fk').val('@Model.VoId_fk');
+        $('#PlanDt').val(moment('@Model.PlanDt').format("DD-MMM-YYYY"));
+        $('#HVDt').val(moment('@Model.HVDt').format("DD-MMM-YYYY"));
+        
+        $('#IsBFY').val('@Model.IsBFY');
+        $('#DOMDt').val(moment('@Model.DOMDt').format("DD-MMM-YYYY"));
+        $('#DOMHVDt').val(moment('@Model.DOMHVDt').format("DD-MMM-YYYY"));
+        $('#SubjectId').val('@Model.SubjectId');
+        $('#div-DOMDt').hide(); $('#div-DOMHVDt').hide();
+        if ($('#IsBFY').val() == "1") {
+            $('#div-DOMDt').show();
+        }
+        else if ($('#IsBFY').val() == "2") {
+            $('#div-DOMHVDt').show();
+        }
+        else if ($('#IsBFY').val() == "3") {
+            $('#div-DOMHVDt').show();
+            $('#div-DOMDt').show();
+        }
     }
 
-        function BindData() {
+    /* Achievement Function */
+    function BindData() {
             var filtermodel = new Object();
            filtermodel.DistrictId = $('#DistrictId_fk').val();
            filtermodel.BlockId = $('#BlockId_fk').val();
@@ -342,15 +457,111 @@
             }
         });
     }
-
-
-    function DisplayPOP(BFYID) {
+    function DisplayPOP(BpkID, PlanID_pk) {
         debugger;
         //$('#exampleModalLong').modal();
         //$('#myModal').modal('toggle');
         //$('#myModal').modal('show');
-        $('#myModal').modal('show'); 
-    }
+            if (BpkID && PlanID_pk) {
+                $('#myModal').modal('show');
+                $('#BFYId_fk').val(BpkID);
+                $('#PlanId_fk').val(PlanID_pk);
+                //$('#ServiceRevcDt').datepicker({
+                //    dateFormat: 'dd-M-yy',
+                //    maxDate: '0',
+                //    maxDate: "+1M +10D",
+                //    changeMonth: true,
+                //    changeYear: true,
+                //});
+            }
+        }
+    function CUAchBFYData() {
+        debugger;
+        //var vl = $.validator.unobtrusive.parse("#formid");
+        //var Isvalid= $("#formid").validate();//CreatePlanformid
+        var isvalid = $("#AchBFYformid").valid();
+        var IsCheck = true;
+        IsCheck = $('#BFYId_fk').val() == '' ? false : true;
+        IsCheck = $('#PlanId_fk').val() == '' ? false : true;
+        if ($('input[name="IsPeerPresent"]:checked').length == 0) {
+            toastr.error("Error", 'Please Select Present in Peer Group Meeting');
+            IsCheck = false;
+        }
+        if ($('input[name="IsFollowUpHV"]:checked').length == 0) {
+            toastr.error("Error", 'Please Select FollowUp/HV in Current Month');
+            IsCheck = false;
+        }
+        if ($('input[name="IsPeerPresent"]:checked').length != 0 || $('input[name="IsFollowUpHV"]:checked').length != 0) {
+            if ($('input[name="IsContraception"]:checked').length == 0) {
+                toastr.error("Error", 'Please Select Want to use contraception after meeting/HV');
+                IsCheck = false;
+            }
+        }
+
+        if (isvalid && IsCheck) {
+            //var PlanModel = new Object(); var model = [];
+            //PlanModel.PlanID_pk = $('#PlanID_pk').val();
+            //PlanModel.DistrictId_fk = $('#DistrictId_fk').val();
+            //PlanModel.BlockId_fk = $('#BlockId_fk').val();
+            //PlanModel.PanchayatId_fk = $('#PanchayatId_fk').val();
+            //PlanModel.VillageOId_fk = $('#VoId_fk').val();
+            //PlanModel.PlanDt = $('#PlanDt').val();
+            //PlanModel.HVDt = $('#HVDt').val();
+            //PlanModel.IsBFY = $('#IsBFY').val();
+            //PlanModel.DOMDt = $('#DOMDt').val();
+            //PlanModel.DOMHVDt = $('#DOMHVDt').val();
+            //PlanModel.SubjectId = $('#SubjectId').val();
+
+            //model.push(PlanModel);
+
+            //let formData = new FormData();
+            //formData.append('PlanID_pk', $('#PlanID_pk').val());
+            //formData.append('DistrictId_fk', $('#DistrictId_fk').val());
+            //formData.append('BlockId_fk', $('#BlockId_fk').val());
+            //formData.append('PanchayatId_fk', $('#PanchayatId_fk').val());
+            //formData.append('VoId_fk', $('#VoId_fk').val());
+            //formData.append('PlanDt', $('#PlanDt').val());
+            //formData.append('HVDt', $('#HVDt').val());
+            //formData.append('IsBFY', $('#IsBFY').val());
+            //formData.append('DOMDt', $('#DOMDt').val());
+            //formData.append('DOMHVDt', $('#DOMHVDt').val());
+            //formData.append('SubjectId', $('#SubjectId').val());
+            var formData = $('#AchBFYformid').serialize();
+
+            $.ajax({
+                url: document.baseURI + "/Plan/AddAchBFY",
+                type: "Post",
+                data: formData,
+                //contentType: "application/json; charset=utf-8",
+                dataType: "json",
+               // processData: false, contentType: false,
+                //cache: false,
+                //contentType: false,
+                //processData: false,
+                //data: JSON.stringify(model),
+                success: function (resp) {
+                    if (resp.StatusType == "success") {
+                        toastr.success("Success", resp.Message);
+                        BindData();
+                    }
+                    else {
+                        toastr.error("Error", resp.Message);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    toastr.error("Error", errormsg);
+                    //jQuery.event.trigger("ajaxStop");
+                    return false;
+                }
+            });
+        }
+        else {
+            return false;
+        }
+
+        }
 
     </script>
 }

@@ -19,7 +19,7 @@
             <th>Health <br />Center </th>
             <th>Name of<br />Beneficiary</th>
             <th>Mobile no. of beneficiary</th>
-            <th>Modify</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +29,8 @@
                 int srno = 1;
                 foreach (DataRow dr in dt.Rows)
                 {
-                    <tr>
+                    var fcl = !string.IsNullOrWhiteSpace(dr["AchbgColor"].ToString()) ? "#fff;" : "";
+                    <tr class="@dr["AchbgColor"]" style="color:@fcl">
                         <td class="text-center">@(srno++)</td>
                         <td class="text-center">@dr["BFYID"]</td>
                         @*<td class="text-left">@dr["DistrictName"]</td>
@@ -42,7 +43,10 @@
                         <td class="text-center">@dr["BFYMobileNo"]</td>
                         <td class="text-center">
                             @*<a href="~/Beneficiary/Beneficiary?id=@dr["BpkID"]" class="btn btn-primary btn-sm"><i class="fa fa-add"></i></a>*@
-                            <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BpkID"]')" class="btn btn-primary btn-sm"><i class="fa fa-add"></i></a>
+                            @if (!string.IsNullOrEmpty(dr["PlanID_pk"].ToString()))
+                            {
+                                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#myModal" onclick="DisplayPOP('@dr["BpkID"]','@dr["PlanID_pk"]')" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add</a>
+                            }
                         </td>
                     </tr>
                 }

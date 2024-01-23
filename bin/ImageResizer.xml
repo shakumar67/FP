@@ -1,0 +1,1 @@
+        <member name="M:ImageResizer.AsyncInterceptModule.HandleRequest(System.Web.HttpContext,ImageResizer.Configuration.HttpModuleRequestAssistant,ImageResizer.Plugins.IVirtualFileAsync)">

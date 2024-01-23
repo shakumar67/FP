@@ -914,14 +914,18 @@ namespace FP.Manager
             list.Add(new SelectListItem { Value = "1", Text = "Yes" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetVisited()
+        public static List<SelectListItem> GetYesNotrue()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "Mother", Text = "Mother" });
-            list.Add(new SelectListItem { Value = "Father", Text = "Father" });
-            list.Add(new SelectListItem { Value = "Daughter", Text = "Daughter" });
-            list.Add(new SelectListItem { Value = "Brother", Text = "Brother" });
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "false", Text = "No" });
+            list.Add(new SelectListItem { Value = "true", Text = "Yes" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
+        public static List<SelectListItem> GetServiceProvider()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list = new SelectList(dbe.ServiceProvider_Master.Where(x => x.IsActive == true), "ID", "ServiceProvider").OrderBy(x => x.Text).ToList();
             return list.OrderByDescending(x => x.Text).ToList();
         }
         public static List<SelectListItem> GetModuleRollout()
@@ -930,15 +934,31 @@ namespace FP.Manager
             list = new SelectList(dbe.ModuleRollout_Master.Where(x => x.IsActive == true), "ID", "ModuleName").OrderBy(x => x.Text).ToList();
             return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetSubject()
+        public static List<SelectListItem> GetSubject(int Isval=1)
         {
             List<SelectListItem> list = new List<SelectListItem>();
             list = new SelectList(dbe.Subject_Master.Where(x => x.IsActive == true), "ID", "Subject").OrderBy(x => x.Text).ToList();
+            if (Isval==1)
+            {
+                list.Add(new SelectListItem { Value = "", Text = "Select" });
+            }
+            if (Isval == 2)
+            {
+                list.Add(new SelectListItem { Value = "all", Text = "all" });
+            }
             return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetHVPMG()
+        public static List<SelectListItem> GetHVPMG(int Isval = 1)
         {
             List<SelectListItem> list = new List<SelectListItem>();
+            if (Isval == 1)
+            {
+                list.Add(new SelectListItem { Value = "", Text = "Select" });
+            }
+            if (Isval == 2)
+            {
+                list.Add(new SelectListItem { Value = "all", Text = "all" });
+            }
             list.Add(new SelectListItem { Value = "1", Text = "Peer Group Meeting" });
             list.Add(new SelectListItem { Value = "2", Text = "Home Visit" });
             list.Add(new SelectListItem { Value = "3", Text = "Peer Group Meeting & Home Visit" });

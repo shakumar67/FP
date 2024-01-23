@@ -126,13 +126,13 @@ namespace FP.Controllers
                             tbl.BlockId_fk=item.BlockId_fk;
                             tbl.PanchayatId_fk=item.PanchayatId_fk;
                             tbl.VillageOId_fk=item.VillageOId_fk;
-                            tbl.CreatedBy = User.Identity.Name;
+                            tbl.CreatedBy = MvcApplication.CUser.Id;
                             tbl.CreatedOn = DateTime.Now;
                             tbllist.Add(tbl);
                         }
                         else
                         {
-                            tbl.UpdatedBy = User.Identity.Name;
+                            tbl.UpdatedBy = MvcApplication.CUser.Id;
                             tbl.UpdatedOn = DateTime.Now;
                             res += _db.SaveChanges();
                         }

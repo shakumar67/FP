@@ -11,6 +11,7 @@ namespace FP.Models
         public PlanModel()
         {
             PlanID_pk = Guid.Empty;
+            AchBFYModel =new AchBFYModel();
         }
         //[Key]
         public System.Guid PlanID_pk { get; set; }
@@ -38,9 +39,12 @@ namespace FP.Models
         public bool IsCheckBFY { get; set; }
         //[Required]
         [Display(Name = "Date of meeting held for Peer Group meeting")]
+        [ExpressiveAnnotations.Attributes.RequiredIf("(IsBFY==1 || IsBFY == 3))")]
         public Nullable<System.DateTime> DOMDt { get; set; }
         [Display(Name = "Date of HV")]
+        [ExpressiveAnnotations.Attributes.RequiredIf("(IsBFY==2 || IsBFY == 3))")]
         public Nullable<System.DateTime> DOMHVDt { get; set; }
+        [Display(Name = "Subject")]
         public Nullable<int> SubjectId { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<int> IsCount { get; set; }
@@ -48,5 +52,6 @@ namespace FP.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public  AchBFYModel AchBFYModel { get; set; }
     }
 }

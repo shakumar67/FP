@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="742047db48d24e8699766a36ca1e8c9e" Name="Diagram1" ZoomLevel="114">
+      <Diagram DiagramId="742047db48d24e8699766a36ca1e8c9e" Name="Diagram1" ZoomLevel="97">
         <EntityTypeShape EntityType="FP_DBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="FP_DBModel.AspNetUser" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="FP_DBModel.Block_Master" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
@@ -24,8 +24,9 @@
         <EntityTypeShape EntityType="FP_DBModel.ModuleRollout_Master" Width="1.5" PointX="7.375" PointY="8.75" />
         <EntityTypeShape EntityType="FP_DBModel.TBL_Beneficiary" Width="1.5" PointX="7.375" PointY="11.75" />
         <EntityTypeShape EntityType="FP_DBModel.Subject_Master" Width="1.5" PointX="9.375" PointY="11.75" />
-        <EntityTypeShape EntityType="FP_DBModel.tbl_Achvt" Width="1.5" PointX="11.375" PointY="11.75" />
         <EntityTypeShape EntityType="FP_DBModel.tbl_Plan" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FP_DBModel.ServiceProvider_Master" Width="1.5" PointX="3.375" PointY="12.75" />
+        <EntityTypeShape EntityType="FP_DBModel.tbl_Achvt" Width="1.5" PointX="11.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

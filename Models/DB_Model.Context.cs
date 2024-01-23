@@ -41,9 +41,8 @@ namespace FP.Models
         public virtual DbSet<ModuleRollout_Master> ModuleRollout_Master { get; set; }
         public virtual DbSet<TBL_Beneficiary> TBL_Beneficiary { get; set; }
         public virtual DbSet<Subject_Master> Subject_Master { get; set; }
-        public virtual DbSet<tbl_Achvt> tbl_Achvt { get; set; }
         public virtual DbSet<tbl_Plan> tbl_Plan { get; set; }
-
-        public System.Data.Entity.DbSet<FP.Models.PlanModel> PlanModels { get; set; }
+        public virtual DbSet<ServiceProvider_Master> ServiceProvider_Master { get; set; }
+        public virtual DbSet<tbl_Achvt> tbl_Achvt { get; set; }
     }
 }

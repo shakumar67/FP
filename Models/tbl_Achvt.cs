@@ -14,13 +14,14 @@ namespace FP.Models
     
     public partial class tbl_Achvt
     {
-        public System.Guid AchvtID_pk { get; set; }
+        public System.Guid AchvtBFYID_pk { get; set; }
         public Nullable<System.Guid> PlanId_fk { get; set; }
         public Nullable<System.Guid> BFYId_fk { get; set; }
         public Nullable<bool> IsPeerPresent { get; set; }
         public Nullable<bool> IsFollowUpHV { get; set; }
         public Nullable<bool> IsContraception { get; set; }
         public Nullable<int> ContraceptionId_fk { get; set; }
+        public string ContraceptionOther { get; set; }
         public Nullable<int> UseMethodId_fk { get; set; }
         public Nullable<bool> Isservice { get; set; }
         public Nullable<System.DateTime> ServiceRevcDt { get; set; }
@@ -28,6 +29,7 @@ namespace FP.Models
         public string Location { get; set; }
         public Nullable<decimal> CMEligible { get; set; }
         public Nullable<decimal> CNRPEligible { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }

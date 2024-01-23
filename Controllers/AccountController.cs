@@ -180,9 +180,12 @@ namespace FP.Controllers
                     tbLe.Gender = model.Gender;
                     tbLe.MobileNo = model.MobileNo;
                     tbLe.VillageName = model.VillageName;
+                    tbLe.UpdatedBy= MvcApplication.CUser.Id;
+                    tbLe.UpdatedOn= DateTime.Now;
                     tbLu.UserName = model.MobileNo;
                     tbLu.Email = model.MobileNo + "@gmail.com";
                     tbLu.PhoneNumber = model.MobileNo;
+                    
                     int res = dbe.SaveChanges();
                     if (res > 0)
                     {
@@ -213,7 +216,7 @@ namespace FP.Controllers
                             tbl.Gender = model.Gender;
                             tbl.MobileNo = model.MobileNo.Trim();
                             tbl.IsActive = true;
-                            tbl.CreatedBy = User.Identity.Name;
+                            tbl.CreatedBy = MvcApplication.CUser.Id;
                             tbl.CreatedOn = DateTime.Now;
                             db_.TBL_Emp.Add(tbl);
                             int res = db_.SaveChanges();

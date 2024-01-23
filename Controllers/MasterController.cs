@@ -360,13 +360,13 @@ namespace FP.Controllers
                     tbl.DistrictId_fk = model.DistrictId_fk;
                     tbl.BlockId_fk = model.BlockId_fk;
                     tbl.Panchayatid_fk = model.Panchayatid_fk;
-                    tbl.CreatedBy = User.Identity.Name;
+                    tbl.CreatedBy = MvcApplication.CUser.Id;
                     tbl.CreatedOn = DateTime.Now;
                     db.VO_Master.Add(tbl);
                 }
                 else
                 {
-                    tbl.UpdatedBy = User.Identity.Name;
+                    tbl.UpdatedBy = MvcApplication.CUser.Id;
                     tbl.UpdatedOn = DateTime.Now;
                 }
                 int res = db.SaveChanges();
