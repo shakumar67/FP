@@ -15,7 +15,7 @@
             <th>Village <br />Name </th>
             <th>Role</th>
             <th>Name</th>
-            <th>Gender</th>
+            @*<th>Gender</th>*@
             <th>Mobile No</th>
             <th>Modify</th>
         </tr>
@@ -37,7 +37,7 @@
                         <td>@dr["VillageName"]</td>
                         <td>@dr["Rolename"]</td>
                         <td>@dr["EmpName"]</td>
-                        <td>@dr["Gender"]</td>
+                        @*<td>@dr["Gender"]</td>*@
                         <td>@dr["MobileNo"]</td>
                         <td>
                             <a href="~/Account/Register?id=@dr["UserId"]&&empid=@dr["EmpID_pk"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
@@ -48,7 +48,7 @@
             else
             {
                 <tr>
-                    <td colspan="11" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                    <td colspan="10" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
                 </tr>
             }
         }

@@ -144,20 +144,23 @@
             /* Role Wise */
             BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId_fk");
 
-            if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
-               $('#Roles').val('@MvcApplication.CUser.RoleId');
-               // $('#Roles').attr("style", "pointer-events: none;");
-                 BindRole();
-               //$('#DistrictId').val(('@MvcApplication.CUser.DistrictId').toLowerCase());
-               //$('#DistrictId').attr("style", "pointer-events: none;");
-               //GetBlock('BlockId', 0, ('@MvcApplication.CUser.DistrictId').toLowerCase());
-                //$('#BlockId').val(('@MvcApplication.CUser.BlockId').toLowerCase());
-                //$('#BlockId').attr("style", "pointer-events: none;");
-                //GetPanchayat("PanchayatId", 0, ('@MvcApplication.CUser.DistrictId').toLowerCase(), ('@MvcApplication.CUser.BlockId').toLowerCase());
-                //$('#PanchayatId').val(('@MvcApplication.CUser.Panchayatid').toLowerCase());
-                //$('#PanchayatId').attr("style", "pointer-events: none;");
-                //GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
-        }
+            if ('@MvcApplication.CUser'!=='nul') {
+                    if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
+                           $('#Roles').val('@MvcApplication.CUser.RoleId');
+                           // $('#Roles').attr("style", "pointer-events: none;");
+                             BindRole();
+                           //$('#DistrictId').val(('@MvcApplication.CUser.DistrictId').toLowerCase());
+                           //$('#DistrictId').attr("style", "pointer-events: none;");
+                           //GetBlock('BlockId', 0, ('@MvcApplication.CUser.DistrictId').toLowerCase());
+                            //$('#BlockId').val(('@MvcApplication.CUser.BlockId').toLowerCase());
+                            //$('#BlockId').attr("style", "pointer-events: none;");
+                            //GetPanchayat("PanchayatId", 0, ('@MvcApplication.CUser.DistrictId').toLowerCase(), ('@MvcApplication.CUser.BlockId').toLowerCase());
+                            //$('#PanchayatId').val(('@MvcApplication.CUser.Panchayatid').toLowerCase());
+                            //$('#PanchayatId').attr("style", "pointer-events: none;");
+                            //GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
+                    }
+            }
+
 
         //$('#MobileNo').change(function () {
         //    var input = document.getElementById('MobileNo');
