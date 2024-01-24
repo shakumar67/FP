@@ -18,60 +18,88 @@ namespace FP.Models
         [Display(Name = "Language")]
         public Nullable<int> HindiEng { get; set; }
         [Required]
+        [Display (Name ="District")]
         public Nullable<int> DistrictId_fk { get; set; }
         [Required]
+        [Display(Name = "Block")]
         public Nullable<int> BlockId_fk { get; set; }
         [Required]
+        [Display(Name = "PanchayatId")]
         public Nullable<int> PanchayatId_fk { get; set; }
         [Required]
+        [Display(Name = "Village Organization")]
         public Nullable<int> VillageOId_fk { get; set; }
         [Required]
+        [Display(Name = "Reporting Month")]
         public Nullable<int> ReportingMonth { get; set; }
         [Required]
+        [Display(Name = "Reporting Year")]
         public Nullable<int> ReportingYear { get; set; }
         [Required]
+        [Display(Name = "Health Center")]
         public string HealthCenter { get; set; }
         [Required]
+        [Display(Name = "Village Name")]
         public string BFYVillageName { get; set; }
+        [Display(Name = "Beneficiary ID")]
         public string Q1 { get; set; }
         [Required]
+        [Display(Name = "Name of SHG")]
         public string Q2 { get; set; }
         [Required]
+        [Display(Name = "Name of Beneficiary")]
         public string Q3 { get; set; }
         [Required]
+        [Display(Name = "Age of Beneficiary (In year/Month)")]
         public Nullable<double> Q4 { get; set; }
         [Required]
+        [Display(Name = "Husband's name of Beneficiary")]
         public string Q5 { get; set; }
         [Required]
+        [Display(Name = "Date of marriage")]
         public Nullable<System.DateTime> Q6 { get; set; }
         [Required]
+        [Display(Name = "Mobile No")]
         public string Q7 { get; set; }
         [Required]
+        [Display(Name = "SHG Affiliation")]
         public Nullable<int> Q8 { get; set; }
         [RequiredIf("Q8", 2)]
+        [Display(Name = "Beneficiary's family member name who is associated with the SHG group")]
         public string Q9 { get; set; }
         [Required]
+        [Display(Name = "No of male child at present")]
         public Nullable<int> Q10 { get; set; }
         [Required]
+        [Display(Name = "No of female child at present")]
         public Nullable<int> Q11 { get; set; }
         [Required]
+        [Display(Name = "Age of youngest child (Year/months)")]
         public Nullable<double> Q12 { get; set; }
         [Required]
+        [Display(Name = "Code no of related AWC")]
         public string Q13 { get; set; }
         [Required]
+        [Display(Name = "Name of related ASHA")]
         public string Q14 { get; set; }
         [Required]
+        [Display(Name = "Which contraceptive method are you currently using")]
         public Nullable<int> Q15 { get; set; }
         [RequiredIf("Q15", 1)]
+        [Display(Name = "Temporary Method")]
         public Nullable<int> Q16 { get; set; }
         [RequiredIf("Q15", 2)]
+        [Display(Name = "Permanent Method")]
         public Nullable<int> Q17 { get; set; }
         [RequiredIf("Q15", 4)]
+        [Display(Name = "Other Method")]
         public string Q18 { get; set; }
         public Nullable<int> Q19 { get; set; }
         [Required]
+        [Display(Name = "Number of SHGs where module was rolled out")]
         public Nullable<int> Q20 { get; set; }
         [Required]
+        [Display(Name = "Medium of module rollout")]
         public Nullable<int> Q21 { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
@@ -245,11 +273,11 @@ namespace FP.Models
                 string CN = string.Empty;
                 if (HindiEng == 1)
                 {
-                    CN = "Age of Beneficiary (In year)";
+                    CN = "Age of Beneficiary (In year/Month)";
                 }
                 else if (HindiEng == 2)
                 {
-                    CN = "लाभार्थी का उम्र (वर्ष में)";
+                    CN = "लाभार्थी का उम्र (वर्ष में/माह)";
                 }
                 return CN;
             }

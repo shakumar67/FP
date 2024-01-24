@@ -262,6 +262,7 @@
             $('#PanchayatId_fk').change(function () {
                 GetVillage("VillageOId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
             });
+
             $('#Q15').change(function () {
                 $('#Q18').val('');
                 GetContraceptiveChildList("Q16", 0, "");
@@ -295,9 +296,10 @@
                     $('#div-Q16').css('display', 'none');
                 }
             });
-            //$('#BlockId_fk').change(function () {
-            //    GetPanchayat("Panchayatid_fk", 0, $('#DistrictId_fk').val(), $(this).val());
-            //});
+           
+            /* Role Wise */
+            BindRolewise("DistrictId_fk", "BlockId_fk", "PanchayatId_fk", "VillageOId_fk");
+
             if ('@Model.Beneficiary_Id_pk' != '00000000-0000-0000-0000-000000000000') {
                 debugger;
                 BindEdit();
@@ -309,8 +311,7 @@
             });
             //BindData();
 
-            /* Role Wise */
-            BindRolewise("DistrictId_fk", "BlockId_fk", "PanchayatId_fk", "VillageOId_fk");
+            
 
             @*if ('@CommonModel.RoleNameCont.CM' === '@MvcApplication.CUser.Role') {
                 $('#DistrictId_fk').val(('@MvcApplication.CUser.DistrictId').toLowerCase());
@@ -363,6 +364,8 @@
 
         function CUData() {
             debugger;
+            document.getElementById("btnsubmit").disabled = true;
+            //$("#btnsubmit").prop("disabled", true);
             //var vl = $.validator.unobtrusive.parse("#formid");
            //var Isvalid= $("#formid").validate();
             var isvalid = $("#formid").valid();
@@ -472,6 +475,8 @@
                         if (resp.StatusType == "success") {
                             toastr.success("Success", resp.Message);
                            // BindData();
+                            //InputClear();
+                            //$("#btnsubmit").attr("disabled", false);
 
                         }
                         else {
@@ -570,6 +575,85 @@
            }
             $('#Q20').val('@Model.Q20');
             $('#Q21').val('@Model.Q21');
+    }
+    function InputClear() {
+        $('#Beneficiary_Id_pk').val('@Guid.Empty');
+        $('#HindiEng').val('1');
+        $('#DistrictId_fk').val('');
+        $('#BlockId_fk').val('');
+        $('#PanchayatId_fk').val('');
+        $('#VillageOId_fk').val('');
+        GetDistrict("DistrictId_fk", 0);
+        GetContraceptive("Q15", 0);
+        GetBlock("BlockId_fk", 0, $('#DistrictId_fk').val())
+        GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
+        GetVillage("VillageOId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#PanchayatId_fk').val());
+
+        $('#ReportingMonth').val('');
+        $('#ReportingYear').val('');
+        $('#HealthCenter').val('');
+        $('#BFYVillageName').val('');
+        $('#Q1').val('');
+        $('#Q2').val('');
+        $('#Q3').val('');
+        $('#Q4').val('');
+        $('#Q5').val('');
+        $('#Q6').val('');
+        $('#Q7').val('');
+        $('#Q8').val('');
+        $('#Q9').val('');
+        $('#Q10').val('');
+        $('#Q11').val('');
+        $('#Q12').val('');
+        $('#Q13').val('');
+        $('#Q14').val('');
+        $('#Q15').val('');
+        $('#Q16').val('');
+        $('#Q17').val('');
+        $('#Q18').val('');
+        $('#Q19').val('');
+        $('#Q20').val('');
+        $('#Q21').val('');
+       
+        $('#div-q9').hide();
+        $('#Q9').removeAttr('required');
+       
+
+        $('#Q18').val('');
+        GetContraceptiveChildList("Q16", 0, "");
+        GetContraceptiveChildList("Q17", 0, "");
+        $('#Q16').removeAttr('required');
+        $('#Q17').removeAttr('required');
+        $('#Q18').removeAttr('required');
+        if ($('#Q15').val() == "1") {
+            GetContraceptiveChildList("Q16", 0, 1);
+            $('#div-Q18').css('display', 'none');
+            $('#div-Q17').css('display', 'none');
+            $('#div-Q16').css('display', 'block');
+            $('#Q16').attr('required', 'required');
+        }
+        else if ($('#Q15').val() == "2") {
+            GetContraceptiveChildList("Q17", 0, 2);
+            $('#div-Q18').css('display', 'none');
+            $('#div-Q17').css('display', 'block');
+            $('#div-Q16').css('display', 'none');
+            $('#Q17').attr('required', 'required');
+        }
+        else if ($('#Q15').val() == "4") {
+            $('#div-Q18').css('display', 'block');
+            $('#div-Q17').css('display', 'none');
+            $('#div-Q16').css('display', 'none');
+            $('#Q18').attr('required', 'required');
+        }
+        else {
+            $('#div-Q18').css('display', 'none');
+            $('#div-Q17').css('display', 'none');
+            $('#div-Q16').css('display', 'none');
+        }
+
+        /* Role Wise */
+        BindRolewise("DistrictId_fk", "BlockId_fk", "PanchayatId_fk", "VillageOId_fk");
+
     }
 
 </script>
