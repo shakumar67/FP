@@ -274,6 +274,40 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetYearList()
+        {
+            try
+            {
+                var items = CommonModel.GetYear(2);
+                if (items != null)
+                {
+                    var data = JsonConvert.SerializeObject(items);
+                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetMonthList()
+        {
+            try
+            {
+                var items = CommonModel.GetMonth(2);
+                if (items != null)
+                {
+                    var data = JsonConvert.SerializeObject(items);
+                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
         // GET: Master
         public ActionResult UserDetaillist()

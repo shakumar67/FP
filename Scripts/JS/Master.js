@@ -489,3 +489,65 @@ function GetContraceptiveChildList(Ele, Sel, Para1) {
   
     $('#' + Ele).trigger("chosen:updated");
 }
+
+
+function GetYearList(Ele, Sel) {
+    $('#' + Ele).empty();
+    $('#' + Ele).prop("disabled", false);
+    //$('#' + Ele).append($("<option>").val('').text('Select'));
+
+    $.ajax({
+        url: document.baseURI + "/Master/GetYearList",
+        type: "Post",
+        data: '',//JSON.stringify({ 'CID': Para1 }),
+        contentType: "application/json; charset=utf-8",
+        global: false,
+        async: false,
+        dataType: "json",
+        success: function (resp) {
+            if (resp.IsSuccess) {
+                var data = JSON.parse(resp.res);
+                $.each(data, function (i, exp) {
+                    $('#' + Ele).append($("<option>").val(exp.Value).text(exp.Text));
+                });
+            }
+        },
+        error: function (req, error) {
+            if (error === 'error') { error = req.statusText; }
+            var errormsg = 'There was a communication error: ' + error;
+            //Do To Message display
+        }
+    });
+
+    $('#' + Ele).trigger("chosen:updated");
+}
+function GetMonthList(Ele, Sel) {
+    $('#' + Ele).empty();
+    $('#' + Ele).prop("disabled", false);
+    //$('#' + Ele).append($("<option>").val('').text('Select'));
+  
+    $.ajax({
+        url: document.baseURI + "/Master/GetMonthList",
+            type: "Post",
+            data: '',//JSON.stringify({ 'CID': Para1 }),
+            contentType: "application/json; charset=utf-8",
+            global: false,
+            async: false,
+            dataType: "json",
+            success: function (resp) {
+                if (resp.IsSuccess) {
+                    var data = JSON.parse(resp.res);
+                    $.each(data, function (i, exp) {
+                        $('#' + Ele).append($("<option>").val(exp.Value).text(exp.Text));
+                    });
+                }
+            },
+            error: function (req, error) {
+                if (error === 'error') { error = req.statusText; }
+                var errormsg = 'There was a communication error: ' + error;
+                //Do To Message display
+            }
+        });
+
+    $('#' + Ele).trigger("chosen:updated");
+}
