@@ -474,8 +474,7 @@
                     success: function (resp) {
                         if (resp.StatusType == "success") {
                             toastr.success("Success", resp.Message);
-                           // BindData();
-                            //InputClear();
+                           // InputClear();
                             //$("#btnsubmit").attr("disabled", false);
 
                         }
@@ -614,7 +613,8 @@
         $('#Q19').val('');
         $('#Q20').val('');
         $('#Q21').val('');
-       
+
+        $('input[name=Q8]').removeAttr('checked');
         $('#div-q9').hide();
         $('#Q9').removeAttr('required');
        
