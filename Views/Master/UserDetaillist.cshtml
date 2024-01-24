@@ -42,7 +42,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#Roles').change(function () {
+        $('#RoleId').change(function (e) {
             BindData();
         });
         if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role'
@@ -52,7 +52,7 @@
         || '@CommonModel.RoleNameCont.District' === '@MvcApplication.CUser.Role'
         ) {
             $('#RoleId').val('@MvcApplication.CUser.RoleId');
-            $('#RoleId').attr("style", "pointer-events: none;");
+           // $('#RoleId').attr("style", "pointer-events: none;");
             BindData();
         }
     });

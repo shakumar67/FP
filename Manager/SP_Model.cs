@@ -23,11 +23,11 @@ namespace FP.Manager
         public static DataTable SPBlock(int DistrictId)
         {
             StoredProcedure sp = new StoredProcedure("SP_Block");
-            sp.Command.AddParameter("@DistrictId",DistrictId,DbType.Int32);
+            sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SPPanchayat(int DistrictId,int BlockId)
+        public static DataTable SPPanchayat(int DistrictId, int BlockId)
         {
             StoredProcedure sp = new StoredProcedure("SP_Panchayat");
             sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
@@ -35,7 +35,7 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SPVillage(int DistrictId,int BlockId,int PanchayatId)
+        public static DataTable SPVillage(int DistrictId, int BlockId, int PanchayatId)
         {
             StoredProcedure sp = new StoredProcedure("SP_Village");
             sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
@@ -44,11 +44,15 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SpUserDetails(string Roleid,string CutUser)
+        public static DataTable SpUserDetails(string Roleid, string CutUser)
         {
             StoredProcedure sp = new StoredProcedure("Usp_UserDetails");
+            sp.Command.AddParameter("@DisId", MvcApplication.CUser.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", MvcApplication.CUser.BlockId, DbType.String);
+            sp.Command.AddParameter("@PytId", MvcApplication.CUser.Panchayatid, DbType.String);
+            sp.Command.AddParameter("@VoId", MvcApplication.CUser.Void, DbType.String);
             sp.Command.AddParameter("@Roleid", Roleid, DbType.String);
-            sp.Command.AddParameter("@CutUser", CutUser, DbType.String);
+            sp.Command.AddParameter("@CutUser", CommonModel.GetUserRoleLogin(), DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -78,8 +82,8 @@ namespace FP.Manager
         public static DataTable SPBFYList(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_BFYList");
-           // sp.Command.AddParameter("@Roleid", Roleid, DbType.String);
-          //  sp.Command.AddParameter("@CutUser", CutUser, DbType.String);
+            // sp.Command.AddParameter("@Roleid", Roleid, DbType.String);
+            //  sp.Command.AddParameter("@CutUser", CutUser, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

@@ -21,6 +21,7 @@ using System.Xml;
 using System.Reflection;
 using SubSonic.Extensions;
 using System.ComponentModel.DataAnnotations;
+using FP.Helpers;
 
 namespace FP.Manager
 {
@@ -117,7 +118,7 @@ namespace FP.Manager
         {
             if (HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                if (HttpContext.Current.User.IsInRole("Admin")|| HttpContext.Current.User.IsInRole("State"))
+                if (HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("State"))
                 {
                     return "all";
                 }
@@ -137,7 +138,7 @@ namespace FP.Manager
                 {
                     return "BPMU";
                 }
-                else if(HttpContext.Current.User.IsInRole("Viewer"))
+                else if (HttpContext.Current.User.IsInRole("Viewer"))
                 {
                     return "Viewer";
                 }
@@ -322,9 +323,26 @@ namespace FP.Manager
         public static List<SelectListItem> GetRole(bool IsAll = false)
         {
             FP_DBEntities db_ = new FP_DBEntities();
+            List<SelectListItem> items = new List<SelectListItem>();
             try
             {
-                var items = new SelectList(db_.AspNetRoles, "ID", "Name").OrderBy(x => x.Text).ToList();
+                if (HttpContext.Current.User.IsInRole(RoleNameCont.CNRP))
+                {
+                    items = new SelectList(db_.AspNetRoles.Where(x => x.Name == RoleNameCont.CNRP || x.Name == RoleNameCont.CM), "ID", "Name").OrderBy(x => x.Text).ToList();
+                }
+                else if (HttpContext.Current.User.IsInRole(RoleNameCont.BPIU))
+                {
+                    items = new SelectList(db_.AspNetRoles.Where(x => x.Name == RoleNameCont.CNRP || x.Name == RoleNameCont.CM || x.Name == RoleNameCont.BPIU), "ID", "Name").OrderBy(x => x.Text).ToList();
+                }
+                else if (HttpContext.Current.User.IsInRole(RoleNameCont.BPMU))
+                {
+                    items = new SelectList(db_.AspNetRoles.Where(x => x.Name == RoleNameCont.CNRP || x.Name == RoleNameCont.CM || x.Name == RoleNameCont.BPIU || x.Name == RoleNameCont.BPMU), "ID", "Name").OrderBy(x => x.Text).ToList();
+                }
+                else
+                {
+                    items = new SelectList(db_.AspNetRoles, "ID", "Name").OrderBy(x => x.Text).ToList();
+                }
+
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -840,12 +858,12 @@ namespace FP.Manager
             }
             return list.ToList();
         }
-        public static List<SelectListItem> GetFunYearList(int isAddedSelect=0)
+        public static List<SelectListItem> GetFunYearList(int isAddedSelect = 0)
         {
             List<SelectListItem> list = new List<SelectListItem>();
 
             DateTime dt = DateTime.Now;
-            var year = 0; 
+            var year = 0;
             if (isAddedSelect == 1)
             {
                 list.Insert(0, new SelectListItem { Value = "", Text = "Select" });
@@ -859,7 +877,7 @@ namespace FP.Manager
                 }
                 else
                 {
-                    
+
                     year = dt.Year;
                 }
                 list.Add(new SelectListItem { Value = year.ToString(), Text = year.ToString() });
@@ -934,11 +952,11 @@ namespace FP.Manager
             list = new SelectList(dbe.ModuleRollout_Master.Where(x => x.IsActive == true), "ID", "ModuleName").OrderBy(x => x.Text).ToList();
             return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetSubject(int Isval=1)
+        public static List<SelectListItem> GetSubject(int Isval = 1)
         {
             List<SelectListItem> list = new List<SelectListItem>();
             list = new SelectList(dbe.Subject_Master.Where(x => x.IsActive == true), "ID", "Subject").OrderBy(x => x.Text).ToList();
-            if (Isval==1)
+            if (Isval == 1)
             {
                 list.Add(new SelectListItem { Value = "", Text = "Select" });
             }
@@ -987,11 +1005,11 @@ namespace FP.Manager
             }
             return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetYear(int isAddedSelect=0)
+        public static List<SelectListItem> GetYear(int isAddedSelect = 0)
         {
             List<SelectListItem> list = new List<SelectListItem>();
             list = new SelectList(dbe.Year_Master, "ID", "Year").OrderBy(x => x.Text).ToList();
-            if (isAddedSelect==1)
+            if (isAddedSelect == 1)
             {
                 list.Insert(0, new SelectListItem { Value = "", Text = "Select" });
             }
@@ -1001,7 +1019,7 @@ namespace FP.Manager
             }
             return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetMonth(int isAddedSelect=0)
+        public static List<SelectListItem> GetMonth(int isAddedSelect = 0)
         {
             FP_DBEntities _db = new FP_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
