@@ -92,6 +92,20 @@ namespace FP.Controllers
                 {
                     foreach (var item in model)
                     {
+                        string leftBFYName = item.Q3.Substring(0, 3);
+                        string leftBFYmobile = leftBFYName+item.Q7;
+                        if (_db.TBL_Beneficiary.Any(x=>x.Q1== leftBFYmobile))
+                        {
+                            var data1 = _db.TBL_Beneficiary.Where(x => x.Q1 == leftBFYmobile)?.FirstOrDefault();
+
+                            var d = Enums.GetEnumDescription(Enums.eReturnReg.Already);
+                            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Already) + "Beneficiary ID" + data1.Q1, Data = null };
+                            var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                            resResponse3.MaxJsonLength = int.MaxValue;
+                            return resResponse3;
+
+                        }
+
                         tbl= item.Beneficiary_Id_pk != Guid.Empty? _db.TBL_Beneficiary.Find(item.Beneficiary_Id_pk): new TBL_Beneficiary();
                         
                         tbl.HealthCenter= item.HealthCenter;

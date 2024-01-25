@@ -24,7 +24,7 @@
 </style>
 <div class="breadcrumb">
     <h2>Add Beneficiary</h2>
-    <p><a href="/"><i class="fa fa-home"></i></a> / Add Beneficiary</p>
+    <p><a href="~/Beneficiary/BFYList"><i class="fa fa-list"></i>Beneficiary List</a> / Add Beneficiary</p>
 </div>
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4ss">
@@ -86,7 +86,7 @@
                 </div>
                 <div class="mb-3">
                     @Html.Label(Model.Q4D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q4, new { htmlAttributes = new { @class = "form-control col-md-4", min = "10", max = "99.99", maxlength = "5", oninput = "maxLengthCheck(this)" } })
+                    @Html.EditorFor(m => m.Q4, new { htmlAttributes = new { @class = "form-control col-md-4 agevalid", min = "10", max = "99.99", maxlength = "5", oninput = "maxLengthCheck(this)" } })
                     @Html.ValidationMessageFor(m => m.Q4, "", new { @class = "text-danger" })
                 </div>
                 <div class="mb-3">
@@ -135,7 +135,7 @@
                 </div>
                 <div class="mb-3">
                     @Html.Label(Model.Q12D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q12, new { htmlAttributes = new { @class = "form-control col-md-4", min = "0", max = "99.99", maxlength = "4", oninput = "maxLengthCheck(this)" } })
+                    @Html.EditorFor(m => m.Q12, new { htmlAttributes = new { @class = "form-control col-md-4 agevalid", min = "0", max = "99.99", maxlength = "4", oninput = "maxLengthCheck(this)" } })
                     @Html.ValidationMessageFor(m => m.Q12, "", new { @class = "text-danger" })
                 </div>
                 <div class="mb-3">
@@ -296,6 +296,10 @@
                     $('#div-Q16').css('display', 'none');
                 }
             });
+
+            $('.agevalid').change(function () {
+                AgeGreater();
+            })
            
             /* Role Wise */
             BindRolewise("DistrictId_fk", "BlockId_fk", "PanchayatId_fk", "VillageOId_fk");
@@ -342,6 +346,19 @@
 
         });
 
+        function AgeGreater() {
+            var montherage = $('#Q4').val() != '' ? parseFloat($('#Q4').val()) : 0;
+            var childage = $('#Q12').val() != '' ? parseFloat($('#Q12').val()) : 0;
+            if ((montherage != 0 && montherage != undefined) && (AgeGreater != 0 && AgeGreater != undefined)) {
+                if (childage >  montherage) {
+                    toastr.error("error", "Age of Beneficiary (In year/Month) less than Age of youngest child (Year/months)");
+                    $('#Q12').val('');
+                    return false;
+                }
+            }
+            
+        }
+
         function BindData() {
             $.ajax({
                 type: "GET",
@@ -364,7 +381,7 @@
 
         function CUData() {
             debugger;
-            document.getElementById("btnsubmit").disabled = true;
+           
             //$("#btnsubmit").prop("disabled", true);
             //var vl = $.validator.unobtrusive.parse("#formid");
            //var Isvalid= $("#formid").validate();
@@ -425,6 +442,7 @@
            // formData.append('BM', JSON.stringify(BM_model));
 
             if (isvalid && IsCheck) {
+                document.getElementById("btnsubmit").disabled = true;
             var BeneficiaryModel = {};var model = [];
             BeneficiaryModel.Beneficiary_Id_pk = $('#Beneficiary_Id_pk').val();
             BeneficiaryModel.HindiEng = $('#HindiEng').val();
@@ -474,6 +492,7 @@
                     success: function (resp) {
                         if (resp.StatusType == "success") {
                             toastr.success("Success", resp.Message);
+                            //$("#formid")[0].reset();
                            // InputClear();
                             //$("#btnsubmit").attr("disabled", false);
 
@@ -575,7 +594,7 @@
             $('#Q20').val('@Model.Q20');
             $('#Q21').val('@Model.Q21');
     }
-    function InputClear() {
+        function InputClear() {
         $('#Beneficiary_Id_pk').val('@Guid.Empty');
         $('#HindiEng').val('1');
         $('#DistrictId_fk').val('');

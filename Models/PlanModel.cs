@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Foolproof;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace FP.Models
         public Nullable<int> VoId_fk { get; set; }
         [Required]
         [Display(Name = "Planning date for  Peer Group Meeting")]
+        [ExpressiveAnnotations.Attributes.AssertThat("DOMDt")]
         public Nullable<System.DateTime> PlanDt { get; set; }
         [Required]
         [Display(Name = "Planning date for HV")]
@@ -38,6 +40,7 @@ namespace FP.Models
         public Nullable<int> IsBFY { get; set; }
         public bool IsCheckBFY { get; set; }
         //[Required]
+        [ExpressiveAnnotations.Attributes.AssertThat("PlanDt")]
         [Display(Name = "Date of meeting held for Peer Group meeting")]
         [ExpressiveAnnotations.Attributes.RequiredIf("(IsBFY==1 || IsBFY == 3))")]
         public Nullable<System.DateTime> DOMDt { get; set; }

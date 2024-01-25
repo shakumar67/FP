@@ -51,6 +51,7 @@ namespace FP.Models
         public string Q3 { get; set; }
         [Required]
         [Display(Name = "Age of Beneficiary (In year/Month)")]
+        //[GreaterThanOrEqualTo("Q12")]
         public Nullable<double> Q4 { get; set; }
         [Required]
         [Display(Name = "Husband's name of Beneficiary")]
@@ -75,6 +76,7 @@ namespace FP.Models
         public Nullable<int> Q11 { get; set; }
         [Required]
         [Display(Name = "Age of youngest child (Year/months)")]
+        //[LessThan("Q4")]
         public Nullable<double> Q12 { get; set; }
         [Required]
         [Display(Name = "Code no of related AWC")]

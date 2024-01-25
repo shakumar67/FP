@@ -84,6 +84,14 @@ namespace FP.Manager
             StoredProcedure sp = new StoredProcedure("SP_BFYList");
             // sp.Command.AddParameter("@Roleid", Roleid, DbType.String);
             //  sp.Command.AddParameter("@CutUser", CutUser, DbType.String);
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", model.RoleId, DbType.String);
+            sp.Command.AddParameter("@CutUser", model.CutUser, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

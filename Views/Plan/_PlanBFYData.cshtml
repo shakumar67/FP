@@ -19,6 +19,7 @@
             <th>Health <br />Center </th>
             <th>Name of<br />Beneficiary</th>
             <th>Mobile no. of beneficiary</th>
+            <th>Reported By </th>
             <th></th>
         </tr>
     </thead>
@@ -41,11 +42,13 @@
                         <td class="text-left">@dr["HealthCenter"]</td>
                         <td class="text-left">@dr["BFYName"]</td>
                         <td class="text-center">@dr["BFYMobileNo"]</td>
+                        <td class="text-center">@dr["EmpName"]</td>
                         <td class="text-center">
                             @*<a href="~/Beneficiary/Beneficiary?id=@dr["BpkID"]" class="btn btn-primary btn-sm"><i class="fa fa-add"></i></a>*@
+                            @*data-bs-toggle="modal" data-bs-target="#myModal"*@
                             @if (!string.IsNullOrEmpty(dr["PlanID_pk"].ToString()))
                             {
-                                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#myModal" onclick="DisplayPOP('@dr["BpkID"]','@dr["PlanID_pk"]')" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add</a>
+                                <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BpkID"]','@dr["PlanID_pk"]')" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add</a>
                             }
                         </td>
                     </tr>
