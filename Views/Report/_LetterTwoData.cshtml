@@ -1,0 +1,75 @@
+﻿@using System.Data
+@using FP.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+
+@if (dt.Rows.Count > 0)
+{
+    foreach (DataRow dr in dt.Rows)
+    {
+        var colSum1 = (!string.IsNullOrEmpty(dr["Noofnochild"].ToString()) && !string.IsNullOrEmpty(dr["Noofnochild1"].ToString()))
+            ? (Convert.ToInt32(dr["Noofnochild"]) +Convert.ToInt32(dr["Noofnochild1"])):0 ;
+        var colSum2 = (!string.IsNullOrEmpty(dr["Noofonechild"].ToString()) && !string.IsNullOrEmpty(dr["Noofonechild1"].ToString()))
+           ? (Convert.ToInt32(dr["Noofonechild"]) + Convert.ToInt32(dr["Noofonechild1"])) : 0;
+        var colSum3 = (!string.IsNullOrEmpty(dr["Nooftwochild"].ToString()) && !string.IsNullOrEmpty(dr["Nooftwochild1"].ToString()))
+           ? (Convert.ToInt32(dr["Nooftwochild"]) + Convert.ToInt32(dr["Nooftwochild1"])) : 0;
+        var colSum4 = (!string.IsNullOrEmpty(dr["Noofmorechild"].ToString()) && !string.IsNullOrEmpty(dr["Noofmorechild1"].ToString()))
+           ? (Convert.ToInt32(dr["Noofmorechild"]) + Convert.ToInt32(dr["Noofmorechild1"])) : 0;
+
+        var colSum5 = (!string.IsNullOrEmpty(dr["Noofrolevideo"].ToString()) && !string.IsNullOrEmpty(dr["Noofrolevideo1"].ToString()))
+           ? (Convert.ToInt32(dr["Noofrolevideo"]) + Convert.ToInt32(dr["Noofrolevideo1"])) : 0;
+        var colSum6 = (!string.IsNullOrEmpty(dr["Noofmoduleroleout"].ToString()) && !string.IsNullOrEmpty(dr["Noofmoduleroleout1"].ToString()))
+           ? (Convert.ToInt32(dr["Noofmoduleroleout"]) + Convert.ToInt32(dr["Noofmoduleroleout1"])) : 0;
+
+        var colSum7 = (!string.IsNullOrEmpty(dr["Nooffollowup"].ToString()) && !string.IsNullOrEmpty(dr["Nooffollowup1"].ToString()))
+           ? (Convert.ToInt32(dr["Nooffollowup"]) + Convert.ToInt32(dr["Nooffollowup1"])) : 0;
+        var colSum8 = (!string.IsNullOrEmpty(dr["NooffwupPm"].ToString()) && !string.IsNullOrEmpty(dr["NooffwupPm1"].ToString()))
+           ? (Convert.ToInt32(dr["NooffwupPm"]) + Convert.ToInt32(dr["NooffwupPm1"])) : 0;
+        var colSum9 = (!string.IsNullOrEmpty(dr["NooffwupTm"].ToString()) && !string.IsNullOrEmpty(dr["NooffwupTm1"].ToString()))
+           ? (Convert.ToInt32(dr["NooffwupTm"]) + Convert.ToInt32(dr["NooffwupTm1"])) : 0;
+        var colSum10 = (!string.IsNullOrEmpty(dr["NoofOm"].ToString()) && !string.IsNullOrEmpty(dr["NoofOm1"].ToString()))
+           ? (Convert.ToInt32(dr["NoofOm"]) + Convert.ToInt32(dr["NoofOm1"])) : 0;
+        var colSum11 = (!string.IsNullOrEmpty(dr["NoofPm"].ToString()) && !string.IsNullOrEmpty(dr["NoofPm1"].ToString()))
+           ? (Convert.ToInt32(dr["NoofPm"]) + Convert.ToInt32(dr["NoofPm1"])) : 0;
+        var colSum12 = (!string.IsNullOrEmpty(dr["NoofTm"].ToString()) && !string.IsNullOrEmpty(dr["NoofTm1"].ToString()))
+           ? (Convert.ToInt32(dr["NoofTm"]) + Convert.ToInt32(dr["NoofTm1"])) : 0;
+
+
+  <div class="row">
+            <div class="col-md-4">District @dr["DistrictName"]</div>
+            <div class="col-md-4">Block @dr["Block"]</div>
+            <div class="col-md-4">Panchayat @dr["Panchayat"]</div>
+            <div class="col-md-4">Village Organization @dr["Village_Organization"]</div>
+            <div class="col-md-4">Village @dr["VillageName"]</div>
+            <div class="col-md-4">Reported By @dr["EmpName"]</div>
+            <div class="col-md-5">माह &Aacute;वर्ष @dr["ReportingMonthYear"]</div>
+        
+
+            <table style="width:100%;" border="1">
+                <thead>
+                    <tr><th>क्र.</th><th>a</th><th>b</th><th>c</th><th>d</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td rowspan="4"></td><td>gfdyhgghfhgfg</td><td>@dr["Noofnochild"]</td><td>@dr["Noofnochild1"]</td><td>@colSum1</td></tr>
+                    <tr><td>gfdyhgghfhgfg</td><td>@dr["Noofonechild"]</td><td>@dr["Noofonechild1"]</td><td>@colSum2</td></tr>
+                    <tr><td>gfdyhgghfhgfg</td><td>@dr["Nooftwochild"]</td><td>@dr["Nooftwochild1"]</td><td>@colSum3</td></tr>
+                    <tr><td>gfdyhgghfhgfg</td><td>@dr["Noofmorechild"]</td><td>@dr["Noofmorechild1"]</td><td>@colSum4</td></tr>
+
+                    <tr><td rowspan="2"></td><td>gfdyhgghfhgfg</td><td>@dr["Noofrolevideo"]</td><td>@dr["Noofrolevideo1"]</td><td>@colSum5</td></tr>
+                    <tr><td>gfdyhgghfhgfg</td><td>@dr["Noofmoduleroleout"]</td><td>@dr["Noofmoduleroleout"]</td><td>@colSum6</td></tr>
+
+                    <tr><td rowspan="6"></td><td>gfdyhgghfhgfg</td><td>@dr["Nooffollowup"]</td><td>@dr["Nooffollowup1"]</td><td>@colSum7</td></tr>
+                    <tr><td>gfdyhgghfhgfg</td><td>@dr["NooffwupPm"]</td><td>@dr["NooffwupPm1"]</td><td>@colSum8</td></tr>
+                    <tr><td>gfdyhgghfhgfg</td><td>@dr["NooffwupTm"]</td><td>@dr["NooffwupTm1"]</td><td>@colSum9</td></tr>
+                    <tr><td>gfdyhgghfhgfg</td><td>@dr["NoofOm"]</td><td>@dr["NoofOm1"]</td><td>@colSum10</td></tr>
+                    <tr><td>gfdyhgghfhgfg</td><td>@dr["NoofPm"]</td><td>@dr["NoofPm1"]</td><td>@colSum11</td></tr>
+                    <tr><td>gfdyhgghfhgfg</td><td>@dr["NoofTm"]</td><td>@dr["NoofTm1"]</td><td>@colSum12</td></tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    }
+}

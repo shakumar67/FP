@@ -313,6 +313,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\PlanController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -667,6 +668,8 @@
     <Content Include="Views\Plan\_BFYPOP.cshtml" />
     <Content Include="Views\Plan\PlanList.cshtml" />
     <Content Include="Views\Plan\_PlanData.cshtml" />
+    <Content Include="Views\Report\LetterTwo.cshtml" />
+    <Content Include="Views\Report\_LetterTwoData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
