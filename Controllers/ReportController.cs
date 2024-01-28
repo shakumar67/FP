@@ -1,7 +1,9 @@
 ﻿using FP.Manager;
 using FP.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -35,6 +37,29 @@ namespace FP.Controllers
                 }
                 var html = ConvertViewToString("_LetterTwoData", tbllist);
                 var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetDistrictGraph(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                DataSet ds = new DataSet();
+                ds = SP_Model.SpDistrictGraph(model);
+                if (ds.Tables.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var dslist = JsonConvert.SerializeObject(ds);
+                //var html = ConvertViewToString("_BFYData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = dslist }, JsonRequestBehavior.AllowGet);
                 res.MaxJsonLength = int.MaxValue;
                 return res;
             }
