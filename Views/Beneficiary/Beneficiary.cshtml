@@ -33,7 +33,8 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.Beneficiary_Id_pk)
             @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
-            <div class="bg-light rounded h-100 p-4">
+        <div class="bg-light rounded h-100 p-4 row g-4">
+            <div class="col-sm-12 col-xl-6">
                 <div class="mb-3">
                     @Html.LabelFor(m => m.HindiEng, new { @class = "col-md-2 col-form-label" })
                     @Html.DropDownListFor(m => m.HindiEng, CommonModel.GetLanguangeType(), null, new { @class = "form-select mb-3" })
@@ -94,6 +95,9 @@
                     @Html.EditorFor(m => m.Q5, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
                     @Html.ValidationMessageFor(m => m.Q5, "", new { @class = "text-danger" })
                 </div>
+                
+            </div>
+            <div class="col-sm-12 col-xl-6">
                 <div class="mb-3">
                     @Html.Label(Model.Q6D, htmlAttributes: new { @class = "" })
                     @Html.EditorFor(m => m.Q6, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker", maxlength = "12" } })
@@ -183,15 +187,18 @@
                     @Html.DropDownListFor(m => m.Q21, CommonModel.GetModuleRollout(), "Select", new { @class = "form-control col-md-4" })
                     @Html.ValidationMessageFor(m => m.Q21, "", new { @class = "text-danger" })
                 </div>
-                <div class="mb-3">
-                    <span class="check-spacer">
-                        <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
-                    </span>
-                    <span class="check-spacer">
-                        <a href="~/Beneficiary/Beneficiary" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
-                    </span>
-                </div>
             </div>
+            
+            
+            <div class="mb-3">
+                <span class="check-spacer">
+                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
+                </span>
+                <span class="check-spacer">
+                    <a href="~/Beneficiary/Beneficiary" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
+                </span>
+            </div>
+        </div>
         }
     </div>
 </div>
