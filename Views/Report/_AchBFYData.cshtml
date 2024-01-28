@@ -10,7 +10,6 @@
     <thead class="text-center">
         <tr>
             <th>Srno.</th>
-            @*<th>Beneficiary<br /> ID</th>*@
             <th>District</th>
             <th>Block</th>
             <th>Panchayat</th>
@@ -19,8 +18,18 @@
             <th>Planning date for HV</th>
             <th>DOM<br /> for Peer Group meeting</th>
             <th>Date of HV</th>
-            <th>Subject</th>
-            <th>Modify</th>
+            <th>Beneficiary ID</th>
+            <th>Beneficiary Name</th>
+            <th>Peer Present</th>
+            <th>FollowUp HV</th>
+            <th>Contraception <br />Yes/No</th>
+            <th>Contraception</th>
+            <th>Method Name</th>
+            <th>Service <br />Yes/No</th>
+            <th>Service Date</th>
+            <th>Service Provider</th>
+            <th>Location</th>
+            @*<th>Modify</th>*@
         </tr>
     </thead>
     <tbody>
@@ -32,7 +41,6 @@
                 {
                 <tr>
                     <td class="text-center">@(srno++)</td>
-                    @*<td class="text-center">@dr["BFYID"]</td>*@
                     <td class="text-left">@dr["DistrictName"]</td>
                     <td class="text-left">@dr["Block"]</td>
                     <td class="text-left">@dr["Panchayat"]</td>
@@ -41,17 +49,27 @@
                     <td class="text-center">@CommonModel.FormateDtDMY(dr["HVDt"].ToString())</td>
                     <td class="text-center">@CommonModel.FormateDtDMY(dr["DOMDt"].ToString())</td>
                     <td class="text-center">@CommonModel.FormateDtDMY(dr["DOMHVDt"].ToString())</td>
-                    <td class="text-left">@dr["SubjectText"].ToString()</td>
-                    <td class="text-center">
+                    <td class="text-center">@dr["IsPeerPresent"].ToString()</td>
+                    <td class="text-center">@dr["IsFollowUpHV"].ToString()</td>
+                    <td class="text-center">@dr["IsContraception"].ToString()</td>
+                    <td class="text-left">@dr["C_Name"].ToString()</td>
+                    <td class="text-left">@dr["Method_Name"].ToString()</td>
+                    <td class="text-center">@dr["Isservice"].ToString()</td>
+                    <td class="text-center">@dr["ServiceRevcDt"].ToString()</td>
+                    <td class="text-left">@dr["ServiceProvider"].ToString()</td>
+                    <td class="text-left">@dr["Location"].ToString()</td>
+                    <td class="text-center">@dr["EligiblePaid1"].ToString()</td>
+                    <td class="text-center">@dr["EligiblePaid2"].ToString()</td>
+                    @*<td class="text-center">
                         <a href="~/Plan/CreatePlan?Id=@dr["PlanID_pk"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                    </td>
+                    </td>*@
                 </tr>
                 }
             }
             else
             {
                 <tr>
-                    <td colspan="12" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                    <td colspan="19" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
                 </tr>
             }
         }

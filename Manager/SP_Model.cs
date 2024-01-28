@@ -126,13 +126,9 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        #endregion
-
-        #region Report Letter
-
-        public static DataTable SpLetterTwo(FilterModel model)
+        public static DataTable SP_PlanBFYList(FilterModel model)
         {
-            StoredProcedure sp = new StoredProcedure("Usp_LetterTwo");
+            StoredProcedure sp = new StoredProcedure("SP_PlanBFYList");
             sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
             sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
             sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
@@ -141,6 +137,30 @@ namespace FP.Manager
             sp.Command.AddParameter("@Year", model.Year, DbType.String);
             sp.Command.AddParameter("@Role", model.RoleId, DbType.String);
             sp.Command.AddParameter("@CutUser", model.CutUser, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        #endregion
+
+        #region Report Letter
+
+        public static DataTable SpLetterTwo(FilterModel model)
+        {
+            //model.DistrictId=model.DistrictId == null ? "" : model.DistrictId;
+            //model.BlockId=model.BlockId == null ? "" : model.BlockId;
+            //model.PanchayatId=model.PanchayatId == null ? "" : model.PanchayatId;
+            //model.VOId=model.VOId == null ? "" : model.VOId;
+            //model.Year=model.Year == null ? "" : model.Year;
+            //model.Month=model.Month == null ? "" : model.Month;
+            StoredProcedure sp = new StoredProcedure("Usp_LetterTwo");
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

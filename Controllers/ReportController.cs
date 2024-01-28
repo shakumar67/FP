@@ -74,12 +74,12 @@ namespace FP.Controllers
             FilterModel model = new FilterModel();
             return View(model);
         }
-        public ActionResult GetPlanList(FilterModel model)
+        public ActionResult GetAchBFYList(FilterModel model)
         {
             try
             {
                 bool IsCheck = false;
-                var tbllist = SP_Model.SP_PlanList(model);
+                var tbllist = SP_Model.SP_PlanBFYList(model);
                 if (tbllist.Rows.Count > 0)
                 {
                     IsCheck = true;
