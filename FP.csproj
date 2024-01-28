@@ -670,6 +670,8 @@
     <Content Include="Views\Plan\_PlanData.cshtml" />
     <Content Include="Views\Report\LetterTwo.cshtml" />
     <Content Include="Views\Report\_LetterTwoData.cshtml" />
+    <Content Include="Views\Report\_AchBFYData.cshtml" />
+    <Content Include="Views\Report\AchBFYList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
