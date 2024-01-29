@@ -3,110 +3,115 @@
 @{
     ViewBag.Title = "CreatePlan";
 }
-
+<style>
+    .bt-mrgn {
+        margin-bottom: 15px;
+    }
+</style>
 <div class="breadcrumb">
     <h2>Create Plan</h2>
-    <p><a href="~/Plan/PlanList"><i class="fa fa-list"></i>Planning Lists</a> / Add Plan </p>
+    <p><a href="~/Plan/PlanList">Planning</a> / Add Plan </p>
 </div>
 <div class="container-fluid pt-4 px-4">
-    <div class="row">
+    <div class="row g-4">
         @using (Html.BeginForm("CreatePlan", "Plan", FormMethod.Post, new { @class = "", @id = "CreatePlanformid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.PlanID_pk)
-            <div class="form-horizontal">
+        <div class="col-sm-12">
+            <div class="bg-light rounded h-100 p-4">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DistrictId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
-                        @Html.ValidationMessageFor(model => model.DistrictId_fk, "", new { @class = "text-danger" })
+                <div class="row mb-3">
+                    <div class="col-sm-6 bt-mrgn">
+                        @Html.LabelFor(model => model.DistrictId_fk, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.DistrictId_fk, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 bt-mrgn">
+                        @Html.LabelFor(model => model.BlockId_fk, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.BlockId_fk, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 bt-mrgn">
+                        @Html.LabelFor(model => model.PanchayatId_fk, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.PanchayatId_fk, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 bt-mrgn">
+                        @Html.LabelFor(model => model.VoId_fk, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(m => m.VoId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.VoId_fk, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 bt-mrgn">
+                        @Html.LabelFor(model => model.PlanDt, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.PlanDt, new { htmlAttributes = new { @class = "form-control plandatepicker" } })
+                            @Html.ValidationMessageFor(model => model.PlanDt, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 bt-mrgn">
+                        @Html.LabelFor(model => model.HVDt, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.HVDt, new { htmlAttributes = new { @class = "form-control plandatepicker" } })
+                            @Html.ValidationMessageFor(model => model.HVDt, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 bt-mrgn">
+                        @Html.LabelFor(model => model.IsBFY, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(model => model.IsBFY, CommonModel.GetHVPMG(1), null, new { @class = "form-control" })
+                            @*<div class="position-relative form-group">
+                            <div class="checkbox">
+                                @foreach (var item in CommonModel.GetHVPMG())
+                                {
+                                    <span class="check-spacer">
+                                        @Html.CheckBoxFor(model => model.IsCheckBFY, new { id = "IsCheckBFY" + item.Value, @required = "required" }) @item.Text
+                                    </span>
+                                }
+                                @Html.ValidationMessageFor(model => model.IsCheckBFY, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+                            @Html.ValidationMessageFor(model => model.IsBFY, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 bt-mrgn" id="div-DOMDt" style="display:none;">
+                        @Html.LabelFor(model => model.DOMDt, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.DOMDt, new { htmlAttributes = new { @class = "form-control achdatepicker" } })
+                            @Html.ValidationMessageFor(model => model.DOMDt, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 bt-mrgn" id="div-DOMHVDt" style="display:none;">
+                        @Html.LabelFor(model => model.DOMHVDt, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.DOMHVDt, new { htmlAttributes = new { @class = "form-control achdatepicker" } })
+                            @Html.ValidationMessageFor(model => model.DOMHVDt, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 bt-mrgn">
+                        @Html.LabelFor(model => model.SubjectId, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(model => model.SubjectId, CommonModel.GetSubject(1), null, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.BlockId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
-                        @Html.ValidationMessageFor(model => model.BlockId_fk, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.PanchayatId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
-                        @Html.ValidationMessageFor(model => model.PanchayatId_fk, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.VoId_fk, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(m => m.VoId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
-                        @Html.ValidationMessageFor(model => model.VoId_fk, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.PlanDt, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.PlanDt, new { htmlAttributes = new { @class = "form-control plandatepicker" } })
-                        @Html.ValidationMessageFor(model => model.PlanDt, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.HVDt, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.HVDt, new { htmlAttributes = new { @class = "form-control plandatepicker" } })
-                        @Html.ValidationMessageFor(model => model.HVDt, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IsBFY, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.IsBFY, CommonModel.GetHVPMG(1), null, new { @class = "form-control" })
-                        @*<div class="position-relative form-group">
-                                <div class="checkbox">
-                                    @foreach (var item in CommonModel.GetHVPMG())
-                                    {
-                                        <span class="check-spacer">
-                                            @Html.CheckBoxFor(model => model.IsCheckBFY, new { id = "IsCheckBFY" + item.Value, @required = "required" }) @item.Text
-                                        </span>
-                                    }
-                                    @Html.ValidationMessageFor(model => model.IsCheckBFY, "", new { @class = "text-danger" })
-                                </div>
-                            </div>*@
-                        @Html.ValidationMessageFor(model => model.IsBFY, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group" id="div-DOMDt" style="display:none;">
-                    @Html.LabelFor(model => model.DOMDt, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DOMDt, new { htmlAttributes = new { @class = "form-control achdatepicker" } })
-                        @Html.ValidationMessageFor(model => model.DOMDt, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group" id="div-DOMHVDt" style="display:none;">
-                    @Html.LabelFor(model => model.DOMHVDt, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DOMHVDt, new { htmlAttributes = new { @class = "form-control achdatepicker" } })
-                        @Html.ValidationMessageFor(model => model.DOMHVDt, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SubjectId, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.SubjectId, CommonModel.GetSubject(1), null, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
                 <div class="mb-3">
                     <span class="check-spacer">
                         <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
@@ -115,8 +120,9 @@
                         <a href="~/Plan/CreatePlan" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
                     </span>
                 </div>
-
             </div>
+
+        </div>
         }
        
         <div class="row">

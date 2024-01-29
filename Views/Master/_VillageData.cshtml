@@ -4,45 +4,46 @@
 	dt = Model;
 }
 
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="tbl">
+        <thead>
+            <tr>
+                <th>Srno.</th>
+                <th>District</th>
+                <th>Block</th>
+                <th>Panchayat</th>
+                <th>Village</th>
+                <th>Modify</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (dt.Rows.Count > 0)
+                {
 
-<table class="table table-bordered table-striped" id="tbl">
-	<thead>
-		<tr>
-			<th>Srno.</th>
-			<th>District</th>
-			<th>Block</th>
-			<th>Panchayat</th>
-			<th>Village</th>
-			<th>Modify</th>
-		</tr>
-	</thead>
-	<tbody>
-		@{ 
-			if (dt.Rows.Count>0)
-			{
+                    int srno = 1;
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        <tr>
+                            <td>@(srno++)</td>
+                            <td>@dr["DistrictName"]</td>
+                            <td>@dr["Block"]</td>
+                            <td>@dr["Panchayat"]</td>
+                            <td>@dr["Village_Organization"]</td>
+                            <td>
+                                <a href="~/Master/VillMaster?id=@dr["Void_pk"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                    </tr>
+                }
+            }
+        </tbody>
 
-				int srno = 1;
-				foreach (DataRow dr in dt.Rows)
-				{
-					<tr>
-						<td>@(srno++)</td>
-						<td>@dr["DistrictName"]</td>
-						<td>@dr["Block"]</td>
-						<td>@dr["Panchayat"]</td>
-						<td>@dr["Village_Organization"]</td>
-					    <td>
-                            <a href="~/Master/VillMaster?id=@dr["Void_pk"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
-                        </td>
-					</tr>
-				}
-			}
-			else
-			{
-				<tr>
-					<td colspan="6" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
-				</tr>
-			}
-		}
-	</tbody>
-
-</table>
+    </table>
+</div>

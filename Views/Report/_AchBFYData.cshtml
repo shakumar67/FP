@@ -5,74 +5,75 @@
     dt = Model;
 }
 
-
-<table class="table table-bordered table-striped" id="tbl">
-    <thead class="text-center">
-        <tr>
-            <th>Srno.</th>
-            <th>District</th>
-            <th>Block</th>
-            <th>Panchayat</th>
-            <th>Village <br />Organization</th>
-            <th>Planning date <br />Peer Group Meeting</th>
-            <th>Planning date for HV</th>
-            <th>DOM<br /> for Peer Group meeting</th>
-            <th>Date of HV</th>
-            <th>Beneficiary ID</th>
-            <th>Beneficiary Name</th>
-            <th>Peer Present</th>
-            <th>FollowUp HV</th>
-            <th>Contraception <br />Yes/No</th>
-            <th>Contraception</th>
-            <th>Method Name</th>
-            <th>Service <br />Yes/No</th>
-            <th>Service Date</th>
-            <th>Service Provider</th>
-            <th>Location</th>
-            @*<th>Modify</th>*@
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            if (dt.Rows.Count > 0)
-            {
-                int srno = 1;
-                foreach (DataRow dr in dt.Rows)
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="tbl">
+        <thead class="text-center">
+            <tr>
+                <th>Srno.</th>
+                <th>District</th>
+                <th>Block</th>
+                <th>Panchayat</th>
+                <th>Village <br />Organization</th>
+                <th>Planning date <br />Peer Group Meeting</th>
+                <th>Planning date for HV</th>
+                <th>DOM<br /> for Peer Group meeting</th>
+                <th>Date of HV</th>
+                <th>Beneficiary ID</th>
+                <th>Beneficiary Name</th>
+                <th>Peer Present</th>
+                <th>FollowUp HV</th>
+                <th>Contraception <br />Yes/No</th>
+                <th>Contraception</th>
+                <th>Method Name</th>
+                <th>Service <br />Yes/No</th>
+                <th>Service Date</th>
+                <th>Service Provider</th>
+                <th>Location</th>
+                @*<th>Modify</th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (dt.Rows.Count > 0)
                 {
-                <tr>
-                    <td class="text-center">@(srno++)</td>
-                    <td class="text-left">@dr["DistrictName"]</td>
-                    <td class="text-left">@dr["Block"]</td>
-                    <td class="text-left">@dr["Panchayat"]</td>
-                    <td class="text-left">@dr["VO"]</td>
-                    <td class="text-center">@CommonModel.FormateDtDMY(dr["PlanDt"].ToString())</td>
-                    <td class="text-center">@CommonModel.FormateDtDMY(dr["HVDt"].ToString())</td>
-                    <td class="text-center">@CommonModel.FormateDtDMY(dr["DOMDt"].ToString())</td>
-                    <td class="text-center">@CommonModel.FormateDtDMY(dr["DOMHVDt"].ToString())</td>
-                    <td class="text-center">@dr["IsPeerPresent"].ToString()</td>
-                    <td class="text-center">@dr["IsFollowUpHV"].ToString()</td>
-                    <td class="text-center">@dr["IsContraception"].ToString()</td>
-                    <td class="text-left">@dr["C_Name"].ToString()</td>
-                    <td class="text-left">@dr["Method_Name"].ToString()</td>
-                    <td class="text-center">@dr["Isservice"].ToString()</td>
-                    <td class="text-center">@dr["ServiceRevcDt"].ToString()</td>
-                    <td class="text-left">@dr["ServiceProvider"].ToString()</td>
-                    <td class="text-left">@dr["Location"].ToString()</td>
-                    <td class="text-center">@dr["EligiblePaid1"].ToString()</td>
-                    <td class="text-center">@dr["EligiblePaid2"].ToString()</td>
-                    @*<td class="text-center">
-                        <a href="~/Plan/CreatePlan?Id=@dr["PlanID_pk"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                    </td>*@
-                </tr>
+                    int srno = 1;
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        <tr>
+                            <td class="text-center">@(srno++)</td>
+                            <td class="text-left">@dr["DistrictName"]</td>
+                            <td class="text-left">@dr["Block"]</td>
+                            <td class="text-left">@dr["Panchayat"]</td>
+                            <td class="text-left">@dr["VO"]</td>
+                            <td class="text-center">@CommonModel.FormateDtDMY(dr["PlanDt"].ToString())</td>
+                            <td class="text-center">@CommonModel.FormateDtDMY(dr["HVDt"].ToString())</td>
+                            <td class="text-center">@CommonModel.FormateDtDMY(dr["DOMDt"].ToString())</td>
+                            <td class="text-center">@CommonModel.FormateDtDMY(dr["DOMHVDt"].ToString())</td>
+                            <td class="text-center">@dr["IsPeerPresent"].ToString()</td>
+                            <td class="text-center">@dr["IsFollowUpHV"].ToString()</td>
+                            <td class="text-center">@dr["IsContraception"].ToString()</td>
+                            <td class="text-left">@dr["C_Name"].ToString()</td>
+                            <td class="text-left">@dr["Method_Name"].ToString()</td>
+                            <td class="text-center">@dr["Isservice"].ToString()</td>
+                            <td class="text-center">@dr["ServiceRevcDt"].ToString()</td>
+                            <td class="text-left">@dr["ServiceProvider"].ToString()</td>
+                            <td class="text-left">@dr["Location"].ToString()</td>
+                            <td class="text-center">@dr["EligiblePaid1"].ToString()</td>
+                            <td class="text-center">@dr["EligiblePaid2"].ToString()</td>
+                            @*<td class="text-center">
+                                    <a href="~/Plan/CreatePlan?Id=@dr["PlanID_pk"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                </td>*@
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="19" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                    </tr>
                 }
             }
-            else
-            {
-                <tr>
-                    <td colspan="19" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
-                </tr>
-            }
-        }
-    </tbody>
+        </tbody>
 
-</table>
+    </table>
+</div>

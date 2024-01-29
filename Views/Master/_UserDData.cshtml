@@ -3,55 +3,56 @@
     DataTable dt = new DataTable();
     dt = Model;
 }
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="tbl">
+        <thead>
+            <tr>
+                <th>Srno.</th>
+                <th>District</th>
+                <th>Block</th>
+                <th>Panchayat</th>
+                <th>Village <br />Organization</th>
+                <th>Village <br />Name </th>
+                <th>Role</th>
+                <th>Name</th>
+                @*<th>Gender</th>*@
+                <th>Mobile No</th>
+                <th>Modify</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (dt.Rows.Count > 0)
+                {
 
-<table class="table table-bordered table-striped" id="tbl">
-    <thead>
-        <tr>
-            <th>Srno.</th>
-            <th>District</th>
-            <th>Block</th>
-            <th>Panchayat</th>
-            <th>Village <br />Organization</th>
-            <th>Village <br />Name </th>
-            <th>Role</th>
-            <th>Name</th>
-            @*<th>Gender</th>*@
-            <th>Mobile No</th>
-            <th>Modify</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            if (dt.Rows.Count > 0)
-            {
-
-                int srno = 1;
-                foreach (DataRow dr in dt.Rows)
+                    int srno = 1;
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        <tr>
+                            <td>@(srno++)</td>
+                            <td>@dr["DistrictName"]</td>
+                            <td>@dr["Block"]</td>
+                            <td>@dr["Panchayat"]</td>
+                            <td>@dr["Village_Organization"]</td>
+                            <td>@dr["VillageName"]</td>
+                            <td>@dr["Rolename"]</td>
+                            <td>@dr["EmpName"]</td>
+                            @*<td>@dr["Gender"]</td>*@
+                            <td>@dr["MobileNo"]</td>
+                            <td>
+                                <a href="~/Account/Register?id=@dr["UserId"]&&empid=@dr["EmpID_pk"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
                 {
                     <tr>
-                        <td>@(srno++)</td>
-                        <td>@dr["DistrictName"]</td>
-                        <td>@dr["Block"]</td>
-                        <td>@dr["Panchayat"]</td>
-                        <td>@dr["Village_Organization"]</td>
-                        <td>@dr["VillageName"]</td>
-                        <td>@dr["Rolename"]</td>
-                        <td>@dr["EmpName"]</td>
-                        @*<td>@dr["Gender"]</td>*@
-                        <td>@dr["MobileNo"]</td>
-                        <td>
-                            <a href="~/Account/Register?id=@dr["UserId"]&&empid=@dr["EmpID_pk"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                        </td>
+                        <td colspan="10" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
                     </tr>
                 }
             }
-            else
-            {
-                <tr>
-                    <td colspan="10" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
-                </tr>
-            }
-        }
-    </tbody>
+        </tbody>
 
-</table>
+    </table>
+</div>

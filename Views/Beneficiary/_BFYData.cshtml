@@ -10,54 +10,57 @@
     }
 </style>
 <div class="bg-light rounded h-100 p-4">
-    <table class="table table-bordered table-striped" id="tbl">
-        <thead class="text-center">
-            <tr>
-                <th>Srno.</th>
-                <th>Beneficiary<br /> ID</th>
-                <th>District</th>
-                <th>Block</th>
-                <th>Panchayat</th>
-                <th>Village <br />Organization</th>
-                <th>Reporting <br />Month</th>
-                <th>Health <br />Center </th>
-                <th>Name of<br />Beneficiary</th>
-                <th>Mobile no. of beneficiary</th>
-                <th>Edit</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                if (dt.Rows.Count > 0)
-                {
-                    int srno = 1;
-                    foreach (DataRow dr in dt.Rows)
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped" id="tbl">
+            <thead class="text-center">
+                <tr>
+                    <th>Srno.</th>
+                    <th>Beneficiary<br /> ID</th>
+                    <th>District</th>
+                    <th>Block</th>
+                    <th>Panchayat</th>
+                    <th>Village <br />Organization</th>
+                    <th>Reporting <br />Month</th>
+                    <th>Health <br />Center </th>
+                    <th>Name of<br />Beneficiary</th>
+                    <th>Mobile no. of beneficiary</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (dt.Rows.Count > 0)
+                    {
+                        int srno = 1;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            <tr>
+                                <td class="text-center">@(srno++)</td>
+                                <td class="text-center">@dr["BFYID"]</td>
+                                <td class="text-left">@dr["DistrictName"]</td>
+                                <td class="text-left">@dr["Block"]</td>
+                                <td class="text-left">@dr["Panchayat"]</td>
+                                <td class="text-left">@dr["VO"]</td>
+                                <td class="text-center">@CommonModel.FormateDtDMY(dr["ReportingDate"].ToString())</td>
+                                <td class="text-left">@dr["HealthCenter"]</td>
+                                <td class="text-left">@dr["BFYName"]</td>
+                                <td class="text-center">@dr["BFYMobileNo"]</td>
+                                <td class="text-center">
+                                    <a href="~/Beneficiary/Beneficiary?id=@dr["BpkID"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td class="text-center">@(srno++)</td>
-                            <td class="text-center">@dr["BFYID"]</td>
-                            <td class="text-left">@dr["DistrictName"]</td>
-                            <td class="text-left">@dr["Block"]</td>
-                            <td class="text-left">@dr["Panchayat"]</td>
-                            <td class="text-left">@dr["VO"]</td>
-                            <td class="text-center">@CommonModel.FormateDtDMY(dr["ReportingDate"].ToString())</td>
-                            <td class="text-left">@dr["HealthCenter"]</td>
-                            <td class="text-left">@dr["BFYName"]</td>
-                            <td class="text-center">@dr["BFYMobileNo"]</td>
-                            <td class="text-center">
-                                <a href="~/Beneficiary/Beneficiary?id=@dr["BpkID"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                            </td>
+                            <td colspan="12" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
                         </tr>
                     }
                 }
-                else
-                {
-                    <tr>
-                        <td colspan="12" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
-                    </tr>
-                }
-            }
-        </tbody>
+            </tbody>
 
-    </table>
+        </table>
+    </div>
+    
 </div>

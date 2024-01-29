@@ -10,54 +10,63 @@
     .table td {
         font-size: 13px;
     }
+    @@media all and (max-width: 900px) {
+        .flexer {
+            flex-direction: column;
+        }
+    }
+    
 </style>
 <div class="breadcrumb">
     <h2>Village Organization</h2>
     <p><a href="~/Master/VillMaster"><i class="fa fa-home"></i></a> / Village Organization</p>
 </div>
 <div class="container-fluid pt-4 px-4">
-    <div class="row g-4ss">
+    <div class="row g-4">
         @using (Html.BeginForm("Vill_Master", "Master", FormMethod.Post, new { @class = "", @id = "formid" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.Void_pk)
             @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
-            <div class="flexer">
-                <div class="col-sm-12 col-xl-6">
-                    <div class="bg-light rounded h-100 p-4">
-                        <div class="mb-3">
-                            @Html.LabelFor(m => m.DistrictId_fk, new { @class = "Col-md-2 col-form-label" })
-                            @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                            @Html.ValidationMessageFor(m => m.DistrictId_fk, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="mb-3">
-                            @Html.LabelFor(m => m.BlockId_fk, new { @class = "Col-md-2 col-form-label" })
-                            @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                            @Html.ValidationMessageFor(m => m.BlockId_fk, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="mb-3">
-                            @Html.LabelFor(m => m.Panchayatid_fk, new { @class = "Col-md-2 col-form-label" })
-                            @Html.DropDownListFor(m => m.Panchayatid_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                            @Html.ValidationMessageFor(m => m.Panchayatid_fk, "", new { @class = "text-danger" })
-                        </div>
-                        @*<div class="col-md-6">
-                                @Html.LabelFor(m => m.Void_pk, new { @class = "Col-md-2 col-form-label" })
-                                @Html.DropDownListFor(m => m.Void_pk, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
-                            </div>*@
-                        <div class="mb-3">
-                            @Html.LabelFor(m => m.Village_Organization, new { @class = "Col-md-2 col-form-label" })
-                            @Html.EditorFor(m => m.Village_Organization, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
-                            @Html.ValidationMessageFor(m => m.Village_Organization, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="col-md-12">
-                            <input type="submit" class="btn btn-primary" name="btnsubmit" id="btnsubmit" value="Submit" />
+            <div class="col-sm-12">
+                <div class="row mb-3">
+                    <div class="col-sm-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div class="mb-3">
+                                @Html.LabelFor(m => m.DistrictId_fk, new { @class = "Col-md-2 col-form-label" })
+                                @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                                @Html.ValidationMessageFor(m => m.DistrictId_fk, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3">
+                                @Html.LabelFor(m => m.BlockId_fk, new { @class = "Col-md-2 col-form-label" })
+                                @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                                @Html.ValidationMessageFor(m => m.BlockId_fk, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3">
+                                @Html.LabelFor(m => m.Panchayatid_fk, new { @class = "Col-md-2 col-form-label" })
+                                @Html.DropDownListFor(m => m.Panchayatid_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                                @Html.ValidationMessageFor(m => m.Panchayatid_fk, "", new { @class = "text-danger" })
+                            </div>
+                            @*<div class="col-md-6">
+                    @Html.LabelFor(m => m.Void_pk, new { @class = "Col-md-2 col-form-label" })
+                    @Html.DropDownListFor(m => m.Void_pk, new List<SelectListItem>(), null, new { @class = "form-control col-md-4" })
+                </div>*@
+                            <div class="mb-3">
+                                @Html.LabelFor(m => m.Village_Organization, new { @class = "Col-md-2 col-form-label" })
+                                @Html.EditorFor(m => m.Village_Organization, null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+                                @Html.ValidationMessageFor(m => m.Village_Organization, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-primary" name="btnsubmit" id="btnsubmit" value="Submit" />
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-sm-12 col-xl-6">
-                    <div id="subdata" style="height:500px; overflow:scroll;"></div>
+                    <div class="col-sm-6">
+                        <div id="subdata" style="height:500px; overflow:scroll;"></div>
+                    </div>
                 </div>
+                
             </div>
         }
     </div>
