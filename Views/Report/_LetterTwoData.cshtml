@@ -4,7 +4,26 @@
     DataTable dt = new DataTable();
     dt = Model;
 }
-
+<style>
+    .box-title {
+        background: #4CAF50;
+        color: #fff;
+        padding: 15px 20px;
+        border-radius: 10px 10px 0 0;
+        margin-top: 10px;
+    }
+        .box-title div {
+            padding: 5px 0
+        }
+        .box-title span {
+            float: right;
+        }
+    .table-box {
+        margin-bottom: 15px;
+        background: #DEFFDF;
+        padding: 12px 0 12px 12px;
+    }
+</style>
 @if (dt.Rows.Count > 0)
 {
     foreach (DataRow dr in dt.Rows)
@@ -37,39 +56,40 @@
            ? (Convert.ToInt32(dr["NoofTm"]) + Convert.ToInt32(dr["NoofTm1"])) : 0;
 
 
-  <div class="row">
-      <div class="col-md-4">ज़िला @dr["DistrictName"]</div>
-      <div class="col-md-4">ब्लॉक @dr["Block"]</div>
-      <div class="col-md-4">पंचायत @dr["Panchayat"]</div>
-      <div class="col-md-4">ग्राम संगठन @dr["Village_Organization"]</div>
-      <div class="col-md-4">गाँव @dr["VillageName"]</div>
-            <div class="col-md-4">Reported By @dr["EmpName"]</div>
-            <div class="col-md-5">माह &Aacute;वर्ष @dr["ReportingMonthYear"]</div>
-        
+<div class="row">
+    <div class="box-title">
+        <div class="col-md-12">ज़िला <span>@dr["DistrictName"]</span></div>
+        <div class="col-md-12">ब्लॉक <span>@dr["Block"]</span></div>
+        <div class="col-md-12">पंचायत <span>@dr["Panchayat"]</span></div>
+        <div class="col-md-12">ग्राम संगठन <span>@dr["Village_Organization"]</span></div>
+        <div class="col-md-12">गाँव <span>@dr["VillageName"]</span></div>
+        <div class="col-md-12">Reported By <span>@dr["EmpName"]</span></div>
+        <div class="col-md-12">माह &Aacute;वर्ष <span>@dr["ReportingMonthYear"]</span></div>
+    </div>
+    <div class="table-box">
+        <table style="width:100%;">
+            <thead>
+                <tr><th>क्र.सं.</th><th>गतिविधियों के नाम</th><th>पिछले माह में</th><th>वर्तमान माह में</th><th>कुल (संख्या में)</th></tr>
+            </thead>
+            <tbody>
+                <tr><td rowspan="4">समूह परिवार के कुल लक्षित लाभार्थियों का सूची निर्माण</td><td>(1)नव दंपति/वैसी महिलाओं की संख्या जिन्हें अभी बच्चा नहीं है</td><td>@dr["Noofnochild"]</td><td>@dr["Noofnochild1"]</td><td>@colSum1</td></tr>
+                <tr><td>(2)वैसी महिलाओं की संख्या जीने अभी एक बच्चा है</td><td>@dr["Noofonechild"]</td><td>@dr["Noofonechild1"]</td><td>@colSum2</td></tr>
+                <tr><td>(3)वैसी महिलाओं की संख्या जिन्हें दो बच्चे हैं</td><td>@dr["Nooftwochild"]</td><td>@dr["Nooftwochild1"]</td><td>@colSum3</td></tr>
+                <tr><td>(4) वैसी महिलाओं की संख्या जिन्हें दो से अधिक बच्चे हैं</td><td>@dr["Noofmorechild"]</td><td>@dr["Noofmorechild1"]</td><td>@colSum4</td></tr>
 
-            <table style="width:100%;" border="1">
-                <thead>
-                    <tr><th>क्र.सं.</th><th>गतिविधियों के नाम</th><th>पिछले माह में</th><th>वर्तमान माह में</th><th>कुल (संख्या में)</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td rowspan="4">समूह परिवार के कुल लक्षित लाभार्थियों का सूची निर्माण</td><td>(1)नव दंपति/वैसी महिलाओं की संख्या जिन्हें अभी बच्चा नहीं है</td><td>@dr["Noofnochild"]</td><td>@dr["Noofnochild1"]</td><td>@colSum1</td></tr>
-                    <tr><td>(2)वैसी महिलाओं की संख्या जीने अभी एक बच्चा है</td><td>@dr["Noofonechild"]</td><td>@dr["Noofonechild1"]</td><td>@colSum2</td></tr>
-                    <tr><td>(3)वैसी महिलाओं की संख्या जिन्हें दो बच्चे हैं</td><td>@dr["Nooftwochild"]</td><td>@dr["Nooftwochild1"]</td><td>@colSum3</td></tr>
-                    <tr><td>(4) वैसी महिलाओं की संख्या जिन्हें दो से अधिक बच्चे हैं</td><td>@dr["Noofmorechild"]</td><td>@dr["Noofmorechild1"]</td><td>@colSum4</td></tr>
+                <tr><td rowspan="2">समूह बैठक पणजी के अनुसार (मॉड्यूल रोलआउट/ वीडियो प्रसारण)</td><td>(1)कितने समूह में मॉड्यूल रोल आउट के माध्यम से जागरूक किया गया</td><td>@dr["Noofrolevideo"]</td><td>@dr["Noofrolevideo1"]</td><td>@colSum5</td></tr>
+                <tr><td>(2)कितने समूह में वीडियो के माध्यम से जागरूक किया गया</td><td>@dr["Noofmoduleroleout"]</td><td>@dr["Noofmoduleroleout"]</td><td>@colSum6</td></tr>
 
-                    <tr><td rowspan="2">समूह बैठक पणजी के अनुसार (मॉड्यूल रोलआउट/ वीडियो प्रसारण)</td><td>(1)कितने समूह में मॉड्यूल रोल आउट के माध्यम से जागरूक किया गया</td><td>@dr["Noofrolevideo"]</td><td>@dr["Noofrolevideo1"]</td><td>@colSum5</td></tr>
-                    <tr><td>(2)कितने समूह में वीडियो के माध्यम से जागरूक किया गया</td><td>@dr["Noofmoduleroleout"]</td><td>@dr["Noofmoduleroleout"]</td><td>@colSum6</td></tr>
+                <tr><td rowspan="6">लाभार्थी से फॉलो-अप</td><td>(1)कितने लाभार्थियों के यहां फॉलो अप किया गया</td><td>@dr["Nooffollowup"]</td><td>@dr["Nooffollowup1"]</td><td>@colSum7</td></tr>
+                <tr><td>(2)कितने लाभार्थी अस्थाई साधन का उपयोग कर रहे हैं</td><td>@dr["NooffwupPm"]</td><td>@dr["NooffwupPm1"]</td><td>@colSum8</td></tr>
+                <tr><td>(3)कितने लाभार्थी स्थाई साधन का उपयोग कर रहे हैं</td><td>@dr["NooffwupTm"]</td><td>@dr["NooffwupTm1"]</td><td>@colSum9</td></tr>
+                <tr><td>(4)कितने लाभार्थी परिवार नियोजन के कोई भी साधन उपयोग नहीं कर रहे हैं</td><td>@dr["NoofOm"]</td><td>@dr["NoofOm1"]</td><td>@colSum10</td></tr>
+                <tr><td>(5)कितने लाभार्थी अस्थाई साधन का उपयोग करना चाहते हैं</td><td>@dr["NoofPm"]</td><td>@dr["NoofPm1"]</td><td>@colSum11</td></tr>
+                <tr><td>(6)कितने लाभार्थी अस्थाई साधन का उपयोग करना चाहते हैं</td><td>@dr["NoofTm"]</td><td>@dr["NoofTm1"]</td><td>@colSum12</td></tr>
 
-                    <tr><td rowspan="6">लाभार्थी से फॉलो-अप</td><td>(1)कितने लाभार्थियों के यहां फॉलो अप किया गया</td><td>@dr["Nooffollowup"]</td><td>@dr["Nooffollowup1"]</td><td>@colSum7</td></tr>
-                    <tr><td>(2)कितने लाभार्थी अस्थाई साधन का उपयोग कर रहे हैं</td><td>@dr["NooffwupPm"]</td><td>@dr["NooffwupPm1"]</td><td>@colSum8</td></tr>
-                    <tr><td>(3)कितने लाभार्थी स्थाई साधन का उपयोग कर रहे हैं</td><td>@dr["NooffwupTm"]</td><td>@dr["NooffwupTm1"]</td><td>@colSum9</td></tr>
-                    <tr><td>(4)कितने लाभार्थी परिवार नियोजन के कोई भी साधन उपयोग नहीं कर रहे हैं</td><td>@dr["NoofOm"]</td><td>@dr["NoofOm1"]</td><td>@colSum10</td></tr>
-                    <tr><td>(5)कितने लाभार्थी अस्थाई साधन का उपयोग करना चाहते हैं</td><td>@dr["NoofPm"]</td><td>@dr["NoofPm1"]</td><td>@colSum11</td></tr>
-                    <tr><td>(6)कितने लाभार्थी अस्थाई साधन का उपयोग करना चाहते हैं</td><td>@dr["NoofTm"]</td><td>@dr["NoofTm1"]</td><td>@colSum12</td></tr>
-
-                </tbody>
-            </table>
-
-        </div>
+            </tbody>
+        </table>
+    </div>
+</div>
     }
 }
