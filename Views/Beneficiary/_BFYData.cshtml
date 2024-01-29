@@ -23,7 +23,7 @@
                     <th>Reporting <br />Month</th>
                     <th>Health <br />Center </th>
                     <th>Name of<br />Beneficiary</th>
-                    <th>Mobile no. of beneficiary</th>
+                    <th>Beneficiary Mobile No</th>
                     <th>Edit</th>
                 </tr>
             </thead>
@@ -41,7 +41,7 @@
                                 <td class="text-left">@dr["Block"]</td>
                                 <td class="text-left">@dr["Panchayat"]</td>
                                 <td class="text-left">@dr["VO"]</td>
-                                <td class="text-center">@CommonModel.FormateDtDMY(dr["ReportingDate"].ToString())</td>
+                                <td class="text-center">@dr["ReportingDate"]</td>
                                 <td class="text-left">@dr["HealthCenter"]</td>
                                 <td class="text-left">@dr["BFYName"]</td>
                                 <td class="text-center">@dr["BFYMobileNo"]</td>

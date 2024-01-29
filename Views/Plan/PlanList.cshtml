@@ -16,7 +16,7 @@
 </style>
 <div class="breadcrumb">
     <h2>Planning Lists</h2>
-    <p><a href="~/Plan/CreatePlan">Plan</a> / Planning Lists</p>
+    <p><a href="~/Plan/CreatePlan">Add Plan</a> / Planning Lists</p>
 </div>
 <div class="container-fluid pt-4 px-4">
             <fieldset class="border rounded-3 p-3">
@@ -138,13 +138,14 @@
 
         });
         function BindData() {
+            $("#subdata").html('');
             var filtermodel = new Object();
             filtermodel.DistrictId = $('#DistrictId').val() == '' ? '' : $('#DistrictId').val();
             filtermodel.BlockId = $('#BlockId').val() == '' ? '' : $('#BlockId').val();
             filtermodel.PanchayatId = $('#PanchayatId').val() == '' ? '' : $('#PanchayatId').val();
             filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
             filtermodel.Year = $('#Year option:selected').text() == '' ? '' : $('#Year option:selected').text();
-            filtermodel.Month = $('#Month').val() == '' ? '' : $('#Month').val();
+            filtermodel.Month = $('#Month option:selected').text() == '' ? '' : $('#Month option:selected').text();
             var formData = $('#formid').serialize();
 
 

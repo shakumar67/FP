@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace FP.Controllers
 {
+    [Authorize]
     public class ReportController : Controller
     {
         // GET: Report
@@ -79,7 +80,7 @@ namespace FP.Controllers
             try
             {
                 bool IsCheck = false;
-                var tbllist = SP_Model.SP_PlanBFYList(model);
+                var tbllist = SP_Model.SP_PlanAchBFYList(model);
                 if (tbllist.Rows.Count > 0)
                 {
                     IsCheck = true;

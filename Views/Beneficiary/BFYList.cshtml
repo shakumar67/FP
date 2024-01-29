@@ -137,12 +137,13 @@
             BindData();
         });
         function BindData() {
+            $("#subdata").html('');
             var filtermodel = new Object();
             filtermodel.DistrictId = $('#DistrictId').val() == '' ? '' : $('#DistrictId').val();
             filtermodel.BlockId = $('#BlockId').val() == '' ? '' : $('#BlockId').val();
             filtermodel.PanchayatId = $('#PanchayatId').val() == '' ? '' : $('#PanchayatId').val();
             filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
-            filtermodel.Year = $('#Year option:selected').text() == '' ? '' : $('#Year option:selected').text();
+            filtermodel.Year = $('#Year').val() == '' ? '' : $('#Year').val();
             filtermodel.Month = $('#Month').val() == '' ? '' : $('#Month').val();
             var formData = $('#formid').serialize();
 
@@ -154,7 +155,6 @@
                 success: function (res) {
                     if (res.IsSuccess) {
                         $("#subdata").html(res.Data);
-
 
                         if ($.fn.dataTable.isDataTable('#tbl')) {
                             $("#tbl").dataTable().fnDestroy();
@@ -181,6 +181,9 @@
                         );
                         $('#div-download').empty();
                         table.buttons().container().appendTo($('#div-download'));
+                    }
+                    else {
+                        $("#subdata").html(res.Data);
                     }
                 },
                 error: function (req, error) {

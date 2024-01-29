@@ -46,13 +46,22 @@ namespace FP.Manager
         }
         public static DataTable SpUserDetails(string Roleid, string CutUser)
         {
+            FilterModel model = new FilterModel();
             StoredProcedure sp = new StoredProcedure("Usp_UserDetails");
-            sp.Command.AddParameter("@DisId", MvcApplication.CUser.DistrictId, DbType.String);
-            sp.Command.AddParameter("@BlkId", MvcApplication.CUser.BlockId, DbType.String);
-            sp.Command.AddParameter("@PytId", MvcApplication.CUser.Panchayatid, DbType.String);
-            sp.Command.AddParameter("@VoId", MvcApplication.CUser.Void, DbType.String);
-            sp.Command.AddParameter("@Roleid", Roleid, DbType.String);
-            sp.Command.AddParameter("@CutUser", CommonModel.GetUserRoleLogin(), DbType.String);
+            //sp.Command.AddParameter("@DisId", MvcApplication.CUser.DistrictId, DbType.String);
+            //sp.Command.AddParameter("@BlkId", MvcApplication.CUser.BlockId, DbType.String);
+            //sp.Command.AddParameter("@PytId", MvcApplication.CUser.Panchayatid, DbType.String);
+            //sp.Command.AddParameter("@VoId", MvcApplication.CUser.Void, DbType.String);
+            //sp.Command.AddParameter("@Roleid", Roleid, DbType.String);
+            //sp.Command.AddParameter("@CutUser", CommonModel.GetUserRoleLogin(), DbType.String);
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", Roleid, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -82,16 +91,14 @@ namespace FP.Manager
         public static DataTable SPBFYList(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_BFYList");
-            // sp.Command.AddParameter("@Roleid", Roleid, DbType.String);
-            //  sp.Command.AddParameter("@CutUser", CutUser, DbType.String);
             sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
             sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
             sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
             sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
             sp.Command.AddParameter("@Month", model.Month, DbType.String);
             sp.Command.AddParameter("@Year", model.Year, DbType.String);
-            sp.Command.AddParameter("@Role", model.RoleId, DbType.String);
-            sp.Command.AddParameter("@CutUser", model.CutUser, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -121,22 +128,22 @@ namespace FP.Manager
             sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
             sp.Command.AddParameter("@Month", model.Month, DbType.String);
             sp.Command.AddParameter("@Year", model.Year, DbType.String);
-            sp.Command.AddParameter("@Role", model.RoleId, DbType.String);
-            sp.Command.AddParameter("@CutUser", model.CutUser, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SP_PlanBFYList(FilterModel model)
+        public static DataTable SP_PlanAchBFYList(FilterModel model)
         {
-            StoredProcedure sp = new StoredProcedure("SP_PlanBFYList");
+            StoredProcedure sp = new StoredProcedure("SP_PlanAchBFYList");
             sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
             sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
             sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
             sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
             sp.Command.AddParameter("@Month", model.Month, DbType.String);
             sp.Command.AddParameter("@Year", model.Year, DbType.String);
-            sp.Command.AddParameter("@Role", model.RoleId, DbType.String);
-            sp.Command.AddParameter("@CutUser", model.CutUser, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
