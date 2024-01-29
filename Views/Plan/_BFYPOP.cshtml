@@ -5,144 +5,141 @@
 }
 <!-- Modal -->
 
-    <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            @using (Html.BeginForm("AddAchBFY", "Plan", FormMethod.Post, new { @class = "", @id = "AchBFYformid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.HiddenFor(m => m.AchvtBFYID_pk)
-                @Html.HiddenFor(m => m.PlanId_fk)
-                @Html.HiddenFor(m => m.BFYId_fk)
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myModalTitle">Achievement Line-Listing</h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.IsPeerPresent, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        <div class="checkbox">
-                                            @foreach (var item in CommonModel.GetYesNotrue())
-                                            {
-                                                <span class="check-spacer">
-                                                    @Html.RadioButtonFor(model => model.IsPeerPresent, item.Value, new { id = "IsPeerPresent" + item.Value, @required = "required" ,@class= "Cont" }) @item.Text
-                                                </span>
-                                            }
-                                            @Html.ValidationMessageFor(model => model.IsPeerPresent, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
+<div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        @using (Html.BeginForm("AddAchBFY", "Plan", FormMethod.Post, new { @class = "", @id = "AchBFYformid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.AchvtBFYID_pk)
+            @Html.HiddenFor(m => m.PlanId_fk)
+            @Html.HiddenFor(m => m.BFYId_fk)
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalTitle">Achievement Line-Listing</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="col-sm-4">
+                        <div class="position-relative form-group">
+                            @Html.LabelFor(model => model.IsPeerPresent, htmlAttributes: new { @class = "control-label" })
+                                <div class="checkbox">
+                                    @foreach (var item in CommonModel.GetYesNotrue())
+                                    {
+                                        <span class="check-spacer">
+                                            @Html.RadioButtonFor(model => model.IsPeerPresent, item.Value, new { id = "IsPeerPresent" + item.Value, @required = "required", @class = "Cont" }) @item.Text
+                                        </span>
+                                    }
+                                    @Html.ValidationMessageFor(model => model.IsPeerPresent, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.IsFollowUpHV, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        <div class="checkbox">
-                                            @foreach (var item in CommonModel.GetYesNotrue())
-                                            {
-                                                <span class="check-spacer">
-                                                    @Html.RadioButtonFor(model => model.IsFollowUpHV, item.Value, new { id = "IsFollowUpHV" + item.Value, @required = "required", @class = "Cont" }) @item.Text
-                                                </span>
-                                            }
-                                            @Html.ValidationMessageFor(model => model.IsFollowUpHV, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group" id="div-IsContraception" style="display:none;">
-                                    @Html.LabelFor(model => model.IsContraception, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        <div class="checkbox">
-                                            @foreach (var item in CommonModel.GetYesNotrue())
-                                            {
-                                                <span class="check-spacer">
-                                                    @Html.RadioButtonFor(model => model.IsContraception, item.Value, new { id = "IsContraception" + item.Value, @required = "required" }) @item.Text
-                                                </span>
-                                            }
-                                            @Html.ValidationMessageFor(model => model.IsContraception, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6" id="div-ContraceptionId_fk" style="display:none;">
-                                @Html.LabelFor(m => m.ContraceptionId_fk, new { @class = "col-md-2 col-form-label" })
-                                @Html.DropDownListFor(m => m.ContraceptionId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                                @Html.ValidationMessageFor(model => model.ContraceptionId_fk, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group" id="div-ContraceptionOther" style="display:none;">
-                                    @Html.LabelFor(model => model.ContraceptionOther, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.ContraceptionOther, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.ContraceptionOther, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6" id="div-UseMethodId_fk" style="display:none;">
-                                @Html.LabelFor(m => m.UseMethodId_fk, new { @class = "col-md-2 col-form-label" })
-                                @Html.DropDownListFor(m => m.UseMethodId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                                @Html.ValidationMessageFor(model => model.UseMethodId_fk, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group" id="div-Isservice" style="display:none;">
-                                    @Html.LabelFor(model => model.Isservice, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        <div class="checkbox">
-                                            @foreach (var item in CommonModel.GetYesNotrue())
-                                            {
-                                                <span class="check-spacer">
-                                                    @Html.RadioButtonFor(model => model.Isservice, item.Value, new { id = "Isservice" + item.Value, @required = "required" }) @item.Text
-                                                </span>
-                                            }
-                                            @Html.ValidationMessageFor(model => model.Isservice, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="div-Service" style="display:none;">
-                                <div class="col-md-6">
-                                    <div class="form-group" id="div-ServiceProvider" style="display:block;">
-                                        @Html.LabelFor(model => model.ServiceProvider, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.DropDownListFor(model => model.ServiceProvider, CommonModel.GetServiceProvider(), "Select", new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.ServiceProvider, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group" id="div-ServiceRevcDt" style="display:block;">
-                                        @Html.LabelFor(model => model.ServiceRevcDt, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.ServiceRevcDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                                            @Html.ValidationMessageFor(model => model.ServiceRevcDt, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group" id="div-Location" style="display:block;">
-                                        @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        @*<button type="button" class="btn btn-primary">Submit</button>*@
-                        <input type="submit" name="btnsubmit" id="btnpopsubmit" class="btn btn-primary" value="Submit" />
+                    <div class="col-sm-4">
+                        <div class="position-relative form-group">
+                            @Html.LabelFor(model => model.IsFollowUpHV, htmlAttributes: new { @class = "control-label" })
+                           
+                                <div class="checkbox">
+                                    @foreach (var item in CommonModel.GetYesNotrue())
+                                    {
+                                        <span class="check-spacer">
+                                            @Html.RadioButtonFor(model => model.IsFollowUpHV, item.Value, new { id = "IsFollowUpHV" + item.Value, @required = "required", @class = "Cont" }) @item.Text
+                                        </span>
+                                    }
+                                    @Html.ValidationMessageFor(model => model.IsFollowUpHV, "", new { @class = "text-danger" })
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div lass="position-relative form-group" id="div-IsContraception" style="display:none;">
+                            @Html.LabelFor(model => model.IsContraception, htmlAttributes: new { @class = "control-label" })
+                           
+                                <div class="checkbox">
+                                    @foreach (var item in CommonModel.GetYesNotrue())
+                                    {
+                                        <span class="check-spacer">
+                                            @Html.RadioButtonFor(model => model.IsContraception, item.Value, new { id = "IsContraception" + item.Value, @required = "required" }) @item.Text
+                                        </span>
+                                    }
+                                    @Html.ValidationMessageFor(model => model.IsContraception, "", new { @class = "text-danger" })
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div lass="position-relative form-group" id="div-ContraceptionId_fk" style="display:none;">
+                            @Html.LabelFor(m => m.ContraceptionId_fk, new { @class = "control-label" })
+                            @Html.DropDownListFor(m => m.ContraceptionId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                            @Html.ValidationMessageFor(model => model.ContraceptionId_fk, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div lass="position-relative form-group" id="div-ContraceptionOther" style="display:none;">
+                            @Html.LabelFor(model => model.ContraceptionOther, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.ContraceptionOther, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ContraceptionOther, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div lass="position-relative form-group" id="div-UseMethodId_fk" style="display:none;">
+                            @Html.LabelFor(m => m.UseMethodId_fk, new { @class = "control-label" })
+                            @Html.DropDownListFor(m => m.UseMethodId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                            @Html.ValidationMessageFor(model => model.UseMethodId_fk, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-4">
+                            <div lass="position-relative form-group" id="div-Isservice" style="display:none;">
+                                @Html.LabelFor(model => model.Isservice, htmlAttributes: new { @class = "control-label" })
+                               
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNotrue())
+                                        {
+                                            <span class="check-spacer">
+                                                @Html.RadioButtonFor(model => model.Isservice, item.Value, new { id = "Isservice" + item.Value, @required = "required" }) @item.Text
+                                            </span>
+                                        }
+                                        @Html.ValidationMessageFor(model => model.Isservice, "", new { @class = "text-danger" })
+                                    </div>
+                            </div>
+                        </div>
+                        <div id="div-Service" style="display:none;">
+                            <div class="col-sm-4">
+                                <div lass="position-relative form-group" id="div-ServiceProvider" style="display:block;">
+                                    @Html.LabelFor(model => model.ServiceProvider, htmlAttributes: new { @class = "control-label" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.ServiceProvider, CommonModel.GetServiceProvider(), "Select", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ServiceProvider, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div lass="position-relative form-group" id="div-ServiceRevcDt" style="display:block;">
+                                    @Html.LabelFor(model => model.ServiceRevcDt, htmlAttributes: new { @class = "control-label " })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ServiceRevcDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                        @Html.ValidationMessageFor(model => model.ServiceRevcDt, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div lass="position-relative form-group" id="div-Location" style="display:block;">
+                                    @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label " })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            }
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    @*<button type="button" class="btn btn-primary">Submit</button>*@
+                    <input type="submit" name="btnsubmit" id="btnpopsubmit" class="btn btn-primary" value="Submit" />
+                </div>
+            </div>
         </div>
+        }
     </div>
+</div>

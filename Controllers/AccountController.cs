@@ -18,7 +18,6 @@ namespace FP.Controllers
         FP_DBEntities db_ = new FP_DBEntities();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
         public AccountController()
         {
         }
@@ -148,6 +147,7 @@ namespace FP.Controllers
             {
                 var tblu = db_.AspNetUsers.Find(id);
                 var tblemp = db_.TBL_Emp.Find(Guid.Parse(empid));
+                model.RoleID_fk = tblemp.RoleID_fk;
                 model.UserID_fk = tblu.Id;
                 model.MobileNo = tblemp.MobileNo;
                 model.EmpID_pk = tblemp.EmpID_pk;
@@ -176,6 +176,12 @@ namespace FP.Controllers
                 {
                     var tbLu = dbe.AspNetUsers.Find(model.UserID_fk);
                     var tbLe = dbe.TBL_Emp.Find(model.EmpID_pk);
+
+                    tbLe.DistrictID = model.DistrictId;
+                    tbLe.BlockID = model.BlockId;
+                    tbLe.PanchayatId = model.PanchayatId;
+                    tbLe.VOId_fk = model.VOId_fk;
+
                     tbLe.EmpName = model.EmpName;
                     tbLe.Gender = model.Gender;
                     tbLe.MobileNo = model.MobileNo;

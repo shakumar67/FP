@@ -126,13 +126,15 @@
         });
 
             if ('@Model.UserID_fk' != '') {
+                debugger;
                 $('#Roles').val('@Model.RoleID_fk');
+                BindRole();
                 $('#DistrictId').val('@Model.DistrictId');
                 GetBlock("BlockId", 0, $('#DistrictId').val());
                 $('#BlockId').val('@Model.BlockId');
                 GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
                 $('#PanchayatId').val('@Model.PanchayatId');
-                GetVillage("VillageId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
+                GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
                 $('#VOId_fk').val('@Model.VOId_fk');
                 $('#EmpName').val('@Model.EmpName');
                 $('#VillageName').val('@Model.VillageName');
@@ -144,7 +146,7 @@
             /* Role Wise */
             BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId_fk");
 
-            if ('@MvcApplication.CUser'!=='nul') {
+            if ('@MvcApplication.CUser' !== 'nul') {
                     if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
                            $('#Roles').val('@MvcApplication.CUser.RoleId');
                            // $('#Roles').attr("style", "pointer-events: none;");
@@ -175,6 +177,7 @@
         //});
         });
         function BindRole() {
+            debugger;
             var rolen = $("#Roles option:selected").text();
             if (rolen == '@CommonModel.RoleNameCont.CM') {
                 $('#div-blk').css('display', 'flex');
