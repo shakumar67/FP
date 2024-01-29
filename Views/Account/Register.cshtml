@@ -103,7 +103,7 @@
            // var url = '@Url.Action("Register", "Account")';
             // window.location.href = url + '?Roles=' + $(this).val();
             var rolen = $("#Roles option:selected").text();
-            debugger;
+            //debugger;
             if (rolen == '@CommonModel.RoleNameCont.Admin' || rolen== '@CommonModel.RoleNameCont.District') {
                 GetDistrict("DistrictId", 0);
                 GetBlock("BlockId", 0, $('#DistrictId').val());
@@ -177,26 +177,26 @@
         function BindRole() {
             var rolen = $("#Roles option:selected").text();
             if (rolen == '@CommonModel.RoleNameCont.CM') {
-                $('#div-blk').css('display', 'block');
-                $('#div-dis').css('display', 'block');
-                $('#div-panchid').css('display', 'block');
+                $('#div-blk').css('display', 'flex');
+                $('#div-dis').css('display', 'flex');
+                $('#div-panchid').css('display', 'flex');
                 $('#div-vid').show();
                 $('#div-voorg').show();
                 $('#Gender').val('Female');
                 $('#Gender').attr('readonly', true);
             }
             else if (rolen == '@CommonModel.RoleNameCont.CNRP') {
-                $('#div-blk').css('display', 'block');
-                $('#div-dis').css('display', 'block');
-                $('#div-panchid').css('display', 'block');
+                $('#div-blk').css('display', 'flex');
+                $('#div-dis').css('display', 'flex');
+                $('#div-panchid').css('display', 'flex');
                 $('#div-voorg').hide();
                 $('#div-vid').hide();
                 $('#Gender').val('Female');
                 $('#Gender').attr('readonly', true);
             }
             else if (rolen == '@CommonModel.RoleNameCont.BPMU') {
-                $('#div-blk').css('display', 'block');
-                $('#div-dis').css('display', 'block');
+                $('#div-blk').css('display', '@Html.AntiForgeryToken()');
+                $('#div-dis').css('display', 'flex');
                 $('#div-panchid').css('display', 'none');
                 $('#div-voorg').hide();
                 $('#div-vid').hide();
