@@ -491,15 +491,14 @@ function GetContraceptiveChildList(Ele, Sel, Para1) {
 }
 
 
-function GetYearList(Ele, Sel) {
+function GetYearList(Ele, Sel,IsAll=0) {
     $('#' + Ele).empty();
     $('#' + Ele).prop("disabled", false);
     //$('#' + Ele).append($("<option>").val('').text('Select'));
-
     $.ajax({
         url: document.baseURI + "/Master/GetYearList",
         type: "Post",
-        data: '',//JSON.stringify({ 'CID': Para1 }),
+        data: JSON.stringify({ 'IsAll': IsAll }),
         contentType: "application/json; charset=utf-8",
         global: false,
         async: false,
@@ -521,7 +520,7 @@ function GetYearList(Ele, Sel) {
 
     $('#' + Ele).trigger("chosen:updated");
 }
-function GetMonthList(Ele, Sel) {
+function GetMonthList(Ele, Sel, IsAll = 0) {
     $('#' + Ele).empty();
     $('#' + Ele).prop("disabled", false);
     //$('#' + Ele).append($("<option>").val('').text('Select'));
@@ -529,7 +528,7 @@ function GetMonthList(Ele, Sel) {
     $.ajax({
         url: document.baseURI + "/Master/GetMonthList",
             type: "Post",
-            data: '',//JSON.stringify({ 'CID': Para1 }),
+            data: JSON.stringify({ 'IsAll': IsAll }),
             contentType: "application/json; charset=utf-8",
             global: false,
             async: false,

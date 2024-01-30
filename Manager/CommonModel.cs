@@ -1015,7 +1015,7 @@ namespace FP.Manager
             }
             else if (isAddedSelect == 2)
             {
-                list.Insert(0, new SelectListItem { Value = "", Text = "All" });
+                list.Insert(0, new SelectListItem { Value = "all", Text = "All" });
             }
             return list.OrderByDescending(x => x.Text).ToList();
         }
@@ -1030,7 +1030,7 @@ namespace FP.Manager
             }
             else if (isAddedSelect == 2)
             {
-                list.Insert(0, new SelectListItem { Value = "", Text = "All" });
+                list.Insert(0, new SelectListItem { Value = "all", Text = "All" });
             }
             return list.ToList();
         }

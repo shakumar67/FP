@@ -609,6 +609,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\JS\accessibility.js" />
     <Content Include="Scripts\JS\export-data.js" />
+    <Content Include="Scripts\JS\ExportAll.js" />
     <Content Include="Scripts\JS\exporting.js" />
     <Content Include="Scripts\JS\highcharts.js" />
     <Content Include="Scripts\JS\jquery-ui.js" />

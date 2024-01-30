@@ -9,7 +9,7 @@
     }
 </style>
 <div class="breadcrumb">
-    <h2>Create Plan</h2>
+    <h2>Add Plan</h2>
     <p><a href="~/Plan/PlanList">Planning Lists</a> / Add Plan </p>
 </div>
 <div class="container-fluid pt-4 px-4">
@@ -131,6 +131,10 @@
             <div class="col=md-6"></div>
             <div class="col=md-6"></div>
             <div class="col-md-12">
+                @if (Model.PlanID_pk != Guid.Empty)
+                {
+                    <h5>List-Listing Details</h5>
+                }
                 <div id="subdata"></div>
             </div>
         </div>
@@ -228,8 +232,6 @@
                 });
 
 
-
-
             $('#IsBFY').change(function () {
                 IsPGYHV();
             });
@@ -245,13 +247,14 @@
                 GetVillage("VoId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
             });
             $('#VoId_fk').change(function () {
-                BindData();
+               // BindData();
             });
             /* Role Wise */
             BindRolewise("DistrictId_fk", "BlockId_fk", "PanchayatId_fk", "VoId_fk");
 
             if ('@Model.PlanID_pk' != '00000000-0000-0000-0000-000000000000') {
                 BindPlanEdit();
+                BindData();
             }//End Edit Function
 
             $("#CreatePlanformid").submit(function (e) {

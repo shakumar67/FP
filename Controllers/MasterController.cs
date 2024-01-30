@@ -274,11 +274,11 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetYearList()
+        public ActionResult GetYearList(int IsAll = 0)
         {
             try
             {
-                var items = CommonModel.GetYear(2);
+                var items = CommonModel.GetYear(IsAll);
                 if (items != null)
                 {
                     var data = JsonConvert.SerializeObject(items);
@@ -291,11 +291,11 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetMonthList()
+        public ActionResult GetMonthList(int IsAll=0)
         {
             try
             {
-                var items = CommonModel.GetMonth(2);
+                var items = CommonModel.GetMonth(IsAll);
                 if (items != null)
                 {
                     var data = JsonConvert.SerializeObject(items);

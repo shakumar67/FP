@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Achievement";
 }
+
 <!-- Modal -->
 
 <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
@@ -21,9 +22,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row g-4">
+                    <div class="row g-1">
                         <div class="col-sm-12">
-                            <div class="bg-light rounded h-100 p-4">
+                            <div class="bg-light rounded h-100 p-2">
                                 <div class="row mb-3">
                                     <div class="col-sm-4">
                                         <div class="position-relative form-group">
@@ -42,7 +43,6 @@
                                     <div class="col-sm-4">
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(model => model.IsFollowUpHV, htmlAttributes: new { @class = "control-label" })
-
                                             <div class="checkbox">
                                                 @foreach (var item in CommonModel.GetYesNotrue())
                                                 {
@@ -57,7 +57,6 @@
                                     <div class="col-sm-4">
                                         <div lass="position-relative form-group" id="div-IsContraception" style="display:none;">
                                             @Html.LabelFor(model => model.IsContraception, htmlAttributes: new { @class = "control-label" })
-
                                             <div class="checkbox">
                                                 @foreach (var item in CommonModel.GetYesNotrue())
                                                 {
@@ -69,31 +68,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div lass="position-relative form-group" id="div-ContraceptionId_fk" style="display:none;">
                                             @Html.LabelFor(m => m.ContraceptionId_fk, new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.ContraceptionId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
                                             @Html.ValidationMessageFor(model => model.ContraceptionId_fk, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div lass="position-relative form-group" id="div-ContraceptionOther" style="display:none;">
-                                            @Html.LabelFor(model => model.ContraceptionOther, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-sm-6" id="div-ContraceptionOther"  style="display:none;">
+                                        <div lass="position-relative form-group">
+                                            @Html.LabelFor(model => model.ContraceptionOther, htmlAttributes: new { @class = "control-label" })
                                             @Html.EditorFor(model => model.ContraceptionOther, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.ContraceptionOther, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div lass="position-relative form-group" id="div-UseMethodId_fk" style="display:none;">
                                             @Html.LabelFor(m => m.UseMethodId_fk, new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.UseMethodId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
                                             @Html.ValidationMessageFor(model => model.UseMethodId_fk, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-12">
                                         <div lass="position-relative form-group" id="div-Isservice" style="display:none;">
                                             @Html.LabelFor(model => model.Isservice, htmlAttributes: new { @class = "control-label" })
-
                                             <div class="checkbox">
                                                 @foreach (var item in CommonModel.GetYesNotrue())
                                                 {
@@ -105,34 +103,34 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
-                                        <div id="div-Service" style="display:none;" class="col-sm-12">
-                                            <div class="col-sm-4 ">
-                                                <div lass="position-relative form-group" id="div-ServiceProvider" style="display:block;">
-                                                    @Html.LabelFor(model => model.ServiceProvider, htmlAttributes: new { @class = "control-label" })
+                                 
+                                        <div class="col-sm-12">
+                                            <div id="div-Service" style="display:none;">
+                                                <div class="row mb-3">
+                                                    <div class="col-sm-6">
+                                                        <div lass="position-relative form-group" id="div-ServiceProvider" style="display:block;">
+                                                            @Html.LabelFor(model => model.ServiceProvider, htmlAttributes: new { @class = "control-label" })
+                                                            @Html.DropDownListFor(model => model.ServiceProvider, CommonModel.GetServiceProvider(), "Select", new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.ServiceProvider, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div lass="position-relative form-group" id="div-ServiceRevcDt" style="display:block;">
+                                                            @Html.LabelFor(model => model.ServiceRevcDt, htmlAttributes: new { @class = "control-label" })
+                                                            @Html.EditorFor(model => model.ServiceRevcDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                                            @Html.ValidationMessageFor(model => model.ServiceRevcDt, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div lass="position-relative form-group" id="div-Location" style="display:block;">
+                                                            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label" })
+                                                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
 
-                                                    @Html.DropDownListFor(model => model.ServiceProvider, CommonModel.GetServiceProvider(), "Select", new { @class = "form-control" })
-                                                    @Html.ValidationMessageFor(model => model.ServiceProvider, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4 ">
-                                                <div lass="position-relative form-group" id="div-ServiceRevcDt" style="display:block;">
-                                                    @Html.LabelFor(model => model.ServiceRevcDt, htmlAttributes: new { @class = "control-label " })
-
-                                                    @Html.EditorFor(model => model.ServiceRevcDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                                                    @Html.ValidationMessageFor(model => model.ServiceRevcDt, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 ">
-                                                <div lass="position-relative form-group" id="div-Location" style="display:block;">
-                                                    @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label " })
-
-                                                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
