@@ -89,51 +89,50 @@
                                             @Html.DropDownListFor(m => m.UseMethodId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
                                             @Html.ValidationMessageFor(model => model.UseMethodId_fk, "", new { @class = "text-danger" })
                                         </div>
-                                        <div class="col-sm-4">
-                                            <div lass="position-relative form-group" id="div-Isservice" style="display:none;">
-                                                @Html.LabelFor(model => model.Isservice, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div lass="position-relative form-group" id="div-Isservice" style="display:none;">
+                                            @Html.LabelFor(model => model.Isservice, htmlAttributes: new { @class = "control-label" })
 
-                                                <div class="checkbox">
-                                                    @foreach (var item in CommonModel.GetYesNotrue())
-                                                    {
-                                                        <span class="check-spacer">
-                                                            @Html.RadioButtonFor(model => model.Isservice, item.Value, new { id = "Isservice" + item.Value, @required = "required" }) @item.Text
-                                                        </span>
-                                                    }
-                                                    @Html.ValidationMessageFor(model => model.Isservice, "", new { @class = "text-danger" })
-                                                </div>
+                                            <div class="checkbox">
+                                                @foreach (var item in CommonModel.GetYesNotrue())
+                                                {
+                                                    <span class="check-spacer">
+                                                        @Html.RadioButtonFor(model => model.Isservice, item.Value, new { id = "Isservice" + item.Value, @required = "required" }) @item.Text
+                                                    </span>
+                                                }
+                                                @Html.ValidationMessageFor(model => model.Isservice, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        <div id="div-Service" style="display:none;">
-                                            <div class="col-sm-4">
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div id="div-Service" style="display:none;" class="col-sm-12">
+                                            <div class="col-sm-4 ">
                                                 <div lass="position-relative form-group" id="div-ServiceProvider" style="display:block;">
                                                     @Html.LabelFor(model => model.ServiceProvider, htmlAttributes: new { @class = "control-label" })
-                                                    <div class="col-md-10">
-                                                        @Html.DropDownListFor(model => model.ServiceProvider, CommonModel.GetServiceProvider(), "Select", new { @class = "form-control" })
-                                                        @Html.ValidationMessageFor(model => model.ServiceProvider, "", new { @class = "text-danger" })
-                                                    </div>
+
+                                                    @Html.DropDownListFor(model => model.ServiceProvider, CommonModel.GetServiceProvider(), "Select", new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.ServiceProvider, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-4 ">
                                                 <div lass="position-relative form-group" id="div-ServiceRevcDt" style="display:block;">
                                                     @Html.LabelFor(model => model.ServiceRevcDt, htmlAttributes: new { @class = "control-label " })
-                                                    <div class="col-md-10">
-                                                        @Html.EditorFor(model => model.ServiceRevcDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                                                        @Html.ValidationMessageFor(model => model.ServiceRevcDt, "", new { @class = "text-danger" })
-                                                    </div>
+
+                                                    @Html.EditorFor(model => model.ServiceRevcDt, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                                    @Html.ValidationMessageFor(model => model.ServiceRevcDt, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-4 ">
                                                 <div lass="position-relative form-group" id="div-Location" style="display:block;">
                                                     @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label " })
-                                                    <div class="col-md-10">
-                                                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
-                                                    </div>
+
+                                                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
-                                        </div>
 
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -143,6 +142,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
