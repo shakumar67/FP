@@ -144,8 +144,8 @@
             filtermodel.BlockId = $('#BlockId').val() == '' ? '' : $('#BlockId').val();
             filtermodel.PanchayatId = $('#PanchayatId').val() == '' ? '' : $('#PanchayatId').val();
             filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
-            filtermodel.Year = $('#Year option:selected').text() == '' ? '' : $('#Year option:selected').text();
-            filtermodel.Month = $('#Month option:selected').text() == '' ? '' : $('#Month option:selected').text();
+            filtermodel.Year = $('#Year').val() == '' ? '' : $('#Year').val();
+            filtermodel.Month = $('#Month').val() == '' ? '' : $('#Month').val();
             var formData = $('#formid').serialize();
 
 

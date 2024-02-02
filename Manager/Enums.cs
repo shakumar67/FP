@@ -48,7 +48,7 @@ namespace FP.Manager
             Insert = 1,
             [Description("Record has been updated successfully.")]
             Update = 2,
-            [Description("Record is already exists.")]
+            [Description("This record is already exists.")]
             Already = 3,
             [Description("Error")]
             Error = 4,

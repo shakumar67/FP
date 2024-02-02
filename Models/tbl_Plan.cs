@@ -19,6 +19,8 @@ namespace FP.Models
         public Nullable<int> BlockId_fk { get; set; }
         public Nullable<int> PanchayatId_fk { get; set; }
         public Nullable<int> VoId_fk { get; set; }
+        public Nullable<int> PlanMonth { get; set; }
+        public Nullable<int> PlanYear { get; set; }
         public Nullable<System.DateTime> PlanDt { get; set; }
         public Nullable<System.DateTime> HVDt { get; set; }
         public Nullable<int> IsBFY { get; set; }

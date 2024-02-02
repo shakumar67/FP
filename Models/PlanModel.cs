@@ -29,24 +29,31 @@ namespace FP.Models
         [Display(Name = "Village Organization")]
         public Nullable<int> VoId_fk { get; set; }
         [Required]
+        [Display(Name = "Planning Month")] 
+        public Nullable<int> PlanMonth { get; set; }
+        [Required]
+        [Display(Name = "Planning Year")]
+        public Nullable<int> PlanYear { get; set; }
+        [Required]
         [Display(Name = "Planning date for  Peer Group Meeting")]
-        [ExpressiveAnnotations.Attributes.AssertThat("DOMDt")]
+       // [ExpressiveAnnotations.Attributes.AssertThat("DOMDt")]
         public Nullable<System.DateTime> PlanDt { get; set; }
         [Required]
-        [Display(Name = "Planning date for HV")]
+        [Display(Name = "Planning date for Homw Visit")]
         public Nullable<System.DateTime> HVDt { get; set; }
         //[Required]
         [Display(Name = "Select Peer Group Meeting & Home Visit")]
         public Nullable<int> IsBFY { get; set; }
         public bool IsCheckBFY { get; set; }
         //[Required]
-        [ExpressiveAnnotations.Attributes.AssertThat("PlanDt")]
+       // [ExpressiveAnnotations.Attributes.AssertThat("PlanDt")]
         [Display(Name = "Date of meeting held for Peer Group meeting")]
-        [ExpressiveAnnotations.Attributes.RequiredIf("(IsBFY==1 || IsBFY == 3))")]
+        [ExpressiveAnnotations.Attributes.RequiredIf("(IsBFY==1 || IsBFY == 3)")]
         public Nullable<System.DateTime> DOMDt { get; set; }
-        [Display(Name = "Date of HV")]
-        [ExpressiveAnnotations.Attributes.RequiredIf("(IsBFY==2 || IsBFY == 3))")]
+        [Display(Name = "Date of Home Visit")]
+        [ExpressiveAnnotations.Attributes.RequiredIf("(IsBFY==2 || IsBFY == 3)")]
         public Nullable<System.DateTime> DOMHVDt { get; set; }
+        [Required]
         [Display(Name = "Subject")]
         public Nullable<int> SubjectId { get; set; }
         public Nullable<bool> IsActive { get; set; }
