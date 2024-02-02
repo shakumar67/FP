@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Family Planning | FP</title>
+    <title>खुशहाल परिवार</title>
     <link href="~/Content/img/icon.png" rel="icon" />
     <link href="~/Content/banner/style.css" rel="stylesheet" />
     <link href="~/Content/css/login.css" rel="stylesheet" />
@@ -93,12 +93,12 @@
             <img src="~/Content/img/nrh.png" alt="ational health" />
         </div>
         @*<div class="logo ci">
-            <img src="~/Content/img/fp-logo.png" alt="" />
-        </div>*@
+                <img src="~/Content/img/fp-logo.png" alt="" />
+            </div>*@
     </div>
     <!-- Login -->
     <div class="page-login">
-        <h2>Family Planning (FP)</h2>
+        <h2>खुशहाल परिवार</h2>
         <div class="login-field">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
             {
@@ -114,18 +114,18 @@
                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 <div class="checkbox">
                     @*@Html.CheckBoxFor(m => m.RememberMe)
-                    @Html.LabelFor(m => m.RememberMe)*@
+                        @Html.LabelFor(m => m.RememberMe)*@
                 </div>
                 @*<a href="#">Forgot Password</a>*@
                 <div class="breaker"></div>
                 <input type="submit" value="Login" class="submit-btn" />
                 @*<p>
-                    @Html.ActionLink("Register now", "Register")
-                </p>*@
+                        @Html.ActionLink("Register now", "Register")
+                    </p>*@
             }
         </div>
     </div>
-    
+
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }
