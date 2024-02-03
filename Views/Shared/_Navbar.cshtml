@@ -36,36 +36,36 @@
         @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.Admin) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.State))
         {
             <div class="navbar-nav w-100">
-                <a href="/" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Beneficiary</a>
                         <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Plan</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives3" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Plan</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Plan/CreatePlan" class="dropdown-item"><i class="fa fa-plus"></i>Add Plan</a>
                         <a href="~/Plan/PlanList" class="dropdown-item"><i class="fa fa-list"></i>Planning List</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Account</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives4" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Account</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Account/Register" class="dropdown-item"><i class="fa fa-add"></i>Register</a>
                         <a href="~/Master/UserDetaillist" class="dropdown-item"><i class="fa fa-add"></i>User List</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Report</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives5" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Report</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Report/LetterTwo" class="dropdown-item"><i class="fa fa-add"></i>Prapatra-2 List</a>
                         <a href="~/Report/AchBFYList" class="dropdown-item"><i class="fa fa-add"></i>Achievement List</a>
                     </div>
                 </div>
-                <a href="~/Master/VillMaster" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Village Organization</a>
+                <a href="~/Master/VillMaster" class="nav-item nav-link actives6"><i class="fa fa-keyboard me-2"></i>Village Organization</a>
                 @*<a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
         <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
         <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>*@
@@ -83,14 +83,14 @@
         else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.Viewer))
         {
     <div class="navbar-nav w-100">
-        <a href="/" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+        <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
         <div class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+            <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
             <div class="dropdown-menu bg-transparent border-0">
                 <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Beneficiary</a>
             </div>
         </div>
-        <a href="~/Master/UserDetaillist" class="nav-item nav-link"><i class="fa fa-list"></i>User List</a>
+        <a href="~/Master/UserDetaillist" class="nav-item nav-link actives3"><i class="fa fa-list"></i>User List</a>
         <div class="nav-item dropdown">
             <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Report</a>
             <div class="dropdown-menu bg-transparent border-0">
@@ -103,9 +103,9 @@
         else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CM))
         {
     <div class="navbar-nav w-100">
-        <a href="/" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+        <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
         <div class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+            <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
             <div class="dropdown-menu bg-transparent border-0">
                 <a href="~/Beneficiary/Beneficiary" class="dropdown-item"><i class="fa fa-plus"></i>Beneficiary</a>
                 <a href="~/Beneficiary/BFYList" class="dropdown-item"><i class="fa fa-list"></i>Beneficiary List</a>
@@ -114,24 +114,24 @@
         @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP))
         {
             <div class="nav-item dropdown">
-                <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Plan</a>
+                <a href="javascript:void(0)" class="nav-link dropdown-toggle actives3" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Plan</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="~/Plan/CreatePlan" class="dropdown-item"><i class="fa fa-plus"></i>Add Plan</a>
                     <a href="~/Plan/PlanList" class="dropdown-item"><i class="fa fa-list"></i>Planning List</a>
                 </div>
             </div>
             <div class="nav-item dropdown">
-                <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Account</a>
+                <a href="javascript:void(0)" class="nav-link dropdown-toggle actives4" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Account</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="~/Account/Register" class="dropdown-item"><i class="fa fa-plus"></i>Register</a>
                     <a href="~/Master/UserDetaillist" class="dropdown-item"><i class="fa fa-list"></i>User List</a>
                 </div>
             </div>
 
-            <a href="~/Master/VillMaster" class="nav-item nav-link"><i class="fa fa-database"></i>Village Organization</a>
+            <a href="~/Master/VillMaster" class="nav-item nav-link actives6"><i class="fa fa-database"></i>Village Organization</a>
         }
         <div class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Report</a>
+            <a href="javascript:void(0)" class="nav-link dropdown-toggle actives5" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Report</a>
             <div class="dropdown-menu bg-transparent border-0">
                 <a href="~/Report/LetterTwo" class="dropdown-item"><i class="fa fa-add"></i>Prapatra-2 List</a>
                 <a href="~/Report/AchBFYList" class="dropdown-item"><i class="fa fa-add"></i>Achievement List</a>
@@ -142,23 +142,23 @@
         else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPMU) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPIU) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.District))
         {
     <div class="navbar-nav w-100">
-        <a href="/" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+        <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
         <div class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+            <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
             <div class="dropdown-menu bg-transparent border-0">
                 <a href="~/Beneficiary/Beneficiary" class="dropdown-item"><i class="fa fa-plus"></i>Beneficiary</a>
                 <a href="~/Beneficiary/BFYList" class="dropdown-item"><i class="fa fa-list"></i>Beneficiary List</a>
             </div>
         </div>
         <div class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Account</a>
+            <a href="javascript:void(0)" class="nav-link dropdown-toggle actives4" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Account</a>
             <div class="dropdown-menu bg-transparent border-0">
                 <a href="~/Account/Register" class="dropdown-item"><i class="fa fa-plus"></i>Register</a>
                 <a href="~/Master/UserDetaillist" class="dropdown-item"><i class="fa fa-list"></i>User List</a>
             </div>
         </div>
         <div class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Report</a>
+            <a href="javascript:void(0)" class="nav-link dropdown-toggle actives5" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Report</a>
             <div class="dropdown-menu bg-transparent border-0">
                 <a href="~/Report/LetterTwo" class="dropdown-item"><i class="fa fa-add"></i>Prapatra-2 List</a>
                 <a href="~/Report/AchBFYList" class="dropdown-item"><i class="fa fa-add"></i>Achievement List</a>
