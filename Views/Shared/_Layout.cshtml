@@ -62,6 +62,39 @@
             gap: 15px;
             margin-top: -30px;
         }
+        .header-logo {
+            margin: auto;
+            padding: 5px 0
+        }
+        .header-logo img {
+            padding: 4px;
+            background: #fff;
+            border-radius: 5px;
+        }
+        .hl-1 {
+            width: 60px;
+        }
+        .hl-2 {
+            width: 70px;
+            margin-left: 120px
+        }
+        @@media screen and (max-width: 1024px) {
+            .hl-2 {
+                width: 70px;
+                margin-left: 50px
+            }
+        }
+        @@media screen and (max-width: 900px) {
+            .hl-2 {
+                width: 70px;
+                margin-left: 30px
+            }
+        }
+        @@media screen and (max-width: 768px) {
+            .header-logo {
+                display: none
+            }
+        }
     </style>
 
 </head>
