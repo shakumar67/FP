@@ -17,7 +17,7 @@
         .box-title div {
             padding: 5px 0
         }
-/*
+    /*
         .box-title span {
             float: right;
         }*/
@@ -96,12 +96,12 @@
                             सी.एन. आर.पी का नाम      :<span>@dr["DistrictName"]</span>
                         </div>
                         <div class="mb-3">
-                            सी. एन. आर. पी.का 
+                            सी. एन. आर. पी.का
                             मोबाइल नंबर          :<span>@dr["DistrictName"]</span>
                         </div>
                         <div class="mb-3">
-                            स्वास्थ्य उपकेन्द्र 
-                           का नाम स्थान        :<span>@dr["DistrictName"]</span>
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>@dr["DistrictName"]</span>
                         </div>
                         <div class="mb-3">
                             माह &amp; वर्ष          :<span>@dr["DistrictName"]</span>
@@ -110,10 +110,25 @@
                 </div>
             </div>
             <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th>क्र. सं.</th>
+                            <th>समूह का नाम</th>
+                            <th>लाभार्थी का नाम</th>
+                            <th>लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th>लाभार्थी के पति का नाम </th>
+                            <th>लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
     }
 }
-else { 
+else
+{
     <h4 class="text-success">@Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound)</h4>
 }
