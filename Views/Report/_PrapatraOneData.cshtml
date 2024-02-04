@@ -53,6 +53,7 @@
 </style>
 @if (dt.Rows.Count > 0)
 {
+    int sno = 1;
     foreach (DataRow dr in dt.Rows)
     {
         <div class="row">
@@ -65,27 +66,27 @@
                 <div class="rounded h-100 p-4 row g-4">
                     <div class="col-sm-12 col-xl-4">
                         <div class="mb-3">
-                            सीएम का नाम :<span>@dr["DistrictName"]</span>
+                            सीएम का नाम :<span>@dr["UpName"]</span>
                         </div>
                         <div class="mb-3">
-                            मोबाईल नंबर:<span>@dr["DistrictName"]</span>
+                            मोबाईल नंबर:<span>@dr["UpPhoneNo"]</span>
                         </div>
                         <div class="mb-3">
-                            ग्राम संगठन का नाम        :<span>@dr["DistrictName"]</span>
+                            ग्राम संगठन का नाम :<span>@dr["VO"]</span>
                         </div>
                         <div class="mb-3">
-                            कुल समूहों की संख्या         :<span>@dr["DistrictName"]</span>
+                            कुल समूहों की संख्या :<span>@dr["Q20"]</span>
                         </div>
                     </div>
                     <div class="col-sm-12 col-xl-3">
                         <div class="mb-3">
-                            गाँव      :<span>@dr["DistrictName"]</span>
+                            गाँव      :<span>@dr["ReportedVillage"]</span>
                         </div>
                         <div class="mb-3">
-                            पँचायत         :<span>@dr["DistrictName"]</span>
+                            पँचायत         :<span>@dr["Panchayat"]</span>
                         </div>
                         <div class="mb-3">
-                            प्रखंड        :<span>@dr["DistrictName"]</span>
+                            प्रखंड        :<span>@dr["Block"]</span>
                         </div>
                         <div class="mb-3">
                             जिला         :<span>@dr["DistrictName"]</span>
@@ -93,18 +94,18 @@
                     </div>
                     <div class="col-sm-12 col-xl-5">
                         <div class="mb-3">
-                            सी.एन. आर.पी का नाम      :<span>@dr["DistrictName"]</span>
+                            सी.एन. आर.पी का नाम      :<span>@dr["EmpName"]</span>
                         </div>
                         <div class="mb-3">
                             सी. एन. आर. पी.का
-                            मोबाइल नंबर          :<span>@dr["DistrictName"]</span>
+                            मोबाइल नंबर          :<span>@dr["PhoneNo"]</span>
                         </div>
                         <div class="mb-3">
                             स्वास्थ्य उपकेन्द्र
-                            का नाम स्थान        :<span>@dr["DistrictName"]</span>
+                            का नाम स्थान        :<span>@dr["HealthCenter"]</span>
                         </div>
                         <div class="mb-3">
-                            माह &amp; वर्ष          :<span>@dr["DistrictName"]</span>
+                            माह &amp; वर्ष          :<span>@dr["ReportingDate"]</span>
                         </div>
                     </div>
                 </div>
@@ -113,15 +114,61 @@
                 <table style="width:95%;">
                     <thead>
                         <tr>
-                            <th>क्र. सं.</th>
-                            <th>समूह का नाम</th>
-                            <th>लाभार्थी का नाम</th>
-                            <th>लाभार्थी की उम्र (वर्ष मे)</th>
-                            <th>लाभार्थी के पति का नाम </th>
-                            <th>लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>@(sno++)</td>
+                            <td>@dr["SHG"]</td>
+                            <td>@dr["BFYID"]</td>
+                            <td>@dr["BFYName"]</td>
+                            <td>@dr["BFYAge"]</td>
+                            <td>@dr["Husband"]</td>
+                            <td>@dr["DOM"]</td>
+                            <td>@dr["BFYMobileNo"]</td>
+                            <td>@dr["Q8Text"]</td>
+                            <td>@dr["SHGFamily"]</td>
+                            <td>@dr["NoofMaleChild"]</td>
+                            <td>@dr["NofFemalehild"]</td>
+                            <td>0</td>
+                            <td>@dr["Q12"]</td>
+                            <td>@dr["AWCCode"]</td>
+                            <td>@dr["ASHA"]</td>
+                            <td>@dr["CNameTM"]</td>
+                            <td>@dr["CNamePM"]</td>
+                            <td>@dr["CNameOM"]</td>
+                            <td>@(dr["CNameOT"]+"/"+ dr["OtherMethod"])</td>
+                            <td>@dr["MethodName4"]</td>
+                            <td>@dr["MethodName5"]</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
