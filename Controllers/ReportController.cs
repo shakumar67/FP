@@ -36,8 +36,8 @@ namespace FP.Controllers
                 {
                     IsCheck = true;
                 }
-               // var html = ConvertViewToString("_LetterTwoData", tbllist);
-                var res = Json(new { IsSuccess = IsCheck, Data = "" }, JsonRequestBehavior.AllowGet);
+                var html = ConvertViewToString("_PrapatraOneData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
                 res.MaxJsonLength = int.MaxValue;
                 return res;
             }
