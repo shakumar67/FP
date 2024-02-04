@@ -107,65 +107,67 @@
                 <div class="bg-light rounded h-100 p-4">
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                     <div class="row">
-                        @Html.LabelFor(m => m.Roles, new { @class = "col-md-12 col-form-label" })
+                        @Html.LabelFor(m => m.Roles, new { @class = "form-label" })
                         <div class="col-md-12">
                             @Html.DropDownListFor(m => m.Roles, CommonModel.GetRole(), null, new { @class = "form-select mb-3" })
                         </div>
                     </div>
                     <div class="row" style="display:none;">
-                        @Html.LabelFor(m => m.Gender, new { @class = "col-md-12 col-form-label" })
+                        @Html.LabelFor(m => m.Gender, new { @class = "form-label" })
                         <div class="col-md-12">
                             @Html.DropDownListFor(m => m.Gender, CommonModel.GetGender(), null, new { @class = "form-select mb-3" })
                         </div>
                     </div>
                     <div class="row" id="div-dis" style="display:none">
-                        @Html.LabelFor(m => m.DistrictId, new { @class = "col-md-12 col-form-label" })
+                        @Html.LabelFor(m => m.DistrictId, new { @class = "form-label" })
                         <div class="col-md-12">
                             @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
                         </div>
                     </div>
                     <div class="row" id="div-blk" style="display:none">
-                        @Html.LabelFor(m => m.BlockId, new { @class = "col-md-12 col-form-label" })
+                        @Html.LabelFor(m => m.BlockId, new { @class = "form-label" })
                         <div class="col-md-12">
                             @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
                         </div>
                     </div>
                     <div class="row" id="div-panchid" style="display:none">
-                        @Html.LabelFor(m => m.PanchayatId, new { @class = "col-md-12 col-form-label" })
+                        @Html.LabelFor(m => m.PanchayatId, new { @class = "form-label" })
                         <div class="col-md-12">
                             @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
                         </div>
                     </div>
                     <div class="row" id="div-vid" style="display:none">
-                        @Html.LabelFor(m => m.VOId_fk, new { @class = "col-md-12 col-form-label" })
+                        @Html.LabelFor(m => m.VOId_fk, new { @class = "form-label" })
                         <div class="col-md-12">
                             @Html.DropDownListFor(m => m.VOId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
                         </div>
                     </div>
                     <div class="row" id="div-voorg" style="display:none">
                         <label class="col-md-12 col-form-label">Village Name <span class="text-danger">*</span></label>
-                        @Html.LabelFor(m => m.VillageName, new { @class = "col-md-2 col-form-label" })<span class="text-danger">*</span>
+                        @Html.LabelFor(m => m.VillageName, new { @class = "form-label" })<span class="text-danger">*</span>
                         <div class="col-md-12">
                             @Html.TextBoxFor(m => m.VillageName, new { @class = "form-control" })
                         </div>
                     </div>
-                    <div class="row">
-                        <span class="text-danger">*</span>@Html.Label(Model.DisplayName1, htmlAttributes: new { @class = "" })
+                    <div class="mb-3">
+                        @*<span class="text-danger">*</span>@Html.Label(Model.DisplayName1, htmlAttributes: new { @class = "" })*@
+                        <label class="form-label" for="Name">Name<span class="text-danger">*</span></label>
                         <div class="col-md-12">
                             @Html.TextBoxFor(m => m.EmpName, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.EmpName, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="row">
-                        <span class="text-danger">*</span> @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-2 col-form-label" })
+                    <div class="mb-3">
+                        @*<span class="text-danger">*</span> @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-2 col-form-label" })*@
+                        <label class="form-label" for="Name">Mobile No<span class="text-danger">*</span></label>
                         <div class="col-md-12">
                             @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control numberonly", @maxlength = "10" })
                             @Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <br />
-                    <div class="row">
-                        <div class="offset-md-2 col-md-10">
+                    <div class="mb-3">
+                        <div class="col-md-10">
                             <input type="submit" value="Register" class="btn btn-primary" />
                         </div>
                     </div>
