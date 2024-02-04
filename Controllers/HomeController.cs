@@ -43,6 +43,54 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetChildData(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                DataTable dt = new DataTable();
+                dt = SP_Model.SP_GetTotalChild(model);
+                if (dt.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var dslist = JsonConvert.SerializeObject(dt);
+                var res = Json(new { IsSuccess = IsCheck, Data = dslist }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetModuleData(FilterModel model)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = SP_Model.SP_GetModulerollout(model);
+                if (dt.Rows.Count > 0)
+                {
+                    var dslist = JsonConvert.SerializeObject(dt);
+                    var res = Json(new { IsSuccess = true, Data = dslist }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+                else
+                {
+                    var res = Json(new { IsSuccess = false, Data = Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound)}, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

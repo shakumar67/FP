@@ -149,8 +149,50 @@ namespace FP.Manager
         }
         #endregion
 
-        #region Report Letter
+        #region Report Letter and Dashboard Home
 
+        public static DataTable SP_BFYPrapatra_One(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_BFYPrapatra_One");
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_GetModulerollout(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetModulerollout");
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_GetTotalChild(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetTotalChild");
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         public static DataTable SpLetterTwo(FilterModel model)
         {
             //model.DistrictId=model.DistrictId == null ? "" : model.DistrictId;

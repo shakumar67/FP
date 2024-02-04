@@ -608,6 +608,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\JS\accessibility.js" />
+    <Content Include="Scripts\JS\ChartModuleroll.js" />
+    <Content Include="Scripts\JS\ChartChild.js" />
     <Content Include="Scripts\JS\export-data.js" />
     <Content Include="Scripts\JS\ExportAll.js" />
     <Content Include="Scripts\JS\exporting.js" />
@@ -673,6 +675,8 @@
     <Content Include="Views\Report\_LetterTwoData.cshtml" />
     <Content Include="Views\Report\_AchBFYData.cshtml" />
     <Content Include="Views\Report\AchBFYList.cshtml" />
+    <Content Include="Views\Report\_PrapatraOneData.cshtml" />
+    <Content Include="Views\Report\PrapatraOne.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

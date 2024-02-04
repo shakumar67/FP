@@ -19,6 +19,34 @@ namespace FP.Controllers
         {
             return View();
         }
+        public ActionResult PrapatraOne()
+        {
+            FilterModel model = new FilterModel();
+
+            return View(model);
+
+        }
+        public ActionResult GetPrapatraOne(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SP_BFYPrapatra_One(model);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+               // var html = ConvertViewToString("_LetterTwoData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = "" }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult LetterTwo()
         {
             FilterModel model = new FilterModel();
