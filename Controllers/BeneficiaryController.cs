@@ -94,7 +94,7 @@ namespace FP.Controllers
                     {
                         string leftBFYName = item.Q3.Substring(0, 3);
                         string leftBFYmobile = leftBFYName+item.Q7;
-                        if (_db.TBL_Beneficiary.Any(x=>x.Q1== leftBFYmobile))
+                        if (_db.TBL_Beneficiary.Any(x=>x.Q1== leftBFYmobile && (x.Beneficiary_Id_pk!=item.Beneficiary_Id_pk || x.Beneficiary_Id_pk==Guid.Empty)))
                         {
                             var data1 = _db.TBL_Beneficiary.Where(x => x.Q1 == leftBFYmobile)?.FirstOrDefault();
 
@@ -103,7 +103,6 @@ namespace FP.Controllers
                             var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                             resResponse3.MaxJsonLength = int.MaxValue;
                             return resResponse3;
-
                         }
 
                         tbl= item.Beneficiary_Id_pk != Guid.Empty? _db.TBL_Beneficiary.Find(item.Beneficiary_Id_pk): new TBL_Beneficiary();
