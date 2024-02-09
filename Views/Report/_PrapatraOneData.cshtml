@@ -15,8 +15,9 @@
     }
 
         .box-title div {
-            padding: 5px 0
+            padding: 5px 0;
         }
+
         .box-title .mb-3 span {
             margin-left: 12px;
         }
@@ -31,7 +32,7 @@
             margin-bottom: 15px;
             background: #DEFFDF;
             padding: 12px 0 12px 12px;
-            border-spacing: 10px;
+            /*border-spacing: 10px;*/
             border-collapse: separate;
             word-wrap: break-word;
         }
@@ -114,7 +115,7 @@
                 </div>
             </div>
             <div class="table-box">
-                <table style="width:95%;">
+                <table style="width:95%;" class="table-box">
                     <thead>
                         <tr>
                             <th rowspan="2">क्र. सं.</th>
@@ -155,7 +156,7 @@
                             <td>@dr["BFYName"]</td>
                             <td>@dr["BFYAge"]</td>
                             <td>@dr["Husband"]</td>
-                            <td>@dr["DOM"]</td>
+                            <td>@(CommonModel.FormateDtDMY(dr["DOM"].ToString()))</td>
                             <td>@dr["BFYMobileNo"]</td>
                             <td>@dr["Q8Text"]</td>
                             <td>@dr["SHGFamily"]</td>
