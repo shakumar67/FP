@@ -946,6 +946,23 @@ namespace FP.Manager
             list = new SelectList(dbe.ServiceProvider_Master.Where(x => x.IsActive == true), "ID", "ServiceProvider").OrderBy(x => x.Text).ToList();
             return list.OrderByDescending(x => x.Text).ToList();
         }
+        public static List<SelectListItem> GetBoyGirl()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "Boy", Text = "Boy", Selected = true });
+            list.Add(new SelectListItem { Value = "Girl", Text = "Girl" });
+            list.Add(new SelectListItem { Value = "No", Text = "No" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
+        public static List<SelectListItem> GetDOMYear()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "1", Text = "Date of marriage", Selected = true });
+            list.Add(new SelectListItem { Value = "2", Text = "Year" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         public static List<SelectListItem> GetModuleRollout()
         {
             List<SelectListItem> list = new List<SelectListItem>();

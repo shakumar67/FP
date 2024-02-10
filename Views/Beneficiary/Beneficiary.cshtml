@@ -100,14 +100,31 @@
                     @Html.EditorFor(m => m.Q5, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
                     @Html.ValidationMessageFor(m => m.Q5, "", new { @class = "text-danger" })
                 </div>
-                
+
+                <div class="mb-3">
+                    <div class="position-relative form-group">
+                        <div class="checkbox">
+                            @foreach (var item in CommonModel.GetDOMYear())
+                            {
+                                <span class="check-spacer">
+                                    @Html.RadioButtonFor(model => model.Q6DOMYear, item.Value, new { id = "Q6DOMYear" + item.Value, @required = "required" }) @item.Text
+                                </span>
+                            }
+                            @Html.ValidationMessageFor(model => model.Q6DOMYear, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3" id="Q6-div" style="display:none;">
+                    @Html.Label(Model.Q6D, htmlAttributes: new { @class = "cl-Q6", @style = "display:none;" })
+                    @Html.EditorFor(m => m.Q6, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker cl-Q6", maxlength = "12", @style = "display:none;" } })
+                    @Html.ValidationMessageFor(m => m.Q6, "", new { @class = "text-danger cl-Q6", @style = "display:none;" })
+                    @Html.Label(Model.Q6_YearD, htmlAttributes: new { @class = "cl-Q6_Year", @style = "display:none;" })
+                    @Html.EditorFor(m => m.Q6_Year, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly cl-Q6_Year", min = "4", maxlength = "4", @style = "display:none;" } })
+                    @Html.ValidationMessageFor(m => m.Q6_Year, "", new { @class = "text-danger cl-Q6_Year" })
+                </div>
+
             </div>
             <div class="col-sm-12 col-xl-6">
-                <div class="mb-3">
-                    @Html.Label(Model.Q6D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q6, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker", maxlength = "12" } })
-                    @Html.ValidationMessageFor(m => m.Q6, "", new { @class = "text-danger" })
-                </div>
                 <div class="mb-3">
                     @Html.Label(Model.Q7D, htmlAttributes: new { @class = "" })
                     @Html.EditorFor(m => m.Q7, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "10", maxlength = "10", } })
@@ -143,6 +160,20 @@
                     @Html.ValidationMessageFor(m => m.Q11, "", new { @class = "text-danger" })
                 </div>
                 <div class="mb-3">
+                    @Html.Label(Model.Q12_1D, htmlAttributes: new { @class = "" })
+                    <div class="position-relative form-group">
+                        <div class="checkbox">
+                            @foreach (var item in CommonModel.GetBoyGirl())
+                            {
+                                <span class="check-spacer">
+                                    @Html.RadioButtonFor(model => model.Q12_1, item.Value, new { id = "Q12_1" + item.Value, @required = "required" }) @item.Text
+                                </span>
+                            }
+                            @Html.ValidationMessageFor(model => model.Q12_1, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3" style="display:none;" id="Q12-div">
                     @Html.Label(Model.Q12D, htmlAttributes: new { @class = "" })
                     @Html.EditorFor(m => m.Q12, new { htmlAttributes = new { @class = "form-control col-md-4 agevalid", min = "0", max = "99.99", maxlength = "4", oninput = "maxLengthCheck(this)" } })
                     @Html.ValidationMessageFor(m => m.Q12, "", new { @class = "text-danger" })
@@ -243,6 +274,28 @@
             //    }
             //});
 
+            $('input[name=Q12_1]').click(function () {
+                $('#Q12-div').css('display', 'none');
+                $('#Q12').val(''); $('#Q12').removeAttr('required');
+                if ($(this).val() == "Boy" || $(this).val() == "Girl") {
+                    $('#Q12-div').css('display', 'block');
+                    $('#Q12').attr('required', 'required');
+                }
+            });
+            $('input[name=Q6DOMYear]').click(function () {
+                $('#Q6-div').css('display', 'block');
+                $('#Q6').val(''); $('#Q6_Year').val(''); $('.cl-Q6').css('display', 'none'); $('.cl-Q6_Year').css('display', 'none');
+                $('#Q6').removeAttr('required'); $('#Q6_Year').removeAttr('required');
+                if ($(this).val() == "1") {
+                    $('.cl-Q6').css('display', 'block');
+                    $('#Q6').attr('required', 'required');
+                }
+                else if ($(this).val() == "2") {
+                    $('.cl-Q6_Year').css('display', 'block');
+                    $('#Q6_Year').attr('required', 'required');
+                }
+            });
+
             $('input[name=Q8]').click(function () {
                 $('#Q9').val('');
                 if ($(this).val() == "2") {
@@ -312,7 +365,7 @@
             $('.agevalid').change(function () {
                 AgeGreater();
             })
-           
+
             /* Role Wise */
             BindRolewise("DistrictId_fk", "BlockId_fk", "PanchayatId_fk", "VillageOId_fk");
 
@@ -327,7 +380,7 @@
             });
             //BindData();
 
-            
+
 
             @*if ('@CommonModel.RoleNameCont.CM' === '@MvcApplication.CUser.Role') {
                 $('#DistrictId_fk').val(('@MvcApplication.CUser.DistrictId').toLowerCase());
@@ -368,7 +421,7 @@
                     return false;
                 }
             }
-            
+
         }
 
         function BindData() {
@@ -393,7 +446,7 @@
 
         function CUData() {
             debugger;
-           
+
             //$("#btnsubmit").prop("disabled", true);
             //var vl = $.validator.unobtrusive.parse("#formid");
            //var Isvalid= $("#formid").validate();
@@ -469,14 +522,17 @@
             BeneficiaryModel.Q2= $('#Q2').val();
             BeneficiaryModel.Q3= $('#Q3').val();
             BeneficiaryModel.Q4= $('#Q4').val();
-            BeneficiaryModel.Q5= $('#Q5').val();
-            BeneficiaryModel.Q6= $('#Q6').val();
+            BeneficiaryModel.Q5 = $('#Q5').val();
+            BeneficiaryModel.Q6DOMYear = $('input[name=Q6DOMYear]:checked').val();
+            BeneficiaryModel.Q6 = $('#Q6').val();
+            BeneficiaryModel.Q6_Year = $('#Q6_Year').val();
             BeneficiaryModel.Q7= $('#Q7').val();
             BeneficiaryModel.Q8= $('input[name=Q8]:checked').val();
             BeneficiaryModel.Q9= $('#Q9').val();
             BeneficiaryModel.Q10= $('#Q10').val();
             BeneficiaryModel.Q11= $('#Q11').val();
             BeneficiaryModel.Q12 = $('#Q12').val();
+            BeneficiaryModel.Q12_1 = $('input[name=Q12_1]:checked').val();
             BeneficiaryModel.Q13 = $('#Q13').val();
             BeneficiaryModel.BFYVillageName = $('#BFYVillageName').val();
             BeneficiaryModel.Q14= $('#Q14').val();
@@ -547,7 +603,19 @@
              $('#Q3').val('@Model.Q3');
              $('#Q4').val('@Model.Q4');
              $('#Q5').val('@Model.Q5');
-             $('#Q6').val(moment('@Model.Q6').format("DD-MMM-YYYY"));
+
+            $('#Q6-div').css('display', 'block'); $('.cl-Q6').css('display', 'none'); $('.cl-Q6_Year').css('display', 'none');
+            //$('#Q6').removeAttr('required'); $('#Q6_Year').removeAttr('required');
+            $('input[name=Q6DOMYear]:checked').val('@Model.Q6DOMYear');
+            if ($('input[name=Q6DOMYear]:checked').val() == "1") {
+                $('.cl-Q6').css('display', 'block'); $('#Q6').attr('required', 'required');
+                $('#Q6').val(moment('@Model.Q6').format("DD-MMM-YYYY"));
+            }
+            else if ($('input[name=Q6DOMYear]:checked').val() == "2") {
+                $('.cl-Q6_Year').css('display', 'block'); $('#Q6_Year').attr('required', 'required');
+                $('#Q6_Year').val('@Model.Q6_Year');
+            }
+
              $('#Q7').val('@Model.Q7');
              $("#Q8" + '@Model.Q8').attr('checked', true);
              //$('input[name=Q8]:checked').val('@Model.Q8')
@@ -562,8 +630,19 @@
                  $('#Q9').removeAttr('required');
              }
              $('#Q10').val('@Model.Q10');
-             $('#Q11').val('@Model.Q11');
-             $('#Q12').val('@Model.Q12');
+            $('#Q11').val('@Model.Q11');
+
+            $('input[name=Q12_1]:checked').val('@Model.Q12_1');
+            if ($('input[name=Q12_1]:checked').val() == "Boy" || $('input[name=Q12_1]:checked').val() == "Girl") {
+                $('#Q12').val('@Model.Q12');
+                $('#Q12-div').css('display', 'block');
+                $('#Q12').attr('required', 'required');
+            }
+            else {
+                $('#Q12-div').css('display', 'none');
+                $('#Q12').val(''); $('#Q12').removeAttr('required');
+            }
+
              $('#Q13').val('@Model.Q13');
              $('#BFYVillageName').val('@Model.BFYVillageName');
              $('#Q14').val('@Model.Q14');
@@ -648,7 +727,7 @@
         $('input[name=Q8]').removeAttr('checked');
         $('#div-q9').hide();
         $('#Q9').removeAttr('required');
-       
+
 
         $('#Q18').val('');
         GetContraceptiveChildList("Q16", 0, "");

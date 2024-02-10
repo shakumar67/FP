@@ -35,7 +35,8 @@
     <!-- Template Stylesheet -->
     <link href="~/Content/css/style.css" rel="stylesheet">
     <!-- layout end-->
-    <link href="~/Content/css/jquery-ui.css" rel="stylesheet">
+    @*<link href="~/Content/css/jquery-ui.css" rel="stylesheet">*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     @*<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type='text/css' />*@
     <link href="~/Content/css/toastr.min.css" rel="stylesheet" type='text/css' />
@@ -62,34 +63,41 @@
             gap: 15px;
             margin-top: -30px;
         }
+
         .header-logo {
             margin: auto;
             padding: 5px 0
         }
-        .header-logo img {
-            padding: 4px;
-            background: #fff;
-            border-radius: 5px;
-        }
+
+            .header-logo img {
+                padding: 4px;
+                background: #fff;
+                border-radius: 5px;
+            }
+
         .hl-1 {
             width: 60px;
         }
+
         .hl-2 {
             width: 70px;
             margin-left: 120px
         }
+
         @@media screen and (max-width: 1024px) {
             .hl-2 {
                 width: 70px;
                 margin-left: 50px
             }
         }
+
         @@media screen and (max-width: 900px) {
             .hl-2 {
                 width: 70px;
                 margin-left: 30px
             }
         }
+
         @@media screen and (max-width: 768px) {
             .header-logo {
                 display: none

@@ -23,36 +23,39 @@ namespace FP.Controllers
         {
             return View();
         }
-        public ActionResult Beneficiary(Guid ?Id,int HindiEng=1)
+        public ActionResult Beneficiary(Guid? Id, int HindiEng = 1)
         {
             BeneficiaryModel model = new BeneficiaryModel();
             model.HindiEng = HindiEng;
-            if (Id !=Guid.Empty && Id !=null)
+            if (Id != Guid.Empty && Id != null)
             {
                 var tbl = db.TBL_Beneficiary.Find(Id);
                 if (tbl != null)
                 {
                     model.Beneficiary_Id_pk = tbl.Beneficiary_Id_pk;
-                   // model.HindiEng = tbl.HindiEng;
-                    model.DistrictId_fk=tbl.DistrictId_fk;
-                    model.BlockId_fk=tbl.BlockId_fk;
-                    model.PanchayatId_fk=tbl.PanchayatId_fk;
-                    model.VillageOId_fk=tbl.VillageOId_fk;
-                    model.ReportingMonth=tbl.ReportingMonth;
-                    model.ReportingYear=tbl.ReportingYear;
-                    model.HealthCenter=tbl.HealthCenter;
+                    // model.HindiEng = tbl.HindiEng;
+                    model.DistrictId_fk = tbl.DistrictId_fk;
+                    model.BlockId_fk = tbl.BlockId_fk;
+                    model.PanchayatId_fk = tbl.PanchayatId_fk;
+                    model.VillageOId_fk = tbl.VillageOId_fk;
+                    model.ReportingMonth = tbl.ReportingMonth;
+                    model.ReportingYear = tbl.ReportingYear;
+                    model.HealthCenter = tbl.HealthCenter;
                     model.Q1 = tbl.Q1;
                     model.Q2 = tbl.Q2;
                     model.Q3 = tbl.Q3;
                     model.Q4 = tbl.Q4;
                     model.Q5 = tbl.Q5;
+                    model.Q6DOMYear = tbl.Q6DOMYear;
                     model.Q6 = tbl.Q6;
+                    model.Q6_Year = tbl.Q6_Year;
                     model.Q7 = tbl.Q7;
                     model.Q8 = tbl.Q8;
                     model.Q9 = tbl.Q9;
                     model.Q10 = tbl.Q10;
                     model.Q11 = tbl.Q11;
                     model.Q12 = tbl.Q12;
+                    model.Q12_1 = tbl.Q12_1;
                     model.Q13 = tbl.Q13;
                     model.Q14 = tbl.Q14;
                     model.Q15 = tbl.Q15;
@@ -93,8 +96,8 @@ namespace FP.Controllers
                     foreach (var item in model)
                     {
                         string leftBFYName = item.Q3.Substring(0, 3);
-                        string leftBFYmobile = leftBFYName+item.Q7;
-                        if (_db.TBL_Beneficiary.Any(x=>x.Q1== leftBFYmobile && (x.Beneficiary_Id_pk!=item.Beneficiary_Id_pk || x.Beneficiary_Id_pk==Guid.Empty)))
+                        string leftBFYmobile = leftBFYName + item.Q7;
+                        if (_db.TBL_Beneficiary.Any(x => x.Q1 == leftBFYmobile && (x.Beneficiary_Id_pk != item.Beneficiary_Id_pk || x.Beneficiary_Id_pk == Guid.Empty)))
                         {
                             var data1 = _db.TBL_Beneficiary.Where(x => x.Q1 == leftBFYmobile)?.FirstOrDefault();
 
@@ -105,9 +108,9 @@ namespace FP.Controllers
                             return resResponse3;
                         }
 
-                        tbl= item.Beneficiary_Id_pk != Guid.Empty? _db.TBL_Beneficiary.Find(item.Beneficiary_Id_pk): new TBL_Beneficiary();
-                        
-                        tbl.HealthCenter= item.HealthCenter;
+                        tbl = item.Beneficiary_Id_pk != Guid.Empty ? _db.TBL_Beneficiary.Find(item.Beneficiary_Id_pk) : new TBL_Beneficiary();
+
+                        tbl.HealthCenter = item.HealthCenter;
                         tbl.ReportingMonth = item.ReportingMonth;
                         tbl.ReportingYear = item.ReportingYear;
                         tbl.BFYVillageName = item.BFYVillageName;
@@ -115,19 +118,23 @@ namespace FP.Controllers
                         tbl.Q3 = item.Q3;
                         tbl.Q4 = item.Q4;
                         tbl.Q5 = item.Q5;
-                        tbl.Q6 = item.Q6;
+                        tbl.Q6DOMYear = item.Q6DOMYear;
+                        tbl.Q6 = item.Q6DOMYear == 1 ? item.Q6 : null;
+                        tbl.Q6_Year = item.Q6DOMYear == 2 ? item.Q6_Year : null;
                         tbl.Q7 = item.Q7;
                         tbl.Q8 = item.Q8;
                         tbl.Q9 = item.Q9;
                         tbl.Q10 = item.Q10;
                         tbl.Q11 = item.Q11;
-                        tbl.Q12 = item.Q12;
+                        tbl.Q12_1 = item.Q12_1;
+                        tbl.Q12 = (item.Q12_1 == "Boy" || item.Q12_1 == "Girl") ? item.Q12 : null;
+                        //tbl.Q12_1 = item.Q12 != 0 ? item.Q12_1 : null;
                         tbl.Q13 = item.Q13;
                         tbl.Q14 = item.Q14;
                         tbl.Q15 = item.Q15;
-                        tbl.Q16 =item.Q15==1? item.Q16:null;
+                        tbl.Q16 = item.Q15 == 1 ? item.Q16 : null;
                         tbl.Q17 = item.Q15 == 2 ? item.Q17 : null;
-                        tbl.Q18 = item.Q15 == 4 ? item.Q18:null;
+                        tbl.Q18 = item.Q15 == 4 ? item.Q18 : null;
                         tbl.Q20 = item.Q20;
                         tbl.Q21 = item.Q21;
                         tbl.IsActive = true;
@@ -135,10 +142,10 @@ namespace FP.Controllers
                         {
                             tbl.Beneficiary_Id_pk = Guid.NewGuid();
                             tbl.HindiEng = item.HindiEng;
-                            tbl.DistrictId_fk=item.DistrictId_fk;
-                            tbl.BlockId_fk=item.BlockId_fk;
-                            tbl.PanchayatId_fk=item.PanchayatId_fk;
-                            tbl.VillageOId_fk=item.VillageOId_fk;
+                            tbl.DistrictId_fk = item.DistrictId_fk;
+                            tbl.BlockId_fk = item.BlockId_fk;
+                            tbl.PanchayatId_fk = item.PanchayatId_fk;
+                            tbl.VillageOId_fk = item.VillageOId_fk;
                             tbl.CreatedBy = MvcApplication.CUser.Id;
                             tbl.CreatedOn = DateTime.Now;
                             tbllist.Add(tbl);
@@ -171,7 +178,6 @@ namespace FP.Controllers
                     resResponse3.MaxJsonLength = int.MaxValue;
                     return resResponse3;
                 }
-                
             }
             catch (Exception)
             {

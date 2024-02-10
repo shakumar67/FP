@@ -18,7 +18,7 @@ namespace FP.Models
         [Display(Name = "Language")]
         public Nullable<int> HindiEng { get; set; }
         [Required]
-        [Display (Name ="District")]
+        [Display(Name = "District")]
         public Nullable<int> DistrictId_fk { get; set; }
         [Required]
         [Display(Name = "Block")]
@@ -57,8 +57,13 @@ namespace FP.Models
         [Display(Name = "Husband's name of Beneficiary")]
         public string Q5 { get; set; }
         [Required]
+        [Display(Name = "Date of marriage / Year")]
+        public Nullable<int> Q6DOMYear { get; set; }
+        [RequiredIf("Q6DOMYear", 1)]
         [Display(Name = "Date of marriage")]
         public Nullable<System.DateTime> Q6 { get; set; }
+        [RequiredIf("Q6DOMYear", 2)]
+        public Nullable<int> Q6_Year { get; set; }
         [Required]
         [Display(Name = "Mobile No")]
         public string Q7 { get; set; }
@@ -74,10 +79,12 @@ namespace FP.Models
         [Required]
         [Display(Name = "No of female child at present")]
         public Nullable<int> Q11 { get; set; }
-        [Required]
+        [ExpressiveAnnotations.Attributes.RequiredIf("(Q12_1=='Boy' || Q12_1 == 'Girl')")]
         [Display(Name = "Age of youngest child (Year/months)")]
-        //[LessThan("Q4")]
         public Nullable<double> Q12 { get; set; }
+        [Required]
+        [Display(Name = "Youngest child gender (Boy/Girl)")]
+        public string Q12_1 { get; set; }
         [Required]
         [Display(Name = "Code no of related AWC")]
         public string Q13 { get; set; }
@@ -300,6 +307,22 @@ namespace FP.Models
                 return CN;
             }
         }
+        public string Q6_YearD
+        {
+            get
+            {
+                string CN = string.Empty;
+                if (HindiEng == 1)
+                {
+                    CN = "Year";
+                }
+                else if (HindiEng == 2)
+                {
+                    CN = "लाभार्थी के शादी की वर्ष";
+                }
+                return CN;
+            }
+        }
         public string Q6D
         {
             get
@@ -311,11 +334,12 @@ namespace FP.Models
                 }
                 else if (HindiEng == 2)
                 {
-                    CN = "लाभार्थी के शादी की तिथि /वर्ष";
+                    CN = "लाभार्थी के शादी की तिथि";
                 }
                 return CN;
             }
         }
+
         public string Q7D
         {
             get
@@ -408,6 +432,22 @@ namespace FP.Models
                 else if (HindiEng == 2)
                 {
                     CN = "सबसे छोटे बच्चे की उम्र";
+                }
+                return CN;
+            }
+        }
+        public string Q12_1D
+        {
+            get
+            {
+                string CN = string.Empty;
+                if (HindiEng == 1)
+                {
+                    CN = "Youngest child gender (Boy/Girl)";
+                }
+                else if (HindiEng == 2)
+                {
+                    CN = "सबसे छोटे बच्चे लिंग लड़का/लड़की";
                 }
                 return CN;
             }
