@@ -23,6 +23,7 @@ namespace FP.Models
         [Display(Name = "Name")]
         public string Name { get; set; }
         public string DOB { get; set; }
+        [Display(Name = "Role")]
         public string RoleId { get; set; }
         [Display(Name = "Role")]
         public string Roles { get; set; }
