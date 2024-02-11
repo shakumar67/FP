@@ -199,6 +199,27 @@
           <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbl_BFYFollowup">
+          <Key>
+            <PropertyRef Name="FollowupID_pk" />
+          </Key>
+          <Property Name="FollowupID_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BFYID_fk" Type="uniqueidentifier" />
+          <Property Name="FMonth" Type="int" />
+          <Property Name="FYear" Type="int" />
+          <Property Name="IsFollowUp" Type="bit" />
+          <Property Name="IsContraception" Type="bit" />
+          <Property Name="ContraceptionId_fk" Type="int" />
+          <Property Name="UseMethodId_fk" Type="int" />
+          <Property Name="ContraceptionOther" Type="nvarchar" MaxLength="1200" />
+          <Property Name="ModuleRollout" Type="int" />
+          <Property Name="ModuleRolloutId_fk" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="TBL_Emp">
           <Key>
             <PropertyRef Name="EmpID_pk" />
@@ -353,6 +374,7 @@
           <EntitySet Name="Subject_Master" EntityType="Self.Subject_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Achvt" EntityType="Self.tbl_Achvt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Beneficiary" EntityType="Self.TBL_Beneficiary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_BFYFollowup" EntityType="Self.tbl_BFYFollowup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Emp" EntityType="Self.TBL_Emp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_ExceptionHandle" EntityType="Self.Tbl_ExceptionHandle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Plan" EntityType="Self.tbl_Plan" Schema="dbo" store:Type="Tables" />
@@ -500,6 +522,7 @@
           <EntitySet Name="tbl_Achvt" EntityType="FP_DBModel.tbl_Achvt" />
           <EntitySet Name="tbl_Plan" EntityType="FP_DBModel.tbl_Plan" />
           <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
+          <EntitySet Name="tbl_BFYFollowup" EntityType="FP_DBModel.tbl_BFYFollowup" />
         </EntityContainer>
         <EntityType Name="VO_Master">
           <Key>
@@ -716,6 +739,27 @@
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_BFYFollowup">
+          <Key>
+            <PropertyRef Name="FollowupID_pk" />
+          </Key>
+          <Property Name="FollowupID_pk" Type="Guid" Nullable="false" />
+          <Property Name="BFYID_fk" Type="Guid" />
+          <Property Name="FMonth" Type="Int32" />
+          <Property Name="FYear" Type="Int32" />
+          <Property Name="IsFollowUp" Type="Boolean" />
+          <Property Name="IsContraception" Type="Boolean" />
+          <Property Name="ContraceptionId_fk" Type="Int32" />
+          <Property Name="UseMethodId_fk" Type="Int32" />
+          <Property Name="ContraceptionOther" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
+          <Property Name="ModuleRollout" Type="Int32" />
+          <Property Name="ModuleRolloutId_fk" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
@@ -1020,6 +1064,28 @@
                 <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
                 <ScalarProperty Name="HindiEng" ColumnName="HindiEng" />
                 <ScalarProperty Name="Beneficiary_Id_pk" ColumnName="Beneficiary_Id_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_BFYFollowup">
+            <EntityTypeMapping TypeName="FP_DBModel.tbl_BFYFollowup">
+              <MappingFragment StoreEntitySet="tbl_BFYFollowup">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModuleRolloutId_fk" ColumnName="ModuleRolloutId_fk" />
+                <ScalarProperty Name="ModuleRollout" ColumnName="ModuleRollout" />
+                <ScalarProperty Name="ContraceptionOther" ColumnName="ContraceptionOther" />
+                <ScalarProperty Name="UseMethodId_fk" ColumnName="UseMethodId_fk" />
+                <ScalarProperty Name="ContraceptionId_fk" ColumnName="ContraceptionId_fk" />
+                <ScalarProperty Name="IsContraception" ColumnName="IsContraception" />
+                <ScalarProperty Name="IsFollowUp" ColumnName="IsFollowUp" />
+                <ScalarProperty Name="FYear" ColumnName="FYear" />
+                <ScalarProperty Name="FMonth" ColumnName="FMonth" />
+                <ScalarProperty Name="BFYID_fk" ColumnName="BFYID_fk" />
+                <ScalarProperty Name="FollowupID_pk" ColumnName="FollowupID_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

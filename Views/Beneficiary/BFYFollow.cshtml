@@ -1,0 +1,383 @@
+﻿@model FP.Models.CMFollowupModel
+@using FP.Manager
+@{
+
+}
+<style>
+    .table th {
+        font-size: 14px;
+        background: #fff;
+    }
+
+    .table td {
+        font-size: 13px;
+    }
+
+    .dataTables_filter, .dataTables_length {
+        margin-bottom: 15px;
+    }
+
+    .actives2 {
+        color: #009CFF !important;
+        background: #FFFFFF;
+        border-color: #009CFF;
+    }
+</style>
+<div class="breadcrumb">
+    <h2>Beneficiary Lists</h2>
+    <p><a href="~/Beneficiary/Beneficiary">Follow Up Beneficiary </a> / Beneficiary Lists</p>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <fieldset class="border rounded-3 p-3">
+        <legend class="float-none w-auto px-2">Search By</legend>
+        @using (Html.BeginForm("GetBFYFollowList", "Beneficiary", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        {
+            <div class="row g-4">
+                <div class="col-sm-12">
+                    <div class="bg-light rounded h-100 p-4">
+                        <div class="row mb-3">
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.BlockId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.BlockId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.PanchayatId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <span class="check-spacer">
+                                <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Filter" />
+                            </span>&nbsp;&nbsp;&nbsp;
+                            <span class="check-spacer">
+                                <a href="~/Beneficiary/BFYFollow" class="btn btn-info"><i class="fa fa-refresh"></i>Refresh</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </fieldset>
+
+    <div class="row">
+        <div class="col=md-12" id="div-download"></div>
+        <div class="col=md-6"></div>
+        <div class="col=md-6"></div>
+        <div class="col=md-6"></div>
+        <div class="col-md-12">
+            <div id="subdata"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        @using (Html.BeginForm("AddFollowup", "Beneficiary", FormMethod.Post, new { @class = "", @id = "followupformid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.FollowupID_pk)
+            @Html.HiddenFor(m => m.BFYID_fk)
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalTitle">Follow-Up Line-Listing</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-1">
+                        <div class="col-sm-12">
+                            <div class="bg-light rounded h-100 p-2">
+                                <div class="row mb-3">
+                                    <div class="col-sm-4">
+                                        <div class="position-relative form-group">
+                                            @Html.LabelFor(model => model.FYear, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.FYear, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                            @Html.ValidationMessageFor(model => model.FYear, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="position-relative form-group">
+                                            @Html.LabelFor(model => model.FMonth, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.FMonth, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                            @Html.ValidationMessageFor(model => model.FMonth, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="position-relative form-group">
+                                            @Html.LabelFor(model => model.IsFollowUp, htmlAttributes: new { @class = "control-label" })
+                                            <div class="checkbox">
+                                                @foreach (var item in CommonModel.GetYesNotrue())
+                                                {
+                                                    <span class="check-spacer">
+                                                        @Html.RadioButtonFor(model => model.IsFollowUp, item.Value, new { id = "IsFollowUp" + item.Value, @required = "required", @class = "Cont" }) @item.Text
+                                                    </span>
+                                                }
+                                                @Html.ValidationMessageFor(model => model.IsFollowUp, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div lass="position-relative form-group" id="div-IsContraception" style="display:none;">
+                                            @Html.LabelFor(model => model.IsContraception, htmlAttributes: new { @class = "control-label" })
+                                            <div class="checkbox">
+                                                @foreach (var item in CommonModel.GetYesNotrue())
+                                                {
+                                                    <span class="check-spacer">
+                                                        @Html.RadioButtonFor(model => model.IsContraception, item.Value, new { id = "IsContraception" + item.Value, @required = "required" }) @item.Text
+                                                    </span>
+                                                }
+                                                @Html.ValidationMessageFor(model => model.IsContraception, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div lass="position-relative form-group" id="div-ContraceptionId_fk" style="display:none;">
+                                            @Html.LabelFor(m => m.ContraceptionId_fk, new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.ContraceptionId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                                            @Html.ValidationMessageFor(model => model.ContraceptionId_fk, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6" id="div-ContraceptionOther" style="display:none;">
+                                        <div lass="position-relative form-group">
+                                            @Html.LabelFor(model => model.ContraceptionOther, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.ContraceptionOther, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.ContraceptionOther, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div lass="position-relative form-group" id="div-UseMethodId_fk" style="display:none;">
+                                            @Html.LabelFor(m => m.UseMethodId_fk, new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.UseMethodId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                                            @Html.ValidationMessageFor(model => model.UseMethodId_fk, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    @*<button type="button" class="btn btn-primary">Submit</button>*@
+                                    <input type="submit" name="btnsubmit" id="btnpopsubmit" class="btn btn-primary" value="Submit" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/JS/Master.js"></script>
+
+    @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
+
+<script>
+        $(document).ready(function () {
+
+            GetYearList("Year", 0);
+            GetMonthList("Month", 0);
+            GetDistrict("DistrictId", 0);
+            $('#DistrictId').change(function () {
+                GetBlock("BlockId", 0, $(this).val());
+            });
+            $('#BlockId').change(function () {
+                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
+            });
+            $('#PanchayatId').change(function () {
+                GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+            });
+            /* Role Wise */
+            BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
+
+            BindData();
+
+            $("#formid").submit(function (e) {
+                e.preventDefault();
+                BindData();
+            });
+
+            BindData();
+
+
+            /* Follow-Up Function Start Cont */
+            $(document).on('change', ".Cont", function () {
+                $('#div-IsContraception').hide();
+                var value1 = $('input[name=IsFollowUp]:checked').val();
+                if (value1 == "true") {
+                    $('#div-IsContraception').show();
+                }
+            });
+
+            $(document).on('change', 'input[name=IsContraception]', function () {
+                //$('input[name=IsContraception]').change(function () {
+                var value = $('input[name=IsContraception]:checked').val();
+                $('#div-ContraceptionId_fk').hide();
+                if (value == "true") {
+                    $('#div-ContraceptionId_fk').show();
+                }
+            });
+
+            $(document).on('change', '#ContraceptionId_fk', function () {
+                //$('#ContraceptionId_fk').change(function () {
+                $('#ContraceptionOther').val('');
+                $('#div-ContraceptionOther').hide();
+                $('#ContraceptionOther').removeAttr('required');
+                $('#div-UseMethodId_fk').hide();
+                $('#div-Isservice').hide();
+                $('#div-Service').hide();
+                GetContraceptiveChildList("UseMethodId_fk", 0, "");
+                $('#UseMethodId_fk').removeAttr('required');
+
+                if ($(this).val() == "1") {
+                    $('#div-UseMethodId_fk').show();
+                    GetContraceptiveChildList("UseMethodId_fk", 0, 1);
+                    $('#UseMethodId_fk').attr('required', 'required');
+                    $('#div-Isservice').show();
+                }
+                else if ($(this).val() == "2") {
+                    $('#div-UseMethodId_fk').show();
+                    GetContraceptiveChildList("UseMethodId_fk", 0, 2);
+                    $('#UseMethodId_fk').attr('required', 'required');
+                    $('#div-Isservice').show();
+                }
+                else if ($(this).val() == "4") {
+                    $('#ContraceptionOther').attr('required', 'required');
+                    $('#div-ContraceptionOther').show();
+                }
+                else {
+                    $('#div-ContraceptionOther').css('display', 'none');
+                    $('#div-UseMethodId_fk').css('display', 'none');
+                }
+
+            });
+
+            $(document).on('submit', "#followupformid", function (e) {
+                e.preventDefault();
+               // CUAchBFYData();
+            });
+             /* Follow-Up Function End */
+
+
+        });
+    function BindData() {
+            $("#subdata").html('');
+            var cmfollowupmodel  = new Object();
+            cmfollowupmodel.DistrictId = $('#DistrictId').val() == '' ? '' : $('#DistrictId').val();
+            cmfollowupmodel.BlockId = $('#BlockId').val() == '' ? '' : $('#BlockId').val();
+            cmfollowupmodel.PanchayatId = $('#PanchayatId').val() == '' ? '' : $('#PanchayatId').val();
+            cmfollowupmodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
+            cmfollowupmodel.Year = $('#Year').val() == '' ? '' : $('#Year').val();
+            cmfollowupmodel.Month = $('#Month').val() == '' ? '' : $('#Month').val();
+            var formData = $('#formid').serialize();
+
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Beneficiary/GetBFYFollowList",
+                data: cmfollowupmodel,//JSON.stringify({ 'Roles': '' }),
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+
+                        if ($.fn.dataTable.isDataTable('#tbl')) {
+                            $("#tbl").dataTable().fnDestroy();
+                        }
+                        table = $('#tbl').DataTable({
+                            //scrollY: "400px",
+                            //scrollX: true,
+                            //scrollCollapse: true,
+                            //paging: false,
+                            pageLength: 100,
+                            fixedColumns: {
+                                leftColumns: 1,
+                                rightColumns: 1
+                            },
+                            buttons: [{
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
+                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                filename: 'Beneficiary List',
+                                exportOptions: { modifier: { page: 'all' } }
+                            }],
+                        });
+                        $('.dataTables_filter input[type="search"]').css(
+                            { 'width': '500px', 'display': 'inline-block' }
+                        );
+                        $('#div-download').empty();
+                        table.buttons().container().appendTo($('#div-download'));
+                    }
+                    else {
+                        $("#subdata").html(res.Data);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+
+    function BindFollowupPop(BFYID_fk) {
+        GetYearList("FYear", 0);
+        GetMonthList("FMonth", 0);
+        $("#followupformid")[0].reset();
+        $('#myModal').modal('show');
+        GetContraceptive("ContraceptionId_fk", 0);
+        //$('#myModal').modal(); $('#myModal').modal('toggle');
+        $('#BFYID_fk').val(BFYID_fk);
+    }
+    function DisplayPOP(BFYID_fk) {
+        if (BFYID_fk) {
+            BindFollowupPop(BFYID_fk);
+        }
+    }
+
+</script>
+}
+
