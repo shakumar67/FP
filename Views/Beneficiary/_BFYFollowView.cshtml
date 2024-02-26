@@ -1,0 +1,76 @@
+﻿@using System.Data
+@using FP.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+
+<div class="modal fade" id="myModalview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalTitle">Follow-up View</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-1">
+                    <div class="col-sm-12">
+                        <div class="bg-light rounded h-100 p-2">
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <div class="position-relative form-group">
+                                        <label>Month/Year : </label>
+                                        <strong>@dt.Rows[0]["ReportingDate"].ToString()</strong>
+                                    </div>
+                                </div>
+                                @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["IsFollowUpHV"].ToString()))
+                                {
+                                    <div class="col-sm-12">
+                                        <div class="position-relative form-group">
+                                            <label>Followup/HV in Current Month : </label>
+                                            <strong>@dt.Rows[0]["IsFollowUpHV"].ToString()</strong>
+                                        </div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["IsContraception"].ToString()))
+                                {
+                                    <div class="col-sm-12">
+                                        <div lass="position-relative form-group">
+                                            <label>Want to use contraception after meeting/HV : </label>
+                                            <strong>@dt.Rows[0]["IsContraception"].ToString()</strong>
+                                        </div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["C_Name"].ToString()))
+                                {
+                                    <div class="col-sm-6">
+                                        <div lass="position-relative form-group">
+                                            <label>Method of contraception : </label>
+                                            <strong>@dt.Rows[0]["C_Name"].ToString()</strong>
+                                        </div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["Method_Name"].ToString()))
+                                {
+                                    <div class="col-sm-6">
+                                        <div lass="position-relative form-group">
+                                            <label>Use method : </label>
+                                            <strong>@dt.Rows[0]["Method_Name"].ToString()</strong>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

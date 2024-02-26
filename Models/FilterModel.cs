@@ -8,6 +8,8 @@ namespace FP.Models
 {
     public class FilterModel
     {
+        [Display(Name = "Beneficiary")]
+        public string BFYId { get; set; }
         [Display(Name ="District")]
         public string DistrictId { get; set; }
         [Display(Name = "Block")]

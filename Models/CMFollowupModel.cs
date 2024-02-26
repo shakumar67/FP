@@ -60,10 +60,10 @@ namespace FP.Models
     public class DisplayFollowBFY
     {
         public const string IsPPresent = "Present in Peer Group Meeting";
-        public const string IsFUpHV = "FollowUp/HV in Current Month";
+        public const string IsFUpHV = "Followup/HV in Current Month";
         public const string IsPPrIsCt = "Want to use contraception after meeting/HV";
         public const string Ct = "Method of contraception";
         public const string Ctusemethod = "Use method";
-        public const string CtusemethodOther = "Other use method ";
+        public const string CtusemethodOther = "Other use method";
     }
 }

@@ -218,7 +218,6 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
             }
         }
-
         public ActionResult BFYFollow()
         {
             CMFollowupModel model = new CMFollowupModel();
@@ -235,6 +234,94 @@ namespace FP.Controllers
                     IsCheck = true;
                 }
                 var html = ConvertViewToString("_BFYFollow", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult AddFollowup(CMFollowupModel model)
+        {
+            int res = 0;
+            FP_DBEntities _db = new FP_DBEntities();
+            JsonResponseData response = new JsonResponseData();
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    var d = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired);
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired), Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+                }
+                if (_db.tbl_BFYFollowup.Any(x => x.FMonth == model.FMonth && x.FYear == model.FYear && (x.FollowupID_pk != model.FollowupID_pk && model.FollowupID_pk == Guid.Empty)
+                   && x.BFYID_fk == model.BFYID_fk))
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Already), Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+                }
+                var tblf = model.FollowupID_pk != Guid.Empty ? _db.tbl_BFYFollowup.Find(model.FollowupID_pk) : new tbl_BFYFollowup();
+
+                tblf.FMonth = model.FMonth;
+                tblf.FYear = model.FYear;
+                tblf.IsFollowUp = model.IsFollowUp;
+                tblf.IsContraception = model.IsContraception;
+                tblf.ContraceptionId_fk = model.ContraceptionId_fk;
+                tblf.ContraceptionOther = model.ContraceptionOther;
+                tblf.UseMethodId_fk = model.UseMethodId_fk;
+                if (model.FollowupID_pk == Guid.Empty)
+                {
+                    tblf.FollowupID_pk = Guid.NewGuid();
+                    tblf.BFYID_fk = model.BFYID_fk;
+                    tblf.CreatedBy = MvcApplication.CUser.Id;
+                    tblf.CreatedOn = DateTime.Now;
+                    _db.tbl_BFYFollowup.Add(tblf);
+                }
+                else
+                {
+                    tblf.UpdatedBy = MvcApplication.CUser.Id;
+                    tblf.UpdatedOn = DateTime.Now;
+                }
+                res = _db.SaveChanges();
+                if (res > 0)
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Insert), Data = null };
+                    var resResponse = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse.MaxJsonLength = int.MaxValue;
+                    return resResponse;
+                }
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Error), Data = null };
+                var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                resResponse1.MaxJsonLength = int.MaxValue;
+                return resResponse1;
+
+            }
+            catch (Exception)
+            {
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Error), Data = null };
+                var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                resResponse3.MaxJsonLength = int.MaxValue;
+                return resResponse3;
+            }
+        }
+        public ActionResult GetBFYFollowView(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SPCMFollowupView(model);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_BFYFollowView", tbllist);
                 var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
                 res.MaxJsonLength = int.MaxValue;
                 return res;

@@ -15,8 +15,8 @@
             <thead class="text-center">
                 <tr>
                     <th>Srno.</th>
-                    <th>Follow Up</th>
-                    <th>Beneficiary<br /> ID</th>
+                    <th>Follow up</th>
+                    <th>Beneficiary<br /> ID <span class="text-success">(View)</span></th>
                     <th>District</th>
                     <th>Block</th>
                     <th>Panchayat</th>
@@ -39,10 +39,12 @@
                                     <td class="text-center">
                                         @if (!string.IsNullOrEmpty(dr["BpkID"].ToString()))
                                         {
-                                            <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BpkID"]')" class="btn btn-primary btn-sm"><i class="fa fa-arrow-up"></i> Follow-Up</a>
+                                            <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BpkID"]')" class="btn btn-primary btn-sm"><i class="fa fa-arrow-up"></i> Follow-up</a>
                                         }
                                     </td>
-                                    <td class="text-center">@dr["BFYID"]</td>
+                                    <td class="text-center">
+                                        <a href="javascript:void(0);" onclick="BFYDataView('@dr["BpkID"]')" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>
+                                    </td>
                                     <td class="text-left">@dr["DistrictName"]</td>
                                     <td class="text-left">@dr["Block"]</td>
                                     <td class="text-left">@dr["Panchayat"]</td>
@@ -62,7 +64,6 @@
                     }
                 }
             </tbody>
-
         </table>
     </div>
 

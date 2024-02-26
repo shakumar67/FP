@@ -24,8 +24,8 @@
     }
 </style>
 <div class="breadcrumb">
-    <h2>Beneficiary Lists</h2>
-    <p><a href="~/Beneficiary/Beneficiary">Follow Up Beneficiary </a> / Beneficiary Lists</p>
+    <h2>Beneficiary Lists (Follow up)</h2>
+    <p><a href="~/Beneficiary/Beneficiary">Beneficiary </a> / Beneficiary Lists</p>
 </div>
 <div class="container-fluid pt-4 px-4">
     <fieldset class="border rounded-3 p-3">
@@ -116,7 +116,7 @@
             @Html.HiddenFor(m => m.BFYID_fk)
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalTitle">Follow-Up Line-Listing</h5>
+                    <h5 class="modal-title" id="myModalTitle">Follow-up Line-Listing</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -126,21 +126,21 @@
                         <div class="col-sm-12">
                             <div class="bg-light rounded h-100 p-2">
                                 <div class="row mb-3">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(model => model.FYear, htmlAttributes: new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.FYear, new List<SelectListItem>(), null, new { @class = "form-select " })
                                             @Html.ValidationMessageFor(model => model.FYear, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(model => model.FMonth, htmlAttributes: new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.FMonth, new List<SelectListItem>(), null, new { @class = "form-select " })
                                             @Html.ValidationMessageFor(model => model.FMonth, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(model => model.IsFollowUp, htmlAttributes: new { @class = "control-label" })
                                             <div class="checkbox">
@@ -154,7 +154,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div lass="position-relative form-group" id="div-IsContraception" style="display:none;">
                                             @Html.LabelFor(model => model.IsContraception, htmlAttributes: new { @class = "control-label" })
                                             <div class="checkbox">
@@ -206,6 +206,10 @@
 </div>
 
 
+<div id="div-View">
+
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/JS/Master.js"></script>
@@ -247,7 +251,9 @@
 
             /* Follow-Up Function Start Cont */
             $(document).on('change', ".Cont", function () {
-                $('#div-IsContraception').hide();
+               // $('#div-IsContraception').hide();
+                HideInput();
+
                 var value1 = $('input[name=IsFollowUp]:checked').val();
                 if (value1 == "true") {
                     $('#div-IsContraception').show();
@@ -255,22 +261,31 @@
             });
 
             $(document).on('change', 'input[name=IsContraception]', function () {
-                //$('input[name=IsContraception]').change(function () {
-                var value = $('input[name=IsContraception]:checked').val();
+                GetContraceptive("ContraceptionId_fk", 0);
+                GetContraceptiveChildList("UseMethodId_fk", 0, "");
                 $('#div-ContraceptionId_fk').hide();
+                $('#div-UseMethodId_fk').hide();
+                $('#div-ContraceptionOther').hide();
+                $('#ContraceptionOther').val('');
+                $('#ContraceptionOther').removeAttr('required');
+                $('#ContraceptionId_fk').removeAttr('required');
+                $('#UseMethodId_fk').removeAttr('required');
+              
+                var value = $('input[name=IsContraception]:checked').val();
                 if (value == "true") {
                     $('#div-ContraceptionId_fk').show();
                 }
             });
 
             $(document).on('change', '#ContraceptionId_fk', function () {
-                //$('#ContraceptionId_fk').change(function () {
-                $('#ContraceptionOther').val('');
-                $('#div-ContraceptionOther').hide();
-                $('#ContraceptionOther').removeAttr('required');
+               
+                GetContraceptiveChildList("UseMethodId_fk", 0, "");
                 $('#div-UseMethodId_fk').hide();
-                $('#div-Isservice').hide();
-                $('#div-Service').hide();
+                $('#div-ContraceptionOther').hide();
+                $('#ContraceptionOther').val('');
+                $('#ContraceptionOther').removeAttr('required');
+                $('#UseMethodId_fk').removeAttr('required');
+                
                 GetContraceptiveChildList("UseMethodId_fk", 0, "");
                 $('#UseMethodId_fk').removeAttr('required');
 
@@ -299,12 +314,12 @@
 
             $(document).on('submit', "#followupformid", function (e) {
                 e.preventDefault();
-               // CUAchBFYData();
+               CUFollowupBFYData();
             });
              /* Follow-Up Function End */
 
-
         });
+
     function BindData() {
             $("#subdata").html('');
             var cmfollowupmodel  = new Object();
@@ -363,12 +378,26 @@
             });
         }
 
+    function HideInput() {
+        GetContraceptive("ContraceptionId_fk", 0);
+        GetContraceptiveChildList("UseMethodId_fk", 0, "");
+        $("input[name=IsContraception]").prop('checked', false);
+        $('#div-IsContraception').hide();
+        $('#div-ContraceptionId_fk').hide();
+        $('#div-UseMethodId_fk').hide();
+        $('#div-ContraceptionOther').hide();
+        $('#ContraceptionOther').val('');
+        $('#ContraceptionOther').removeAttr('required');
+        $('#ContraceptionId_fk').removeAttr('required');
+        $('#UseMethodId_fk').removeAttr('required');
+    }
     function BindFollowupPop(BFYID_fk) {
         GetYearList("FYear", 0);
         GetMonthList("FMonth", 0);
         $("#followupformid")[0].reset();
         $('#myModal').modal('show');
         GetContraceptive("ContraceptionId_fk", 0);
+        HideInput();
         //$('#myModal').modal(); $('#myModal').modal('toggle');
         $('#BFYID_fk').val(BFYID_fk);
     }
@@ -376,6 +405,90 @@
         if (BFYID_fk) {
             BindFollowupPop(BFYID_fk);
         }
+    }
+    function CUFollowupBFYData() {
+        debugger;
+        //var vl = $.validator.unobtrusive.parse("#formid");
+        //var Isvalid= $("#formid").validate();//CreatePlanformid
+        var isvalid = $("#followupformid").valid();
+        var IsCheck = true;
+        IsCheck = $('#BFYID_fk').val() == '' ? false : true;
+        if ($('input[name="IsFollowUp"]:checked').length == 0) {
+            toastr.error("Error", 'Please Select FollowUp/HV in Current Month');
+            IsCheck = false;
+        }
+        if ($('input[name="IsPeerPresent"]:checked').length != 0 || $('input[name="IsFollowUpHV"]:checked').length != 0) {
+            if ($('input[name="IsContraception"]:checked').length == 0) {
+                toastr.error("Error", 'Please Select Want to use contraception after meeting/HV');
+                IsCheck = false;
+            }
+        }
+
+        if (isvalid && IsCheck) {
+            document.getElementById("btnpopsubmit").disabled = true;
+
+            var formData = $('#followupformid').serialize();
+
+            $.ajax({
+                url: document.baseURI + "/Beneficiary/AddFollowup",
+                type: "Post",
+                data: formData,
+                //contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                // processData: false, contentType: false,
+                //cache: false,
+                //contentType: false,
+                //processData: false,
+                //data: JSON.stringify(model),
+                success: function (resp) {
+                    if (resp.StatusType == "success") {
+                        toastr.success("Success", resp.Message);
+                        //$("#followupformid")[0].reset();
+                        BindData();
+                    }
+                    else {
+                        toastr.error("Error", resp.Message);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    toastr.error("Error", errormsg);
+                    //jQuery.event.trigger("ajaxStop");
+                    return false;
+                }
+            });
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    function BFYDataView(BFYId) {
+        var cmfollowupmodel = new Object();
+        cmfollowupmodel.BFYId = BFYId;
+
+        $.ajax({
+            type: "GET",
+            url: document.baseURI + "/Beneficiary/GetBFYFollowView",
+            data: cmfollowupmodel,
+            //cache: false,
+            success: function (res) {
+                if (res.IsSuccess) {
+                    $('#myModalview').modal('show');
+                    $("#div-View").html(res.Data);
+                }
+                else {
+                    $("#div-View").html(res.Data);
+                }
+            },
+            error: function (req, error) {
+                if (error === 'error') { error = req.statusText; }
+                var errormsg = 'There was a communication error: ' + error;
+                //Do To Message display
+            }
+        });
     }
 
 </script>

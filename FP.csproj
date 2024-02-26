@@ -683,6 +683,7 @@
     <Content Include="Views\Report\PrapatraOne.cshtml" />
     <Content Include="Views\Beneficiary\BFYFollow.cshtml" />
     <Content Include="Views\Beneficiary\_BFYFollow.cshtml" />
+    <Content Include="Views\Beneficiary\_BFYFollowView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
