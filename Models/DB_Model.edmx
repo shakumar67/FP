@@ -52,6 +52,20 @@
           <Property Name="BlockId_pk1" Type="int" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="CLF_Master">
+          <Key>
+            <PropertyRef Name="CLF_ID_pk" />
+          </Key>
+          <Property Name="CLF_ID_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DistrictId_fk" Type="int" />
+          <Property Name="BlockId_fk" Type="int" />
+          <Property Name="CLFName" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="Contraceptive_Child_Master">
           <Key>
             <PropertyRef Name="ID" />
@@ -363,6 +377,7 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Block_Master" EntityType="Self.Block_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLF_Master" EntityType="Self.CLF_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contraceptive_Child_Master" EntityType="Self.Contraceptive_Child_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contraceptive_Master" EntityType="Self.Contraceptive_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District_Master" EntityType="Self.District_Master" Schema="dbo" store:Type="Tables" />
@@ -523,6 +538,7 @@
           <EntitySet Name="tbl_Plan" EntityType="FP_DBModel.tbl_Plan" />
           <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
           <EntitySet Name="tbl_BFYFollowup" EntityType="FP_DBModel.tbl_BFYFollowup" />
+          <EntitySet Name="CLF_Master" EntityType="FP_DBModel.CLF_Master" />
         </EntityContainer>
         <EntityType Name="VO_Master">
           <Key>
@@ -756,6 +772,20 @@
           <Property Name="ContraceptionOther" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
           <Property Name="ModuleRollout" Type="Int32" />
           <Property Name="ModuleRolloutId_fk" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CLF_Master">
+          <Key>
+            <PropertyRef Name="CLF_ID_pk" />
+          </Key>
+          <Property Name="CLF_ID_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DistrictId_fk" Type="Int32" />
+          <Property Name="BlockId_fk" Type="Int32" />
+          <Property Name="CLFName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
@@ -1086,6 +1116,21 @@
                 <ScalarProperty Name="FMonth" ColumnName="FMonth" />
                 <ScalarProperty Name="BFYID_fk" ColumnName="BFYID_fk" />
                 <ScalarProperty Name="FollowupID_pk" ColumnName="FollowupID_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLF_Master">
+            <EntityTypeMapping TypeName="FP_DBModel.CLF_Master">
+              <MappingFragment StoreEntitySet="CLF_Master">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CLFName" ColumnName="CLFName" />
+                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
+                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
+                <ScalarProperty Name="CLF_ID_pk" ColumnName="CLF_ID_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

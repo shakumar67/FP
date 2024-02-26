@@ -74,6 +74,14 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SPCLFMasterlist(int DistrictId, int BlockId)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_CLFMasterlist");
+            sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
+            sp.Command.AddParameter("@BlockId", BlockId, DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         public static DataSet SPContraceptive(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("USP_Contraceptive");

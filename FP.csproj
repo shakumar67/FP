@@ -343,6 +343,10 @@
     <Compile Include="Models\Block_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CLFModel.cs" />
+    <Compile Include="Models\CLF_Master.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CMFollowupModel.cs" />
     <Compile Include="Models\Contraceptive_Child_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
@@ -455,6 +459,7 @@
     <Content Include="Content\css\responsive.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\img\fp-logo.png" />
+    <Content Include="Content\img\icon.ico" />
     <Content Include="Content\img\icon.png" />
     <Content Include="Content\img\nrh.png" />
     <Content Include="Content\img\pci.png" />
@@ -485,10 +490,10 @@
     <Content Include="Content\lib\waypoints\links.php" />
     <Content Include="Content\lib\waypoints\waypoints.min.js" />
     <Content Include="Content\Logincss.css" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Models\DB_Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DB_Model.edmx</DependentUpon>
@@ -684,6 +689,8 @@
     <Content Include="Views\Beneficiary\BFYFollow.cshtml" />
     <Content Include="Views\Beneficiary\_BFYFollow.cshtml" />
     <Content Include="Views\Beneficiary\_BFYFollowView.cshtml" />
+    <Content Include="Views\Master\CLFMaster.cshtml" />
+    <Content Include="Views\Master\_CLFData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

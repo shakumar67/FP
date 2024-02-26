@@ -336,12 +336,95 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
             }
         }
-        public ActionResult GetVillagedetaillist(int DistrictId=0 ,int BlockId=0,int PanchayatId=0)
+
+        public ActionResult GetCLFMasterllist(int DistrictId = 0, int BlockId = 0)
         {
             try
             {
                 bool IsCheck = false;
-                var tbllist = SP_Model.SPVillagelist(DistrictId, BlockId,PanchayatId);
+                var tbllist = SP_Model.SPCLFMasterlist(DistrictId, BlockId);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_CLFData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+        public ActionResult CLFMaster(int id = 0)
+        {
+            FP_DBEntities db_ = new FP_DBEntities();
+            CLFModel model = new CLFModel();
+            if (id>0)
+            {
+                var tbl = db_.CLF_Master.Find(id);
+                if (tbl!=null)
+                {
+                    model.CLF_ID_pk = tbl.CLF_ID_pk;
+                    model.DistrictId_fk = tbl.DistrictId_fk;
+                    model.BlockId_fk = tbl.BlockId_fk;
+                    model.CLFName = tbl.CLFName; 
+                }
+            }
+            return View(model);
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        [EnableCors("*")]
+        public JsonResult CLFMaster(CLFModel model)
+        {
+            JsonResponseData response = new JsonResponseData();
+
+            var tbl = model.CLF_ID_pk != 0 ? db.CLF_Master.Find(model.CLF_ID_pk) : new CLF_Master();
+            if (tbl != null && model != null)
+            {
+                tbl.CLFName = model.CLFName.Trim();
+                tbl.IsActive = true;
+                if (model.CLF_ID_pk == 0)
+                {
+                    tbl.DistrictId_fk = model.DistrictId_fk;
+                    tbl.BlockId_fk = model.BlockId_fk;
+                    tbl.CreatedBy = MvcApplication.CUser.Id;
+                    tbl.CreatedOn = DateTime.Now;
+                    db.CLF_Master.Add(tbl);
+                }
+                else
+                {
+                    tbl.UpdatedBy = MvcApplication.CUser.Id;
+                    tbl.UpdatedOn = DateTime.Now;
+                }
+                int res = db.SaveChanges();
+                if (res > 0)
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+                    //ModelState.AddModelError("", Record Submitted Successfully!!!");
+                }
+                else
+                {
+
+                }
+            }
+            return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            //return Json();
+            //   return View();
+        }
+
+        public ActionResult GetVillagedetaillist(int DistrictId = 0, int BlockId = 0, int PanchayatId = 0)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SPVillagelist(DistrictId, BlockId, PanchayatId);
                 if (tbllist.Rows.Count > 0)
                 {
                     IsCheck = true;
@@ -361,16 +444,16 @@ namespace FP.Controllers
         {
             FP_DBEntities db_ = new FP_DBEntities();
             VillageModel model = new VillageModel();
-            if (id>0)
+            if (id > 0)
             {
                 var tbl = db_.VO_Master.Find(id);
-                if (tbl!=null)
+                if (tbl != null)
                 {
                     model.Void_pk = tbl.Void_pk;
                     model.DistrictId_fk = tbl.DistrictId_fk;
                     model.BlockId_fk = tbl.BlockId_fk;
                     model.Panchayatid_fk = tbl.Panchayatid_fk;
-                    model.Village_Organization = tbl.Village_Organization; 
+                    model.Village_Organization = tbl.Village_Organization;
                 }
             }
             return View(model);
