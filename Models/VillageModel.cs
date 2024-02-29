@@ -22,6 +22,9 @@ namespace FP.Models
         [Required]
         [Display(Name = "Panchayat")]
         public Nullable<int> Panchayatid_fk { get; set; }
+        [Required]
+        [Display(Name = "CLF")]
+        public Nullable<int> CLF_Id_fk { get; set; }
         public string Panchayat { get; set; }
         [Required]
         [Display(Name = "Village Organization")]

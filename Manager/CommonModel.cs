@@ -396,7 +396,7 @@ namespace FP.Manager
         {
             try
             {
-                var items = new SelectList(dbe.Block_Master.Where(x => x.IsActive == true && x.DistrictId_fk == DistrictId), "ID", "BlockName").OrderBy(x => x.Text).ToList();
+                var items = new SelectList(dbe.Block_Master.Where(x => x.IsActive == true && x.DistrictId_fk == DistrictId), "BlockId_pk", "Block").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -408,11 +408,11 @@ namespace FP.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetPanchayat(bool IsAll = false, int DistrictId = 0, int BlockId = 0)
+        public static List<SelectListItem> GetCLF(bool IsAll = false, int DistrictId = 0, int BlockId = 0)
         {
             try
             {
-                var items = new SelectList(dbe.Panchayat_Master.Where(x => x.IsActive == true && x.DistrictId_fk == DistrictId && x.Blockid_fk == BlockId), "ID", "ClusterName").OrderBy(x => x.Text).ToList();
+                var items = new SelectList(dbe.CLF_Master.Where(x => x.IsActive == true && x.DistrictId_fk == DistrictId && x.DistrictId_fk == BlockId), "CLF_ID_pk", "CLFName").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -424,11 +424,27 @@ namespace FP.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetVillage(bool IsAll = false, int DistrictId = 0, int BlockId = 0, int PanchayatId = 0)
+        public static List<SelectListItem> GetPanchayat(bool IsAll = false, int DistrictId = 0, int BlockId = 0, int CLFId = 0)
         {
             try
             {
-                var items = new SelectList(dbe.Panchayat_Master.Where(x => x.IsActive == true && x.DistrictId_fk == DistrictId && x.Blockid_fk == BlockId && x.Panchayatid_pk == PanchayatId), "ID", "ClusterName").OrderBy(x => x.Text).ToList();
+                var items = new SelectList(dbe.Panchayat_Master.Where(x => x.IsActive == true && x.DistrictId_fk == DistrictId && x.Blockid_fk == BlockId && x.CLF_Id_fk == CLFId), "Panchayatid_pk", "Panchayat").OrderBy(x => x.Text).ToList();
+                if (IsAll)
+                {
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                return items;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static List<SelectListItem> GetVOrg(bool IsAll = false, int DistrictId = 0, int BlockId = 0, int CLFId = 0, int PanchayatId = 0)
+        {
+            try
+            {
+                var items = new SelectList(dbe.VO_Master.Where(x => x.IsActive == true && x.DistrictId_fk == DistrictId && x.BlockId_fk == BlockId && x.CLF_Id_fk == CLFId && x.Panchayatid_fk == PanchayatId), "Void_pk", "Village_Organization").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
