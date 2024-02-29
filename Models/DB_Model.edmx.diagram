@@ -9,11 +9,9 @@
         <EntityTypeShape EntityType="FP_DBModel.AspNetUser" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="FP_DBModel.Block_Master" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="FP_DBModel.District_Master" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FP_DBModel.Panchayat_Master" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FP_DBModel.State_Master" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="FP_DBModel.FK_Block_Master_District_Master" ManuallyRouted="false" />
         <AssociationConnector Association="FP_DBModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="FP_DBModel.VO_Master" Width="1.5" PointX="5.375" PointY="7.75" />
         <EntityTypeShape EntityType="FP_DBModel.TBL_Emp" Width="1.5" PointX="8.375" PointY="0.75" />
         <EntityTypeShape EntityType="FP_DBModel.Contraceptive_Child_Master" Width="1.5" PointX="11.625" PointY="5.875" />
         <EntityTypeShape EntityType="FP_DBModel.Contraceptive_Master" Width="1.5" PointX="9.375" PointY="6" />
@@ -29,6 +27,8 @@
         <EntityTypeShape EntityType="FP_DBModel.TBL_Beneficiary" Width="1.5" PointX="5.375" PointY="12.75" />
         <EntityTypeShape EntityType="FP_DBModel.tbl_BFYFollowup" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="FP_DBModel.CLF_Master" Width="1.5" PointX="13.375" PointY="8.75" />
+        <EntityTypeShape EntityType="FP_DBModel.Panchayat_Master" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FP_DBModel.VO_Master" Width="1.5" PointX="13.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

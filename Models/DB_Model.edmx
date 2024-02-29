@@ -117,6 +117,7 @@
           <Property Name="DistrictId_fk" Type="int" />
           <Property Name="Blockid_fk" Type="int" />
           <Property Name="Block" Type="nvarchar" MaxLength="255" />
+          <Property Name="CLF_Id_fk" Type="int" />
           <Property Name="Panchayat" Type="nvarchar" MaxLength="255" />
           <Property Name="FPCP_Panchayat" Type="nvarchar" MaxLength="255" />
           <Property Name="IsActive" Type="bit" />
@@ -302,6 +303,7 @@
           <Property Name="Void_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DistrictId_fk" Type="int" />
           <Property Name="BlockId_fk" Type="int" />
+          <Property Name="CLF_Id_fk" Type="int" />
           <Property Name="Panchayatid_fk" Type="int" />
           <Property Name="Panchayat" Type="nvarchar" MaxLength="255" />
           <Property Name="Village_Organization" Type="nvarchar" MaxLength="255" />
@@ -470,18 +472,6 @@
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Block_Master" Relationship="Self.FK_Block_Master_District_Master" FromRole="District_Master" ToRole="Block_Master" />
         </EntityType>
-        <EntityType Name="Panchayat_Master">
-          <Key>
-            <PropertyRef Name="Panchayatid_pk" />
-          </Key>
-          <Property Name="Panchayatid_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DistrictId_fk" Type="Int32" />
-          <Property Name="Blockid_fk" Type="Int32" />
-          <Property Name="Block" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Panchayat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="FPCP_Panchayat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-        </EntityType>
         <EntityType Name="State_Master">
           <Key>
             <PropertyRef Name="LGD_State_Code" />
@@ -510,7 +500,6 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="Block_Master" EntityType="Self.Block_Master" />
           <EntitySet Name="District_Master" EntityType="Self.District_Master" />
-          <EntitySet Name="Panchayat_Master" EntityType="Self.Panchayat_Master" />
           <EntitySet Name="State_Master" EntityType="Self.State_Master" />
           <AssociationSet Name="FK_Block_Master_District_Master" Association="Self.FK_Block_Master_District_Master">
             <End Role="District_Master" EntitySet="District_Master" />
@@ -520,7 +509,6 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="VO_Master" EntityType="FP_DBModel.VO_Master" />
           <EntitySet Name="TBL_Emp" EntityType="FP_DBModel.TBL_Emp" />
           <EntitySet Name="Contraceptive_Child_Master" EntityType="FP_DBModel.Contraceptive_Child_Master" />
           <EntitySet Name="Contraceptive_Master" EntityType="FP_DBModel.Contraceptive_Master" />
@@ -539,25 +527,9 @@
           <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
           <EntitySet Name="tbl_BFYFollowup" EntityType="FP_DBModel.tbl_BFYFollowup" />
           <EntitySet Name="CLF_Master" EntityType="FP_DBModel.CLF_Master" />
+          <EntitySet Name="Panchayat_Master" EntityType="FP_DBModel.Panchayat_Master" />
+          <EntitySet Name="VO_Master" EntityType="FP_DBModel.VO_Master" />
         </EntityContainer>
-        <EntityType Name="VO_Master">
-          <Key>
-            <PropertyRef Name="Void_pk" />
-          </Key>
-          <Property Name="Void_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DistrictId_fk" Type="Int32" />
-          <Property Name="BlockId_fk" Type="Int32" />
-          <Property Name="Panchayatid_fk" Type="Int32" />
-          <Property Name="Panchayat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Village_Organization" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="F5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CRUD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="TBL_Emp">
           <Key>
             <PropertyRef Name="EmpID_pk" />
@@ -792,6 +764,38 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="Panchayat_Master">
+          <Key>
+            <PropertyRef Name="Panchayatid_pk" />
+          </Key>
+          <Property Name="Panchayatid_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DistrictId_fk" Type="Int32" />
+          <Property Name="Blockid_fk" Type="Int32" />
+          <Property Name="Block" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CLF_Id_fk" Type="Int32" />
+          <Property Name="Panchayat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FPCP_Panchayat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="VO_Master">
+          <Key>
+            <PropertyRef Name="Void_pk" />
+          </Key>
+          <Property Name="Void_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DistrictId_fk" Type="Int32" />
+          <Property Name="BlockId_fk" Type="Int32" />
+          <Property Name="CLF_Id_fk" Type="Int32" />
+          <Property Name="Panchayatid_fk" Type="Int32" />
+          <Property Name="Panchayat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Village_Organization" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="F5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CRUD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -852,19 +856,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Panchayat_Master">
-            <EntityTypeMapping TypeName="FP_DBModel.Panchayat_Master">
-              <MappingFragment StoreEntitySet="Panchayat_Master">
-                <ScalarProperty Name="Panchayatid_pk" ColumnName="Panchayatid_pk" />
-                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
-                <ScalarProperty Name="Blockid_fk" ColumnName="Blockid_fk" />
-                <ScalarProperty Name="Block" ColumnName="Block" />
-                <ScalarProperty Name="Panchayat" ColumnName="Panchayat" />
-                <ScalarProperty Name="FPCP_Panchayat" ColumnName="FPCP_Panchayat" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="State_Master">
             <EntityTypeMapping TypeName="FP_DBModel.State_Master">
               <MappingFragment StoreEntitySet="State_Master">
@@ -881,25 +872,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="VO_Master">
-            <EntityTypeMapping TypeName="FP_DBModel.VO_Master">
-              <MappingFragment StoreEntitySet="VO_Master">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CRUD" ColumnName="CRUD" />
-                <ScalarProperty Name="F5" ColumnName="F5" />
-                <ScalarProperty Name="Village_Organization" ColumnName="Village_Organization" />
-                <ScalarProperty Name="Panchayat" ColumnName="Panchayat" />
-                <ScalarProperty Name="Panchayatid_fk" ColumnName="Panchayatid_fk" />
-                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
-                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
-                <ScalarProperty Name="Void_pk" ColumnName="Void_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_Emp">
             <EntityTypeMapping TypeName="FP_DBModel.TBL_Emp">
               <MappingFragment StoreEntitySet="TBL_Emp">
@@ -1131,6 +1103,40 @@
                 <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
                 <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
                 <ScalarProperty Name="CLF_ID_pk" ColumnName="CLF_ID_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Panchayat_Master">
+            <EntityTypeMapping TypeName="FP_DBModel.Panchayat_Master">
+              <MappingFragment StoreEntitySet="Panchayat_Master">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="FPCP_Panchayat" ColumnName="FPCP_Panchayat" />
+                <ScalarProperty Name="Panchayat" ColumnName="Panchayat" />
+                <ScalarProperty Name="CLF_Id_fk" ColumnName="CLF_Id_fk" />
+                <ScalarProperty Name="Block" ColumnName="Block" />
+                <ScalarProperty Name="Blockid_fk" ColumnName="Blockid_fk" />
+                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
+                <ScalarProperty Name="Panchayatid_pk" ColumnName="Panchayatid_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VO_Master">
+            <EntityTypeMapping TypeName="FP_DBModel.VO_Master">
+              <MappingFragment StoreEntitySet="VO_Master">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CRUD" ColumnName="CRUD" />
+                <ScalarProperty Name="F5" ColumnName="F5" />
+                <ScalarProperty Name="Village_Organization" ColumnName="Village_Organization" />
+                <ScalarProperty Name="Panchayat" ColumnName="Panchayat" />
+                <ScalarProperty Name="Panchayatid_fk" ColumnName="Panchayatid_fk" />
+                <ScalarProperty Name="CLF_Id_fk" ColumnName="CLF_Id_fk" />
+                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
+                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
+                <ScalarProperty Name="Void_pk" ColumnName="Void_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

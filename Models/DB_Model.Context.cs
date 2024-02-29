@@ -29,9 +29,7 @@ namespace FP.Models
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Block_Master> Block_Master { get; set; }
         public virtual DbSet<District_Master> District_Master { get; set; }
-        public virtual DbSet<Panchayat_Master> Panchayat_Master { get; set; }
         public virtual DbSet<State_Master> State_Master { get; set; }
-        public virtual DbSet<VO_Master> VO_Master { get; set; }
         public virtual DbSet<TBL_Emp> TBL_Emp { get; set; }
         public virtual DbSet<Contraceptive_Child_Master> Contraceptive_Child_Master { get; set; }
         public virtual DbSet<Contraceptive_Master> Contraceptive_Master { get; set; }
@@ -46,5 +44,7 @@ namespace FP.Models
         public virtual DbSet<TBL_Beneficiary> TBL_Beneficiary { get; set; }
         public virtual DbSet<tbl_BFYFollowup> tbl_BFYFollowup { get; set; }
         public virtual DbSet<CLF_Master> CLF_Master { get; set; }
+        public virtual DbSet<Panchayat_Master> Panchayat_Master { get; set; }
+        public virtual DbSet<VO_Master> VO_Master { get; set; }
     }
 }

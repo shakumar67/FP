@@ -18,6 +18,7 @@ namespace FP.Models
         public Nullable<int> DistrictId_fk { get; set; }
         public Nullable<int> Blockid_fk { get; set; }
         public string Block { get; set; }
+        public Nullable<int> CLF_Id_fk { get; set; }
         public string Panchayat { get; set; }
         public string FPCP_Panchayat { get; set; }
         public Nullable<bool> IsActive { get; set; }
