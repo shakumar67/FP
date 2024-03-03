@@ -54,8 +54,8 @@ namespace FP
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 10,
-                //RequireNonLetterOrDigit = true,
-                RequireDigit = true,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
                 //RequireLowercase = true,
                 //RequireUppercase = true,
             };

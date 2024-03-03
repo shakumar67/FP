@@ -54,6 +54,8 @@ namespace FP
                                 User.District = dr["DistName"].ToString();
                                 User.BlockId = dr["BkId"].ToString();
                                 User.Block = dr["BlockName"].ToString();
+                                User.CLFId = dr["CLFId"].ToString();
+                                User.CLF = dr["CLFName"].ToString();
                                 User.Panchayatid = dr["Panchayatid_pk"].ToString();
                                 User.Panchayat = dr["Panchayat"].ToString();
                                 User.Void = dr["Void_pk"].ToString();
@@ -106,7 +108,7 @@ namespace FP
 
                     //HttpContext.Current.Response.Redirect("~/Account/Login", false);
                     //RewritePath
-                    return null;
+                    return new UserViewModel();
                 }
             }
         }

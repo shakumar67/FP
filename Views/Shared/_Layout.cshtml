@@ -40,6 +40,8 @@
 
     @*<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type='text/css' />*@
     <link href="~/Content/css/toastr.min.css" rel="stylesheet" type='text/css' />
+    <link href="~/Content/css/cssselect2.css" rel="stylesheet" />
+    <link href="~/Content/css/select2.min.css" rel="stylesheet" />
     <style>
         .page-layout {
             min-height: 520px;
@@ -149,10 +151,10 @@
     @if (Session["CUser"] == null)
     {
         <script>
-      $(function () {
-          var url = '@Url.Action("Login", "Account")';
-           window.location.href = url;
-      });
+            $(document).ready(function () {
+            var url = '@Url.Action("Login", "Account")';
+               location.href = url;
+         });
         </script>
     }
     <!-- JavaScript Libraries -->
@@ -190,55 +192,77 @@
 
     <!-- Template Javascript -->
     <script src="~/Content/js/main.js"></script>
+    <script src="~/Content/js/select2.min.js"></script>
 
     <script>
 
         $(document).ready(function () {
 
+            $(".js-select2").select2({
+                closeOnSelect: false,
+                placeholder: "Placeholder",
+                allowHtml: true,
+                allowClear: true,
+                tags: true
+            });
+
             if ('@Session["CUser"]' == 'null' || '@Session["CUser"]' == '') {
                 var url = '@Url.Action("Login", "Account")';
-                           window.location.href = url;
+                           location.href = url;
             }
-           // BindRolewise();
-            //session end
-            //var sessionTimeoutWarning = @Session.Timeout - 1;
-            //var sTimeout = parseInt(sessionTimeoutWarning) * 60 * 60;
-            //setTimeout('SessionEnd()', sTimeout);
-
-
         });
-        function SessionEnd() {
-            window.location.hostname = "";
-            /* $(window.Location).attr("href", "@Url.Content("~/Login/index/")"); */
-            window.location = "/Account/Login/";
+        function BindRoleCurrent(Roleid) {
+            $('#' + Roleid).val(('@MvcApplication.CUser.RoleId').toLowerCase());
         }
-        function BindRolewise(DistrictId_fk, BlockId_fk, PanchayatId_fk, VoId_fk) {
-            debugger;
-            if ('@Session["CUser"]' != 'null') {
+        function BindRolewise(DistrictId_fk, BlockId_fk,CLFId_fk, PanchayatId_fk, VoId_fk) {
+            if ('@Session["CUser"]' !== 'null' && '@Session["CUser"]' !=='') {
                 if ('@User.Identity.IsAuthenticated' === 'True') {
-                    if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
+                     if ('@CommonModel.RoleNameCont.CM' === '@MvcApplication.CUser.Role') {
                         $('#' + DistrictId_fk).val(('@MvcApplication.CUser.DistrictId').toLowerCase());
                         $('#' + DistrictId_fk).attr("style", "pointer-events: none;");
                         GetBlock(BlockId_fk, 0, $('#' + DistrictId_fk).val());
                         $('#' + BlockId_fk).val(('@MvcApplication.CUser.BlockId').toLowerCase());
                         $('#' + BlockId_fk).attr("style", "pointer-events: none;");
-                        GetPanchayat(PanchayatId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val());
+                        GetCLF(CLFId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val());
+                        $('#' + CLFId_fk).val(('@MvcApplication.CUser.CLFId').toLowerCase());
+                        $('#' + CLFId_fk).attr("style", "pointer-events: none;");
+                         GetPanchayat(PanchayatId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + CLFId_fk).val());
                         $('#' + PanchayatId_fk).val(('@MvcApplication.CUser.Panchayatid').toLowerCase());
                         $('#' + PanchayatId_fk).attr("style", "pointer-events: none;");
-                        GetVillage(VoId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + PanchayatId_fk).val());
+                         GetVillage(VoId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(),$('#' + CLFId_fk).val(), $('#' + PanchayatId_fk).val());
+                        $('#' + VoId_fk).val(('@MvcApplication.CUser.Void').toLowerCase());
+                        $('#' + VoId_fk).attr("style", "pointer-events: none;");
                     }
-                    else if ('@CommonModel.RoleNameCont.CM' === '@MvcApplication.CUser.Role') {
+                     else if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
                         $('#' + DistrictId_fk).val(('@MvcApplication.CUser.DistrictId').toLowerCase());
                         $('#' + DistrictId_fk).attr("style", "pointer-events: none;");
                         GetBlock(BlockId_fk, 0, $('#' + DistrictId_fk).val());
                         $('#' + BlockId_fk).val(('@MvcApplication.CUser.BlockId').toLowerCase());
                         $('#' + BlockId_fk).attr("style", "pointer-events: none;");
-                        GetPanchayat(PanchayatId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val());
+                        GetCLF(CLFId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val());
+                         //$('#' + CLFId_fk).select2("val", @MvcApplication.CUser.CLFId);
+                         $('#' + CLFId_fk).val(('@MvcApplication.CUser.CLFId').toLowerCase());//.trigger('change');
+                        $('#' + CLFId_fk).attr("style", "pointer-events: none;");
+                         GetPanchayat(PanchayatId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + CLFId_fk).val());
                         $('#' + PanchayatId_fk).val(('@MvcApplication.CUser.Panchayatid').toLowerCase());
                         $('#' + PanchayatId_fk).attr("style", "pointer-events: none;");
-                        GetVillage(VillageOId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + PanchayatId_fk).val());
-                        $('#' + VillageOId_fk).val(('@MvcApplication.CUser.Void').toLowerCase());
-                        $('#' + VillageOId_fk).attr("style", "pointer-events: none;");
+                         GetVillage(VoId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + CLFId_fk).val(), $('#' + PanchayatId_fk).val());
+                    }
+                     else if ('@CommonModel.RoleNameCont.CLF' === '@MvcApplication.CUser.Role') {
+                        $('#' + DistrictId_fk).val(('@MvcApplication.CUser.DistrictId').toLowerCase());
+                        $('#' + DistrictId_fk).attr("style", "pointer-events: none;");
+                        GetBlock(BlockId_fk, 0, $('#' + DistrictId_fk).val());
+                        $('#' + BlockId_fk).val(('@MvcApplication.CUser.BlockId').toLowerCase());
+                        $('#' + BlockId_fk).attr("style", "pointer-events: none;");
+                         GetCLF(CLFId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val());
+                         $('#' + CLFId_fk).val(('@MvcApplication.CUser.CLFId').toLowerCase());
+                         //$('#' + CLFId_fk).attr("style", "pointer-events: none;");
+                         GetPanchayat(PanchayatId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + CLFId_fk).val());
+                        $('#' + PanchayatId_fk).val(('@MvcApplication.CUser.Panchayatid').toLowerCase());
+                        // $('#' + PanchayatId_fk).attr("style", "pointer-events: none;");
+                         GetVillage(VoId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + CLFId_fk).val(), $('#' + PanchayatId_fk).val());
+                        $('#' + VoId_fk).val(('@MvcApplication.CUser.Void').toLowerCase());
+                        //$('#' + VoId_fk).attr("style", "pointer-events: none;");
                     }
                      else if ('@CommonModel.RoleNameCont.BPIU' === '@MvcApplication.CUser.Role') {
                        $('#' + DistrictId_fk).val(('@MvcApplication.CUser.DistrictId').toLowerCase());
@@ -246,12 +270,15 @@
                        GetBlock(BlockId_fk, 0, $('#' + DistrictId_fk).val());
                        $('#' + BlockId_fk).val(('@MvcApplication.CUser.BlockId').toLowerCase());
                        $('#' + BlockId_fk).attr("style", "pointer-events: none;");
-                       GetPanchayat(PanchayatId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val());
+                       GetCLF(CLFId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val());
+                       $('#' + CLFId_fk).val(('@MvcApplication.CUser.CLFId').toLowerCase());
+                      //$('#' + CLFId_fk).attr("style", "pointer-events: none;");
+                         GetPanchayat(PanchayatId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + CLFId_fk).val());
                        $('#' + PanchayatId_fk).val(('@MvcApplication.CUser.Panchayatid').toLowerCase());
                       // $('#' + PanchayatId_fk).attr("style", "pointer-events: none;");
-                       GetVillage(VillageOId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + PanchayatId_fk).val());
-                       $('#' + VillageOId_fk).val(('@MvcApplication.CUser.Void').toLowerCase());
-                       //$('#' + VillageOId_fk).attr("style", "pointer-events: none;");
+                         GetVillage(VoId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + CLFId_fk).val(), $('#' + PanchayatId_fk).val());
+                       $('#' + VoId_fk).val(('@MvcApplication.CUser.Void').toLowerCase());
+                       //$('#' + VoId_fk).attr("style", "pointer-events: none;");
                     }
                     else if ('@CommonModel.RoleNameCont.BPMU' === '@MvcApplication.CUser.Role'
                              || '@CommonModel.RoleNameCont.District' === '@MvcApplication.CUser.Role') {
@@ -263,9 +290,9 @@
                        // GetPanchayat(PanchayatId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val());
                         //$('#' + PanchayatId_fk).val(('@MvcApplication.CUser.Panchayatid').toLowerCase());
                         // $('#' + PanchayatId_fk).attr("style", "pointer-events: none;");
-                       // GetVillage(VillageOId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + PanchayatId_fk).val());
-                       // $('#' + VillageOId_fk).val(('@MvcApplication.CUser.Void').toLowerCase());
-                        //$('#' + VillageOId_fk).attr("style", "pointer-events: none;");
+                       // GetVillage(VoId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(),$('#' + CLFId_fk).val(), $('#' + PanchayatId_fk).val());
+                       // $('#' + VoId_fk).val(('@MvcApplication.CUser.Void').toLowerCase());
+                        //$('#' + VoId_fk).attr("style", "pointer-events: none;");
                     }
                     else if ('@CommonModel.RoleNameCont.Admin' === '@MvcApplication.CUser.Role'
                              || '@CommonModel.RoleNameCont.State' === '@MvcApplication.CUser.Role') {
@@ -277,20 +304,20 @@
                           //GetPanchayat(PanchayatId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val());
                           //$('#' + PanchayatId_fk).val(('@MvcApplication.CUser.Panchayatid').toLowerCase());
                          // $('#' + PanchayatId_fk).attr("style", "pointer-events: none;");
-                          //GetVillage(VillageOId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(), $('#' + PanchayatId_fk).val());
-                          //$('#' + VillageOId_fk).val(('@MvcApplication.CUser.Void').toLowerCase());
-                          //$('#' + VillageOId_fk).attr("style", "pointer-events: none;");
+                          //GetVillage(VoId_fk, 0, $('#' + DistrictId_fk).val(), $('#' + BlockId_fk).val(),$('#' + CLFId_fk).val(), $('#' + PanchayatId_fk).val());
+                          //$('#' + VoId_fk).val(('@MvcApplication.CUser.Void').toLowerCase());
+                          //$('#' + VoId_fk).attr("style", "pointer-events: none;");
                       }
                 }
                  else {
                      var url = '@Url.Action("Login", "Account")';
-                                window.location.href = url;
+                                location.href = url;
                  }
             }
 
             else {
                 var url = '@Url.Action("Login", "Account")';
-                           window.location.href = url;
+                           location.href = url;
             }
 
         }

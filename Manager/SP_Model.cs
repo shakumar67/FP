@@ -27,19 +27,29 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SPPanchayat(int DistrictId, int BlockId)
+        public static DataTable SPCLF(int DistrictId, int BlockId)
         {
-            StoredProcedure sp = new StoredProcedure("SP_Panchayat");
+            StoredProcedure sp = new StoredProcedure("SP_CLF");
             sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
             sp.Command.AddParameter("@BlockId", BlockId, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SPVillage(int DistrictId, int BlockId, int PanchayatId)
+        public static DataTable SPPanchayat(int DistrictId, int BlockId, int CLFId)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_Panchayat");
+            sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
+            sp.Command.AddParameter("@BlockId", BlockId, DbType.Int32);
+            sp.Command.AddParameter("@CLFId", CLFId, DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SPVillage(int DistrictId, int BlockId, int CLFId, int PanchayatId)
         {
             StoredProcedure sp = new StoredProcedure("SP_Village");
             sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
             sp.Command.AddParameter("@BlockId", BlockId, DbType.Int32);
+            sp.Command.AddParameter("@CLFId", CLFId, DbType.Int32);
             sp.Command.AddParameter("@PanchayatId", PanchayatId, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
@@ -48,6 +58,13 @@ namespace FP.Manager
         {
             FilterModel model = new FilterModel();
             StoredProcedure sp = new StoredProcedure("Usp_UserDetails");
+            if (MvcApplication.CUser.Role == CommonModel.RoleNameCont.CNRP)
+            {
+                model.DistrictId = MvcApplication.CUser.DistrictId;
+                model.BlockId = MvcApplication.CUser.BlockId;
+                model.CLFId = MvcApplication.CUser.CLFId;
+                model.PanchayatId = MvcApplication.CUser.Panchayatid;
+            }
             //sp.Command.AddParameter("@DisId", MvcApplication.CUser.DistrictId, DbType.String);
             //sp.Command.AddParameter("@BlkId", MvcApplication.CUser.BlockId, DbType.String);
             //sp.Command.AddParameter("@PytId", MvcApplication.CUser.Panchayatid, DbType.String);
@@ -57,6 +74,7 @@ namespace FP.Manager
             sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
             sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
             sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@CLFId", model.CLFId, DbType.String);
             sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
             sp.Command.AddParameter("@Month", model.Month, DbType.String);
             sp.Command.AddParameter("@Year", model.Year, DbType.String);

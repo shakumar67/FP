@@ -3,56 +3,65 @@
     DataTable dt = new DataTable();
     dt = Model;
 }
-<div class="table-responsive">
-    <table class="table table-bordered table-striped" id="tbl">
-        <thead>
-            <tr>
-                <th>Srno.</th>
-                <th>District</th>
-                <th>Block</th>
-                <th>Panchayat</th>
-                <th>Village <br />Organization</th>
-                <th>Village <br />Name </th>
-                <th>Role</th>
-                <th>Name</th>
-                @*<th>Gender</th>*@
-                <th>Mobile No</th>
-                <th>Modify</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                if (dt.Rows.Count > 0)
-                {
+<style>
+    table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
+        padding-right: 0px !important;
+    }
+</style>
+<div class="bg-light rounded h-100 p-4">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped" id="tbl">
+            <thead class="text-center">
+                <tr>
+                    <th>Srno.</th>
+                    <th>District</th>
+                    <th>Block</th>
+                    <th>CLF</th>
+                    <th>Panchayat</th>
+                    <th>Village <br />Organization</th>
+                    <th>Village <br />Name </th>
+                    <th>Role</th>
+                    <th>Name</th>
+                    @*<th>Gender</th>*@
+                    <th>Mobile No</th>
+                    <th>Modify</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (dt.Rows.Count > 0)
+                    {
 
-                    int srno = 1;
-                    foreach (DataRow dr in dt.Rows)
+                        int srno = 1;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            <tr>
+                                <td class="text-center">@(srno++)</td>
+                                <td>@dr["DistrictName"]</td>
+                                <td>@dr["Block"]</td>
+                                <td style="word-wrap: break-word;">@dr["CLFNames"]</td>
+                                <td>@dr["Panchayat"]</td>
+                                <td>@dr["Village_Organization"]</td>
+                                <td>@dr["VillageName"]</td>
+                                <td>@dr["Rolename"]</td>
+                                <td>@dr["EmpName"]</td>
+                                @*<td>@dr["Gender"]</td>*@
+                                <td>@dr["MobileNo"]</td>
+                                <td>
+                                    <a href="~/Account/Register?id=@dr["UserId"]&&empid=@dr["EmpID_pk"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td>@(srno++)</td>
-                            <td>@dr["DistrictName"]</td>
-                            <td>@dr["Block"]</td>
-                            <td>@dr["Panchayat"]</td>
-                            <td>@dr["Village_Organization"]</td>
-                            <td>@dr["VillageName"]</td>
-                            <td>@dr["Rolename"]</td>
-                            <td>@dr["EmpName"]</td>
-                            @*<td>@dr["Gender"]</td>*@
-                            <td>@dr["MobileNo"]</td>
-                            <td>
-                                <a href="~/Account/Register?id=@dr["UserId"]&&empid=@dr["EmpID_pk"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                            </td>
+                            <td colspan="11" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
                         </tr>
                     }
                 }
-                else
-                {
-                    <tr>
-                        <td colspan="10" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
-                    </tr>
-                }
-            }
-        </tbody>
+            </tbody>
 
-    </table>
+        </table>
+    </div>
 </div>

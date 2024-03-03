@@ -74,8 +74,8 @@ namespace FP.Models
        // [Required]
         //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         //[DataType(DataType.Password)]
-        //[Display(Name = "Password")]
-        //public string Password { get; set; }
+         [Display(Name = "Password")]
+         public string Password { get; set; }
 
         ////[DataType(DataType.Password)]
         /// <summary>
@@ -87,8 +87,8 @@ namespace FP.Models
         public RegisterViewModel()
         {
             EmpID_pk = Guid.Empty;
+            CLFId_fks = new List<string>();
         }
-
         public System.Guid EmpID_pk { get; set; }
         public string UserID_fk { get; set; }
         public string RoleID_fk { get; set; }
@@ -99,6 +99,10 @@ namespace FP.Models
         public Nullable<int> DistrictId { get; set; }
         [Display(Name = "Block")]
         public Nullable<int> BlockId { get; set; }
+        [Display(Name = "CLF")]
+        public int? CLFId_fk { get; set; }
+        [Display(Name = "CLF")]
+        public List<string> CLFId_fks { get; set; }
         [Display(Name = "Panchayat")]
         public Nullable<int> PanchayatId { get; set; }
         [Display(Name = "Village organization")]
@@ -130,6 +134,10 @@ namespace FP.Models
                 else if (Roles == "727C58E2-8A14-4804-AB53-4762EC323A76")
                 {
                     CN = "Name of CM";
+                }
+                else if (Roles == "1DB70ECF-3205-43CB-90C0-287CC784292D")
+                {
+                    CN = "Name of CLF";
                 }
                 else if (Roles == "437554FA-C90B-49AF-9015-BBCB33F5CCE7")
                 {
@@ -180,6 +188,8 @@ namespace FP.Models
         public string District { get; set; }
         public string BlockId { get; set; }
         public string Block { get; set; }
+        public string CLFId { get; set; }
+        public string CLF { get; set; }
         public string Panchayatid { get; set; }
         public string Panchayat { get; set; }
         public string Void { get; set; }

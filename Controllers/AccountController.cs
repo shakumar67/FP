@@ -9,6 +9,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FP.Models;
+using Newtonsoft.Json.Linq;
+using System.Collections.ObjectModel;
+using Microsoft.Ajax.Utilities;
+using System.Collections.Generic;
+using FP.Helpers;
 
 namespace FP.Controllers
 {
@@ -139,8 +144,9 @@ namespace FP.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register(string Roles = "B00E969C-54F6-4578-A84C-E3550AB6F73D", string id = "", string empid = "")
+        public ActionResult Register(string Roles = "", string id = "", string empid = "")
         {
+            //B00E969C-54F6-4578-A84C-E3550AB6F73D//Admin
             RegisterViewModel model = new RegisterViewModel();
             model.Roles = Roles;
             if (!string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(empid))
@@ -153,6 +159,15 @@ namespace FP.Controllers
                 model.EmpID_pk = tblemp.EmpID_pk;
                 model.DistrictId = tblemp.DistrictID;
                 model.BlockId = tblemp.BlockID;
+                //if (tblemp.CLFId_fk != null)
+                //{
+                //    var list = tblemp.CLFId_fk.Split(',');
+                //    foreach (var item in list)
+                //    {
+                //        model.CLFId_fks.Add(item);
+                //    }
+                //}
+                model.CLFId_fk = tblemp.CLFId_fk;
                 model.PanchayatId = tblemp.PanchayatId;
                 model.VOId_fk = tblemp.VOId_fk;
                 model.VillageName = tblemp.VillageName;
@@ -169,7 +184,7 @@ namespace FP.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             FP_DBEntities dbe = new FP_DBEntities();
-
+            int res = 0;
             if (ModelState.IsValid)
             {
                 if (!string.IsNullOrWhiteSpace(model.UserID_fk) && model.EmpID_pk != Guid.Empty)
@@ -179,6 +194,8 @@ namespace FP.Controllers
 
                     tbLe.DistrictID = model.DistrictId;
                     tbLe.BlockID = model.BlockId;
+                    //tbLe.CLFId_fk = model.CLFId_fks != null ? string.Join(",", model.CLFId_fks) : null;
+                    tbLe.CLFId_fk = model.CLFId_fk;
                     tbLe.PanchayatId = model.PanchayatId;
                     tbLe.VOId_fk = model.VOId_fk;
 
@@ -186,13 +203,33 @@ namespace FP.Controllers
                     tbLe.Gender = model.Gender;
                     tbLe.MobileNo = model.MobileNo;
                     tbLe.VillageName = model.VillageName;
-                    tbLe.UpdatedBy= MvcApplication.CUser.Id;
-                    tbLe.UpdatedOn= DateTime.Now;
+                    tbLe.UpdatedBy = MvcApplication.CUser.Id;
+                    tbLe.UpdatedOn = DateTime.Now;
                     tbLu.UserName = model.MobileNo;
                     tbLu.Email = model.MobileNo + "@gmail.com";
-                    tbLu.PhoneNumber = model.MobileNo;
-                    
-                    int res = dbe.SaveChanges();
+                    tbLu.PhoneNumber = model.MobileNo.Trim();
+                    model.Password = !string.IsNullOrEmpty(model.Password) ? model.Password : model.MobileNo.Trim();
+                    res = dbe.SaveChanges();
+
+                    if (model.CLFId_fks != null && model.CLFId_fks.Count() > 0)
+                    {
+                        var aspid = Guid.Parse(tbLu.Id);
+                        var tblclf = dbe.tbl_CLF_Emp.Where(x => x.UserId_fk == aspid && x.EmpId_fk == tbLe.EmpID_pk);
+                        dbe.tbl_CLF_Emp.AddRange(tblclf);
+                        dbe.SaveChanges();
+                        foreach (var item in model.CLFId_fks.ToList())
+                        {
+                            if (!string.IsNullOrWhiteSpace(item))
+                            {
+                                tbl_CLF_Emp tblclfemp = new tbl_CLF_Emp();
+                                tblclfemp.EmpId_fk = tbLe.EmpID_pk;
+                                tblclfemp.UserId_fk = Guid.Parse(tbLu.Id);
+                                tblclfemp.CLFIdfk = Convert.ToInt32(item);
+                                dbe.tbl_CLF_Emp.Add(tblclfemp);
+                                dbe.SaveChanges();
+                            }
+                        }
+                    }
                     if (res > 0)
                     {
                         return RedirectToAction("UserDetaillist", "Master");
@@ -201,7 +238,8 @@ namespace FP.Controllers
                 else
                 {
                     var user = new ApplicationUser { PhoneNumber = model.MobileNo.Trim(), UserName = model.MobileNo.Trim(), Email = model.MobileNo + "@gmail.com" };
-                    var result = await UserManager.CreateAsync(user, model.MobileNo);
+                    model.Password = !string.IsNullOrEmpty(model.Password) ? model.Password : model.MobileNo.Trim();
+                    var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
                         //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -215,6 +253,8 @@ namespace FP.Controllers
                             tbl.RoleID_fk = model.Roles;
                             tbl.DistrictID = model.DistrictId;
                             tbl.BlockID = model.BlockId;
+                            //tbl.CLFId_fk = model.CLFId_fks != null ? string.Join(",", model.CLFId_fks) : null;
+                            tbl.CLFId_fk = model.CLFId_fk != null ? model.CLFId_fk : null;
                             tbl.PanchayatId = model.PanchayatId;
                             tbl.VOId_fk = model.VOId_fk;
                             tbl.EmpName = model.EmpName.Trim();
@@ -225,7 +265,7 @@ namespace FP.Controllers
                             tbl.CreatedBy = MvcApplication.CUser.Id;
                             tbl.CreatedOn = DateTime.Now;
                             db_.TBL_Emp.Add(tbl);
-                            int res = db_.SaveChanges();
+                            res = db_.SaveChanges();
 
                             var ap = dbe.AspNetUsers.Find(user.Id);
                             ap.CreatedOn = DateTime.Now;
@@ -233,6 +273,21 @@ namespace FP.Controllers
                             //ap.PhoneNumber = model.MobileNo;
                             dbe.SaveChanges();
 
+                            //if (model.CLFId_fks != null)
+                            //{
+                            //    foreach (var item in model.CLFId_fks.ToList())
+                            //    {
+                            //        if (!string.IsNullOrWhiteSpace(item))
+                            //        {
+                            //            tbl_CLF_Emp tblclfemp = new tbl_CLF_Emp();
+                            //            tblclfemp.EmpId_fk = tbl.EmpID_pk;
+                            //            tblclfemp.UserId_fk = Guid.Parse(user.Id);
+                            //            tblclfemp.CLFIdfk = Convert.ToInt32(item);
+                            //            dbe.tbl_CLF_Emp.Add(tblclfemp);
+                            //            dbe.SaveChanges();
+                            //        }
+                            //    }
+                            //}
                         }
                         // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                         // Send an email with this link
@@ -241,9 +296,12 @@ namespace FP.Controllers
                         // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                         // return RedirectToAction("Index", "Home");
+                        if (res > 0)
+                        {
+                            return RedirectToAction("UserDetaillist", "Master");
+                        }
                     }
                     AddErrors(result);
-                    return RedirectToAction("UserDetaillist", "Master");
                 }
             }
 

@@ -9,6 +9,7 @@
         background: #FFFFFF;
         border-color: #009CFF;
     }
+
 </style>
 <div class="breadcrumb">
     <h2>User Registration</h2>
@@ -23,93 +24,13 @@
             @Html.HiddenFor(m => m.EmpID_pk)
             @Html.HiddenFor(m => m.UserID_fk)
 
-        <!--<div class="bg-light rounded h-100 p-4">
-            <div class="col-sm-12 col-xl-6">
-                @Html.ValidationSummary("", new { @class = "text-danger" })
-
-                <div class="mb-3">
-                    @Html.LabelFor(m => m.Roles, new { @class = "form-label" })
-                    <div class="col-md-12">
-                        @Html.DropDownListFor(m => m.Roles, CommonModel.GetRole(), null, new { @class = "form-select" })
-                    </div>
-                </div>
-
-                <div class="mb-3" id="div-dis" style="display:none">
-                    @Html.LabelFor(m => m.DistrictId, new { @class = "form-label" })
-                    <div class="col-md-12">
-                        @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select" })
-                    </div>
-                </div>
-
-                <div class="mb-3" id="div-panchid" style="display:none">
-                    @Html.LabelFor(m => m.PanchayatId, new { @class = "form-label" })
-                    <div class="col-md-12">
-                        @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select" })
-                    </div>
-                </div>
-
-                <div class="mb-3" id="div-voorg" style="display:none">
-                    <label class="form-label">Village Name <span class="text-danger">*</span></label>
-                    <div class="col-md-12">
-                        @Html.TextBoxFor(m => m.VillageName, new { @class = "form-control" })
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Name <span class="text-danger">*</span></label>
-                    <div class="col-md-12">
-                        @Html.TextBoxFor(m => m.EmpName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.EmpName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-sm-12 col-xl-6">
-                <div class="mb-3" style="display:none;">
-                    @Html.LabelFor(m => m.Gender, new { @class = "form-label" })
-                    <div class="col-md-12">
-                        @Html.DropDownListFor(m => m.Gender, CommonModel.GetGender(), null, new { @class = "form-select" })
-                    </div>
-                </div>
-
-                <div class="mb-3" id="div-blk" style="display:none">
-                    @Html.LabelFor(m => m.BlockId, new { @class = "form-label" })
-                    <div class="col-md-12">
-                        @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select" })
-                    </div>
-                </div>
-
-                <div class="mb-3" id="div-vid" style="display:none">
-                    @Html.LabelFor(m => m.VOId_fk, new { @class = "form-label" })
-                    <div class="col-md-12">
-                        @Html.DropDownListFor(m => m.VOId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
-                    </div>
-                </div>
-
-                <div class="mb-3">-->
-                    @*<span class="text-danger">*</span> @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-2 col-form-label" })*@
-                    <!--<label class="form-label">Mobile Number <span class="text-danger">*</span></label>
-                    <div class="col-md-12">
-                        @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control numberonly", @maxlength = "10" })
-                        @Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="offset-md-2 col-md-10">
-                    <input type="submit" value="Register" class="btn btn-primary" />
-                </div>
-            </div>
-        </div>-->
-           
             <div class="col-12">
                 <div class="bg-light rounded h-100 p-4">
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                     <div class="row">
                         @Html.LabelFor(m => m.Roles, new { @class = "form-label" })
                         <div class="col-md-12">
-                            @Html.DropDownListFor(m => m.Roles, CommonModel.GetRole(), null, new { @class = "form-select mb-3" })
+                            @Html.DropDownListFor(m => m.Roles, CommonModel.GetRole(), "Select", new { @class = "form-select mb-3" })
                         </div>
                     </div>
                     <div class="row" style="display:none;">
@@ -130,6 +51,13 @@
                             @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
                         </div>
                     </div>
+                    <div class="row" id="div-clf" style="display:none">
+                        @Html.LabelFor(m => m.CLFId_fk, new { @class = "form-label" })
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(m => m.CLFId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                            @*@Html.DropDownListFor(m => m.CLFId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3 js-select2", multiple = "multiple" })*@
+                        </div>
+                    </div>
                     <div class="row" id="div-panchid" style="display:none">
                         @Html.LabelFor(m => m.PanchayatId, new { @class = "form-label" })
                         <div class="col-md-12">
@@ -144,7 +72,7 @@
                     </div>
                     <div class="row" id="div-voorg" style="display:none">
                         <label class="col-md-12 col-form-label">Village Name <span class="text-danger">*</span></label>
-                        @Html.LabelFor(m => m.VillageName, new { @class = "form-label" })<span class="text-danger">*</span>
+                        @*@Html.LabelFor(m => m.VillageName, new { @class = "form-label" })<span class="text-danger">*</span>*@
                         <div class="col-md-12">
                             @Html.TextBoxFor(m => m.VillageName, new { @class = "form-control" })
                         </div>
@@ -165,6 +93,14 @@
                             @Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                    <div class="mb-3" id="div-pass" style="display:none">
+                        @*<span class="text-danger">*</span> @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-2 col-form-label" })*@
+                        <label class="form-label" for="Password">Password<span class="text-danger">*</span></label>
+                        <div class="col-md-12">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                     <br />
                     <div class="mb-3">
                         <div class="col-md-10">
@@ -172,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-        </div>
+            </div>
         }
     </div>
 </div>
@@ -180,21 +116,35 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/JS/Master.js"></script>
+    @*<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>*@
 
-    <script>
-        $(document).ready(function () {
+<script>
+    $(document).ready(function () {
 
         $('#Roles').change(function () {
            // var url = '@Url.Action("Register", "Account")';
             // window.location.href = url + '?Roles=' + $(this).val();
             var rolen = $("#Roles option:selected").text();
-            //debugger;
-            if (rolen == '@CommonModel.RoleNameCont.Admin' || rolen== '@CommonModel.RoleNameCont.District') {
+            $('#VillageName').val(''); $('#Password').val('');
+            if (rolen == '@CommonModel.RoleNameCont.Admin' || rolen== '@CommonModel.RoleNameCont.State') {
                 GetDistrict("DistrictId", 0);
                 GetBlock("BlockId", 0, $('#DistrictId').val());
-                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
-                GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
-                $('#VillageName').val('');
+                GetCLF("CLFId_fk", 0, $('#DistrictId').val(), $('#BlockId').val());
+                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId_fk').val());
+                GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId_fk').val(), $('#PanchayatId').val());
+                $('#Password').attr('required', 'required'); $('#div-pass').css('display', 'block');
+            }
+            else if (rolen == '@CommonModel.RoleNameCont.CM' || rolen == '@CommonModel.RoleNameCont.CNRP') {
+                GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId_fk').val(), $('#PanchayatId').val());
+                //$(".js-select2").select2({
+                //    maximumSelectionLength: 1
+                //});
+                //$('select option:nth-child(1)').attr("selected", "selected");
+            }
+            else {
+                $('#div-pass').css('display', 'none'); $('#Password').removeAttr('required');
+                
             }
             BindRole();
         });
@@ -204,88 +154,95 @@
             GetBlock("BlockId", 0, $(this).val());
         });
         $('#BlockId').change(function () {
-            GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
+            GetCLF("CLFId_fk", 0, $('#DistrictId').val(), $(this).val());
+        });
+        $('#CLFId_fk').change(function () {
+                var CLFId_fk = $(this).val();
+                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val(), CLFId_fk);
         });
         $('#PanchayatId').change(function () {
-            GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+                var CLFId_fk = $(this).val();
+                GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), CLFId_fk, $('#PanchayatId').val());
         });
 
-            if ('@Model.UserID_fk' != '') {
-                debugger;
-                $('#Roles').val('@Model.RoleID_fk');
-                BindRole();
-                $('#DistrictId').val('@Model.DistrictId');
-                GetBlock("BlockId", 0, $('#DistrictId').val());
-                $('#BlockId').val('@Model.BlockId');
-                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val());
-                $('#PanchayatId').val('@Model.PanchayatId');
-                GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
-                $('#VOId_fk').val('@Model.VOId_fk');
-                $('#EmpName').val('@Model.EmpName');
-                $('#VillageName').val('@Model.VillageName');
-                $('#MobileNo').val('@Model.MobileNo');
-                $('#EmpID_pk').val('@Model.EmpID_pk');
-                $('#UserID_fk').val('@Model.UserID_fk');
-            }
-
-            /* Role Wise */
-            BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId_fk");
-
-            if ('@MvcApplication.CUser' !== 'nul') {
-                    if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
-                           $('#Roles').val('@MvcApplication.CUser.RoleId');
-                           // $('#Roles').attr("style", "pointer-events: none;");
-                             BindRole();
-                           //$('#DistrictId').val(('@MvcApplication.CUser.DistrictId').toLowerCase());
-                           //$('#DistrictId').attr("style", "pointer-events: none;");
-                           //GetBlock('BlockId', 0, ('@MvcApplication.CUser.DistrictId').toLowerCase());
-                            //$('#BlockId').val(('@MvcApplication.CUser.BlockId').toLowerCase());
-                            //$('#BlockId').attr("style", "pointer-events: none;");
-                            //GetPanchayat("PanchayatId", 0, ('@MvcApplication.CUser.DistrictId').toLowerCase(), ('@MvcApplication.CUser.BlockId').toLowerCase());
-                            //$('#PanchayatId').val(('@MvcApplication.CUser.Panchayatid').toLowerCase());
-                            //$('#PanchayatId').attr("style", "pointer-events: none;");
-                            //GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#PanchayatId').val());
-                    }
-            }
-
-
-        //$('#MobileNo').change(function () {
-        //    var input = document.getElementById('MobileNo');
-        //    var pattern = /^[6-9][0-9]{0,9}$/;
-        //    var value = input.value;
-        //    !pattern.test(value) && (input.value = value = '');
-        //    input.addEventListener('input', function () {
-        //        var currentValue = this.value;
-        //        if (currentValue && !pattern.test(currentValue)) this.value = value;
-        //        else value = currentValue;
-        //    });
-        //});
-        });
-        function BindRole() {
+        if ('@Model.UserID_fk' != '') {
             debugger;
+
+            //$('#ComponentID').val(['e54e6352-b38b-43aa-8569-0dd897d66cf2',
+            //    '0e73c2eb-3aca-41a1-9c6b-3352780db37c', '1e7e8b7d-4323-4977-a714-6477ad911575', 'ab299025-f2d5-4b85-a69e-7175388343f5',
+            //    '06fc8a68-e904-489c-a464-72eb7d065796']).multiselect('refresh');
+
+           // var CLFids = '@Html.Raw(string.Join(",", Model.CLFId_fks.ToList()))';
+            $('#Roles').val('@Model.RoleID_fk');
+            BindRole();
+            $('#DistrictId').val('@Model.DistrictId');
+            GetBlock("BlockId", 0, $('#DistrictId').val());
+            $('#BlockId').val('@Model.BlockId');
+            GetCLF("CLFId_fk", 0, $('#DistrictId').val(), $('#BlockId').val());
+            $('#CLFId_fk').val('@Model.CLFId_fk');//.trigger('change');
+            GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId_fk').val());
+            $('#PanchayatId').val('@Model.PanchayatId');
+            GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId_fk').val(), $('#PanchayatId').val());
+            $('#VOId_fk').val('@Model.VOId_fk');
+            $('#EmpName').val('@Model.EmpName');
+            $('#VillageName').val('@Model.VillageName');
+            $('#MobileNo').val('@Model.MobileNo');
+            $('#EmpID_pk').val('@Model.EmpID_pk');
+            $('#UserID_fk').val('@Model.UserID_fk');
+        }
+        else {
+            //BindRoleCurrent(Roles);
+            /* Role Wise */
+            BindRolewise("DistrictId", "BlockId", "CLFId_fk", "PanchayatId", "VOId_fk");
+        }
+
+
+        if ('@MvcApplication.CUser' != 'null') {
+                if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
+                        //$('#Roles').val('@MvcApplication.CUser.RoleId');
+                        // $('#Roles').attr("style", "pointer-events: none;");
+                            BindRole();
+                }
+        }
+    });
+        function BindRole() {
+            //debugger;
             var rolen = $("#Roles option:selected").text();
             if (rolen == '@CommonModel.RoleNameCont.CM') {
-                $('#div-blk').css('display', 'flex');
                 $('#div-dis').css('display', 'flex');
+                $('#div-blk').css('display', 'flex');
                 $('#div-panchid').css('display', 'flex');
+                $('#div-clf').css('display', 'flex');
                 $('#div-vid').show();
                 $('#div-voorg').show();
                 $('#Gender').val('Female');
                 $('#Gender').attr('readonly', true);
             }
             else if (rolen == '@CommonModel.RoleNameCont.CNRP') {
-                $('#div-blk').css('display', 'flex');
                 $('#div-dis').css('display', 'flex');
+                $('#div-blk').css('display', 'flex');
+                $('#div-clf').css('display', 'flex');
                 $('#div-panchid').css('display', 'flex');
                 $('#div-voorg').hide();
                 $('#div-vid').hide();
                 $('#Gender').val('Female');
                 $('#Gender').attr('readonly', true);
             }
+            else if (rolen == '@CommonModel.RoleNameCont.CLF') {
+                $('#div-dis').css('display', 'flex');
+                $('#div-blk').css('display', 'flex');
+                $('#div-clf').css('display', 'flex');
+                $('#div-panchid').hide();
+                $('#div-voorg').hide();
+                $('#div-vid').hide();
+                $('#Gender').val('Female');
+                $('#Gender').attr('readonly', true);
+            }
             else if (rolen == '@CommonModel.RoleNameCont.BPMU') {
-                $('#div-blk').css('display', '@Html.AntiForgeryToken()');
+                $('#div-blk').css('display', 'flex');
                 $('#div-dis').css('display', 'flex');
                 $('#div-panchid').css('display', 'none');
+                $('#div-clf').css('display', 'none');
                 $('#div-voorg').hide();
                 $('#div-vid').hide();
                 $('#Gender').val('Female');
@@ -294,6 +251,7 @@
             else if (rolen ==  '@CommonModel.RoleNameCont.BPMU' || rolen == '@CommonModel.RoleNameCont.District') {
                 $('#div-blk').css('display', 'none');
                 $('#div-panchid').css('display', 'none');
+                $('#div-clf').css('display', 'none');
                 $('#div-voorg').hide();
                 $('#div-vid').hide();
                 $('#Gender').val('Female');
@@ -304,9 +262,10 @@
                 $('#div-vid').hide();
                 $('#div-voorg').hide();
                 $('#Gender').attr('readonly', false);
+                $('#div-clf').css('display', 'none');
                 $('#div-blk').css('display', 'none');
                 $('#div-dis').css('display', 'none');
             }
         }
-    </script>
+</script>
 }

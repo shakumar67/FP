@@ -383,14 +383,14 @@ function GetCLF(Ele, Sel, Para1, Para2) {
     });
     $('#' + Ele).trigger("chosen:updated");
 }
-function GetPanchayat(Ele, Sel,Para1,Para2) {
+function GetPanchayat(Ele, Sel, Para1, Para2, Para3) {
     $('#' + Ele).empty();
     $('#' + Ele).prop("disabled", false);
     $('#' + Ele).append($("<option>").val('').text('Select'));
     $.ajax({
         url: document.baseURI + "/Master/GetPanchayatList",
         type: "Post",
-        data: JSON.stringify({ 'DistrictId': Para1, 'BlockId': Para2 }),
+        data: JSON.stringify({ 'DistrictId': Para1, 'BlockId': Para2, 'CLFId': Para3 }),
         contentType: "application/json; charset=utf-8",
         global: false,
         async: false,
@@ -411,14 +411,14 @@ function GetPanchayat(Ele, Sel,Para1,Para2) {
     });
     $('#' + Ele).trigger("chosen:updated");
 }
-function GetVillage(Ele, Sel, Para1, Para2, Para3) {
+function GetVillage(Ele, Sel, Para1, Para2, Para3, Para4) {
     $('#' + Ele).empty();
     $('#' + Ele).prop("disabled", false);
     $('#' + Ele).append($("<option>").val('').text('Select'));
     $.ajax({
         url: document.baseURI + "/Master/GetVillageList",
         type: "Post",
-        data: JSON.stringify({ 'DistrictId': Para1, 'BlockId': Para2, 'PanchayatId': Para3 }),
+        data: JSON.stringify({ 'DistrictId': Para1, 'BlockId': Para2, 'CLFId': Para3, 'PanchayatId': Para4, }),
         contentType: "application/json; charset=utf-8",
         global: false,
         async: false,

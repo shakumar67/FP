@@ -34,12 +34,16 @@
         </div>
     }
 
-        <div class="row">
-            <div class="col-md-12">
-                <div id="subdata"></div>
-            </div>
+    <div class="row">
+        <div class="col=md-12" id="div-download"></div>
+        <div class="col=md-6"></div>
+        <div class="col=md-6"></div>
+        <div class="col=md-6"></div>
+        <div class="col-md-12">
+            <div id="subdata"></div>
         </div>
     </div>
+</div>
 
 @section Scripts {
 @Scripts.Render("~/bundles/jqueryval")
@@ -47,7 +51,8 @@
 
 <script>
     $(document).ready(function () {
-        BindData();
+      
+        //BindData();
         $('#RoleId').change(function (e) {
             BindData();
         });
@@ -58,9 +63,12 @@
         || '@CommonModel.RoleNameCont.District' === '@MvcApplication.CUser.Role'
         ) {
             $('#RoleId').val('@MvcApplication.CUser.RoleId');
-           // $('#RoleId').attr("style", "pointer-events: none;");
+            $('select option:first-child').attr("selected", "selected");
+            // $('#RoleId').attr("style", "pointer-events: none;");
             BindData();
         }
+        @*if ('CM' == '@CommonModel.RoleNameCont.CM') {
+        }*@
     });
     function BindData() {
         var rl = $('#RoleId').val();
@@ -72,8 +80,36 @@
             success: function (res) {
                 if (res.IsSuccess) {
                     $("#subdata").html(res.Data);
+
+                    if ($.fn.dataTable.isDataTable('#tbl')) {
+                        $("#tbl").dataTable().fnDestroy();
+                    }
+                    table = $('#tbl').DataTable({
+                        //scrollY: "400px",
+                        //scrollX: true,
+                        //scrollCollapse: true,
+                        //paging: false,
+                        pageLength: 100,
+                        fixedColumns: {
+                            leftColumns: 1,
+                            rightColumns: 1
+                        },
+                        buttons: [{
+                            extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
+                            className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                            filename: 'Beneficiary List',
+                            exportOptions: { modifier: { page: 'all' } }
+                        }],
+                    });
+                    $('.dataTables_filter input[type="search"]').css(
+                        { 'width': '500px', 'display': 'inline-block' }
+                    );
+                    $('#div-download').empty();
+                    table.buttons().container().appendTo($('#div-download'));
                 }
-                $("#subdata").html(res.Data);
+                else {
+                    $("#subdata").html(res.Data);
+                }
             },
             error: function (req, error) {
                 if (error === 'error') { error = req.statusText; }

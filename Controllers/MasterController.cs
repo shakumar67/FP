@@ -206,28 +206,11 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetPanchayatList(int DistrictId, int BlockId)
-        {
-            try
-            {
-                var items = SP_Model.SPPanchayat(DistrictId, BlockId);
-                if (items != null)
-                {
-                    var data = JsonConvert.SerializeObject(items);
-                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
-                }
-                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception)
-            {
-                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
-            }
-        }
         public ActionResult GetCLFList(int DistrictId, int BlockId)
         {
             try
             {
-                var items = CommonModel.GetCLF(false,DistrictId, BlockId);
+                var items = SP_Model.SPCLF(DistrictId, BlockId);
                 if (items != null)
                 {
                     var data = JsonConvert.SerializeObject(items);
@@ -240,11 +223,28 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetVillageList(int DistrictId, int BlockId, int PanchayatId)
+        public ActionResult GetPanchayatList(int DistrictId, int BlockId, int CLFId)
         {
             try
             {
-                var items = SP_Model.SPVillage(DistrictId, BlockId, PanchayatId);
+                var items = SP_Model.SPPanchayat(DistrictId, BlockId,CLFId);
+                if (items != null)
+                {
+                    var data = JsonConvert.SerializeObject(items);
+                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetVillageList(int DistrictId, int BlockId, int CLFId, int PanchayatId)
+        {
+            try
+            {
+                var items = SP_Model.SPVillage(DistrictId, BlockId, CLFId, PanchayatId);
                 if (items != null)
                 {
                     var data = JsonConvert.SerializeObject(items);

@@ -328,7 +328,7 @@ namespace FP.Manager
             {
                 if (HttpContext.Current.User.IsInRole(RoleNameCont.CNRP))
                 {
-                    items = new SelectList(db_.AspNetRoles.Where(x => x.Name == RoleNameCont.CNRP || x.Name == RoleNameCont.CM), "ID", "Name").OrderBy(x => x.Text).ToList();
+                    items = new SelectList(db_.AspNetRoles.Where(x => x.Name == RoleNameCont.CM), "ID", "Name").OrderBy(x => x.Text).ToList();
                 }
                 else if (HttpContext.Current.User.IsInRole(RoleNameCont.BPIU))
                 {
@@ -456,7 +456,6 @@ namespace FP.Manager
                 throw;
             }
         }
-
         private static List<T> ConvertDataTable<T>(DataTable dt)
         {
             List<T> data = new List<T>();
@@ -1846,11 +1845,12 @@ namespace FP.Manager
         public class RoleNameCont
         {
             public const string Admin = "Admin";
-            public const string BPMU = "BPMU";
-            public const string BPIU = "BPIU";
             public const string State = "State";
             public const string Viewer = "Viewer";
             public const string District = "District";
+            public const string BPMU = "BPMU";
+            public const string BPIU = "BPIU";
+            public const string CLF = "CLF";
             public const string CNRP = "CNRP";
             public const string CM = "CM";
         }
