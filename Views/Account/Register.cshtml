@@ -144,7 +144,6 @@
             }
             else {
                 $('#div-pass').css('display', 'none'); $('#Password').removeAttr('required');
-                
             }
             BindRole();
         });
@@ -196,15 +195,14 @@
             BindRolewise("DistrictId", "BlockId", "CLFId_fk", "PanchayatId", "VOId_fk");
         }
 
-
         if ('@MvcApplication.CUser' != 'null') {
-                if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
-                        //$('#Roles').val('@MvcApplication.CUser.RoleId');
-                        // $('#Roles').attr("style", "pointer-events: none;");
-                            BindRole();
-                }
-        }
-    });
+            if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role') {
+                //$('#Roles').val('@MvcApplication.CUser.RoleId');
+                // $('#Roles').attr("style", "pointer-events: none;");
+                BindRole();
+            }
+         } 
+      });
         function BindRole() {
             //debugger;
             var rolen = $("#Roles option:selected").text();
