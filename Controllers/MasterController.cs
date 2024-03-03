@@ -227,7 +227,7 @@ namespace FP.Controllers
         {
             try
             {
-                var items = SP_Model.SPPanchayat(DistrictId, BlockId,CLFId);
+                var items = SP_Model.SPPanchayat(DistrictId, BlockId, CLFId);
                 if (items != null)
                 {
                     var data = JsonConvert.SerializeObject(items);
@@ -308,7 +308,7 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetMonthList(int IsAll=0)
+        public ActionResult GetMonthList(int IsAll = 0)
         {
             try
             {
@@ -379,15 +379,15 @@ namespace FP.Controllers
         {
             FP_DBEntities db_ = new FP_DBEntities();
             CLFModel model = new CLFModel();
-            if (id>0)
+            if (id > 0)
             {
                 var tbl = db_.CLF_Master.Find(id);
-                if (tbl!=null)
+                if (tbl != null)
                 {
                     model.CLF_ID_pk = tbl.CLF_ID_pk;
                     model.DistrictId_fk = tbl.DistrictId_fk;
                     model.BlockId_fk = tbl.BlockId_fk;
-                    model.CLFName = tbl.CLFName; 
+                    model.CLFName = tbl.CLFName;
                 }
             }
             return View(model);
@@ -521,6 +521,95 @@ namespace FP.Controllers
             //return Json();
             //   return View();
         }
+
+
+        public ActionResult GetPanchayatdetaillist(int DistrictId = 0, int BlockId = 0, int CLFId = 0)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SPPanchayatList(DistrictId, BlockId, CLFId);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_PanchayatData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+
+        public ActionResult PanchayatMaster(int id = 0)
+        {
+            FP_DBEntities _db = new FP_DBEntities();
+            PanchayatModel model = new PanchayatModel();
+            if (id > 0)
+            {
+                var tbl = _db.Panchayat_Master.Find(id);
+                if (tbl != null)
+                {
+                    model.Panchayatid_pk = tbl.Panchayatid_pk;
+                    model.DistrictId_fk = tbl.DistrictId_fk;
+                    model.Blockid_fk = tbl.Blockid_fk;
+                    model.CLF_Id_fk = tbl.CLF_Id_fk;
+                    model.Panchayat = tbl.Panchayat;
+                }
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public JsonResult PanchayatMaster(PanchayatModel model)
+        {
+            FP_DBEntities _db = new FP_DBEntities();
+            JsonResponseData response = new JsonResponseData();
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "All required fields!!!", Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+                }
+                var tbl = model.Panchayatid_pk != 0 ? db.Panchayat_Master.Find(model.Panchayatid_pk) : new Panchayat_Master();
+
+                if (tbl != null)
+                {
+                    tbl.DistrictId_fk = model.DistrictId_fk;
+                    tbl.Blockid_fk = model.Blockid_fk;
+                    tbl.CLF_Id_fk = model.CLF_Id_fk;
+                    tbl.Panchayat = !string.IsNullOrWhiteSpace(model.Panchayat) ? model.Panchayat.Trim() : null;
+                    if (model.Panchayatid_pk == 0)
+                    {
+                        db.Panchayat_Master.Add(tbl);
+                    }
+                }
+
+                int res = db.SaveChanges();
+                if (res > 0)
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+                    //ModelState.AddModelError("", Record Submitted Successfully!!!");
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string strerror = ex.Message;
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+        }
+
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

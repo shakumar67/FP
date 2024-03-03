@@ -1,0 +1,49 @@
+﻿@using System.Data
+@{ 
+	DataTable dt = new DataTable();
+	dt = Model;
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="tbl">
+        <thead>
+            <tr>
+                <th>Srno.</th>
+                <th>District</th>
+                <th>Block</th>
+                <th>CLF</th>
+                <th>Panchayat</th>
+                <th style="width: 80px">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (dt.Rows.Count > 0)
+                {
+
+                    int srno = 1;
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        <tr>
+                            <td>@(srno++)</td>
+                            <td>@dr["DistrictName"]</td>
+                            <td>@dr["Block"]</td>
+                            <td>@dr["CLFName"]</td>
+                            <td>@dr["Panchayat"]</td>
+                            <td>
+                                <a href="~/Master/PanchayatMaster?id=@dr["Panchayatid_pk"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

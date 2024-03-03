@@ -92,6 +92,17 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SPPanchayatList(int DistrictId, int BlockId, int CLFId)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_PanchayatList");
+            sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
+            sp.Command.AddParameter("@BlockId", BlockId, DbType.Int32);
+            sp.Command.AddParameter("@CLFId", CLFId, DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+
+        }
+
         public static DataTable SPCLFMasterlist(int DistrictId, int BlockId)
         {
             StoredProcedure sp = new StoredProcedure("SP_CLFMasterlist");

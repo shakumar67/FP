@@ -381,6 +381,7 @@
     <Compile Include="Models\Month_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PanchayatModel.cs" />
     <Compile Include="Models\Panchayat_Master.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
@@ -695,6 +696,8 @@
     <Content Include="Views\Beneficiary\_BFYFollowView.cshtml" />
     <Content Include="Views\Master\CLFMaster.cshtml" />
     <Content Include="Views\Master\_CLFData.cshtml" />
+    <Content Include="Views\Master\PanchayatMaster.cshtml" />
+    <Content Include="Views\Master\_PanchayatData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
