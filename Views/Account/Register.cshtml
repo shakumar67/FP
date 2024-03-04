@@ -156,12 +156,10 @@
             GetCLF("CLFId_fk", 0, $('#DistrictId').val(), $(this).val());
         });
         $('#CLFId_fk').change(function () {
-                var CLFId_fk = $(this).val();
-                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val(), CLFId_fk);
+            GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId_fk').val());
         });
         $('#PanchayatId').change(function () {
-                var CLFId_fk = $(this).val();
-                GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), CLFId_fk, $('#PanchayatId').val());
+            GetVillage("VOId_fk", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId_fk').val(), $('#PanchayatId').val());
         });
 
         if ('@Model.UserID_fk' != '') {
