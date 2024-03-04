@@ -435,13 +435,12 @@ namespace FP.Controllers
             //return Json();
             //   return View();
         }
-
-        public ActionResult GetVillagedetaillist(int DistrictId = 0, int BlockId = 0, int PanchayatId = 0)
+        public ActionResult GetVillagedetaillist(int DistrictId = 0, int BlockId = 0, int CLFId = 0, int PanchayatId = 0)
         {
             try
             {
                 bool IsCheck = false;
-                var tbllist = SP_Model.SPVillagelist(DistrictId, BlockId, PanchayatId);
+                var tbllist = SP_Model.SPVillagelist(DistrictId, BlockId, CLFId,PanchayatId);
                 if (tbllist.Rows.Count > 0)
                 {
                     IsCheck = true;
@@ -469,6 +468,7 @@ namespace FP.Controllers
                     model.Void_pk = tbl.Void_pk;
                     model.DistrictId_fk = tbl.DistrictId_fk;
                     model.BlockId_fk = tbl.BlockId_fk;
+                    model.CLF_Id_fk = tbl.CLF_Id_fk;
                     model.Panchayatid_fk = tbl.Panchayatid_fk;
                     model.Village_Organization = tbl.Village_Organization;
                 }
@@ -493,6 +493,7 @@ namespace FP.Controllers
                 {
                     tbl.DistrictId_fk = model.DistrictId_fk;
                     tbl.BlockId_fk = model.BlockId_fk;
+                    tbl.CLF_Id_fk = model.CLF_Id_fk;
                     tbl.Panchayatid_fk = model.Panchayatid_fk;
                     tbl.CreatedBy = MvcApplication.CUser.Id;
                     tbl.CreatedOn = DateTime.Now;

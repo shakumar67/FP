@@ -125,7 +125,7 @@
             $.ajax({
                 type: "GET",
                 url: document.baseURI + "/Master/GetVillagedetaillist",
-                data: JSON.stringify({ 'DistrictId': $('#DistrictId_fk').val(), 'BlockId': $('#BlockId_fk').val(), 'PanchayatId': $('#Panchayatid_fk').val() }),
+                data: JSON.stringify({ 'DistrictId': $('#DistrictId_fk').val(), 'BlockId': $('#BlockId_fk').val(), 'CLFId': $('#CLF_Id_fk').val(), 'PanchayatId': $('#Panchayatid_fk').val() }),
                 cache: false,
                 success: function (res) {
                     if (res.IsSuccess) {
@@ -153,6 +153,10 @@
                 toastr.error("Error", 'Please Select Block');
                 IsCheck = false;
             }
+            if ($('#CLF_Id_fk').val() == '') {
+                toastr.error("Error", 'Please Select CLF');
+                IsCheck = false;
+            }
             if ($('#Panchayatid_fk').val() == '') {
                 toastr.error("Error", 'Please Select Panchayat');
                 IsCheck = false;
@@ -161,8 +165,6 @@
                 toastr.error("Error", 'Please enter Village Name');
                 IsCheck = false;
             }
-
-
 
             //var VillageModel = [], model = [];
             //VillageModel.Void_pk = $('#Void_pk').val();
@@ -175,6 +177,7 @@
             formData.append('Void_pk', $('#Void_pk').val());
             formData.append('DistrictId_fk', $('#DistrictId_fk').val());
             formData.append('BlockId_fk', $('#BlockId_fk').val());
+            formData.append('CLF_Id_fk', $('#CLF_Id_fk').val());
             formData.append('Panchayatid_fk', $('#Panchayatid_fk').val());
             formData.append('Village_Organization', $('#Village_Organization').val());
 
@@ -197,6 +200,8 @@
                         if (resp.StatusType == "success") {
                             toastr.success("Success", resp.Message);
                             BindData();
+                            var urllink = "/Master/VillMaster"
+                            location.href = urllink;
                             $('#Village_Organization').val('');
                             //jQuery.event.trigger("ajaxStop");
                         }

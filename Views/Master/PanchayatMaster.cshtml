@@ -187,6 +187,8 @@
                         if (resp.StatusType == "success") {
                             toastr.success("Success", resp.Message);
                             BindData();
+                            var urllink = "/Master/PanchayatMaster"
+                            location.href = urllink;
                             $('#Panchayat').val('');
                             //jQuery.event.trigger("ajaxStop");
                         }
