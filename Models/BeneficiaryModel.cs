@@ -13,7 +13,6 @@ namespace FP.Models
         {
             Beneficiary_Id_pk = Guid.Empty;
         }
-
         public System.Guid Beneficiary_Id_pk { get; set; }
         [Display(Name = "Language")]
         public Nullable<int> HindiEng { get; set; }
@@ -23,6 +22,9 @@ namespace FP.Models
         [Required]
         [Display(Name = "Block")]
         public Nullable<int> BlockId_fk { get; set; }
+        [Required]
+        [Display(Name = "CLF")]
+        public Nullable<int> CLFId_fk { get; set; }
         [Required]
         [Display(Name = "PanchayatId")]
         public Nullable<int> PanchayatId_fk { get; set; }
@@ -143,6 +145,22 @@ namespace FP.Models
                 else if (HindiEng == 2)
                 {
                     CN = "प्रखंड";
+                }
+                return CN;
+            }
+        }
+        public string DCLF
+        {
+            get
+            {
+                string CN = string.Empty;
+                if (HindiEng == 1)
+                {
+                    CN = "CLF";
+                }
+                else if (HindiEng == 2)
+                {
+                    CN = "सीएलएफ";
                 }
                 return CN;
             }

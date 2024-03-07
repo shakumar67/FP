@@ -23,6 +23,9 @@ namespace FP.Models
         [Display(Name = "Block")]
         public Nullable<int> BlockId_fk { get; set; }
         [Required]
+        [Display(Name = "CLF")]
+        public Nullable<int> CLFId_fk { get; set; }
+        [Required]
         [Display(Name = "Panchayat")]
         public Nullable<int> PanchayatId_fk { get; set; }
         [Required]

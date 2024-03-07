@@ -178,6 +178,7 @@
           <Property Name="HindiEng" Type="int" />
           <Property Name="DistrictId_fk" Type="int" />
           <Property Name="BlockId_fk" Type="int" />
+          <Property Name="CLFId_fk" Type="int" />
           <Property Name="PanchayatId_fk" Type="int" />
           <Property Name="VillageOId_fk" Type="int" />
           <Property Name="ReportingMonth" Type="int" />
@@ -290,6 +291,7 @@
           <Property Name="PlanID_pk" Type="uniqueidentifier" Nullable="false" />
           <Property Name="DistrictId_fk" Type="int" />
           <Property Name="BlockId_fk" Type="int" />
+          <Property Name="CLFId_fk" Type="int" />
           <Property Name="PanchayatId_fk" Type="int" />
           <Property Name="VoId_fk" Type="int" />
           <Property Name="PlanMonth" Type="int" />
@@ -534,14 +536,14 @@
           <EntitySet Name="Subject_Master" EntityType="FP_DBModel.Subject_Master" />
           <EntitySet Name="ServiceProvider_Master" EntityType="FP_DBModel.ServiceProvider_Master" />
           <EntitySet Name="tbl_Achvt" EntityType="FP_DBModel.tbl_Achvt" />
-          <EntitySet Name="tbl_Plan" EntityType="FP_DBModel.tbl_Plan" />
-          <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
           <EntitySet Name="tbl_BFYFollowup" EntityType="FP_DBModel.tbl_BFYFollowup" />
           <EntitySet Name="CLF_Master" EntityType="FP_DBModel.CLF_Master" />
           <EntitySet Name="Panchayat_Master" EntityType="FP_DBModel.Panchayat_Master" />
           <EntitySet Name="VO_Master" EntityType="FP_DBModel.VO_Master" />
           <EntitySet Name="tbl_CLF_Emp" EntityType="FP_DBModel.tbl_CLF_Emp" />
           <EntitySet Name="TBL_Emp" EntityType="FP_DBModel.TBL_Emp" />
+          <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
+          <EntitySet Name="tbl_Plan" EntityType="FP_DBModel.tbl_Plan" />
         </EntityContainer>
         <EntityType Name="Contraceptive_Child_Master">
           <Key>
@@ -653,74 +655,6 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tbl_Plan">
-          <Key>
-            <PropertyRef Name="PlanID_pk" />
-          </Key>
-          <Property Name="PlanID_pk" Type="Guid" Nullable="false" />
-          <Property Name="DistrictId_fk" Type="Int32" />
-          <Property Name="BlockId_fk" Type="Int32" />
-          <Property Name="PanchayatId_fk" Type="Int32" />
-          <Property Name="VoId_fk" Type="Int32" />
-          <Property Name="PlanMonth" Type="Int32" />
-          <Property Name="PlanYear" Type="Int32" />
-          <Property Name="PlanDt" Type="DateTime" Precision="0" />
-          <Property Name="HVDt" Type="DateTime" Precision="0" />
-          <Property Name="IsBFY" Type="Int32" />
-          <Property Name="DOMDt" Type="DateTime" Precision="0" />
-          <Property Name="DOMHVDt" Type="DateTime" Precision="0" />
-          <Property Name="SubjectId" Type="Int32" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="IsCount" Type="Int32" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="TBL_Beneficiary">
-          <Key>
-            <PropertyRef Name="Beneficiary_Id_pk" />
-          </Key>
-          <Property Name="Beneficiary_Id_pk" Type="Guid" Nullable="false" />
-          <Property Name="HindiEng" Type="Int32" />
-          <Property Name="DistrictId_fk" Type="Int32" />
-          <Property Name="BlockId_fk" Type="Int32" />
-          <Property Name="PanchayatId_fk" Type="Int32" />
-          <Property Name="VillageOId_fk" Type="Int32" />
-          <Property Name="ReportingMonth" Type="Int32" />
-          <Property Name="ReportingYear" Type="Int32" />
-          <Property Name="HealthCenter" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="BFYVillageName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Q1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Q2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Q3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Q4" Type="Double" />
-          <Property Name="Q5" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Q6DOMYear" Type="Int32" />
-          <Property Name="Q6" Type="DateTime" Precision="0" />
-          <Property Name="Q6_Year" Type="Int32" />
-          <Property Name="Q7" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Q8" Type="Int32" />
-          <Property Name="Q9" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Q10" Type="Int32" />
-          <Property Name="Q11" Type="Int32" />
-          <Property Name="Q12" Type="Double" />
-          <Property Name="Q12_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Q13" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Q14" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Q15" Type="Int32" />
-          <Property Name="Q16" Type="Int32" />
-          <Property Name="Q17" Type="Int32" />
-          <Property Name="Q18" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Q19" Type="Int32" />
-          <Property Name="Q20" Type="Int32" />
-          <Property Name="Q21" Type="Int32" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="tbl_BFYFollowup">
           <Key>
             <PropertyRef Name="FollowupID_pk" />
@@ -818,6 +752,76 @@
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TBL_Beneficiary">
+          <Key>
+            <PropertyRef Name="Beneficiary_Id_pk" />
+          </Key>
+          <Property Name="Beneficiary_Id_pk" Type="Guid" Nullable="false" />
+          <Property Name="HindiEng" Type="Int32" />
+          <Property Name="DistrictId_fk" Type="Int32" />
+          <Property Name="BlockId_fk" Type="Int32" />
+          <Property Name="CLFId_fk" Type="Int32" />
+          <Property Name="PanchayatId_fk" Type="Int32" />
+          <Property Name="VillageOId_fk" Type="Int32" />
+          <Property Name="ReportingMonth" Type="Int32" />
+          <Property Name="ReportingYear" Type="Int32" />
+          <Property Name="HealthCenter" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BFYVillageName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Q1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Q2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q4" Type="Double" />
+          <Property Name="Q5" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q6DOMYear" Type="Int32" />
+          <Property Name="Q6" Type="DateTime" Precision="0" />
+          <Property Name="Q6_Year" Type="Int32" />
+          <Property Name="Q7" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Q8" Type="Int32" />
+          <Property Name="Q9" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q10" Type="Int32" />
+          <Property Name="Q11" Type="Int32" />
+          <Property Name="Q12" Type="Double" />
+          <Property Name="Q12_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Q13" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Q14" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q15" Type="Int32" />
+          <Property Name="Q16" Type="Int32" />
+          <Property Name="Q17" Type="Int32" />
+          <Property Name="Q18" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Q19" Type="Int32" />
+          <Property Name="Q20" Type="Int32" />
+          <Property Name="Q21" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Plan">
+          <Key>
+            <PropertyRef Name="PlanID_pk" />
+          </Key>
+          <Property Name="PlanID_pk" Type="Guid" Nullable="false" />
+          <Property Name="DistrictId_fk" Type="Int32" />
+          <Property Name="BlockId_fk" Type="Int32" />
+          <Property Name="CLFId_fk" Type="Int32" />
+          <Property Name="PanchayatId_fk" Type="Int32" />
+          <Property Name="VoId_fk" Type="Int32" />
+          <Property Name="PlanMonth" Type="Int32" />
+          <Property Name="PlanYear" Type="Int32" />
+          <Property Name="PlanDt" Type="DateTime" Precision="0" />
+          <Property Name="HVDt" Type="DateTime" Precision="0" />
+          <Property Name="IsBFY" Type="Int32" />
+          <Property Name="DOMDt" Type="DateTime" Precision="0" />
+          <Property Name="DOMHVDt" Type="DateTime" Precision="0" />
+          <Property Name="SubjectId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsCount" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
@@ -1001,76 +1005,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Plan">
-            <EntityTypeMapping TypeName="FP_DBModel.tbl_Plan">
-              <MappingFragment StoreEntitySet="tbl_Plan">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsCount" ColumnName="IsCount" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
-                <ScalarProperty Name="DOMHVDt" ColumnName="DOMHVDt" />
-                <ScalarProperty Name="DOMDt" ColumnName="DOMDt" />
-                <ScalarProperty Name="IsBFY" ColumnName="IsBFY" />
-                <ScalarProperty Name="HVDt" ColumnName="HVDt" />
-                <ScalarProperty Name="PlanDt" ColumnName="PlanDt" />
-                <ScalarProperty Name="PlanYear" ColumnName="PlanYear" />
-                <ScalarProperty Name="PlanMonth" ColumnName="PlanMonth" />
-                <ScalarProperty Name="VoId_fk" ColumnName="VoId_fk" />
-                <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
-                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
-                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
-                <ScalarProperty Name="PlanID_pk" ColumnName="PlanID_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBL_Beneficiary">
-            <EntityTypeMapping TypeName="FP_DBModel.TBL_Beneficiary">
-              <MappingFragment StoreEntitySet="TBL_Beneficiary">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Q21" ColumnName="Q21" />
-                <ScalarProperty Name="Q20" ColumnName="Q20" />
-                <ScalarProperty Name="Q19" ColumnName="Q19" />
-                <ScalarProperty Name="Q18" ColumnName="Q18" />
-                <ScalarProperty Name="Q17" ColumnName="Q17" />
-                <ScalarProperty Name="Q16" ColumnName="Q16" />
-                <ScalarProperty Name="Q15" ColumnName="Q15" />
-                <ScalarProperty Name="Q14" ColumnName="Q14" />
-                <ScalarProperty Name="Q13" ColumnName="Q13" />
-                <ScalarProperty Name="Q12_1" ColumnName="Q12_1" />
-                <ScalarProperty Name="Q12" ColumnName="Q12" />
-                <ScalarProperty Name="Q11" ColumnName="Q11" />
-                <ScalarProperty Name="Q10" ColumnName="Q10" />
-                <ScalarProperty Name="Q9" ColumnName="Q9" />
-                <ScalarProperty Name="Q8" ColumnName="Q8" />
-                <ScalarProperty Name="Q7" ColumnName="Q7" />
-                <ScalarProperty Name="Q6_Year" ColumnName="Q6_Year" />
-                <ScalarProperty Name="Q6" ColumnName="Q6" />
-                <ScalarProperty Name="Q6DOMYear" ColumnName="Q6DOMYear" />
-                <ScalarProperty Name="Q5" ColumnName="Q5" />
-                <ScalarProperty Name="Q4" ColumnName="Q4" />
-                <ScalarProperty Name="Q3" ColumnName="Q3" />
-                <ScalarProperty Name="Q2" ColumnName="Q2" />
-                <ScalarProperty Name="Q1" ColumnName="Q1" />
-                <ScalarProperty Name="BFYVillageName" ColumnName="BFYVillageName" />
-                <ScalarProperty Name="HealthCenter" ColumnName="HealthCenter" />
-                <ScalarProperty Name="ReportingYear" ColumnName="ReportingYear" />
-                <ScalarProperty Name="ReportingMonth" ColumnName="ReportingMonth" />
-                <ScalarProperty Name="VillageOId_fk" ColumnName="VillageOId_fk" />
-                <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
-                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
-                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
-                <ScalarProperty Name="HindiEng" ColumnName="HindiEng" />
-                <ScalarProperty Name="Beneficiary_Id_pk" ColumnName="Beneficiary_Id_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_BFYFollowup">
             <EntityTypeMapping TypeName="FP_DBModel.tbl_BFYFollowup">
               <MappingFragment StoreEntitySet="tbl_BFYFollowup">
@@ -1173,6 +1107,78 @@
                 <ScalarProperty Name="RoleID_fk" ColumnName="RoleID_fk" />
                 <ScalarProperty Name="UserID_fk" ColumnName="UserID_fk" />
                 <ScalarProperty Name="EmpID_pk" ColumnName="EmpID_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Beneficiary">
+            <EntityTypeMapping TypeName="FP_DBModel.TBL_Beneficiary">
+              <MappingFragment StoreEntitySet="TBL_Beneficiary">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Q21" ColumnName="Q21" />
+                <ScalarProperty Name="Q20" ColumnName="Q20" />
+                <ScalarProperty Name="Q19" ColumnName="Q19" />
+                <ScalarProperty Name="Q18" ColumnName="Q18" />
+                <ScalarProperty Name="Q17" ColumnName="Q17" />
+                <ScalarProperty Name="Q16" ColumnName="Q16" />
+                <ScalarProperty Name="Q15" ColumnName="Q15" />
+                <ScalarProperty Name="Q14" ColumnName="Q14" />
+                <ScalarProperty Name="Q13" ColumnName="Q13" />
+                <ScalarProperty Name="Q12_1" ColumnName="Q12_1" />
+                <ScalarProperty Name="Q12" ColumnName="Q12" />
+                <ScalarProperty Name="Q11" ColumnName="Q11" />
+                <ScalarProperty Name="Q10" ColumnName="Q10" />
+                <ScalarProperty Name="Q9" ColumnName="Q9" />
+                <ScalarProperty Name="Q8" ColumnName="Q8" />
+                <ScalarProperty Name="Q7" ColumnName="Q7" />
+                <ScalarProperty Name="Q6_Year" ColumnName="Q6_Year" />
+                <ScalarProperty Name="Q6" ColumnName="Q6" />
+                <ScalarProperty Name="Q6DOMYear" ColumnName="Q6DOMYear" />
+                <ScalarProperty Name="Q5" ColumnName="Q5" />
+                <ScalarProperty Name="Q4" ColumnName="Q4" />
+                <ScalarProperty Name="Q3" ColumnName="Q3" />
+                <ScalarProperty Name="Q2" ColumnName="Q2" />
+                <ScalarProperty Name="Q1" ColumnName="Q1" />
+                <ScalarProperty Name="BFYVillageName" ColumnName="BFYVillageName" />
+                <ScalarProperty Name="HealthCenter" ColumnName="HealthCenter" />
+                <ScalarProperty Name="ReportingYear" ColumnName="ReportingYear" />
+                <ScalarProperty Name="ReportingMonth" ColumnName="ReportingMonth" />
+                <ScalarProperty Name="VillageOId_fk" ColumnName="VillageOId_fk" />
+                <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
+                <ScalarProperty Name="CLFId_fk" ColumnName="CLFId_fk" />
+                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
+                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
+                <ScalarProperty Name="HindiEng" ColumnName="HindiEng" />
+                <ScalarProperty Name="Beneficiary_Id_pk" ColumnName="Beneficiary_Id_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Plan">
+            <EntityTypeMapping TypeName="FP_DBModel.tbl_Plan">
+              <MappingFragment StoreEntitySet="tbl_Plan">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsCount" ColumnName="IsCount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="DOMHVDt" ColumnName="DOMHVDt" />
+                <ScalarProperty Name="DOMDt" ColumnName="DOMDt" />
+                <ScalarProperty Name="IsBFY" ColumnName="IsBFY" />
+                <ScalarProperty Name="HVDt" ColumnName="HVDt" />
+                <ScalarProperty Name="PlanDt" ColumnName="PlanDt" />
+                <ScalarProperty Name="PlanYear" ColumnName="PlanYear" />
+                <ScalarProperty Name="PlanMonth" ColumnName="PlanMonth" />
+                <ScalarProperty Name="VoId_fk" ColumnName="VoId_fk" />
+                <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
+                <ScalarProperty Name="CLFId_fk" ColumnName="CLFId_fk" />
+                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
+                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
+                <ScalarProperty Name="PlanID_pk" ColumnName="PlanID_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

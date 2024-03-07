@@ -18,6 +18,7 @@ namespace FP.Models
         public Nullable<int> HindiEng { get; set; }
         public Nullable<int> DistrictId_fk { get; set; }
         public Nullable<int> BlockId_fk { get; set; }
+        public Nullable<int> CLFId_fk { get; set; }
         public Nullable<int> PanchayatId_fk { get; set; }
         public Nullable<int> VillageOId_fk { get; set; }
         public Nullable<int> ReportingMonth { get; set; }

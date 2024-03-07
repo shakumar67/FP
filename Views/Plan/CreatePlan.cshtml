@@ -42,6 +42,13 @@
                                 @Html.ValidationMessageFor(model => model.BlockId_fk, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        <div class="col-sm-6 bt-mrgn">
+                            @Html.LabelFor(model => model.CLFId_fk, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.DropDownListFor(m => m.CLFId_fk, new List<SelectListItem>(), null, new { @class = "form-select" })
+                                @Html.ValidationMessageFor(model => model.CLFId_fk, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
                         <div class="col-sm-6 bt-mrgn">
                             @Html.LabelFor(model => model.PanchayatId_fk, htmlAttributes: new { @class = "control-label col-md-12" })
@@ -94,16 +101,16 @@
                             <div class="col-md-12">
                                 @Html.DropDownListFor(model => model.IsBFY, CommonModel.GetHVPMG(1), null, new { @class = "form-control" })
                                 @*<div class="position-relative form-group">
-                                        <div class="checkbox">
-                                            @foreach (var item in CommonModel.GetHVPMG())
-                                            {
-                                                <span class="check-spacer">
-                                                    @Html.CheckBoxFor(model => model.IsCheckBFY, new { id = "IsCheckBFY" + item.Value, @required = "required" }) @item.Text
-                                                </span>
-                                            }
-                                            @Html.ValidationMessageFor(model => model.IsCheckBFY, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>*@
+                    <div class="checkbox">
+                        @foreach (var item in CommonModel.GetHVPMG())
+                        {
+                            <span class="check-spacer">
+                                @Html.CheckBoxFor(model => model.IsCheckBFY, new { id = "IsCheckBFY" + item.Value, @required = "required" }) @item.Text
+                            </span>
+                        }
+                        @Html.ValidationMessageFor(model => model.IsCheckBFY, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
                                 @Html.ValidationMessageFor(model => model.IsBFY, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -231,16 +238,19 @@
                 GetBlock("BlockId_fk", 0, $(this).val());
             });
             $('#BlockId_fk').change(function () {
-                GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $(this).val());
+                GetCLF("CLFId_fk", 0, $('#DistrictId_fk').val(), $(this).val());
+            });
+            $('#CLFId_fk').change(function () {
+                GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
             });
             $('#PanchayatId_fk').change(function () {
-                GetVillage("VoId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
+                GetVillage("VoId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#CLFId_fk').val(), $(this).val());
             });
             $('#VoId_fk').change(function () {
                // BindData();
             });
             /* Role Wise */
-            BindRolewise("DistrictId_fk", "BlockId_fk", "PanchayatId_fk", "VoId_fk");
+            BindRolewise("DistrictId_fk", "BlockId_fk", "CLFId_fk", "PanchayatId_fk", "VoId_fk");
 
             if ('@Model.PlanID_pk' != '00000000-0000-0000-0000-000000000000') {
                 BindPlanEdit();
@@ -374,6 +384,10 @@
             toastr.error("Error", 'Please Select Block');
             IsCheck = false;
         }
+        if ($('#CLFId_fk').val() == '') {
+            toastr.error("Error", 'Please Select CLF');
+            IsCheck = false;
+        }
         if ($('#Panchayatid_fk').val() == '') {
             toastr.error("Error", 'Please Select Panchayat');
             IsCheck = false;
@@ -397,6 +411,7 @@
             var PlanModel = new Object(); var model = [];
             PlanModel.PlanID_pk = $('#PlanID_pk').val();
             PlanModel.DistrictId_fk = $('#DistrictId_fk').val();
+            PlanModel.CLFId_fk = $('#CLFId_fk').val();
             PlanModel.BlockId_fk = $('#BlockId_fk').val();
             PlanModel.PanchayatId_fk = $('#PanchayatId_fk').val();
             PlanModel.VillageOId_fk = $('#VoId_fk').val();

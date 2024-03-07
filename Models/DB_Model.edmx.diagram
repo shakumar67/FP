@@ -22,14 +22,14 @@
         <EntityTypeShape EntityType="FP_DBModel.Subject_Master" Width="1.5" PointX="9.375" PointY="11.75" />
         <EntityTypeShape EntityType="FP_DBModel.ServiceProvider_Master" Width="1.5" PointX="3.375" PointY="12.75" />
         <EntityTypeShape EntityType="FP_DBModel.tbl_Achvt" Width="1.5" PointX="11.375" PointY="11.75" />
-        <EntityTypeShape EntityType="FP_DBModel.tbl_Plan" Width="1.5" PointX="0.75" PointY="13.75" />
-        <EntityTypeShape EntityType="FP_DBModel.TBL_Beneficiary" Width="1.5" PointX="5.375" PointY="12.75" />
         <EntityTypeShape EntityType="FP_DBModel.tbl_BFYFollowup" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="FP_DBModel.CLF_Master" Width="1.5" PointX="13.375" PointY="8.75" />
         <EntityTypeShape EntityType="FP_DBModel.Panchayat_Master" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="FP_DBModel.VO_Master" Width="1.5" PointX="13.375" PointY="12.75" />
         <EntityTypeShape EntityType="FP_DBModel.tbl_CLF_Emp" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="FP_DBModel.TBL_Emp" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FP_DBModel.TBL_Beneficiary" Width="1.5" PointX="5.75" PointY="11.75" />
+        <EntityTypeShape EntityType="FP_DBModel.tbl_Plan" Width="1.5" PointX="0.75" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

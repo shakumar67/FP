@@ -36,6 +36,7 @@ namespace FP.Controllers
                     // model.HindiEng = tbl.HindiEng;
                     model.DistrictId_fk = tbl.DistrictId_fk;
                     model.BlockId_fk = tbl.BlockId_fk;
+                    model.CLFId_fk = tbl.CLFId_fk;
                     model.PanchayatId_fk = tbl.PanchayatId_fk;
                     model.VillageOId_fk = tbl.VillageOId_fk;
                     model.ReportingMonth = tbl.ReportingMonth;
@@ -109,7 +110,6 @@ namespace FP.Controllers
                         }
 
                         tbl = item.Beneficiary_Id_pk != Guid.Empty ? _db.TBL_Beneficiary.Find(item.Beneficiary_Id_pk) : new TBL_Beneficiary();
-
                         tbl.HealthCenter = item.HealthCenter;
                         tbl.ReportingMonth = item.ReportingMonth;
                         tbl.ReportingYear = item.ReportingYear;
@@ -144,6 +144,7 @@ namespace FP.Controllers
                             tbl.HindiEng = item.HindiEng;
                             tbl.DistrictId_fk = item.DistrictId_fk;
                             tbl.BlockId_fk = item.BlockId_fk;
+                            tbl.CLFId_fk = item.CLFId_fk;
                             tbl.PanchayatId_fk = item.PanchayatId_fk;
                             tbl.VillageOId_fk = item.VillageOId_fk;
                             tbl.CreatedBy = MvcApplication.CUser.Id;
@@ -152,6 +153,10 @@ namespace FP.Controllers
                         }
                         else
                         {
+                            tbl.BlockId_fk = item.BlockId_fk;
+                            tbl.CLFId_fk = item.CLFId_fk;
+                            tbl.PanchayatId_fk = item.PanchayatId_fk;
+                            tbl.VillageOId_fk = item.VillageOId_fk;
                             tbl.UpdatedBy = MvcApplication.CUser.Id;
                             tbl.UpdatedOn = DateTime.Now;
                             res += _db.SaveChanges();

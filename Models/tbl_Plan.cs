@@ -17,6 +17,7 @@ namespace FP.Models
         public System.Guid PlanID_pk { get; set; }
         public Nullable<int> DistrictId_fk { get; set; }
         public Nullable<int> BlockId_fk { get; set; }
+        public Nullable<int> CLFId_fk { get; set; }
         public Nullable<int> PanchayatId_fk { get; set; }
         public Nullable<int> VoId_fk { get; set; }
         public Nullable<int> PlanMonth { get; set; }

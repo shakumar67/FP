@@ -59,6 +59,11 @@
                     @Html.ValidationMessageFor(m => m.BlockId_fk, "", new { @class = "text-danger" })
                 </div>
                 <div class="mb-3">
+                    @Html.Label(Model.DCLF, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.CLFId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                    @Html.ValidationMessageFor(m => m.CLFId_fk, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
                     @Html.Label(Model.DPanyt, htmlAttributes: new { @class = "" })
                     @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
                     @Html.ValidationMessageFor(m => m.PanchayatId_fk, "", new { @class = "text-danger" })
@@ -322,10 +327,14 @@
                 GetBlock("BlockId_fk", 0, $(this).val());
             });
             $('#BlockId_fk').change(function () {
-                GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $(this).val());
+                //GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $(this).val());
+                GetCLF("CLFId_fk", 0, $('#DistrictId_fk').val(), $(this).val());
+            });
+            $('#CLFId_fk').change(function () {
+                GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
             });
             $('#PanchayatId_fk').change(function () {
-                GetVillage("VillageOId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
+                GetVillage("VillageOId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#CLFId_fk').val(), $(this).val());
             });
 
             $('#Q15').change(function () {
@@ -367,7 +376,7 @@
             })
 
             /* Role Wise */
-            BindRolewise("DistrictId_fk", "BlockId_fk", "PanchayatId_fk", "VillageOId_fk");
+            BindRolewise("DistrictId_fk", "BlockId_fk","CLFId_fk", "PanchayatId_fk", "VillageOId_fk");
 
             if ('@Model.Beneficiary_Id_pk' != '00000000-0000-0000-0000-000000000000') {
                 debugger;
@@ -460,6 +469,10 @@
                 toastr.error("Error", 'Please Select Block');
                 IsCheck = false;
             }
+            if ($('#CLFId_fk').val() == '') {
+                toastr.error("Error", 'Please Select CLF');
+                IsCheck = false;
+            }
             if ($('#Panchayatid_fk').val() == '') {
                 toastr.error("Error", 'Please Select Panchayat');
                 IsCheck = false;
@@ -513,6 +526,7 @@
             BeneficiaryModel.HindiEng = $('#HindiEng').val();
             BeneficiaryModel.DistrictId_fk = $('#DistrictId_fk').val();
             BeneficiaryModel.BlockId_fk = $('#BlockId_fk').val();
+            BeneficiaryModel.CLFId_fk = $('#CLFId_fk').val();
             BeneficiaryModel.PanchayatId_fk = $('#PanchayatId_fk').val();
             BeneficiaryModel.VillageOId_fk = $('#VillageOId_fk').val();
             BeneficiaryModel.ReportingMonth = $('#ReportingMonth').val();
@@ -591,9 +605,11 @@
              $('#DistrictId_fk').val('@Model.DistrictId_fk');
              GetBlock("BlockId_fk", 0, $('#DistrictId_fk').val());
              $('#BlockId_fk').val('@Model.BlockId_fk');
-             GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
+             GetCLF("CLFId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
+             $('#CLFId_fk').val('@Model.CLFId_fk');
+            GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#CLFId_fk').val());
              $('#PanchayatId_fk').val('@Model.PanchayatId_fk');
-             GetVillage("VillageOId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#PanchayatId_fk').val());
+            GetVillage("VillageOId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#CLFId_fk').val(), $('#PanchayatId_fk').val());
              $('#VillageOId_fk').val('@Model.VillageOId_fk');
            $('#ReportingMonth').val('@Model.ReportingMonth');
            $('#ReportingYear').val('@Model.ReportingYear');
