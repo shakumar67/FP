@@ -20,6 +20,7 @@
                 <th>Name of<br />Beneficiary</th>
                 <th>Mobile no. of beneficiary</th>
                 <th>Reported By </th>
+                <th>View </th>
                 <th></th>
             </tr>
         </thead>
@@ -31,6 +32,7 @@
                     foreach (DataRow dr in dt.Rows)
                     {
                         var fcl = !string.IsNullOrWhiteSpace(dr["AchbgColor"].ToString()) ? "#fff;" : "";
+
                         <tr class="@dr["AchbgColor"]" style="color:@fcl">
                             <td class="text-center">@(srno++)</td>
                             <td class="text-center">@dr["BFYID"]</td>
@@ -43,12 +45,25 @@
                             <td class="text-left">@dr["BFYName"]</td>
                             <td class="text-center">@dr["BFYMobileNo"]</td>
                             <td class="text-center">@dr["EmpName"]</td>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(dr["C_Name"].ToString()))
+                                {
+                                    <a href="javascript:void(0);" onclick="DisplayPOPView('@dr["BpkID"]','@dr["PlanID_pk"]','@dr["AchvtBFYID_pk"]')" class="btn btn-outline-success btn-sm"><i class="fa fa-view"></i> View</a>
+                                }
+                            </td>
                             <td class="text-center">
                                 @*<a href="~/Beneficiary/Beneficiary?id=@dr["BpkID"]" class="btn btn-primary btn-sm"><i class="fa fa-add"></i></a>*@
                                 @*data-bs-toggle="modal" data-bs-target="#myModal"*@
                                 @if (!string.IsNullOrEmpty(dr["PlanID_pk"].ToString()))
                                 {
-                                    <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BpkID"]','@dr["PlanID_pk"]')" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add</a>
+                                    if (dr["IsPlanAchved"].ToString() == "1")
+                                    {
+                                        <strong class="text-white">Achieved</strong>
+                                    }
+                                    else
+                                    {
+                                        <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BpkID"]','@dr["PlanID_pk"]')" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add</a>
+                                    }
                                 }
                             </td>
                         </tr>

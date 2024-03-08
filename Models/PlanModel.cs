@@ -42,8 +42,10 @@ namespace FP.Models
        // [ExpressiveAnnotations.Attributes.AssertThat("DOMDt")]
         public Nullable<System.DateTime> PlanDt { get; set; }
         [Required]
-        [Display(Name = "Planning date for Homw Visit")]
+        [Display(Name = "Planning date for Home Visit")]
         public Nullable<System.DateTime> HVDt { get; set; }
+        [Display(Name = "Planning Achievement")]
+        public bool IsPlanAchv { get; set; }
         //[Required]
         [Display(Name = "Select Peer Group Meeting & Home Visit")]
         public Nullable<int> IsBFY { get; set; }

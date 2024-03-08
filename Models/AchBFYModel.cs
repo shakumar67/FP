@@ -65,8 +65,9 @@ namespace FP.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+
     }
-    public class DisplayAchBFY
+    public static class DisplayAchBFY
     {
         public const string IsPPresent= "Present in Peer Group Meeting";
         public const string IsFUpHV = "FollowUp/HV in Current Month";
@@ -75,7 +76,7 @@ namespace FP.Models
         public const string Ctusemethod= "Use method";
         public const string CtusemethodOther= "Other use method ";
         public const string Isservice = "Linked to ASHA for service";
-        public const string ServiceRevcDt = "Service Received date";
+        public const string ServiceRevcDt = "Service Received Date";
         public const string ServiceProvider = "Service Provider";
         public const string Location = "Facility Name (Location)";
         public const string CMEligible = "CM Eligible for Incentive";//If Copper T/Antara inj/Permanent 20

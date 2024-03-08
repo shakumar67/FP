@@ -302,6 +302,7 @@
           <Property Name="DOMDt" Type="date" />
           <Property Name="DOMHVDt" Type="date" />
           <Property Name="SubjectId" Type="int" />
+          <Property Name="IsPlanAchv" Type="bit" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="IsCount" Type="int" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
@@ -817,6 +818,7 @@
           <Property Name="DOMDt" Type="DateTime" Precision="0" />
           <Property Name="DOMHVDt" Type="DateTime" Precision="0" />
           <Property Name="SubjectId" Type="Int32" />
+          <Property Name="IsPlanAchv" Type="Boolean" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="IsCount" Type="Int32" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -1165,6 +1167,7 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="IsCount" ColumnName="IsCount" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsPlanAchv" ColumnName="IsPlanAchv" />
                 <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
                 <ScalarProperty Name="DOMHVDt" ColumnName="DOMHVDt" />
                 <ScalarProperty Name="DOMDt" ColumnName="DOMDt" />

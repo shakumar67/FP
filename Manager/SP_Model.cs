@@ -131,6 +131,7 @@ namespace FP.Manager
             StoredProcedure sp = new StoredProcedure("SP_BFYList");
             sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
             sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@CLFId", model.CLFId, DbType.String);
             sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
             sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
             sp.Command.AddParameter("@Month", model.Month, DbType.String);
@@ -169,6 +170,7 @@ namespace FP.Manager
             StoredProcedure sp = new StoredProcedure("SP_PlanBFYList");
             sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
             sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@CLFId", model.CLFId, DbType.String);
             sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
             sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
             sp.Command.AddParameter("@Month", model.Month, DbType.String);

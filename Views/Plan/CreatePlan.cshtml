@@ -1,16 +1,21 @@
 ﻿@model FP.Models.PlanModel
 @using FP.Manager
 @{
-    ViewBag.Title = "CreatePlan";
+    ViewBag.Title = "Add Plan";
 }
 <style>
     .bt-mrgn {
         margin-bottom: 15px;
     }
+
     .actives3 {
         color: #009CFF !important;
         background: #FFFFFF;
         border-color: #009CFF;
+    }
+    .chck{
+        height:18px !important;
+        width:41px;
     }
 </style>
 <div class="breadcrumb">
@@ -95,42 +100,6 @@
                                 @Html.ValidationMessageFor(model => model.HVDt, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-                        <div class="col-sm-6 bt-mrgn">
-                            @Html.LabelFor(model => model.IsBFY, htmlAttributes: new { @class = "control-label col-md-12" })
-                            <div class="col-md-12">
-                                @Html.DropDownListFor(model => model.IsBFY, CommonModel.GetHVPMG(1), null, new { @class = "form-control" })
-                                @*<div class="position-relative form-group">
-                    <div class="checkbox">
-                        @foreach (var item in CommonModel.GetHVPMG())
-                        {
-                            <span class="check-spacer">
-                                @Html.CheckBoxFor(model => model.IsCheckBFY, new { id = "IsCheckBFY" + item.Value, @required = "required" }) @item.Text
-                            </span>
-                        }
-                        @Html.ValidationMessageFor(model => model.IsCheckBFY, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-                                @Html.ValidationMessageFor(model => model.IsBFY, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 bt-mrgn" id="div-DOMDt" style="display:none;">
-                            @Html.LabelFor(model => model.DOMDt, htmlAttributes: new { @class = "control-label col-md-12" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.DOMDt, new { htmlAttributes = new { @class = "form-control achdatepicker" } })
-                                @Html.ValidationMessageFor(model => model.DOMDt, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 bt-mrgn" id="div-DOMHVDt" style="display:none;">
-                            @Html.LabelFor(model => model.DOMHVDt, htmlAttributes: new { @class = "control-label col-md-12" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.DOMHVDt, new { htmlAttributes = new { @class = "form-control achdatepicker" } })
-                                @Html.ValidationMessageFor(model => model.DOMHVDt, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
                         <div class="col-sm-6 bt-mrgn">
                             @Html.LabelFor(model => model.SubjectId, htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
@@ -138,6 +107,50 @@
                                 @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        <div class="col-sm-6 bt-mrgn">
+                            @Html.LabelFor(model => model.IsPlanAchv, htmlAttributes: new { @class = "control-label" })
+                            @Html.CheckBoxFor(model => model.IsPlanAchv, new { htmlAttributes = new { @class = "form-control chck" } })
+                            @Html.ValidationMessageFor(model => model.IsPlanAchv, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="div-achv" style="display:none;">
+
+                            <div class="col-sm-6 bt-mrgn">
+                                @Html.LabelFor(model => model.IsBFY, htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div class="col-md-12">
+                                    @Html.DropDownListFor(model => model.IsBFY, CommonModel.GetHVPMG(1), null, new { @class = "form-control" })
+                                    @*<div class="position-relative form-group">
+                        <div class="checkbox">
+                            @foreach (var item in CommonModel.GetHVPMG())
+                            {
+                                <span class="check-spacer">
+                                    @Html.CheckBoxFor(model => model.IsCheckBFY, new { id = "IsCheckBFY" + item.Value, @required = "required" }) @item.Text
+                                </span>
+                            }
+                            @Html.ValidationMessageFor(model => model.IsCheckBFY, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+                                    @Html.ValidationMessageFor(model => model.IsBFY, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 bt-mrgn" id="div-DOMDt" style="display:none;">
+                                @Html.LabelFor(model => model.DOMDt, htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.DOMDt, new { htmlAttributes = new { @class = "form-control achdatepicker" } })
+                                    @Html.ValidationMessageFor(model => model.DOMDt, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 bt-mrgn" id="div-DOMHVDt" style="display:none;">
+                                @Html.LabelFor(model => model.DOMHVDt, htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.DOMHVDt, new { htmlAttributes = new { @class = "form-control achdatepicker" } })
+                                    @Html.ValidationMessageFor(model => model.DOMHVDt, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
                     <div class="mb-3">
                         <span class="check-spacer">
@@ -173,6 +186,8 @@
     @*@Html.Partial("_BFYPOP", Model.AchBFYModel)*@
 </div>
 
+<div class="col-md-12" id="div-popmodalview">
+</div>
 @*<div>
         @Html.ActionLink("Back to List", "Index")
     </div>*@
@@ -252,6 +267,9 @@
             /* Role Wise */
             BindRolewise("DistrictId_fk", "BlockId_fk", "CLFId_fk", "PanchayatId_fk", "VoId_fk");
 
+            $('#IsPlanAchv').change(function () {
+                bindIsPlanAch();
+            });
             if ('@Model.PlanID_pk' != '00000000-0000-0000-0000-000000000000') {
                 BindPlanEdit();
                 BindData();
@@ -275,7 +293,8 @@
             $(document).on('change', 'input[name=IsContraception]', function () {
             //$('input[name=IsContraception]').change(function () {
                 var value = $('input[name=IsContraception]:checked').val();
-                $('#div-ContraceptionId_fk').hide();
+                Inputclear();
+                $('#div-ContraceptionId_fk').hide(); $('#div-Service').hide();
                 if (value == "true") {
                     $('#div-ContraceptionId_fk').show();
                 }
@@ -287,8 +306,14 @@
                 //$('#div-ServiceRevcDt').hide();
                 //$('#div-ServiceProvider').hide();
                 //$('#div-Location').hide();
+                $('#ServiceRevcDt').val('');
+                $('#ServiceProvider').val('');
+                $('#Location').val('');
                 if (value == "true") {
                     $('#div-Service').show();
+                    $('#ServiceRevcDt').attr('required', 'required');
+                    $('#ServiceProvider').attr('required', 'required');
+                    $('#Location').attr('required', 'required');
                     $('#ServiceRevcDt').datepicker({
                         dateFormat: 'dd-M-yy',
                         maxDate: '0',
@@ -299,6 +324,11 @@
                     //$('#div-ServiceRevcDt').show();
                     // $('#div-ServiceProvider').show();
                     // $('#div-Location').show();
+                }
+                else {
+                    $('#ServiceRevcDt').removeAttr('required');
+                    $('#ServiceProvider').removeAttr('required');
+                    $('#Location').removeAttr('required');
                 }
             });
 
@@ -346,8 +376,35 @@
             //    $(this).find("#AchBFYformid")[0].reset();
             //});
 
-    });
+        });
 
+        function bindIsPlanAch() {
+            IsPGYHV();
+            $('#IsBFY').val(''); //$('#DOMDt').val(''); $('#DOMHVDt').val('');
+            if ($('#IsPlanAchv').is(':checked')) {
+                $('#div-achv').show();
+            }
+            else {
+                $('#div-achv').hide();
+            }
+        }
+
+        function Inputclear() {
+            $('#ContraceptionOther').val('');
+            $('#div-ContraceptionOther').hide();
+            $('#ContraceptionOther').removeAttr('required');
+            $('#div-UseMethodId_fk').hide();
+            $('#div-Isservice').hide();
+            $('#div-Service').hide();
+            GetContraceptiveChildList("UseMethodId_fk", 0, "");
+            $('#UseMethodId_fk').removeAttr('required');
+            $('#ContraceptionId_fk').val('');
+            $('#UseMethodId_fk').val('');
+            $("input[name=Isservice]").prop('checked', false);
+            $('#ServiceRevcDt').val('');
+            $('#ServiceProvider').val('');
+            $('#Location').val('');
+        }
     function IsPGYHV() {
         $('#DOMDt').val(''); $('#div-DOMDt').hide();
         $('#DOMHVDt').val(''); $('#div-DOMHVDt').hide();
@@ -419,11 +476,14 @@
             PlanModel.PlanYear = $('#PlanYear').val();
             PlanModel.PlanDt = $('#PlanDt').val();
             PlanModel.HVDt = $('#HVDt').val();
-            PlanModel.IsBFY = $('#IsBFY').val();
-            PlanModel.DOMDt = $('#DOMDt').val();
-            PlanModel.DOMHVDt = $('#DOMHVDt').val();
+            if ($('#IsPlanAchv').is(':checked')) {
+                $('#IsPlanAchv').attr('checked', 'checked')
+                PlanModel.IsPlanAchv = $('#IsPlanAchv').val();
+                PlanModel.IsBFY = $('#IsBFY').val();
+                PlanModel.DOMDt = $('#DOMDt').val();
+                PlanModel.DOMHVDt = $('#DOMHVDt').val();
+            }
             PlanModel.SubjectId = $('#SubjectId').val();
-
             model.push(PlanModel);
 
             //let formData = new FormData();
@@ -486,34 +546,44 @@
         $('#DistrictId_fk').val('@Model.DistrictId_fk');
         GetBlock('BlockId_fk', 0, $('#DistrictId_fk').val());
         $('#BlockId_fk').val('@Model.BlockId_fk');
-        GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
+        GetCLF('CLFId_fk', 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val());
+        $('#CLFId_fk').val('@Model.CLFId_fk');
+        GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#CLFId_fk').val());
         $('#PanchayatId_fk').val('@Model.PanchayatId_fk');
-        GetVillage("VoId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#PanchayatId_fk').val());
+        GetVillage("VoId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(),$('#CLFId_fk').val(), $('#PanchayatId_fk').val());
         $('#VoId_fk').val('@Model.VoId_fk');
         $('#PlanMonth').val('@Model.PlanMonth');
         $('#PlanYear').val('@Model.PlanYear');
 
         $('#PlanDt').val(moment('@Model.PlanDt').format("DD-MMM-YYYY"));
         $('#HVDt').val(moment('@Model.HVDt').format("DD-MMM-YYYY"));
+        if ('@Model.IsPlanAchv' == 'True') {
+            $('#div-achv').show();
+            $('#IsPlanAchv').val('@Model.IsPlanAchv');
+            $("#IsPlanAchv").prop('checked', true);
+            $('#IsBFY').val('@Model.IsBFY');
 
-        $('#IsBFY').val('@Model.IsBFY');
-
+            if ($('#IsBFY').val() == "1") {
+                $('#div-DOMDt').show();
+                $('#DOMDt').val(moment('@Model.DOMDt').format("DD-MMM-YYYY"));
+            }
+            else if ($('#IsBFY').val() == "2") {
+                $('#div-DOMHVDt').show();
+                $('#DOMHVDt').val(moment('@Model.DOMHVDt').format("DD-MMM-YYYY"));
+            }
+            else if ($('#IsBFY').val() == "3") {
+                $('#DOMDt').val(moment('@Model.DOMDt').format("DD-MMM-YYYY"));
+                $('#DOMHVDt').val(moment('@Model.DOMHVDt').format("DD-MMM-YYYY"));
+                $('#div-DOMHVDt').show();
+                $('#div-DOMDt').show();
+            }
+        }
+        else {
+            $('#div-achv').hide();
+            $('#div-DOMDt').hide(); $('#div-DOMHVDt').hide();
+            $("#IsPlanAchv").prop('checked', false);
+        }
         $('#SubjectId').val('@Model.SubjectId');
-        $('#div-DOMDt').hide(); $('#div-DOMHVDt').hide();
-        if ($('#IsBFY').val() == "1") {
-            $('#div-DOMDt').show();
-             $('#DOMDt').val(moment('@Model.DOMDt').format("DD-MMM-YYYY"));
-        }
-        else if ($('#IsBFY').val() == "2") {
-            $('#div-DOMHVDt').show();
-             $('#DOMHVDt').val(moment('@Model.DOMHVDt').format("DD-MMM-YYYY"));
-        }
-        else if ($('#IsBFY').val() == "3") {
-             $('#DOMDt').val(moment('@Model.DOMDt').format("DD-MMM-YYYY"));
-             $('#DOMHVDt').val(moment('@Model.DOMHVDt').format("DD-MMM-YYYY"));
-            $('#div-DOMHVDt').show();
-            $('#div-DOMDt').show();
-        }
     }
 
     /* Achievement Function */
@@ -521,6 +591,7 @@
             var filtermodel = new Object();
            filtermodel.DistrictId = $('#DistrictId_fk').val();
            filtermodel.BlockId = $('#BlockId_fk').val();
+           filtermodel.CLFId = $('#CLFId_fk').val();
             filtermodel.PanchayatId = $('#PanchayatId_fk').val();
            filtermodel.VoId = $('#VoId_fk').val();
 
@@ -543,127 +614,140 @@
             }
         });
         }
-        function BindAchPop(BpkID, PlanID_pk) {
-            $('#div-popmodal').html('');
+    function BindAchPop(BpkID, PlanID_pk) {
+        $('#div-popmodal').html('');
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Content("~/Plan/AchvpopForm")',
+            data: '', //objectToPass,
+            success: function (data) {
+
+                $('#div-popmodal').html(data);
+                $("#AchBFYformid")[0].reset();
+                if (BpkID && PlanID_pk) {
+                    $('#myModal').modal('show');
+                    GetContraceptive("ContraceptionId_fk", 0);
+                    //$('#myModal').modal(); $('#myModal').modal('toggle');
+                    $('#BFYId_fk').val(BpkID);
+                    $('#PlanId_fk').val(PlanID_pk);
+                    //$('#ServiceRevcDt').datepicker({
+                    //    dateFormat: 'dd-M-yy',
+                    //    maxDate: '0',
+                    //    maxDate: "+1M +10D",
+                    //    changeMonth: true,
+                    //    changeYear: true,
+                    //});
+                }
+            }
+        });
+    }
+    function DisplayPOP(BpkID, PlanID_pk) {
+        debugger;
+        //$('#exampleModalLong').modal();
+        //$('#myModal').modal('toggle');
+        //$('#myModal').modal('show');
+        // $('#div-popmodal').html('');
+        //$("a[data-target=#myModal]").click(function (ev) {
+        //    ev.preventDefault();
+        //    var target = $(this).attr("href");
+
+        //    // load the url and show modal on success
+        //    $("#myModal .modal-body").load(target, function () {
+        //        $("#myModal").modal("show");
+        //    });
+        //});
+        BindAchPop(BpkID, PlanID_pk);
+        //if (BpkID && PlanID_pk) {
+        //    $('#myModal').modal('show'); $('#myModal').modal(); $('#myModal').modal('toggle');
+        //    $('#BFYId_fk').val(BpkID);
+        //    $('#PlanId_fk').val(PlanID_pk);
+        //    //$('#ServiceRevcDt').datepicker({
+        //    //    dateFormat: 'dd-M-yy',
+        //    //    maxDate: '0',
+        //    //    maxDate: "+1M +10D",
+        //    //    changeMonth: true,
+        //    //    changeYear: true,
+        //    //});
+        //}
+        }
+        function DisplayPOPView(BpkID, PlanID_pk, AchvtBFYID_pk) {
+            $('#div-popmodalview').html('');
             $.ajax({
                 type: 'POST',
-                url: '@Url.Content("~/Plan/AchvpopForm")',
-                data: '', //objectToPass,
+                url: '@Url.Content("~/Plan/AchvpopView")',
+                data: { 'BFYId': BpkID, 'PlanId': PlanID_pk, 'AchvtBFYID': AchvtBFYID_pk }, //objectToPass,
                 success: function (data) {
-
-                    $('#div-popmodal').html(data);
-                    $("#AchBFYformid")[0].reset();
                     if (BpkID && PlanID_pk) {
-                        $('#myModal').modal('show');
-                        GetContraceptive("ContraceptionId_fk", 0);
-                        //$('#myModal').modal(); $('#myModal').modal('toggle');
-                        $('#BFYId_fk').val(BpkID);
-                        $('#PlanId_fk').val(PlanID_pk);
-                        //$('#ServiceRevcDt').datepicker({
-                        //    dateFormat: 'dd-M-yy',
-                        //    maxDate: '0',
-                        //    maxDate: "+1M +10D",
-                        //    changeMonth: true,
-                        //    changeYear: true,
-                        //});
+                        $('#div-popmodalview').html(data);
+                        $('#myModalview').modal('show');
                     }
                 }
             });
         }
-        function DisplayPOP(BpkID, PlanID_pk) {
-            debugger;
-            //$('#exampleModalLong').modal();
-            //$('#myModal').modal('toggle');
-            //$('#myModal').modal('show');
-           // $('#div-popmodal').html('');
-            //$("a[data-target=#myModal]").click(function (ev) {
-            //    ev.preventDefault();
-            //    var target = $(this).attr("href");
-
-            //    // load the url and show modal on success
-            //    $("#myModal .modal-body").load(target, function () {
-            //        $("#myModal").modal("show");
-            //    });
-            //});
-            BindAchPop(BpkID, PlanID_pk);
-            //if (BpkID && PlanID_pk) {
-            //    $('#myModal').modal('show'); $('#myModal').modal(); $('#myModal').modal('toggle');
-            //    $('#BFYId_fk').val(BpkID);
-            //    $('#PlanId_fk').val(PlanID_pk);
-            //    //$('#ServiceRevcDt').datepicker({
-            //    //    dateFormat: 'dd-M-yy',
-            //    //    maxDate: '0',
-            //    //    maxDate: "+1M +10D",
-            //    //    changeMonth: true,
-            //    //    changeYear: true,
-            //    //});
-            //}
-
+    function CUAchBFYData() {
+        debugger;
+        //var vl = $.validator.unobtrusive.parse("#formid");
+        //var Isvalid= $("#formid").validate();//CreatePlanformid
+        var isvalid = $("#AchBFYformid").valid();
+        var IsCheck = true;
+        IsCheck = $('#BFYId_fk').val() == '' ? false : true;
+        IsCheck = $('#PlanId_fk').val() == '' ? false : true;
+        if ($('input[name="IsPeerPresent"]:checked').length == 0) {
+            toastr.error("Error", 'Please Select Present in Peer Group Meeting');
+            IsCheck = false;
         }
-        function CUAchBFYData() {
-            debugger;
-            //var vl = $.validator.unobtrusive.parse("#formid");
-            //var Isvalid= $("#formid").validate();//CreatePlanformid
-            var isvalid = $("#AchBFYformid").valid();
-            var IsCheck = true;
-            IsCheck = $('#BFYId_fk').val() == '' ? false : true;
-            IsCheck = $('#PlanId_fk').val() == '' ? false : true;
-            if ($('input[name="IsPeerPresent"]:checked').length == 0) {
-                toastr.error("Error", 'Please Select Present in Peer Group Meeting');
+        if ($('input[name="IsFollowUpHV"]:checked').length == 0) {
+            toastr.error("Error", 'Please Select FollowUp/HV in Current Month');
+            IsCheck = false;
+        }
+        if ($('input[name="IsPeerPresent"]:checked').length != 0 || $('input[name="IsFollowUpHV"]:checked').length != 0) {
+            if ($('input[name="IsContraception"]:checked').length == 0) {
+                toastr.error("Error", 'Please Select Want to use contraception after meeting/HV');
                 IsCheck = false;
             }
-            if ($('input[name="IsFollowUpHV"]:checked').length == 0) {
-                toastr.error("Error", 'Please Select FollowUp/HV in Current Month');
-                IsCheck = false;
-            }
-            if ($('input[name="IsPeerPresent"]:checked').length != 0 || $('input[name="IsFollowUpHV"]:checked').length != 0) {
-                if ($('input[name="IsContraception"]:checked').length == 0) {
-                    toastr.error("Error", 'Please Select Want to use contraception after meeting/HV');
-                    IsCheck = false;
-                }
-            }
+        }
 
-            if (isvalid && IsCheck) {
-                document.getElementById("btnpopsubmit").disabled = true;
+        if (isvalid && IsCheck) {
+            document.getElementById("btnpopsubmit").disabled = true;
 
-                var formData = $('#AchBFYformid').serialize();
+            var formData = $('#AchBFYformid').serialize();
 
-                $.ajax({
-                    url: document.baseURI + "/Plan/AddAchBFY",
-                    type: "Post",
-                    data: formData,
-                    //contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    // processData: false, contentType: false,
-                    //cache: false,
-                    //contentType: false,
-                    //processData: false,
-                    //data: JSON.stringify(model),
-                    success: function (resp) {
-                        if (resp.StatusType == "success") {
-                            toastr.success("Success", resp.Message);
-                            $("#AchBFYformid")[0].reset();
-                            BindData();
-                        }
-                        else {
-                            toastr.error("Error", resp.Message);
-                        }
-                    },
-                    error: function (req, error) {
-                        if (error === 'error') { error = req.statusText; }
-                        var errormsg = 'There was a communication error: ' + error;
-                        toastr.error("Error", errormsg);
-                        //jQuery.event.trigger("ajaxStop");
-                        return false;
+            $.ajax({
+                url: document.baseURI + "/Plan/AddAchBFY",
+                type: "Post",
+                data: formData,
+                //contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                // processData: false, contentType: false,
+                //cache: false,
+                //contentType: false,
+                //processData: false,
+                //data: JSON.stringify(model),
+                success: function (resp) {
+                    if (resp.StatusType == "success") {
+                        toastr.success("Success", resp.Message);
+                        $("#AchBFYformid")[0].reset();
+                        BindData();
                     }
-                });
-            }
-            else {
-                return false;
-            }
-
+                    else {
+                        toastr.error("Error", resp.Message);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    toastr.error("Error", errormsg);
+                    //jQuery.event.trigger("ajaxStop");
+                    return false;
+                }
+            });
         }
-        function AchvmtInputClear() {
+        else {
+            return false;
+        }
+
+    }
+    function AchvmtInputClear() {
 
         }
 

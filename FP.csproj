@@ -698,6 +698,7 @@
     <Content Include="Views\Master\_CLFData.cshtml" />
     <Content Include="Views\Master\PanchayatMaster.cshtml" />
     <Content Include="Views\Master\_PanchayatData.cshtml" />
+    <Content Include="Views\Plan\_BFYPOPView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
