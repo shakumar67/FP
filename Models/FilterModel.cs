@@ -34,5 +34,8 @@ namespace FP.Models
         public string CutUser { get; set; }
         public string Month { get; set; }
         public string Year { get; set; }
+        [Display(Name = "Achieved")]
+        public string IsPlanAchved { get; set; }
     }
+   
 }

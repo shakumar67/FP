@@ -29,6 +29,8 @@
         <EntityTypeShape EntityType="FP_DBModel.tbl_CLF_Emp" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="FP_DBModel.TBL_Emp" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="FP_DBModel.TBL_Beneficiary" Width="1.5" PointX="5.75" PointY="11.75" />
+        <EntityTypeShape EntityType="FP_DBModel.tbl_CLFPlanApprove" Width="1.5" PointX="8.375" PointY="14.75" />
+        <EntityTypeShape EntityType="FP_DBModel.tbl_CLFPlanReject" Width="1.5" PointX="15.375" PointY="6.75" />
         <EntityTypeShape EntityType="FP_DBModel.tbl_Plan" Width="1.5" PointX="0.75" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>

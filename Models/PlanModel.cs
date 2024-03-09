@@ -69,4 +69,27 @@ namespace FP.Models
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public  AchBFYModel AchBFYModel { get; set; }
     }
+    public class CLFPlanApproveModel
+    {
+        public CLFPlanApproveModel() {
+            ApprovePlanId_pk = Guid.Empty;
+        }
+        public Guid ApprovePlanId_pk { get; set; }
+        public Guid PlanId_fk { get; set; }
+        public int ApprovalMonth { get; set; }
+        public int ApprovalYear { get; set; }
+        public int ApprovalStatus { get; set; }
+    }
+    public class CLFPlanRejectModel
+    {
+        public CLFPlanRejectModel()
+        {
+            RejectPlanId_pk = Guid.Empty;
+        }
+        public Guid RejectPlanId_pk { get; set; }
+        public Guid PlanId_fk { get; set; }
+        public string Comment { get; set; }
+        public int ApprovalYear { get; set; }
+        public int ApprovalStatus { get; set; }
+    }
 }

@@ -1,0 +1,80 @@
+﻿@using System.Data
+@using FP.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+<style>
+    table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
+        padding-right: 0px !important;
+    }
+</style>
+
+<div class="bg-light rounded h-100 p-4">
+    <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="tbl">
+                <thead class="text-center">
+                    <tr>
+                        <th>
+                            Srno.
+                            <input type="checkbox" name="Chk_All" id="Chk_All" value="all" />
+                        </th>
+                        @*<th>Beneficiary<br /> ID</th>*@
+                        <th>District</th>
+                        <th>Block</th>
+                        <th>Panchayat</th>
+                        <th>Village <br />Organization</th>
+                        <th>Planning <br />Month/Year</th>
+                        <th>Planning date <br />Peer Group Meeting</th>
+                        <th>Planning date for HV</th>
+                        <th>DOM<br /> for Peer Group meeting</th>
+                        <th>Date of HV</th>
+                        <th>Subject</th>
+                        <th>Achieved Status</th>
+                        <th>No of visit &<br /> metting</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        if (dt.Rows.Count > 0)
+                        {
+                            int srno = 1; int indx = 0;
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                var IsPlanAchv = dr["IsPlanAchv"].ToString() == "True" ? CommonModel.GetIsPlanAchieved()
+                                    .Where(x => x.Value == "1")?.FirstOrDefault().Text : "No Achieved";
+                                <tr>
+                                    <td class="text-center">
+                                        @(srno++)
+                                        <input type="checkbox" data-id="@dr["PlanID_pk"]" name="Chk_@indx" id="Chk_@indx" value="@dr["PlanID_pk"]" />
+                                    </td>
+                                    @*<td class="text-center">@dr["BFYID"]</td>*@
+                                    <td class="text-left">@dr["DistrictName"]</td>
+                                    <td class="text-left">@dr["Block"]</td>
+                                    <td class="text-left">@dr["Panchayat"]</td>
+                                    <td class="text-left">@dr["VO"]</td>
+                                    <td class="text-center">@dr["PlanMY"]</td>
+                                    <td class="text-center">@CommonModel.FormateDtDMY(dr["PlanDt"].ToString())</td>
+                                    <td class="text-center">@CommonModel.FormateDtDMY(dr["HVDt"].ToString())</td>
+                                    <td class="text-center">@CommonModel.FormateDtDMY(dr["DOMDt"].ToString())</td>
+                                    <td class="text-center">@CommonModel.FormateDtDMY(dr["DOMHVDt"].ToString())</td>
+                                    <td class="text-left">@dr["SubjectText"].ToString()</td>
+                                    <td class="text-center"><strong class="text-success">@IsPlanAchv</strong></td>
+                                    <td class="text-center">
+                                        <strong class="text-success">@dr["NoVisitedBFY"].ToString()</strong>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="12" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+
+            </table>
+    </div>
+</div>

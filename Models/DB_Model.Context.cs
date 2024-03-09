@@ -46,6 +46,8 @@ namespace FP.Models
         public virtual DbSet<tbl_CLF_Emp> tbl_CLF_Emp { get; set; }
         public virtual DbSet<TBL_Emp> TBL_Emp { get; set; }
         public virtual DbSet<TBL_Beneficiary> TBL_Beneficiary { get; set; }
+        public virtual DbSet<tbl_CLFPlanApprove> tbl_CLFPlanApprove { get; set; }
+        public virtual DbSet<tbl_CLFPlanReject> tbl_CLFPlanReject { get; set; }
         public virtual DbSet<tbl_Plan> tbl_Plan { get; set; }
     }
 }

@@ -307,6 +307,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApproveController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BeneficiaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -402,6 +403,12 @@
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_BFYFollowup.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_CLFPlanApprove.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_CLFPlanReject.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_CLF_Emp.cs">
@@ -699,6 +706,8 @@
     <Content Include="Views\Master\PanchayatMaster.cshtml" />
     <Content Include="Views\Master\_PanchayatData.cshtml" />
     <Content Include="Views\Plan\_BFYPOPView.cshtml" />
+    <Content Include="Views\Approve\AppPlanList.cshtml" />
+    <Content Include="Views\Approve\_AppPlanData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

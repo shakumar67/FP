@@ -35,7 +35,8 @@ namespace FP
             };
 
             if (controllerName == currentController && actionName == currentAction)
-                builder.AddCssClass("active-link");
+                //builder.AddCssClass("active-link");
+                builder.AddCssClass("show");
             return new MvcHtmlString(builder.ToString());
         }
 

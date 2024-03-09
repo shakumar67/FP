@@ -24,9 +24,11 @@
                     <th>Planning <br />Month/Year</th>
                     <th>Planning date <br />Peer Group Meeting</th>
                     <th>Planning date for HV</th>
+                    <th>Status</th>
                     <th>DOM<br /> for Peer Group meeting</th>
                     <th>Date of HV</th>
                     <th>Subject</th>
+                    <th>Approval Status</th>
                     <th>Edit</th>
                 </tr>
             </thead>
@@ -37,6 +39,10 @@
                         int srno = 1;
                         foreach (DataRow dr in dt.Rows)
                         {
+                            var IsPlanAchv = dr["IsPlanAchv"].ToString() == "True" ? CommonModel.GetIsPlanAchieved()
+                                .Where(x => x.Value == "1")?.FirstOrDefault().Text : "No Achieved";
+                            var AppReject = dr["ApprovalStatus"].ToString() == "1" ? "text-success"
+                                : dr["ApprovalStatus"].ToString() == "2" ? "text-danger" : "";
                             <tr>
                                 <td class="text-center">@(srno++)</td>
                                 @*<td class="text-center">@dr["BFYID"]</td>*@
@@ -47,9 +53,11 @@
                                 <td class="text-center">@dr["PlanMY"]</td>
                                 <td class="text-center">@CommonModel.FormateDtDMY(dr["PlanDt"].ToString())</td>
                                 <td class="text-center">@CommonModel.FormateDtDMY(dr["HVDt"].ToString())</td>
+                                <td class="text-center"><strong class="text-success">@IsPlanAchv</strong></td>
                                 <td class="text-center">@CommonModel.FormateDtDMY(dr["DOMDt"].ToString())</td>
                                 <td class="text-center">@CommonModel.FormateDtDMY(dr["DOMHVDt"].ToString())</td>
                                 <td class="text-left">@dr["SubjectText"].ToString()</td>
+                                <td class="text-left"><strong class="@AppReject">@dr["ApprovalStatusText"].ToString()</strong></td>
                                 <td class="text-center">
                                     <a href="~/Plan/CreatePlan?Id=@dr["PlanID_pk"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                 </td>

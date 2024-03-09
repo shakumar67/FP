@@ -914,6 +914,13 @@ namespace FP.Manager
         #endregion
 
         #region Other Think
+        public static List<SelectListItem> GetIsPlanAchieved()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem { Value = "1", Text = "Achieved", Selected = true });
+            list.Add(new SelectListItem { Value = "0", Text = "No Achieved" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         public static List<SelectListItem> GetLanguangeType()
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -1039,8 +1046,9 @@ namespace FP.Manager
         }
         public static List<SelectListItem> GetYear(int isAddedSelect = 0)
         {
+            FP_DBEntities fP_DB = new FP_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
-            list = new SelectList(dbe.Year_Master, "ID", "Year").OrderBy(x => x.Text).ToList();
+            list = new SelectList(fP_DB.Year_Master, "ID", "Year").OrderBy(x => x.Text).ToList();
             if (isAddedSelect == 1)
             {
                 list.Insert(0, new SelectListItem { Value = "", Text = "Select" });

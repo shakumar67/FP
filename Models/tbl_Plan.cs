@@ -29,6 +29,7 @@ namespace FP.Models
         public Nullable<System.DateTime> DOMHVDt { get; set; }
         public Nullable<int> SubjectId { get; set; }
         public Nullable<bool> IsPlanAchv { get; set; }
+        public Nullable<int> ApprovalStatus { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<int> IsCount { get; set; }
         public string CreatedBy { get; set; }

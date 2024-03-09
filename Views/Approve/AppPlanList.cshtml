@@ -28,7 +28,7 @@
 <div class="container-fluid pt-4 px-4">
     <fieldset class="border rounded-3 p-3">
         <legend class="float-none w-auto px-2">Search By</legend>
-        @using (Html.BeginForm("PlanList", "Plan", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        @using (Html.BeginForm("AppPlanList", "Approve", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
         {
             <div class="row g-4">
                 <div class="col-sm-12">
@@ -88,7 +88,7 @@
                             <div class="col-sm-3">
                                 <div class="position-relative form-group">
                                     @Html.LabelFor(model => model.IsPlanAchved, htmlAttributes: new { @class = "control-label" })
-                                    @Html.DropDownListFor(m => m.IsPlanAchved, FP.Manager.CommonModel.GetIsPlanAchieved(), null, new { @class = "form-select " })
+                                    @Html.DropDownListFor(m => m.IsPlanAchved, FP.Manager.CommonModel.GetIsPlanAchieved().Where(x => x.Value != "0"), null, new { @class = "form-select " })
                                     @Html.ValidationMessageFor(model => model.IsPlanAchved, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -116,7 +116,21 @@
         <div class="col=md-6"></div>
         <div class="col=md-6"></div>
         <div class="col-md-12">
-            <div id="subdata"></div>
+            <form action="~/Approve/ApprovePlanCLF" method="post" enctype="multipart/form-data" autocomplete="off" id="formCLFPlanId">
+                <div id="subdata"></div>
+                <div class="col-sm-3">
+                    <div class="position-relative form-group">
+                        <label class="control-label">Plan Approval Month</label>
+                       <select id="ApprovalMonth" name="ApprovalMonth" class="form-select" required></select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="position-relative form-group">
+                        <label class="control-label">Plan Approval Month</label>
+                        <select id="ApprovalYear" name="ApprovalYear" class="form-select" required></select>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -124,6 +138,19 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/JS/Master.js"></script>
+    @*<link href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/fixedcolumns/5.0.0/css/fixedColumns.dataTables.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/select/2.0.0/css/select.dataTables.css" rel="stylesheet" />*@
+    <!-- #region datatables files -->
+    @*<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>*@
+    <!-- #endregion -->
+
+    @*<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/5.0.0/js/dataTables.fixedColumns.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/5.0.0/js/fixedColumns.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.js"></script>
+    <script src="https://cdn.datatables.net/select/2.0.0/js/select.dataTables.js"></script>*@
 
     @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
@@ -160,6 +187,38 @@
                 BindData();
             });
 
+            $(document).on('change', '#Chk_All', function () {
+                if (this.checked) {
+                    let table1 = $('#tbl').DataTable();
+                    table1.$('input[type=checkbox]').each(function (i, row) {
+                         $(row, 'input[type=checkbox]').prop('checked', true);                        
+                    });
+                } else {
+                    let table1 = $('#tbl').DataTable();
+                    table1.$('input:checked').each(function (i, row) {
+                        $(row, 'input[type=checkbox]').prop('checked', false);
+                    });
+                }
+            });
+
+            $("#formCLFPlanId").on("submit", function (event) {
+                event.preventDefault();
+
+                var tblDList = [];
+                let table1 = $('#tbl').DataTable();
+                table1.$('input:checked').each(function (i, row) {
+                    var id = $(row).attr('data-id') || 0;
+                    var PlanId = $(row, 'input[type=checkbox]').val();
+                    tblDList.push({
+                        ApprovePlanId_pk: '@Guid.Empty',
+                        PlanId_fk: parseInt(id),
+                        ApprovalMonth: $('#ApprovalMonth').val(),
+                        ApprovalYear: $('#ApprovalYear').val()
+                        
+                    });
+                });
+            });
+
         });
         function BindData() {
             $("#subdata").html('');
@@ -174,10 +233,9 @@
             filtermodel.IsPlanAchved = $('#IsPlanAchved').val() == '' ? '' : $('#IsPlanAchved').val();
             var formData = $('#formid').serialize();
 
-
             $.ajax({
                 type: "GET",
-                url: document.baseURI + "/Plan/GetPlanList",
+                url: document.baseURI + "/Approve/GetAppPlanList",
                 data: filtermodel,//JSON.stringify({ 'Roles': '' }),
                 // cache: false,
                 // data: formData,
