@@ -47,6 +47,7 @@
                                         @Html.ValidationMessageFor(model => model.BlockId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
+
                                 <div class="col-sm-3">
                                     <div class="position-relative form-group">
                                         @Html.LabelFor(model => model.CLFId, htmlAttributes: new { @class = "control-label" })
@@ -55,6 +56,9 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
+                                
+                                <div class="col-sm-4">
+
                                     <div class="position-relative form-group">
                                         @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
                                         @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
@@ -94,8 +98,8 @@
                                 </span>
                             </div>
                         </div>                        
-                    </div>                    
-                </div>                
+                    </div> 
+                    </div>
             }
         </fieldset>
 
@@ -124,8 +128,8 @@
     <script>
         $(document).ready(function () {
 
-            GetYearList("Year", 0);
-            GetMonthList("Month", 0);
+            GetYearList("Year", 0, 1);
+            GetMonthList("Month", 0, 1);
             GetDistrict("DistrictId", 0);
             $('#DistrictId').change(function () {
                 GetBlock("BlockId", 0, $(this).val());
@@ -136,6 +140,7 @@
             $('#CLFId').change(function () {
                 GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
             });
+            
             $('#PanchayatId').change(function () {
                 GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId').val(), $(this).val());
             });

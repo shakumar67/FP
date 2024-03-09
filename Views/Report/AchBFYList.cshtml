@@ -49,6 +49,13 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="position-relative form-group">
+                                            @Html.LabelFor(model => model.CLFId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.CLFId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                            @Html.ValidationMessageFor(model => model.CLFId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="position-relative form-group">
                                             @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
                                             @Html.ValidationMessageFor(model => model.PanchayatId, "", new { @class = "text-danger" })
@@ -118,17 +125,23 @@
     <script>
         $(document).ready(function () {
 
-            GetYearList("Year", 0);
-            GetMonthList("Month", 0);
+            GetYearList("Year", 0, 1);
+            GetMonthList("Month", 0, 1);
             GetDistrict("DistrictId", 0);
             $('#DistrictId').change(function () {
                 GetBlock("BlockId", 0, $(this).val());
             });
             $('#BlockId').change(function () {
-                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
+                // GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
+                GetCLF("CLFId", 0, $('#DistrictId').val(), $(this).val());
             });
+            $('#CLFId').change(function () {
+                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+            });
+
             $('#PanchayatId').change(function () {
-                GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+                GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId').val(), $(this).val());
+
             });
             /* Role Wise */
             BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
@@ -146,6 +159,7 @@
             var filtermodel = new Object();
             filtermodel.DistrictId = $('#DistrictId').val() == '' ? '' : $('#DistrictId').val();
             filtermodel.BlockId = $('#BlockId').val() == '' ? '' : $('#BlockId').val();
+            filtermodel.BlockId = $('#CLFId').val() == '' ? '' : $('#CLFId').val();
             filtermodel.PanchayatId = $('#PanchayatId').val() == '' ? '' : $('#PanchayatId').val();
             filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
             //filtermodel.Year = $('#Year option:selected').text() == '' ? '' : $('#Year option:selected').text();
