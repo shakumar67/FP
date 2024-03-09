@@ -184,7 +184,7 @@ namespace FP.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             FP_DBEntities dbe = new FP_DBEntities();
-            int res = 0;
+            int res = 0; var u_n = "";
             if (ModelState.IsValid)
             {
                 if (!string.IsNullOrWhiteSpace(model.UserID_fk) && model.EmpID_pk != Guid.Empty)
@@ -205,10 +205,20 @@ namespace FP.Controllers
                     tbLe.VillageName = model.VillageName;
                     tbLe.UpdatedBy = MvcApplication.CUser.Id;
                     tbLe.UpdatedOn = DateTime.Now;
-                    tbLu.UserName = model.MobileNo;
                     tbLu.Email = model.MobileNo + "@gmail.com";
                     tbLu.PhoneNumber = model.MobileNo.Trim();
                     model.Password = !string.IsNullOrEmpty(model.Password) ? model.Password : model.MobileNo.Trim();
+                    var tblrole_name = dbe.AspNetRoles.Where(x => x.Id == model.Roles)?.FirstOrDefault().Name;
+                    if (FP.Manager.CommonModel.RoleNameCont.State == tblrole_name
+                        || FP.Manager.CommonModel.RoleNameCont.Admin == tblrole_name
+                        || FP.Manager.CommonModel.RoleNameCont.Viewer == tblrole_name)
+                    {
+                        tbLu.UserName = model.EmpName.Trim();
+                    }
+                    else
+                    {
+                        tbLu.UserName = model.MobileNo.Trim();
+                    }
                     res = dbe.SaveChanges();
 
                     if (model.CLFId_fks != null && model.CLFId_fks.Count() > 0)
@@ -237,7 +247,19 @@ namespace FP.Controllers
                 }
                 else
                 {
-                    var user = new ApplicationUser { PhoneNumber = model.MobileNo.Trim(), UserName = model.MobileNo.Trim(), Email = model.MobileNo + "@gmail.com" };
+                  
+                    var tblrole_name = dbe.AspNetRoles.Where(x=>x.Id==model.Roles)?.FirstOrDefault().Name;
+                    if (FP.Manager.CommonModel.RoleNameCont.State== tblrole_name 
+                        || FP.Manager.CommonModel.RoleNameCont.Admin == tblrole_name
+                        || FP.Manager.CommonModel.RoleNameCont.Viewer == tblrole_name)
+                    {
+                        u_n = model.EmpName.Trim();
+                    }
+                    else
+                    {
+                        u_n = model.MobileNo.Trim();
+                    }
+                    var user = new ApplicationUser { PhoneNumber = model.MobileNo.Trim(), UserName = u_n, Email = model.MobileNo + "@gmail.com" };
                     model.Password = !string.IsNullOrEmpty(model.Password) ? model.Password : model.MobileNo.Trim();
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)

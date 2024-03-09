@@ -53,7 +53,7 @@ namespace FP
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 10,
+                //RequiredLength = 10,
                 RequireNonLetterOrDigit = false,
                 RequireDigit = false,
                 //RequireLowercase = true,
