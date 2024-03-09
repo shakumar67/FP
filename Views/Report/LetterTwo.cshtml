@@ -61,21 +61,21 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="position-relative form-group">
                                         @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
                                         @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
                                         @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="position-relative form-group">
                                         @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })<span class="text-danger">*</span>
                                         @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select ", @required= "required" })
                                         @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="position-relative form-group">
                                         @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })<span class="text-danger">*</span>
                                         @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select ", @required = "required" })

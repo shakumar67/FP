@@ -54,7 +54,7 @@
                                             @Html.ValidationMessageFor(model => model.CLFId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
@@ -163,8 +163,10 @@
             filtermodel.PanchayatId = $('#PanchayatId').val() == '' ? '' : $('#PanchayatId').val();
             filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
             //filtermodel.Year = $('#Year option:selected').text() == '' ? '' : $('#Year option:selected').text();
-            filtermodel.Year = $('#Year option:selected').text() == '' ? '' : $('#Year option:selected').text();
-            filtermodel.Month = $('#Month option:selected').text() == '' ? '' : $('#Month option:selected').text();
+            //filtermodel.Year = $('#Year option:selected').text() == '' ? '' : $('#Year option:selected').text();
+            //filtermodel.Month = $('#Month option:selected').text() == '' ? '' : $('#Month option:selected').text();
+            filtermodel.Year = $('#Year').val() == '' ? '' : $('#Year').val();
+            filtermodel.Month = $('#Month').val() == '' ? '' : $('#Month').val();
             var formData = $('#formid').serialize();
 
 

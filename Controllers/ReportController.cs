@@ -22,9 +22,7 @@ namespace FP.Controllers
         public ActionResult PrapatraOne()
         {
             FilterModel model = new FilterModel();
-
             return View(model);
-
         }
         public ActionResult GetPrapatraOne(FilterModel model)
         {
@@ -50,9 +48,7 @@ namespace FP.Controllers
         public ActionResult LetterTwo()
         {
             FilterModel model = new FilterModel();
-
             return View(model);
-            
         }
         public ActionResult GetLetterTwo(FilterModel model)
         {
