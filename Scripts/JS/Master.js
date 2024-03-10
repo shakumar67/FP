@@ -458,7 +458,6 @@ function OnChagPanchayats(Ele, Sel, Para1, Para2,Para3) {
     }
 }
 function GetContraceptive(Ele, Sel) {
-    debugger;
     $('#' + Ele).empty();
     $('#' + Ele).prop("disabled", false);
     $('#' + Ele).append($("<option>").val('').text('Select'));

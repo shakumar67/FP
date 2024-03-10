@@ -42,12 +42,8 @@
                 <div class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2 showactive" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
                     <div class="dropdown-menu bg-transparent border-0 showactive">
-                        @*@Html.ActionLinkMenu("<i class='fa fa-home'></i> <span class=\"menu-title\">Add Beneficiary</span>", "Beneficiary", "Beneficiary")
-                            @Html.ActionLinkMenu("<i class='fa fa-home'></i> <span class=\"menu-title\">Beneficiary List</span>", "BFYList", "Beneficiary")*@
-                        @*<a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>*@
-                        @*<a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>*@
-                        @Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Add Beneficiary</span>", "Beneficiary", "Beneficiary")
-                        @Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "BFYList", "Beneficiary")
+                        <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
+                        <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
@@ -201,3 +197,17 @@
     </nav>
 </div>
 <!-- Sidebar End -->
+
+<script>
+    setTimeout(function () {
+        currentUrl = $(location).attr("href");
+        $('.nav-item > .dropdown-menu a').each(function (i, item) {
+            if (item.href == currentUrl) {
+                $(item).addClass('active');
+                $(item).parent('div').prev('a').addClass('show').attr('aria-expanded', true);
+                $(item).parent('div').addClass('show');
+            }
+        });
+
+    }, 100);
+</script>
