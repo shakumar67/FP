@@ -95,17 +95,17 @@ namespace FP.Models
         [Required]
         [Display(Name = "Role")]
         public string Roles { get; set; }
-        [Display(Name = "District")]
+        [Display(Name = "District Name")]
         public Nullable<int> DistrictId { get; set; }
-        [Display(Name = "Block")]
+        [Display(Name = "Block Name")]
         public Nullable<int> BlockId { get; set; }
-        [Display(Name = "CLF")]
+        [Display(Name = "CLF Name")]
         public int? CLFId_fk { get; set; }
-        [Display(Name = "CLF")]
+        [Display(Name = "CLF Name")]
         public List<string> CLFId_fks { get; set; }
-        [Display(Name = "Panchayat")]
+        [Display(Name = "Panchayat Name")]
         public Nullable<int> PanchayatId { get; set; }
-        [Display(Name = "Village organization")]
+        [Display(Name = "Village organization Name")]
         public Nullable<int> VOId_fk { get; set; }
         [Display(Name = "Village Name")]
         public string VillageName { get; set; }
