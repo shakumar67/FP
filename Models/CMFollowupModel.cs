@@ -17,6 +17,8 @@ namespace FP.Models
         public string DistrictId { get; set; }
         [Display(Name = "Block")]
         public string BlockId { get; set; }
+        [Display(Name = "CLF")]
+        public string CLFId { get; set; }
         [Display(Name = "Panchayat")]
         public string PanchayatId { get; set; }
         [Display(Name = "Village Organization")]
