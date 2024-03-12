@@ -52,14 +52,14 @@
 <script>
     $(document).ready(function () {
       
-        //BindData();
+       
         $('#RoleId').change(function (e) {
             BindData();
         });
         if ('@CommonModel.RoleNameCont.CNRP' === '@MvcApplication.CUser.Role'
         || '@CommonModel.RoleNameCont.District' === '@MvcApplication.CUser.Role'
         || '@CommonModel.RoleNameCont.BPIU' === '@MvcApplication.CUser.Role'
-        || '@CommonModel.RoleNameCont.BPMU' === '@MvcApplication.CUser.Role'
+        || '@CommonModel.RoleNameCont.BPM' === '@MvcApplication.CUser.Role'
         || '@CommonModel.RoleNameCont.District' === '@MvcApplication.CUser.Role'
         ) {
             $('#RoleId').val('@MvcApplication.CUser.RoleId');
@@ -67,8 +67,7 @@
             // $('#RoleId').attr("style", "pointer-events: none;");
             BindData();
         }
-        @*if ('CM' == '@CommonModel.RoleNameCont.CM') {
-        }*@
+        BindData();
     });
     function BindData() {
         var rl = $('#RoleId').val();

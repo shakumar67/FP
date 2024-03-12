@@ -1,7 +1,8 @@
 ﻿@using System.Data
-@{ 
-	DataTable dt = new DataTable();
-	dt = Model;
+@using FP.Manager;
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
 }
 
 <div class="table-responsive">
@@ -9,9 +10,9 @@
         <thead>
             <tr>
                 <th>Srno.</th>
-                <th>District</th>
-                <th>Block</th>
-                <th>CLF Name</th>
+                <th>@CommonModel.DispLevel.District</th>
+                <th>@CommonModel.DispLevel.Block</th>
+                <th>@CommonModel.DispLevel.Cluster</th>
                 <th style="width: 80px">Edit</th>
             </tr>
         </thead>

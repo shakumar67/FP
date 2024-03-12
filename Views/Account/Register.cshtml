@@ -89,7 +89,7 @@
                         @*<span class="text-danger">*</span> @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-2 col-form-label" })*@
                         <label class="form-label" for="Name">Mobile No<span class="text-danger">*</span></label>
                         <div class="col-md-12">
-                            @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control numberonly", @maxlength = "10" })
+                            @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control numberonly", minlength = "10", @maxlength = "10" })
                             @Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                         <label class="form-label" for="Password">Password<span class="text-danger">*</span></label>
                         <div class="col-md-12">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger", minlength = "5", @maxlength = "12" })
                         </div>
                     </div>
                     <br />
@@ -199,7 +199,7 @@
                 // $('#Roles').attr("style", "pointer-events: none;");
                 BindRole();
             }
-         } 
+         }
       });
         function BindRole() {
             //debugger;
@@ -224,7 +224,7 @@
                 $('#Gender').val('Female');
                 $('#Gender').attr('readonly', true);
             }
-            else if (rolen == '@CommonModel.RoleNameCont.CLF') {
+            else if (rolen == '@CommonModel.RoleNameCont.CLF' || rolen == '@CommonModel.RoleNameCont.MRP' || rolen == '@CommonModel.RoleNameCont.CC') {
                 $('#div-dis').css('display', 'flex');
                 $('#div-blk').css('display', 'flex');
                 $('#div-clf').css('display', 'flex');
@@ -234,7 +234,7 @@
                 $('#Gender').val('Female');
                 $('#Gender').attr('readonly', true);
             }
-            else if (rolen == '@CommonModel.RoleNameCont.BPMU') {
+            else if (rolen == '@CommonModel.RoleNameCont.BPIU' || rolen == '@CommonModel.RoleNameCont.BPM') {
                 $('#div-blk').css('display', 'flex');
                 $('#div-dis').css('display', 'flex');
                 $('#div-panchid').css('display', 'none');
@@ -244,7 +244,7 @@
                 $('#Gender').val('Female');
                 $('#Gender').attr('readonly', false);
             }
-            else if (rolen ==  '@CommonModel.RoleNameCont.BPMU' || rolen == '@CommonModel.RoleNameCont.District') {
+            else if (rolen == '@CommonModel.RoleNameCont.District') {
                 $('#div-blk').css('display', 'none');
                 $('#div-panchid').css('display', 'none');
                 $('#div-clf').css('display', 'none');

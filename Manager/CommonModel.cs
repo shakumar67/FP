@@ -25,7 +25,7 @@ using FP.Helpers;
 
 namespace FP.Manager
 {
-    public class CommonModel
+    public static class CommonModel
     {
         private static FP_DBEntities dbe = new FP_DBEntities();
         //private static FP_DBEntities dbe;
@@ -330,13 +330,9 @@ namespace FP.Manager
                 {
                     items = new SelectList(db_.AspNetRoles.Where(x => x.Name == RoleNameCont.CM), "ID", "Name").OrderBy(x => x.Text).ToList();
                 }
-                else if (HttpContext.Current.User.IsInRole(RoleNameCont.BPIU))
+                else if (HttpContext.Current.User.IsInRole(RoleNameCont.BPIU) || HttpContext.Current.User.IsInRole(RoleNameCont.BPM))
                 {
                     items = new SelectList(db_.AspNetRoles.Where(x => x.Name == RoleNameCont.CNRP || x.Name == RoleNameCont.CM || x.Name == RoleNameCont.BPIU), "ID", "Name").OrderBy(x => x.Text).ToList();
-                }
-                else if (HttpContext.Current.User.IsInRole(RoleNameCont.BPMU))
-                {
-                    items = new SelectList(db_.AspNetRoles.Where(x => x.Name == RoleNameCont.CNRP || x.Name == RoleNameCont.CM || x.Name == RoleNameCont.BPIU || x.Name == RoleNameCont.BPMU), "ID", "Name").OrderBy(x => x.Text).ToList();
                 }
                 else
                 {
@@ -1856,11 +1852,29 @@ namespace FP.Manager
             public const string State = "State";
             public const string Viewer = "Viewer";
             public const string District = "District";
-            public const string BPMU = "BPMU";
+            public const string BPM = "BPM";
             public const string BPIU = "BPIU";
-            public const string CLF = "CLF";
+            public const string CLF = "CLF";//1st Level Parallel Cluster
+            public const string MRP = "MRP";//2nd Level Parallel  Cluster
+            public const string CC = "CC";//3rd Level Parallel Cluster
             public const string CNRP = "CNRP";
             public const string CM = "CM";
+        }
+        public static class DispLevel
+        {
+            public const string District = "District";
+            public const string Block = "Block";
+            public const string Cluster = "Cluster";
+            public const string Panchayat = "Panchayat";
+            public const string VO = "Village Org.";
+            public const string VOFull = "Village Organization";
+            public const string Month = "Month";
+            public const string Year = "Year";
+            public const string FromDate = "From Date";
+            public const string ToDate = "To Date";
+            public const string Role = "Role";
+            public const string Name = "Name";
+            public const string Achieved = "Achieved";
         }
     }
 }

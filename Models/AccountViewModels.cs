@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using FP.Manager;
 
 namespace FP.Models
 {
@@ -95,17 +96,17 @@ namespace FP.Models
         [Required]
         [Display(Name = "Role")]
         public string Roles { get; set; }
-        [Display(Name = "District Name")]
+        [Display(Name = CommonModel.DispLevel.District)]
         public Nullable<int> DistrictId { get; set; }
-        [Display(Name = "Block Name")]
+        [Display(Name = CommonModel.DispLevel.Block)]
         public Nullable<int> BlockId { get; set; }
-        [Display(Name = "CLF Name")]
+        [Display(Name = CommonModel.DispLevel.Cluster)]
         public int? CLFId_fk { get; set; }
-        [Display(Name = "CLF Name")]
+        [Display(Name = CommonModel.DispLevel.Cluster)]
         public List<string> CLFId_fks { get; set; }
-        [Display(Name = "Panchayat Name")]
+        [Display(Name = CommonModel.DispLevel.Panchayat)]
         public Nullable<int> PanchayatId { get; set; }
-        [Display(Name = "Village organization Name")]
+        [Display(Name = CommonModel.DispLevel.VOFull)]
         public Nullable<int> VOId_fk { get; set; }
         [Display(Name = "Village Name")]
         public string VillageName { get; set; }
@@ -135,6 +136,14 @@ namespace FP.Models
                 {
                     CN = "Name of CM";
                 }
+                else if (Roles == "0FBBC846-FF89-4BEB-9622-41CE94706DB5")
+                {
+                    CN = "Name of CC";
+                }
+                else if (Roles == "2AF72EC4-82A8-4CBD-A5AC-AC7CF7FA0582")
+                {
+                    CN = "Name of MRP";
+                }
                 else if (Roles == "1DB70ECF-3205-43CB-90C0-287CC784292D")
                 {
                     CN = "Name of CLF";
@@ -145,7 +154,7 @@ namespace FP.Models
                 }
                 else if (Roles == "168820B3-0F7D-43E2-997F-A90589C939A4")
                 {
-                    CN = "Name of BPMU";
+                    CN = "Name of BPM";
                 }
                 else
                 {

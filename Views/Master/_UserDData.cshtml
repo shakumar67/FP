@@ -1,4 +1,5 @@
 ﻿@using System.Data
+@using FP.Manager;
 @{
     DataTable dt = new DataTable();
     dt = Model;
@@ -14,10 +15,10 @@
             <thead class="text-center">
                 <tr>
                     <th>Srno.</th>
-                    <th>District</th>
-                    <th>Block</th>
-                    <th>CLF</th>
-                    <th>Panchayat</th>
+                    <th>@CommonModel.DispLevel.District</th>
+                    <th>@CommonModel.DispLevel.Block</th>
+                    <th>@CommonModel.DispLevel.Cluster</th>
+                    <th>@CommonModel.DispLevel.Panchayat</th>
                     <th>Village <br />Organization</th>
                     <th>Village <br />Name </th>
                     <th>Role</th>
