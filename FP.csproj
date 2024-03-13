@@ -709,11 +709,11 @@
     <Content Include="Views\Plan\_BFYPOPView.cshtml" />
     <Content Include="Views\Approve\AppPlanList.cshtml" />
     <Content Include="Views\Approve\_AppPlanData.cshtml" />
+    <Content Include="Views\Achievement\AddAchievePlan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
-    <Folder Include="Views\Achievement\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
