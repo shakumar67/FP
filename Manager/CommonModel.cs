@@ -978,7 +978,7 @@ namespace FP.Manager
             List<SelectListItem> list = new List<SelectListItem>();
             //list.Add(new SelectListItem { Value = "", Text = "Select" });
             list.Add(new SelectListItem { Value = "1", Text = "Date of marriage", Selected = true });
-            list.Add(new SelectListItem { Value = "2", Text = "Year" });
+            list.Add(new SelectListItem { Value = "2", Text = "Year of marriage" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
         public static List<SelectListItem> GetModuleRollout()

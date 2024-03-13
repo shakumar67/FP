@@ -156,11 +156,11 @@ namespace FP.Models
                 string CN = string.Empty;
                 if (HindiEng == 1)
                 {
-                    CN = "CLF";
+                    CN = "Cluster";
                 }
                 else if (HindiEng == 2)
                 {
-                    CN = "सीएलएफ";
+                    CN = "समूह";
                 }
                 return CN;
             }
@@ -461,11 +461,11 @@ namespace FP.Models
                 string CN = string.Empty;
                 if (HindiEng == 1)
                 {
-                    CN = "Youngest child gender (Boy/Girl)";
+                    CN = "Gender of Youngest child (Boy/Girl)";//Youngest child gender
                 }
                 else if (HindiEng == 2)
                 {
-                    CN = "सबसे छोटे बच्चे लिंग लड़का/लड़की";
+                    CN = "सबसे छोटे बच्चे का लिंग लड़का/लड़की";
                 }
                 return CN;
             }
