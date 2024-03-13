@@ -281,6 +281,8 @@ namespace FP.Controllers
                 tblf.ContraceptionId_fk = model.ContraceptionId_fk;
                 tblf.ContraceptionOther = model.ContraceptionOther;
                 tblf.UseMethodId_fk = model.UseMethodId_fk;
+                tblf.ModuleRollout = model.ModuleRollout;
+                tblf.ModuleRolloutId_fk = model.ModuleRolloutId_fk;
                 if (model.FollowupID_pk == Guid.Empty)
                 {
                     tblf.FollowupID_pk = Guid.NewGuid();

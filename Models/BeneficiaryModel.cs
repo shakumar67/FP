@@ -106,11 +106,11 @@ namespace FP.Models
         [Display(Name = "Other Method")]
         public string Q18 { get; set; }
         public Nullable<int> Q19 { get; set; }
-        [Required]
-        [Display(Name = "Number of SHGs where module was rolled out")]
+        //[Required]
+       // [Display(Name = "Number of SHGs where module was rolled out")]
         public Nullable<int> Q20 { get; set; }
-        [Required]
-        [Display(Name = "Medium of module rollout")]
+        //[Required]
+        //[Display(Name = "Medium of module rollout")]
         public Nullable<int> Q21 { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }

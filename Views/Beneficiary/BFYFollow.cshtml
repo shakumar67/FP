@@ -197,15 +197,29 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    @*<button type="button" class="btn btn-primary">Submit</button>*@
-                                    <input type="submit" name="btnsubmit" id="btnpopsubmit" class="btn btn-primary" value="Submit" />
+                                <div class="col-sm-6">
+                                    <div lass="position-relative form-group">
+                                          @Html.LabelFor(m => m.ModuleRollout, new { @class = "control-label" })
+                                         @Html.EditorFor(m => m.ModuleRollout, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "999", maxlength = "3" } })
+                                         @Html.ValidationMessageFor(m => m.ModuleRollout, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-                        </div>
+                                </div>
+                                    <div class="col-sm-6">
+                                        <div lass="position-relative form-group">
+                                           @Html.LabelFor(m => m.ModuleRolloutId_fk, new { @class = "control-label" })
+                                             @Html.DropDownListFor(m => m.ModuleRolloutId_fk, CommonModel.GetModuleRollout(), "Select", new { @class = "form-control col-md-4" })
+                                             @Html.ValidationMessageFor(m => m.ModuleRolloutId_fk, "", new { @class = "text-danger" })
+                                    </div>
+                                    </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            @*<button type="button" class="btn btn-primary">Submit</button>*@
+                                            <input type="submit" name="btnsubmit" id="btnpopsubmit" class="btn btn-primary" value="Submit" />
+                                        </div>
+                                    </div>
+                                </div>
 
-                    </div>
+                            </div>
                 </div>
             </div>
         }

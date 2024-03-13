@@ -53,13 +53,19 @@ namespace FP.Models
         [ExpressiveAnnotations.Attributes.RequiredIf("(IsContraception==true && (ContraceptionId_fk == 1 || ContraceptionId_fk == 2))")]
         [Display(Name = DisplayFollowBFY.Ctusemethod)]
         public Nullable<int> UseMethodId_fk { get; set; }
+        [Required]
+        [Display(Name = DisplayFollowBFY.ModuleRollout)]
+        public Nullable<int> ModuleRollout { get; set; }
+        [Required]
+        [Display(Name = DisplayFollowBFY.ModuleRolloutId_fk)]
+        public Nullable<int> ModuleRolloutId_fk { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
     }
-    public class DisplayFollowBFY
+    public  static class DisplayFollowBFY
     {
         public const string IsPPresent = "Present in Peer Group Meeting";
         public const string IsFUpHV = "Followup/HV in Current Month";
@@ -67,5 +73,7 @@ namespace FP.Models
         public const string Ct = "Method of contraception";
         public const string Ctusemethod = "Use method";
         public const string CtusemethodOther = "Other use method";
+        public const string ModuleRollout = "Number of SHGs where module was rolled out";
+        public const string ModuleRolloutId_fk = "Medium of module rollout";
     }
 }
