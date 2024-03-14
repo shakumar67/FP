@@ -97,7 +97,7 @@
                 </div>
                 <div class="mb-3">
                     @Html.Label(Model.Q4D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q4, new { htmlAttributes = new { @class = "form-control col-md-4 agevalid", min = "10", max = "99.99", maxlength = "5", oninput = "maxLengthCheck(this)" } })
+                    @Html.EditorFor(m => m.do, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker", minlength = "10", maxlength = "10" } })
                     @Html.ValidationMessageFor(m => m.Q4, "", new { @class = "text-danger" })
                 </div>
                 <div class="mb-3">

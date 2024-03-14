@@ -52,8 +52,10 @@ namespace FP.Models
         [Display(Name = "Name of Beneficiary")]
         public string Q3 { get; set; }
         [Required]
-        [Display(Name = "Age of Beneficiary (In year/Month)")]
+        [Display(Name = "Date Of Birth")]
         //[GreaterThanOrEqualTo("Q12")]
+        public Nullable<System.DateTime> BFYDOB { get; set; }
+        [Display(Name = "Age of Beneficiary (In year/Month)")]
         public Nullable<double> Q4 { get; set; }
         [Required]
         [Display(Name = "Husband's name of Beneficiary")]
@@ -84,6 +86,9 @@ namespace FP.Models
         [ExpressiveAnnotations.Attributes.RequiredIf("(Q12_1=='Boy' || Q12_1 == 'Girl')")]
         [Display(Name = "Age of youngest child (Year/months)")]
         public Nullable<double> Q12 { get; set; }
+        [Display(Name = "Date Of Birth (Youngest Child)")]
+        //[GreaterThanOrEqualTo("Q12")]
+        public Nullable<System.DateTime> YoungestDOB { get; set; }
         [Required]
         [Display(Name = "Youngest child gender (Boy/Girl)")]
         public string Q12_1 { get; set; }
@@ -300,12 +305,20 @@ namespace FP.Models
                 string CN = string.Empty;
                 if (HindiEng == 1)
                 {
-                    CN = "Age of Beneficiary (In year/Month)";
+                    CN = "Date of birth beneficiary";
                 }
                 else if (HindiEng == 2)
                 {
-                    CN = "लाभार्थी का उम्र (वर्ष में/माह)";
+                    CN = "लाभार्थी की जन्मतिथि";
                 }
+                //if (HindiEng == 1)
+                //{
+                //    CN = "Age of Beneficiary (In year/Month)";
+                //}
+                //else if (HindiEng == 2)
+                //{
+                //    CN = "लाभार्थी का उम्र (वर्ष में/माह)";
+                //}
                 return CN;
             }
         }
@@ -445,12 +458,20 @@ namespace FP.Models
                 string CN = string.Empty;
                 if (HindiEng == 1)
                 {
-                    CN = "Age of youngest child (Year/months)";
+                    CN = "Date of Birth (Youngest Child)";
                 }
                 else if (HindiEng == 2)
                 {
-                    CN = "सबसे छोटे बच्चे की उम्र";
+                    CN = "सबसे छोटे बच्चे की जन्मतिथि";
                 }
+                //if (HindiEng == 1)
+                //{
+                //    CN = "Age of youngest child (Year/months)";
+                //}
+                //else if (HindiEng == 2)
+                //{
+                //    CN = "सबसे छोटे बच्चे की उम्र";
+                //}
                 return CN;
             }
         }

@@ -28,6 +28,7 @@ namespace FP.Models
         public string Q1 { get; set; }
         public string Q2 { get; set; }
         public string Q3 { get; set; }
+        public Nullable<System.DateTime> BFYDOB { get; set; }
         public Nullable<double> Q4 { get; set; }
         public string Q5 { get; set; }
         public Nullable<int> Q6DOMYear { get; set; }
@@ -38,8 +39,8 @@ namespace FP.Models
         public string Q9 { get; set; }
         public Nullable<int> Q10 { get; set; }
         public Nullable<int> Q11 { get; set; }
-        public Nullable<double> Q12 { get; set; }
         public string Q12_1 { get; set; }
+        public Nullable<double> Q12 { get; set; }
         public string Q13 { get; set; }
         public string Q14 { get; set; }
         public Nullable<int> Q15 { get; set; }
