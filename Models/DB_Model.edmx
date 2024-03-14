@@ -200,6 +200,7 @@
           <Property Name="Q10" Type="int" />
           <Property Name="Q11" Type="int" />
           <Property Name="Q12_1" Type="nvarchar" MaxLength="50" />
+          <Property Name="YoungestDOB" Type="date" />
           <Property Name="Q12" Type="float" />
           <Property Name="Q13" Type="nvarchar" MaxLength="200" />
           <Property Name="Q14" Type="nvarchar" MaxLength="500" />
@@ -864,6 +865,7 @@
           <Property Name="Q10" Type="Int32" />
           <Property Name="Q11" Type="Int32" />
           <Property Name="Q12_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="YoungestDOB" Type="DateTime" Precision="0" />
           <Property Name="Q12" Type="Double" />
           <Property Name="Q13" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Q14" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -1237,6 +1239,7 @@
                 <ScalarProperty Name="Q14" ColumnName="Q14" />
                 <ScalarProperty Name="Q13" ColumnName="Q13" />
                 <ScalarProperty Name="Q12" ColumnName="Q12" />
+                <ScalarProperty Name="YoungestDOB" ColumnName="YoungestDOB" />
                 <ScalarProperty Name="Q12_1" ColumnName="Q12_1" />
                 <ScalarProperty Name="Q11" ColumnName="Q11" />
                 <ScalarProperty Name="Q10" ColumnName="Q10" />

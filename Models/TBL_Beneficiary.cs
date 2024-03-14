@@ -40,6 +40,7 @@ namespace FP.Models
         public Nullable<int> Q10 { get; set; }
         public Nullable<int> Q11 { get; set; }
         public string Q12_1 { get; set; }
+        public Nullable<System.DateTime> YoungestDOB { get; set; }
         public Nullable<double> Q12 { get; set; }
         public string Q13 { get; set; }
         public string Q14 { get; set; }

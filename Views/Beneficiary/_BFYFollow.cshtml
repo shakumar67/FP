@@ -1,6 +1,8 @@
-﻿@using System.Data
+﻿@using FP.Models;
+@using System.Data
 @using FP.Manager
 @{
+    FP_DBEntities db = new FP_DBEntities();
     DataTable dt = new DataTable();
     dt = Model;
 }
@@ -33,29 +35,39 @@
                     if (dt.Rows.Count > 0)
                     {
                         int srno = 1;
+                        var getcp = db.tbl_BFYFollowup.Where(x => x.ContraceptionId_fk == 2);
                         foreach (DataRow dr in dt.Rows)
                         {
-                                <tr>
-                                    <td class="text-center">@(srno++)</td>
-                                    <td class="text-center">
-                                        @if (!string.IsNullOrEmpty(dr["BpkID"].ToString()))
+                            var bfyid = Guid.Parse(dr["BpkID"].ToString());
+                            var conprnt = getcp.Any(x => x.BFYID_fk == bfyid);
+                            <tr>
+                                <td class="text-center">@(srno++)</td>
+                                <td class="text-center">
+                                    @if (!string.IsNullOrEmpty(dr["BpkID"].ToString()))
+                                    {
+                                        if (conprnt)
+                                        {
+                                            <strong style="text-wrap:normal">Method of contraception : <span class="text-success">Permanent</span></strong>
+                                        }
+                                        else
                                         {
                                             <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BpkID"]')" class="btn btn-primary btn-sm"><i class="fa fa-arrow-up"></i> Follow-up</a>
                                         }
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0);" onclick="BFYDataView('@dr["BpkID"]')" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>
-                                    </td>
-                                    <td class="text-left">@dr["DistrictName"]</td>
-                                    <td class="text-left">@dr["Block"]</td>
-                                    <td class="text-left">@dr["CLFName"]</td>
-                                    <td class="text-left">@dr["Panchayat"]</td>
-                                    <td class="text-left">@dr["VO"]</td>
-                                    <td class="text-center">@dr["ReportingDate"]</td>
-                                    <td class="text-left">@dr["HealthCenter"]</td>
-                                    <td class="text-left">@dr["BFYName"]</td>
-                                    <td class="text-center">@dr["BFYMobileNo"]</td>
-                                </tr>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0);" onclick="BFYDataView('@dr["BpkID"]')" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>
+                                </td>
+                                <td class="text-left">@dr["DistrictName"]</td>
+                                <td class="text-left">@dr["Block"]</td>
+                                <td class="text-left">@dr["CLFName"]</td>
+                                <td class="text-left">@dr["Panchayat"]</td>
+                                <td class="text-left">@dr["VO"]</td>
+                                <td class="text-center">@dr["ReportingDate"]</td>
+                                <td class="text-left">@dr["HealthCenter"]</td>
+                                <td class="text-left">@dr["BFYName"]</td>
+                                <td class="text-center">@dr["BFYMobileNo"]</td>
+                            </tr>
                         }
                     }
                     else
