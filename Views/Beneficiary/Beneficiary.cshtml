@@ -97,7 +97,7 @@
                 </div>
                 <div class="mb-3">
                     @Html.Label(Model.Q4D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.BFYDOB, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker clage", minlength = "11", maxlength = "11" } })
+                    @Html.EditorFor(m => m.BFYDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker clage", minlength = "11", maxlength = "11" } })
                     <strong id="bfyage" class="text-success"></strong>
                     @Html.ValidationMessageFor(m => m.BFYDOB, "", new { @class = "text-danger" })
                 </div>
@@ -181,7 +181,7 @@
                 </div>
                 <div class="mb-3" style="display:none;" id="YoungestDOB-div">
                     @Html.Label(Model.Q12D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.YoungestDOB, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker", minlength = "11", maxlength = "11" } })
+                    @Html.EditorFor(m => m.YoungestDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker", minlength = "11", maxlength = "11" } })
                     <strong id="youngestyage" class="text-success"></strong>
                     @Html.ValidationMessageFor(m => m.YoungestDOB, "", new { @class = "text-danger " })
                 </div>
@@ -270,7 +270,13 @@
                     $this.val($this.val().substring(0, maxCount));
                 }
             });
-
+            $('.date_picker').datepicker({
+                dateFormat: 'dd-mm-yy',
+                maxDate: '0',
+                //maxDate: "+1M +10D",
+                changeMonth: true,
+                changeYear: true,
+            });
             //$('.test-input').unbind('keyup change input paste').bind('keyup change input paste', function (e) {
             //    debugger
             //    var $this = $(this);
@@ -282,12 +288,12 @@
             //    }
             //});
             $('#YoungestDOB').change(function () {
-                var DOB = getAge($(this).val());
-                $('#youngestyage').html(DOB);
+                //var DOB = getAge($(this).val());
+                //$('#youngestyage').html(DOB);
             })
             $('#BFYDOB').change(function () {
-                var DOB = getAge($(this).val());
-                $('#bfyage').html(DOB);
+                //var DOB = getAge($(this).val());
+                //$('#bfyage').html(DOB);
             })
 
             $('input[name=Q12_1]').click(function () {
@@ -630,7 +636,7 @@
              $('#Q1').val('@Model.Q1');
              $('#Q2').val('@Model.Q2');
              $('#Q3').val('@Model.Q3');
-            $('#BFYDOB').val(moment('@Model.BFYDOB').format("DD-MMM-YYYY"));
+            $('#BFYDOB').val(moment('@Model.BFYDOB').format("DD-MM-YYYY"));
             var DOB = getAge($('#BFYDOB').val());
             $('#bfyage').html(DOB);
              $('#Q5').val('@Model.Q5');
@@ -640,7 +646,7 @@
             $('input[name=Q6DOMYear]:checked').val('@Model.Q6DOMYear');
             if ($('input[name=Q6DOMYear]:checked').val() == "1") {
                 $('.cl-Q6').css('display', 'block'); $('#Q6').attr('required', 'required');
-                $('#Q6').val(moment('@Model.Q6').format("DD-MMM-YYYY"));
+                $('#Q6').val(moment('@Model.Q6').format("DD-MM-YYYY"));
             }
             else if ($('input[name=Q6DOMYear]:checked').val() == "2") {
                 $('.cl-Q6_Year').css('display', 'block'); $('#Q6_Year').attr('required', 'required');

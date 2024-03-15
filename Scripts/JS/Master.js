@@ -19,7 +19,7 @@ $(function () {
     });
 
     $('.datepicker').datepicker({
-        dateFormat: 'dd-M-yy',
+        dateFormat: 'dd-mm-yy',
         maxDate: '0',
         //maxDate: "+1M +10D",
         changeMonth: true,
