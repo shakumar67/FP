@@ -97,7 +97,7 @@
                 </div>
                 <div class="mb-3">
                     @Html.Label(Model.Q4D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.BFYDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker clage", minlength = "11", maxlength = "11" } })
+                    @Html.EditorFor(m => m.BFYDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker clage" } })@*//, minlength = "10", maxlength = "10"*@
                     <strong id="bfyage" class="text-success"></strong>
                     @Html.ValidationMessageFor(m => m.BFYDOB, "", new { @class = "text-danger" })
                 </div>
@@ -181,7 +181,7 @@
                 </div>
                 <div class="mb-3" style="display:none;" id="YoungestDOB-div">
                     @Html.Label(Model.Q12D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.YoungestDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker", minlength = "11", maxlength = "11" } })
+                    @Html.EditorFor(m => m.YoungestDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker" } })@*, minlength = "10", maxlength = "10"*@
                     <strong id="youngestyage" class="text-success"></strong>
                     @Html.ValidationMessageFor(m => m.YoungestDOB, "", new { @class = "text-danger " })
                 </div>
@@ -636,9 +636,9 @@
              $('#Q1').val('@Model.Q1');
              $('#Q2').val('@Model.Q2');
              $('#Q3').val('@Model.Q3');
-            $('#BFYDOB').val(moment('@Model.BFYDOB').format("DD-MM-YYYY"));
-            var DOB = getAge($('#BFYDOB').val());
-            $('#bfyage').html(DOB);
+            $('#BFYDOB').val(moment('@Model.BFYDOB').format("DD-mm-YYYY"));
+            //var DOB = getAge($('#BFYDOB').val());
+            //$('#bfyage').html(DOB);
              $('#Q5').val('@Model.Q5');
 
             $('#Q6-div').css('display', 'block'); $('.cl-Q6').css('display', 'none'); $('.cl-Q6_Year').css('display', 'none');
@@ -671,9 +671,9 @@
 
             $('input[name=Q12_1]:checked').val('@Model.Q12_1');
             if ($('input[name=Q12_1]:checked').val() == "Boy" || $('input[name=Q12_1]:checked').val() == "Girl") {
-                $('#YoungestDOB').val(moment('@Model.YoungestDOB').format("DD-MMM-YYYY"));
-                var DOB = getAge($('#YoungestDOB').val());
-                $('#youngestyage').html(DOB);
+                $('#YoungestDOB').val(moment('@Model.YoungestDOB').format("DD-mm-YYYY"));
+                //var DOB = getAge($('#YoungestDOB').val());
+                //$('#youngestyage').html(DOB);
                 $('#YoungestDOB-div').css('display', 'block');
                 $('#YoungestDOB').attr('required', 'required');
             }
