@@ -270,7 +270,7 @@
                     $this.val($this.val().substring(0, maxCount));
                 }
             });
-            $('.date_picker').datepicker({
+            $('.date_picker1').datepicker({
                 dateFormat: 'dd-mm-yy',
                 maxDate: '0',
                 //maxDate: "+1M +10D",
@@ -636,7 +636,7 @@
              $('#Q1').val('@Model.Q1');
              $('#Q2').val('@Model.Q2');
              $('#Q3').val('@Model.Q3');
-            $('#BFYDOB').val(moment('@Model.BFYDOB').format("DD-mm-YYYY"));
+            $('#BFYDOB').val(moment('@Model.BFYDOB').format("DD-MM-YYYY"));
             //var DOB = getAge($('#BFYDOB').val());
             //$('#bfyage').html(DOB);
              $('#Q5').val('@Model.Q5');
@@ -671,7 +671,7 @@
 
             $('input[name=Q12_1]:checked').val('@Model.Q12_1');
             if ($('input[name=Q12_1]:checked').val() == "Boy" || $('input[name=Q12_1]:checked').val() == "Girl") {
-                $('#YoungestDOB').val(moment('@Model.YoungestDOB').format("DD-mm-YYYY"));
+                $('#YoungestDOB').val(moment('@Model.YoungestDOB').format("DD-MM-YYYY"));
                 //var DOB = getAge($('#YoungestDOB').val());
                 //$('#youngestyage').html(DOB);
                 $('#YoungestDOB-div').css('display', 'block');
