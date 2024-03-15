@@ -13,6 +13,10 @@ namespace FP.Controllers
         {
             return View();
         }
-        
+        public ActionResult AddAchievePlan()
+        {
+            return View();
+        }
+
     }
 }

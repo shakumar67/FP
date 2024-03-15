@@ -45,7 +45,7 @@
                                 <td class="text-center">
                                     @if (!string.IsNullOrEmpty(dr["BpkID"].ToString()))
                                     {
-                                        if (conprnt)
+                                        if (conprnt || (dr["Q15"].ToString()=="2"))
                                         {
                                             <strong style="text-wrap:normal">Method of contraception : <span class="text-success">Permanent</span></strong>
                                         }

@@ -83,9 +83,9 @@ namespace FP.Models
         [Required]
         [Display(Name = "No of female child at present")]
         public Nullable<int> Q11 { get; set; }
-        [ExpressiveAnnotations.Attributes.RequiredIf("(Q12_1=='Boy' || Q12_1 == 'Girl')")]
         [Display(Name = "Age of youngest child (Year/months)")]
         public Nullable<double> Q12 { get; set; }
+        [ExpressiveAnnotations.Attributes.RequiredIf("(Q12_1=='Boy' || Q12_1 == 'Girl')")]
         [Display(Name = "Date Of Birth (Youngest Child)")]
         //[GreaterThanOrEqualTo("Q12")]
         public Nullable<System.DateTime> YoungestDOB { get; set; }

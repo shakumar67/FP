@@ -45,7 +45,8 @@ namespace FP.Controllers
                     model.Q1 = tbl.Q1;
                     model.Q2 = tbl.Q2;
                     model.Q3 = tbl.Q3;
-                    model.Q4 = tbl.Q4;
+                    //model.Q4 = tbl.Q4;
+                    model.BFYDOB=tbl.BFYDOB;
                     model.Q5 = tbl.Q5;
                     model.Q6DOMYear = tbl.Q6DOMYear;
                     model.Q6 = tbl.Q6;
@@ -55,7 +56,8 @@ namespace FP.Controllers
                     model.Q9 = tbl.Q9;
                     model.Q10 = tbl.Q10;
                     model.Q11 = tbl.Q11;
-                    model.Q12 = tbl.Q12;
+                    model.YoungestDOB = tbl.YoungestDOB;
+                    //model.Q12 = tbl.Q12;
                     model.Q12_1 = tbl.Q12_1;
                     model.Q13 = tbl.Q13;
                     model.Q14 = tbl.Q14;
@@ -116,7 +118,8 @@ namespace FP.Controllers
                         tbl.BFYVillageName = item.BFYVillageName;
                         tbl.Q2 = item.Q2;
                         tbl.Q3 = item.Q3;
-                        tbl.Q4 = item.Q4;
+                        //tbl.Q4 = item.Q4;
+                        tbl.BFYDOB = item.BFYDOB;
                         tbl.Q5 = item.Q5;
                         tbl.Q6DOMYear = item.Q6DOMYear;
                         tbl.Q6 = item.Q6DOMYear == 1 ? item.Q6 : null;
@@ -127,7 +130,7 @@ namespace FP.Controllers
                         tbl.Q10 = item.Q10;
                         tbl.Q11 = item.Q11;
                         tbl.Q12_1 = item.Q12_1;
-                        tbl.Q12 = (item.Q12_1 == "Boy" || item.Q12_1 == "Girl") ? item.Q12 : null;
+                        tbl.YoungestDOB = (item.Q12_1 == "Boy" || item.Q12_1 == "Girl") ? item.YoungestDOB : null;
                         //tbl.Q12_1 = item.Q12 != 0 ? item.Q12_1 : null;
                         tbl.Q13 = item.Q13;
                         tbl.Q14 = item.Q14;

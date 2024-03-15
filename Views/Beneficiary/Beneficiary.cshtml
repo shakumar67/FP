@@ -97,7 +97,8 @@
                 </div>
                 <div class="mb-3">
                     @Html.Label(Model.Q4D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.BFYDOB, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker", minlength = "10", maxlength = "10" } })
+                    @Html.EditorFor(m => m.BFYDOB, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker clage", minlength = "11", maxlength = "11" } })
+                    <strong id="bfyage" class="text-success"></strong>
                     @Html.ValidationMessageFor(m => m.BFYDOB, "", new { @class = "text-danger" })
                 </div>
                 <div class="mb-3">
@@ -178,10 +179,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-3" style="display:none;" id="Q12-div">
+                <div class="mb-3" style="display:none;" id="YoungestDOB-div">
                     @Html.Label(Model.Q12D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.YoungestDOB, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker", minlength = "10", maxlength = "10" } })
-                    @Html.ValidationMessageFor(m => m.Q12, "", new { @class = "text-danger" })
+                    @Html.EditorFor(m => m.YoungestDOB, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker", minlength = "11", maxlength = "11" } })
+                    <strong id="youngestyage" class="text-success"></strong>
+                    @Html.ValidationMessageFor(m => m.YoungestDOB, "", new { @class = "text-danger " })
                 </div>
                 <div class="mb-3">
                     @Html.Label(Model.DBFYVillage, htmlAttributes: new { @class = "" })
@@ -268,6 +270,7 @@
                     $this.val($this.val().substring(0, maxCount));
                 }
             });
+
             //$('.test-input').unbind('keyup change input paste').bind('keyup change input paste', function (e) {
             //    debugger
             //    var $this = $(this);
@@ -278,13 +281,21 @@
             //        $this.val($this.val().substring(0, maxCount));
             //    }
             //});
+            $('#YoungestDOB').change(function () {
+                var DOB = getAge($(this).val());
+                $('#youngestyage').html(DOB);
+            })
+            $('#BFYDOB').change(function () {
+                var DOB = getAge($(this).val());
+                $('#bfyage').html(DOB);
+            })
 
             $('input[name=Q12_1]').click(function () {
-                $('#Q12-div').css('display', 'none');
-                $('#Q12').val(''); $('#Q12').removeAttr('required');
+                $('#YoungestDOB-div').css('display', 'none');
+                $('#YoungestDOB').val(''); $('#YoungestDOB').removeAttr('required');
                 if ($(this).val() == "Boy" || $(this).val() == "Girl") {
-                    $('#Q12-div').css('display', 'block');
-                    $('#Q12').attr('required', 'required');
+                    $('#YoungestDOB-div').css('display', 'block');
+                    $('#YoungestDOB').attr('required', 'required');
                 }
             });
             $('input[name=Q6DOMYear]').click(function () {
@@ -421,12 +432,12 @@
         });
 
         function AgeGreater() {
-            var montherage = $('#Q4').val() != '' ? parseFloat($('#Q4').val()) : 0;
-            var childage = $('#Q12').val() != '' ? parseFloat($('#Q12').val()) : 0;
+            var montherage = $('#BFYDOB').val() != '' ? parseFloat($('#BFYDOB').val()) : 0;
+            var childage = $('#YoungestDOB').val() != '' ? parseFloat($('#YoungestDOB').val()) : 0;
             if ((montherage != 0 && montherage != undefined) && (AgeGreater != 0 && AgeGreater != undefined)) {
                 if (childage >  montherage) {
                     toastr.error("error", "Age of Beneficiary (In year/Month) less than Age of youngest child (Year/months)");
-                    $('#Q12').val('');
+                    $('#YoungestDOB').val('');
                     return false;
                 }
             }
@@ -500,7 +511,7 @@
             //formData.append('Q1', $('#Q1').val());
             //formData.append('Q2', $('#Q2').val());
             //formData.append('Q3', $('#Q3').val());
-            //formData.append('Q4', $('#Q4').val());
+            //formData.append('BFYDOB', $('#BFYDOB').val());
             //formData.append('Q5', $('#Q5').val());
             //formData.append('Q6', $('#Q6').val());
             //formData.append('Q7', $('#Q7').val());
@@ -535,7 +546,7 @@
             BeneficiaryModel.Q1= $('#Q1').val();
             BeneficiaryModel.Q2= $('#Q2').val();
             BeneficiaryModel.Q3= $('#Q3').val();
-            BeneficiaryModel.Q4= $('#Q4').val();
+            BeneficiaryModel.BFYDOB= $('#BFYDOB').val();
             BeneficiaryModel.Q5 = $('#Q5').val();
             BeneficiaryModel.Q6DOMYear = $('input[name=Q6DOMYear]:checked').val();
             BeneficiaryModel.Q6 = $('#Q6').val();
@@ -545,7 +556,7 @@
             BeneficiaryModel.Q9= $('#Q9').val();
             BeneficiaryModel.Q10= $('#Q10').val();
             BeneficiaryModel.Q11= $('#Q11').val();
-            BeneficiaryModel.Q12 = $('#Q12').val();
+            BeneficiaryModel.YoungestDOB = $('#YoungestDOB').val();
             BeneficiaryModel.Q12_1 = $('input[name=Q12_1]:checked').val();
             BeneficiaryModel.Q13 = $('#Q13').val();
             BeneficiaryModel.BFYVillageName = $('#BFYVillageName').val();
@@ -581,12 +592,14 @@
                         }
                         else {
                             toastr.error("Error", resp.Message);
+                            document.getElementById("btnsubmit").disabled = false;
                         }
                     },
                     error: function (req, error) {
                         if (error === 'error') { error = req.statusText; }
                         var errormsg = 'There was a communication error: ' + error;
                         toastr.error("Error", errormsg);
+                        document.getElementById("btnsubmit").disabled = false;
                         //jQuery.event.trigger("ajaxStop");
                         return false;
                     }
@@ -617,7 +630,9 @@
              $('#Q1').val('@Model.Q1');
              $('#Q2').val('@Model.Q2');
              $('#Q3').val('@Model.Q3');
-             $('#Q4').val('@Model.Q4');
+            $('#BFYDOB').val(moment('@Model.BFYDOB').format("DD-MMM-YYYY"));
+            var DOB = getAge($('#BFYDOB').val());
+            $('#bfyage').html(DOB);
              $('#Q5').val('@Model.Q5');
 
             $('#Q6-div').css('display', 'block'); $('.cl-Q6').css('display', 'none'); $('.cl-Q6_Year').css('display', 'none');
@@ -650,13 +665,15 @@
 
             $('input[name=Q12_1]:checked').val('@Model.Q12_1');
             if ($('input[name=Q12_1]:checked').val() == "Boy" || $('input[name=Q12_1]:checked').val() == "Girl") {
-                $('#Q12').val('@Model.Q12');
-                $('#Q12-div').css('display', 'block');
-                $('#Q12').attr('required', 'required');
+                $('#YoungestDOB').val(moment('@Model.YoungestDOB').format("DD-MMM-YYYY"));
+                var DOB = getAge($('#YoungestDOB').val());
+                $('#youngestyage').html(DOB);
+                $('#YoungestDOB-div').css('display', 'block');
+                $('#YoungestDOB').attr('required', 'required');
             }
             else {
-                $('#Q12-div').css('display', 'none');
-                $('#Q12').val(''); $('#Q12').removeAttr('required');
+                $('#YoungestDOB-div').css('display', 'none');
+                $('#YoungestDOB').val(''); $('#YoungestDOB').removeAttr('required');
             }
 
              $('#Q13').val('@Model.Q13');
@@ -721,7 +738,7 @@
         $('#Q1').val('');
         $('#Q2').val('');
         $('#Q3').val('');
-        $('#Q4').val('');
+        $('#BFYDOB').val('');
         $('#Q5').val('');
         $('#Q6').val('');
         $('#Q7').val('');
@@ -729,7 +746,7 @@
         $('#Q9').val('');
         $('#Q10').val('');
         $('#Q11').val('');
-        $('#Q12').val('');
+        $('#YoungestDOB').val('');
         $('#Q13').val('');
         $('#Q14').val('');
         $('#Q15').val('');
