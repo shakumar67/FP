@@ -1,0 +1,38 @@
+﻿/*table, tr, td, th
+{
+    border: 1px solid black;
+    border-collapse:collapse;
+}*/
+
+
+img.button_open {
+    background-image: url('../img/minus.png');
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+    img.button_open:after {
+        background-image: url('../img/minus.png');
+        background-repeat: no-repeat;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }
+
+img.button_closed {
+    background-image: url('../img/plus.png');
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+    img.button_closed:after {
+        background-image: url('../img/plus.png');
+        background-repeat: no-repeat;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }

@@ -335,6 +335,7 @@
     <Compile Include="Manager\SP_Model.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AchBFYModel.cs" />
+    <Compile Include="Models\AchvPlanModel.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
@@ -395,6 +396,12 @@
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Subject_Master.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_AchievementPlan.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Achievement_Log.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Achvt.cs">
@@ -471,11 +478,15 @@
     <Content Include="Content\css\login.css" />
     <Content Include="Content\css\responsive.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\TreeTable.css" />
     <Content Include="Content\img\fp-logo.png" />
     <Content Include="Content\img\icon.ico" />
     <Content Include="Content\img\icon.png" />
+    <Content Include="Content\img\loadingstoreadmin.gif" />
+    <Content Include="Content\img\minus.png" />
     <Content Include="Content\img\nrh.png" />
     <Content Include="Content\img\pci.png" />
+    <Content Include="Content\img\plus.png" />
     <Content Include="Content\img\testimonial-1.jpg" />
     <Content Include="Content\img\testimonial-2.jpg" />
     <Content Include="Content\img\user.jpg" />
@@ -643,6 +654,7 @@
     <Content Include="Scripts\JS\Rolewise.js" />
     <Content Include="Scripts\JS\select2.min.js" />
     <Content Include="Scripts\JS\textcounter.min.js" />
+    <Content Include="Scripts\JS\TreeTable.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -710,6 +722,12 @@
     <Content Include="Views\Approve\AppPlanList.cshtml" />
     <Content Include="Views\Approve\_AppPlanData.cshtml" />
     <Content Include="Views\Achievement\AddAchievePlan.cshtml" />
+    <Content Include="Views\Achievement\Index.cshtml" />
+    <Content Include="Views\Achievement\_AchvPlanData.cshtml" />
+    <Content Include="Views\Achievement\AddAchieveApprove.cshtml" />
+    <Content Include="Views\Achievement\_AchvPlanApprove.cshtml" />
+    <Content Include="Views\Achievement\_AchvPlanApvLevelSec.cshtml" />
+    <Content Include="Views\Achievement\LevelSecAchvApprove.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

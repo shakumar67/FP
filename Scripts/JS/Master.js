@@ -19,11 +19,11 @@ $(function () {
     });
 
     $('.datepicker').datepicker({
-        dateFormat: 'dd-mm-yy',
-        maxDate: '0',
-        //maxDate: "+1M +10D",
-        changeMonth: true,
-        changeYear: true,
+        dateformat: 'dd-mm-yy',
+        maxdate: '0',
+        //maxdate: "+1m +10d",
+        changemonth: true,
+        changeyear: true,
     });
     //$('.datepicker').datepicker({
     //    format: 'dd-M-yyyy',
@@ -87,6 +87,11 @@ $(".numberonly").on("input", function (evt) {
 
 /* -------------------------------------------- Date Range -------------------------------*/
 
+function toDate(dateString) {
+
+    var parts = dateString.split('-');
+    return new Date( parts[2] + "-" + parts[1] + "-" + parts[0]);      
+}
 function getAge(dateString) {
 
     const dates = new Date(dateString); // {object Date}            
@@ -411,6 +416,7 @@ function GetPanchayat(Ele, Sel, Para1, Para2, Para3) {
     });
     $('#' + Ele).trigger("chosen:updated");
 }
+//Village Org
 function GetVillage(Ele, Sel, Para1, Para2, Para3, Para4) {
     $('#' + Ele).empty();
     $('#' + Ele).prop("disabled", false);
@@ -438,6 +444,35 @@ function GetVillage(Ele, Sel, Para1, Para2, Para3, Para4) {
         }
     });
     $('#' + Ele).trigger("chosen:updated");
+}
+
+function GetVOrg(Ele, Sel, Para1, Para2, Para3, Para4) {
+    $(Ele).empty();
+    $(Ele).prop("disabled", false);
+    $(Ele).append($("<option>").val('').text('Select'));
+    $.ajax({
+        url: document.baseURI + "/Master/GetVillageList",
+        type: "Post",
+        data: JSON.stringify({ 'DistrictId': Para1, 'BlockId': Para2, 'CLFId': Para3, 'PanchayatId': Para4, }),
+        contentType: "application/json; charset=utf-8",
+        global: false,
+        async: false,
+        dataType: "json",
+        success: function (resp) {
+            if (resp.IsSuccess) {
+                var data = JSON.parse(resp.res);
+                $.each(data, function (i, exp) {
+                    $(Ele).append($("<option>").val(exp.Value).text(exp.Text));
+                });
+            }
+        },
+        error: function (req, error) {
+            if (error === 'error') { error = req.statusText; }
+            var errormsg = 'There was a communication error: ' + error;
+            //Do To Message display
+        }
+    });
+    $(Ele).trigger("chosen:updated");
 }
 function OnChagDistricts(Ele, Sel) {
     if (Sel != 'undefined') {

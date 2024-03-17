@@ -59,6 +59,8 @@ namespace FP.Manager
             ExceptionError = 6,
             [Description("All fields are mandatory !!.")]
             AllFieldsRequired = 7,
+            [Description("Not Submit Data !!.")]
+            NotSubmitData = 9,
         }
 
         public enum eIsStatus
@@ -66,7 +68,16 @@ namespace FP.Manager
             True = 1,
             False = 0
         }
+        public enum eTypeApprove
+        {
 
+            [Description("Approved")]
+            Approve = 1,
+            [Description("Rejected")]
+            Reject = 2,
+            [Description("Default")]
+            Default = 3,
+        }
         public enum ParticipantTypeValue
         {
 

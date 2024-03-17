@@ -1,6 +1,7 @@
 ﻿@model FP.Models.AchvPlanModel
 @using FP.Manager
 @{
+
 }
 <style>
     .table th {
@@ -21,15 +22,42 @@
         background: #FFFFFF;
         border-color: #009CFF;
     }
+
+    li {
+        list-style-type: none;
+        position: relative; /* It's needed for setting position to absolute in the next rule. */
+    }
+
+    .liApprove::before {
+        color: #90c767;
+        content: '■';
+        position: absolute;
+        left: -0.8em; /* Adjust this value so that it appears where you want. */
+        font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
+    }
+    .liReject::before {
+        color: #da3f3f;
+        content: '■';
+        position: absolute;
+        left: -0.8em; /* Adjust this value so that it appears where you want. */
+        font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
+    }
+    .liDefault::before {
+        color: #808080;
+        content: '■';
+        position: absolute;
+        left: -0.8em; /* Adjust this value so that it appears where you want. */
+        font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
+    }
 </style>
 <div class="breadcrumb">
-    <h2>Add Achievement Plan</h2>
-    <p><a href="~/Achievement/AddAchievePlan">Achievement List </a> / Add Achievement Plan</p>
+    <h2>Achievement Planning Approve (@CommonModel.RoleNameCont.CC)</h2>
+    <p><a href="~/Achievement/LevelSecAchvApprove">Achievement List </a> / Achievement Planning Approve</p>
 </div>
 <div class="container-fluid pt-4 px-4">
     <fieldset class="border rounded-3 p-3">
-        <legend class="float-none w-auto px-2">Achievement-@CommonModel.RoleNameCont.CNRP</legend>
-        @using (Html.BeginForm("AddAchievePlan", "Achievement", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        <legend class="float-none w-auto px-2">(@CommonModel.RoleNameCont.CC)</legend>
+        @using (Html.BeginForm("GetAchApprovePlanList", "Achievement", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
         {
             <div class="row g-4">
                 <div class="col-sm-12">
@@ -57,15 +85,13 @@
                                     @Html.ValidationMessageFor(model => model.ClusterId_fk, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
-
-                            <div class="col-sm-2">
-                                <div class="position-relative form-group">
-                                    @Html.Label(CommonModel.DispLevel.Panchayat, htmlAttributes: new { @class = "control-label" })
-                                    @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                    @Html.ValidationMessageFor(model => model.PanchayatId_fk, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
+                            @*<div class="col-sm-2">
+                                    <div class="position-relative form-group">
+                                        @Html.Label(CommonModel.DispLevel.Panchayat, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                        @Html.ValidationMessageFor(model => model.PanchayatId_fk, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
                             <div class="col-sm-2">
                                 <div class="position-relative form-group">
                                     @Html.Label(CommonModel.DispLevel.Year, htmlAttributes: new { @class = "control-label" })
@@ -80,84 +106,52 @@
                                     @Html.ValidationMessageFor(model => model.PlanMonth, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-03"></div>
-                                    <div class="col-md-7"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12"><strong id="msg" class="text-danger"></strong></div>
-                                    @{
-                                        int index = 1; var achvplanid = Guid.Empty;
-                                        <div class="col-md-12">
-                                            <table class="table rowfy" id="tbl">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>@CommonModel.DispLevel.VO</th>
-                                                        <th>@CommonModel.DisAchvlbl.MeetingDate</th>
-                                                        <th>@CommonModel.DisAchvlbl.NoofParticipant</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr data-id="@achvplanid" data-index="1">
-                                                        <td class="index">@index</td>
-                                                        <td>
-                                                            <select id="void-@index" class="Void_fk form-select" required></select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="mdt-@index" name="MDt" value="" class="form-control col-md-4 mdt" minlength="10" maxlength="15" required />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="noofpart-@index" name="NoofPart" value="" class="form-control col-md-4 numbersOnly noofpart" minlength="1" maxlength="3" required />
-                                                        </td>
-                                                        <td class="action"></td>
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-                                    }
+                            <div class="col-sm-2">
+                                <div class="position-relative form-group">
+                                    <ul>
+                                        <li class="liDefault">@Enums.GetEnumDescription(Enums.eTypeApprove.Default)</li>
+                                        <li class="liApprove">@Enums.GetEnumDescription(Enums.eTypeApprove.Approve)</li>
+                                        <li class="liReject">@Enums.GetEnumDescription(Enums.eTypeApprove.Reject)</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <span class="check-spacer">
-                                <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Approve" />
-                            </span>&nbsp;&nbsp;&nbsp;
-                            <span class="check-spacer">
-                                <a href="~/Achievement/AddAchievePlan" class="btn btn-info" id="hrfid"><i class="fa fa-refresh"></i>Refresh</a>
-                            </span>
+                        <div class="row">
+                            <div class="col=md-12" id="div-download"></div>
+                            <div class="col=md-6"></div>
+                            <div class="col=md-6"></div>
+                            <div class="col=md-6"></div>
+                            <div class="col-md-12">
+                                <div id="subdata"></div>
+                                <div class="mb-3 offset-8" id="div-btn" style="display:none;">
+                                    <span class="check-spacer">
+                                        <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Validate" />
+                                    </span>&nbsp;&nbsp;&nbsp;
+                                    <span class="check-spacer">
+                                        <a href="~/Achievement/LevelSecAchvApprove" class="btn btn-info" id="hrfid"><i class="fa fa-refresh"></i>Refresh</a>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
         }
     </fieldset>
 
-    <div class="row">
-        <div class="col=md-12" id="div-download"></div>
-        <div class="col=md-6"></div>
-        <div class="col=md-6"></div>
-        <div class="col=md-6"></div>
-        <div class="col-md-12">
-            <div id="subdata"></div>
-        </div>
-    </div>
+
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <link href="~/Content/css/TreeTable.css" rel="stylesheet" />
     <script src="~/Scripts/JS/Master.js"></script>
+    <script src="~/Scripts/JS/TreeTable.js"></script>
 
-    <script src="~/Scripts/JS/rowfy.js"></script>
+
     @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
         <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
@@ -180,22 +174,20 @@
             });
             $('#ClusterId_fk').change(function () {
                 GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
-            });
-            $('#PanchayatId_fk').change(function () {
-                // GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId').val(), $(this).val());
-                GetVOrg(".Void_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#ClusterId_fk').val(), $(this).val());
-                BindDataTable();
                 BindData();
             });
-            if ($('#PanchayatId_fk').val() != "") {
-                GetVOrg(".Void_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#ClusterId_fk').val(), $(this).val());
-            }
+            //$('#PanchayatId_fk').change(function () {
+            //    // GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId').val(), $(this).val());
+            //    GetVOrg(".Void_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#ClusterId_fk').val(), $(this).val());
+            //    BindData();
+            //});
+            //if ($('#PanchayatId_fk').val() != "") {
+            //    GetVOrg(".Void_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#ClusterId_fk').val(), $(this).val());
+            //}
             $('#PlanYear').change(function () {
-                BindDataTable();
                 BindData();
             });
             $('#PlanMonth').change(function () {
-                BindDataTable();
                 BindData();
             });
 
@@ -212,21 +204,21 @@
                // document.getElementById("btnsubmit").disabled = false;
             });
 
-            $('#mdt-1').datepicker({
-                dateformat: 'dd-mm-yy',
-                maxdate: '0',
-                changemonth: true,
-                changeyear: true,
-                onSelect: function (dateText, inst) {
-                    $(this).val(moment(dateText).format("DD-MM-YYYY"));
-                    //$("#mdt-1").datepicker('option', 'maxDate', ge_today_date(new Date()) );
-                }
-            });
+            //$('#mdt-1').datepicker({
+            //    dateformat: 'dd-mm-yy',
+            //    maxdate: '0',
+            //    changemonth: true,
+            //    changeyear: true,
+            //    onSelect: function (dateText, inst) {
+            //        $(this).val(moment(dateText).format("DD-MM-YYYY"));
+            //        //$("#mdt-1").datepicker('option', 'maxDate', ge_today_date(new Date()) );
+            //    }
+            //});
 
         });
 
         function BindData() {
-            $("#subdata").html('');
+            $("#subdata").html(''); $('#div-btn').css('display', 'none');
             var filtermodel = new Object();
             filtermodel.DistrictId = $('#DistrictId_fk').val() == '' ? '' : $('#DistrictId_fk').val();
             filtermodel.BlockId = $('#BlockId_fk').val() == '' ? '' : $('#BlockId_fk').val();
@@ -239,34 +231,34 @@
 
             $.ajax({
                 type: "GET",
-                url: document.baseURI + "/Achievement/GetAchPlanList",
+                url: document.baseURI + "/Achievement/GetAchApvSecPlanList",
                 data: filtermodel,//JSON.stringify({ 'Roles': '' }),
                 //cache: false,
                 success: function (res) {
                     if (res.IsSuccess) {
                         $("#subdata").html(res.Data);
-
-                        if ($.fn.dataTable.isDataTable('#tblPlan')) {
-                            $("#tblPlan").dataTable().fnDestroy();
-                        }
-                        table = $('#tblPlan').DataTable({
-                            pageLength: 100,
-                            fixedColumns: {
-                                leftColumns: 1,
-                                rightColumns: 1
-                            },
-                            buttons: [{
-                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Achievement Plan Lists',//$('#IDDistrict option:selected').text() +
-                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
-                                filename: 'Achievement Plan List',
-                                exportOptions: { modifier: { page: 'all' } }
-                            }],
-                        });
-                        $('.dataTables_filter input[type="search"]').css(
-                            { 'width': '500px', 'display': 'inline-block' }
-                        );
-                        $('#div-download').empty();
-                        table.buttons().container().appendTo($('#div-download'));
+                        $('#div-btn').css('display', 'block');
+                        //if ($.fn.dataTable.isDataTable('#DataList')) {
+                        //    $("#tblPlan").dataTable().fnDestroy();
+                        //}
+                        //table = $('#tblPlan').DataTable({
+                        //    pageLength: 100,
+                        //    fixedColumns: {
+                        //        leftColumns: 1,
+                        //        rightColumns: 1
+                        //    },
+                        //    buttons: [{
+                        //        extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Achievement Plan Lists',//$('#IDDistrict option:selected').text() +
+                        //        className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                        //        filename: 'Achievement Plan List',
+                        //        exportOptions: { modifier: { page: 'all' } }
+                        //    }],
+                        //});
+                        //$('.dataTables_filter input[type="search"]').css(
+                        //    { 'width': '500px', 'display': 'inline-block' }
+                        //);
+                        //$('#div-download').empty();
+                        //table.buttons().container().appendTo($('#div-download'));
                     }
                     else {
                         $("#subdata").html(res.Data);
@@ -279,47 +271,86 @@
                 }
             });
         }
-        function CUData() {
+    function CUData(Achvplanid_reject, indx) {
             debugger;
             jQuery.event.trigger("ajaxStart");
             //var vl = $.validator.unobtrusive.parse("#formid");
             //var Isvalid= $("#formid").validate();//CreatePlanformid
             var isvalid = $("#formid").valid();
             var IsCheck = true;
-            IsCheck = $('#BFYID_fk').val() == '' ? false : true;
+           // IsCheck = $('#BFYID_fk').val() == '' ? false : true;
             var tblpushdata = [];
             var formData = new FormData();
             formData.append('DistrictId_fk', $('#DistrictId_fk').val());
             formData.append('BlockId_fk', $('#BlockId_fk').val());
             formData.append('ClusterId_fk', $('#ClusterId_fk').val());
-            formData.append('PanchayatId_fk', $('#PanchayatId_fk').val());
+            //formData.append('PanchayatId_fk', $('#PanchayatId_fk').val());
             formData.append('PlanYear', $('#PlanYear').val());
             formData.append('PlanMonth', $('#PlanMonth').val());
 
-            $('.rowfy').each(function () {
-                $('tbody', this).find('tr').each(function (i, row) {
-                    var index = parseInt($('.index', row).text());
-                    var id = $(row).attr('data-id');
-                    id = id == "" ? '@Guid.Empty' : id;
-                    var vogid = $('select[id=void-' + index + ']').val();
-                    var mdt = $('input[id=mdt-' + index + ']').val();
-                    var noofpart = $('input[id=noofpart-' + index + ']').val();
-                    if ($('#DistrictId_fk').val() != '' && $('#BlockId_fk').val() != ''
-                        && $('#ClusterId_fk').val() != '' && $('#PanchayatId_fk').val() != '' && vogid != ''
-                        && $('#PlanYear').val() != '' && $('#PlanMonth').val() != ''
-                        && (mdt != '' && mdt !='Invalid Date') && noofpart!='') {
-                        tblpushdata.push({
-                            AchieveId_pk: id,
-                            VoId_fk: vogid,
-                            Meetingheld: toDate(mdt),
-                            Noofparticipant: noofpart,
-                        });
+           // $('#DataList').each(function () {
+
+                let table2 = $('#DataList').DataTable();
+                table2.$('input:checked').each(function (i, row) {
+                    var achvplanid = $(row).attr('data-achvplanid');
+                    var uid = $(row).attr('data-uid');
+                    var empid = $(row).attr('data-empid');
+                    var disid = $(row).attr('data-disid');
+                    var blckid = $(row).attr('data-blckid');
+                    var clfid = $(row).attr('data-clfid');
+                    var pchytid = $(row).attr('data-pchytid');
+                    var vorgid = $(row).attr('data-vorgid');
+                    debugger;
+                    if (achvplanid != '' && achvplanid != '@Guid.Empty') {
+                        if (!Achvplanid_reject || Achvplanid_reject == undefined) {
+                            tblpushdata.push({
+                                AchieveId_pk: achvplanid,
+                                DistrictId: disid,
+                                BlockId: blckid,
+                                ClusterId: clfid,
+                                PanchayatId: pchytid,
+                                VoId_fk: vorgid,
+                                PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Approve)',
+                            });
+                        }
+                        else if (Achvplanid_reject && Achvplanid_reject != undefined && achvplanid == Achvplanid_reject) {
+                            var remark2 = $('textarea[id=remark-' + indx + ']').val();
+                            $('textarea[id=remark-' + indx + ']').attr('requied', 'requied');
+                            if (remark2 != '') {
+                                tblpushdata.push({
+                                    AchieveId_pk: achvplanid,
+                                    DistrictId: disid,
+                                    BlockId: blckid,
+                                    ClusterId: clfid,
+                                    PanchayatId: pchytid,
+                                    VoId_fk: vorgid,
+                                    Remark2: remark2,
+                                    PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Reject)',
+                                });
+                            }
+                            else {
+                                return false;
+                            }
+                        }
                     }
-                });
+
+                    //if ($('#DistrictId_fk').val() != '' && $('#BlockId_fk').val() != ''
+                    //    && $('#ClusterId_fk').val() != '' && $('#PanchayatId_fk').val() != '' && vogid != ''
+                    //    && $('#PlanYear').val() != '' && $('#PlanMonth').val() != ''
+                    //    && (mdt != '' && mdt !='Invalid Date') && noofpart!='') {
+                    //    tblpushdata.push({
+                    //        AchieveId_pk: id,
+                    //        VoId_fk: vogid,
+                    //        Meetingheld: toDate(mdt),
+                    //        Noofparticipant: noofpart,
+                    //    });
+                    //}
+
+                //});
             });
 
             if (tblpushdata.length == 0) {
-                toastr.error("Error", "Please choice at least one Village Org,\n Meeting Date & No of Participant .");
+                toastr.error("Error", "Please choice at least one.");
                 return false;
             }
 
@@ -330,7 +361,7 @@
                 //var formData = $('#formid').serialize();
 
                 $.ajax({
-                    url: document.baseURI + "/Achievement/AddAchievePlan",
+                    url: document.baseURI + "/Achievement/AchvPlanApvLevSec",
                     type: "Post",
                     data: formData,
                     //contentType: "application/json; charset=utf-8",
@@ -344,7 +375,7 @@
                         if (resp.StatusType == "success") {
                             toastr.success("Success", resp.Message);
                             //$("#followupformid")[0].reset();
-                            //BindData();
+                            BindData();
                         }
                         else {
                             toastr.error("Error", resp.Message);

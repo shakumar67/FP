@@ -229,6 +229,68 @@ namespace FP.Manager
             return dt;
         }
         #endregion
+        #region Achievement Plan 
+        public static DataTable SP_AchvPlanList(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_AchvPlanList");
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@CLFId", model.CLFId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        /* MRP */
+        public static DataTable SP_AchvPlanApprove(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_AchvPlanApprove");
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@CLFId", model.CLFId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_GetAchvPlanApproveChild(string UserId, string EmpId, int MonthId, int YearId)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetAchvPlanApproveChild");
+            sp.Command.AddParameter("@UserId", UserId, DbType.String);
+            sp.Command.AddParameter("@EmpId", EmpId, DbType.String);
+            sp.Command.AddParameter("@MonthId", MonthId, DbType.Int32);
+            sp.Command.AddParameter("@YearId", YearId, DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+
+        /* CC */
+        public static DataTable SP_AchvPlanApv2ndlevel(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_AchvPlanApv2ndlevel");
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@CLFId", model.CLFId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+
+        #endregion
+
 
         #region Report Letter and Dashboard Home
 

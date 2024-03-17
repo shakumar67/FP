@@ -1875,6 +1875,18 @@ namespace FP.Manager
             public const string Role = "Role";
             public const string Name = "Name";
             public const string Achieved = "Achieved";
+      }
+        public static class DisAchvlbl
+        {
+            public const string Name = "Name";//MeetingHeld
+            public const string MeetingDate = "Meeting Date";//MeetingHeld
+            public const string TotalNoofParticipant = "Total No of Participant";
+            public const string NoofParticipant = "No of Participant";
+            public const string AchvPlanDate = "Planning Month\r\nYear ";//
+            public const string AchvPlanMRPRemark = "Remark";//\r\n
+            public const string AchvPlanMRPDate = "MRP \r\nApproved\r\n Date";//\r\n
+            public const string AchvPlanCCRemark = "Remark";//\r\n
+            public const string AchvPlanCCDate = "CC \r\nApproved\r\n Date";//\r\n
         }
     }
 }

@@ -52,6 +52,17 @@
                         <a href="~/Beneficiary/BFYFollow" class="dropdown-item">Follow up</a>
                     </div>
                 </div>
+                <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link actives"><i class="fa fa-users me-2"></i>Achievement</a>
+                <div class="navbar-nav w-100" style="display:none;">
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2 showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                        <div class="dropdown-menu bg-transparent border-0 showactive">
+                            <a href="~/Achievement/AddAchieveApprove" class="nav-item nav-link actives">Monthly Incentive (@CommonModel.RoleNameCont.MRP)</a>
+                            <a href="~/Achievement/LevelSecAchvApprove" class="nav-item nav-link actives">Monthly Incentive (@CommonModel.RoleNameCont.CC)</a>
+                            @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
+                        </div>
+                    </div>
+                </div>
                 <div class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link dropdown-toggle actives3" data-bs-toggle="dropdown"><i class="fas fa-tasks me-2"></i>Plan</a>
                     <div class="dropdown-menu bg-transparent border-0">
@@ -84,18 +95,18 @@
                 </div>
 
                 @*<a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>*@
+                <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
+                <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>*@
                 @*<div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="signin.html" class="dropdown-item">Sign In</a>
-                            <a href="signup.html" class="dropdown-item">Sign up</a>
-                            <a href="signup.html" class="dropdown-item">Sign up</a>
-                            <a href="404.html" class="dropdown-item">404 Error</a>
-                            <a href="blank.html" class="dropdown-item">Blank Page</a>
-                        </div>
-                    </div>*@
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="signin.html" class="dropdown-item">Sign In</a>
+                        <a href="signup.html" class="dropdown-item">Sign up</a>
+                        <a href="signup.html" class="dropdown-item">Sign up</a>
+                        <a href="404.html" class="dropdown-item">404 Error</a>
+                        <a href="blank.html" class="dropdown-item">Blank Page</a>
+                    </div>
+                </div>*@
             </div>
         }
         else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.Viewer))
@@ -138,6 +149,7 @@
                 </div>
                 @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP))
                 {
+                    <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link actives"><i class="fa fa-users me-2"></i>Achievement</a>
                     <div class="nav-item dropdown">
                         <a href="javascript:void(0)" class="nav-link dropdown-toggle actives3" data-bs-toggle="dropdown"><i class="fas fa-tasks me-2"></i>Plan</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -189,6 +201,30 @@
                         <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
                         <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
                         <a href="~/Report/AchBFYList" class="dropdown-item">Achievement Detail</a>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.MRP))
+        {
+            <div class="navbar-nav w-100" style="display:none;">
+                <div class="nav-item dropdown">
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2 showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                    <div class="dropdown-menu bg-transparent border-0 showactive">
+                        <a href="~/Achievement/AddAchieveApprove" class="nav-item nav-link actives">Monthly Incentive (@CommonModel.RoleNameCont.MRP)</a>
+                        @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
+                    </div>
+                </div>
+            </div>
+        }
+        else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CC))
+        {
+            <div class="navbar-nav w-100" style="display:none;">
+                <div class="nav-item dropdown">
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2 showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                    <div class="dropdown-menu bg-transparent border-0 showactive">
+                        <a href="~/Achievement/LevelSecAchvApprove" class="nav-item nav-link actives">Monthly Incentive  (@CommonModel.RoleNameCont.CC)</a>
+                        @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
                     </div>
                 </div>
             </div>
