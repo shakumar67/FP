@@ -6,14 +6,20 @@
 
 /*Add row event*/
 $(document).on('click', '.rowfy-addrow', function () {
-    let rowfyable = $(this).closest('table');
-    let lastRow = $('tbody tr:last', rowfyable).clone(true).off();
-    var index = parseInt($('.index', lastRow).text()) + 1;
+    var tbl = $(this).closest('table');
+    addRow(tbl);
+
+});
+
+function addRow(tbl) {
+    let rowfyable = tbl;
+    let lastRow = $('tfoot tr:last', rowfyable).clone(true).off();
+    var index = parseInt($('tbody tr', rowfyable).length) + 1;
     var dataId = $(lastRow).attr('data-id');
 
-    if (dataId != "" && dataId != "00000000-0000-0000-0000-000000000000") {
-        $('button', $('tbody tr:last', rowfyable)).remove();
-    }
+    //if (dataId != "" && dataId != "00000000-0000-0000-0000-000000000000") {
+    //    $('button', $('tbody tr:last', rowfyable)).remove();
+    //}
 
     $(lastRow).attr('data-index', index);
     $(lastRow).attr('data-id', '');
@@ -23,24 +29,32 @@ $(document).on('click', '.rowfy-addrow', function () {
     $('.index', lastRow).text(index);
 
     $('input.mdt', lastRow).attr('id', 'mdt-' + index);
-    $('select', lastRow).attr('id', 'void-' + index);
+    $('select.Void_fk', lastRow).attr('id', 'void-' + index);
     $('input.noofpart', lastRow).attr('id', 'noofpart-' + index);
 
-    $('input', lastRow).removeClass('hasDatepicker');
+    //$('input', lastRow).removeClass('hasDatepicker');
 
-    $('#mdt-' + index, lastRow).datepicker({
-        dateFormat: 'dd-mm-yy',
-        maxDate: '0',
-        //maxDate: "+1M +10D",
-        changeMonth: true,
-        changeYear: true,
-    });
+    //$('#mdt-' + index, lastRow).datepicker({
+    //    dateFormat: 'dd-mm-yy',
+    //    maxDate: '0',
+    //    //maxDate: "+1M +10D",
+    //    changeMonth: true,
+    //    changeYear: true,
+    //});
+
 
     $('tbody', rowfyable).append(lastRow);
-    $(this).removeClass('rowfy-addrow btn-success').addClass('rowfy-deleterow btn-danger').text('-');
+    $('tbody tr button', rowfyable).hide();
+    if (index > 1) {
+        $('tbody tr:not(:last) button.rowfy-deleterow', rowfyable).show();
+    }
+    $('tbody tr:last button.rowfy-addrow', rowfyable).show();
 
-});
+    //$('button', tbl).removeClass('rowfy-addrow btn-success').addClass('rowfy-deleterow btn-danger').text('-');
+    //$('button', tbl).removeClass('rowfy-addrow btn-success').addClass('rowfy-deleterow btn-danger').text('-');
+}
 
+addRow($("#tbl"));
 
 /*Delete row event*/
 $(document).on('click', '.rowfy-deleterow', function () {
@@ -53,34 +67,34 @@ $(document).on('click', '.rowfy-deleterow', function () {
 });
 
 /*Initialize all rowfy tables*/
-$('.rowfy').each(function () {
-    $('tbody', this).find('tr td:last-child').each(function (i, row) {
-        $('.index', row).text(i + 1);
-        var dataId = $(row).attr('data-id');
-        if (dataId == "" || dataId == "00000000-0000-0000-0000-000000000000") {
-            $(this).append('<button type="button" class="btn btn-sm '
-                + ($(this).is(":last-child") ?
-                    'rowfy-addrow btn-success">+' :
-                    'rowfy-deleterow btn-danger">-')
-                + '</button>');
-        } else {
-            if (i > 0) {
-                //$(this).append('<td><button type="button" class="btn btn-sm '
-                //    + ($(this).is(":last-child") ?
-                //        'rowfy-addrow btn-success">+' :
-                //        'rowfy-deleterow btn-danger">-')
-                //    + '</button></td>');
-            } else {
-                $(this).append('<button type="button" class="btn btn-sm '
-                    + ($(this).is(":last-child") ?
-                        'rowfy-addrow btn-success">+' :
-                        'rowfy-deleterow btn-danger">-')
-                    + '</button>');
-            }
-        }
+//$('.rowfy').each(function () {
+//    $('tbody', this).find('tr td:last-child').each(function (i, row) {
+//        $('.index', row).text(i + 1);
+//        var dataId = $(row).attr('data-id');
+//        if (dataId == "" || dataId == "00000000-0000-0000-0000-000000000000") {
+//            $(this).append('<button type="button" class="btn btn-sm '
+//                + ($(this).is(":last-child") ?
+//                    'rowfy-addrow btn-success">+' :
+//                    'rowfy-deleterow btn-danger">-')
+//                + '</button>');
+//        } else {
+//            if (i > 0) {
+//                //$(this).append('<td><button type="button" class="btn btn-sm '
+//                //    + ($(this).is(":last-child") ?
+//                //        'rowfy-addrow btn-success">+' :
+//                //        'rowfy-deleterow btn-danger">-')
+//                //    + '</button></td>');
+//            } else {
+//                $(this).append('<button type="button" class="btn btn-sm '
+//                    + ($(this).is(":last-child") ?
+//                        'rowfy-addrow btn-success">+' :
+//                        'rowfy-deleterow btn-danger">-')
+//                    + '</button>');
+//            }
+//        }
 
-    });
-});
+//    });
+//});
 
 function BindDataTable() {
     $("#msg").html(''); //$('table#tbl > tbody > tr').not(':last').remove();
@@ -103,10 +117,11 @@ function BindDataTable() {
             if (data.IsSuccess) {
                 // $("#subdata").html(res.Data);
                 var resdata = JSON.parse(data.res);
-                var row = $(".rowfy tbody tr:last").clone(true).off();
+                var row = $(".rowfy tfoot tr:last").clone(true).off();
                 $(".rowfy tbody tr").remove();
+                var rowfyable = $("#tbl");
                 //$('table#tbl > tbody > tr').not(':last').remove();
-                
+
                 $(resdata).each(function (index, item) {
                     index = index + 1;
                     $(row).attr('data-index', index);
@@ -121,22 +136,27 @@ function BindDataTable() {
                     $('input[id=mdt-' + index + ']', row).val(moment(item.Meetingheld).format("DD-MM-YYYY"));
                     $('input[id=noofpart-' + index + ']', row).val(item.Noofparticipant);
 
+                    //$('input', row).removeClass('hasDatepicker');
+                    //$('#mdt-' + index, row).datepicker({
+                    //    dateFormat: 'dd-mm-yy',
+                    //    maxDate: '0',
+                    //    changeMonth: true,
+                    //    changeYear: true,
+                    //});
+
                     $(".rowfy tbody").append(row);
+                    //if (resdata.length == index) {
+                    //    $('td.action', row).append('<button type="button" class="btn btn-sm rowfy-addrow btn-success">+</button>');
+                    //    //$('button', row).removeClass('rowfy-addrow btn-success').addClass('rowfy-deleterow btn-danger').text('-');
+                    //} else {
+                    //    $('button', row).remove();
+                    //}
 
-                    $('input', row).removeClass('hasDatepicker');
-                    $('#mdt-' + index, row).datepicker({
-                        dateFormat: 'dd-mm-yy',
-                        maxDate: '0',
-                        changeMonth: true,
-                        changeYear: true,
-                    });
-
-                    if (resdata.length == index) {
-                        $('td.action', row).append('<button type="button" class="btn btn-sm rowfy-addrow btn-success">+</button>');
-                        //$('button', row).removeClass('rowfy-addrow btn-success').addClass('rowfy-deleterow btn-danger').text('-');
-                    } else {
-                        $('button', row).remove();
+                    $('tbody tr button', rowfyable).hide();
+                    if (index > 1) {
+                        $('tbody tr:not(:last) button.rowfy-deleterow', rowfyable).show();
                     }
+                    $('tbody tr:last button.rowfy-addrow', rowfyable).show();
 
                     row = row.clone(true).off();
 
@@ -145,7 +165,7 @@ function BindDataTable() {
             }
             else {
                 $("#msg").html(data.res);
-                var row = $(".rowfy tbody tr:last").clone(true).off();
+                var row = $(".rowfy tfoot tr:last").clone(true).off();
                 $(".rowfy tbody tr").remove();
                 var index = 1;
                 $(row).attr('data-index', index);
@@ -162,6 +182,13 @@ function BindDataTable() {
 
                 $(".rowfy tbody").append(row);
                 //$('table#tbl > tbody > tr').not(':last').remove();
+
+                var rowfyable = $("#tbl");
+                $('tbody tr button', rowfyable).hide();
+                if (index > 1) {
+                    $('tbody tr:not(:last) button.rowfy-deleterow', rowfyable).show();
+                }
+                $('tbody tr:last button.rowfy-addrow', rowfyable).show();
             }
         },
         error: function (req, error) {

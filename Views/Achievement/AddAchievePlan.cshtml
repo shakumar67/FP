@@ -105,21 +105,38 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr data-id="@achvplanid" data-index="1">
-                                                        <td class="index">@index</td>
-                                                        <td>
-                                                            <select id="void-@index" class="Void_fk form-select" required></select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="mdt-@index" name="MDt" value="" class="form-control col-md-4 mdt" minlength="10" maxlength="15" required />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="noofpart-@index" name="NoofPart" value="" class="form-control col-md-4 numbersOnly noofpart" minlength="1" maxlength="3" required />
-                                                        </td>
-                                                        <td class="action"></td>
-                                                    </tr>
-
+                                                    @*<tr>
+                                                            <td class="index"></td>
+                                                            <td>
+                                                                <select name="Void_fk" class="Void_fk form-select" required></select>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name="MDt" value="" class="form-control col-md-4 mdt" minlength="10" maxlength="15" required />
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name="NoofPart" value="" class="form-control col-md-4 numbersOnly noofpart" minlength="1" maxlength="3" required />
+                                                            </td>
+                                                            <td class="action"></td>
+                                                        </tr>*@
                                                 </tbody>
+                                                <tfoot style="display:none;">
+                                                    <tr>
+                                                        <td class="index"></td>
+                                                        <td>
+                                                            <select name="Void_fk" class="Void_fk form-select" required></select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="MDt" value="" class="form-control col-md-4 mdt" minlength="10" maxlength="15" required />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="NoofPart" value="" class="form-control col-md-4 numbersOnly noofpart" minlength="1" maxlength="3" required />
+                                                        </td>
+                                                        <td class="action">
+                                                            <button type="button" class="btn btn-sm rowfy-addrow btn-success" style="display:none">+</button>
+                                                            <button type="button" class="btn btn-sm rowfy-deleterow btn-danger" style="display:none">-</button>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
 
                                         </div>
@@ -130,7 +147,7 @@
 
                         <div class="mb-3">
                             <span class="check-spacer">
-                                <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Approve" />
+                                <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
                             </span>&nbsp;&nbsp;&nbsp;
                             <span class="check-spacer">
                                 <a href="~/Achievement/AddAchievePlan" class="btn btn-info" id="hrfid"><i class="fa fa-refresh"></i>Refresh</a>
@@ -209,19 +226,39 @@
             $("#hrfid").click(function (e) {
                 e.preventDefault();
                 BindDataTable();
-               // document.getElementById("btnsubmit").disabled = false;
+                // document.getElementById("btnsubmit").disabled = false;
             });
 
-            $('#mdt-1').datepicker({
-                dateformat: 'dd-mm-yy',
-                maxdate: '0',
-                changemonth: true,
-                changeyear: true,
-                onSelect: function (dateText, inst) {
-                    $(this).val(moment(dateText).format("DD-MM-YYYY"));
-                    //$("#mdt-1").datepicker('option', 'maxDate', ge_today_date(new Date()) );
-                }
-            });
+
+            //$('#mdt-1').datepicker({
+            //    dateformat: 'dd-mm-yy',
+            //    maxdate: '0',
+            //    changemonth: true,
+            //    changeyear: true,
+            //    onSelect: function (dateText, inst) {
+            //        //$(this).val(moment(dateText).format("DD-MM-YYYY"));
+            //        document.getElementById(this.id).value = moment(dateText).format("DD-MM-YYYY");
+            //    }
+            //});
+
+            for (var i = 1; i <= 10; i++) {
+                $(document).on('focus', "input[id=mdt-" + i + "]", function () {
+                    $(this).datepicker({
+                        dateFormat: 'dd-mm-yy',
+                        changeMonth: true,
+                        changeYear: true,
+                        maxdate: new Date(),
+                        onSelect: function (dateText, inst) {
+                            //$(this).val(moment(dateText).format("DD-MM-YYYY"));
+                            console.log(dateText);
+                            var dt = moment(dateText).format("DD-MM-YYYY");
+                            console.log(inst);
+                            console.log(dt);
+                            //document.getElementById(this.id).value = `${dt.selectedDay}-${dt.selectedMonth+1}-${dt.selectedYear}`;
+                        }
+                    });
+                });
+            }
 
         });
 
