@@ -728,6 +728,7 @@
     <Content Include="Views\Achievement\_AchvPlanApprove.cshtml" />
     <Content Include="Views\Achievement\_AchvPlanApvLevelSec.cshtml" />
     <Content Include="Views\Achievement\LevelSecAchvApprove.cshtml" />
+    <Content Include="Views\Beneficiary\FollowupList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

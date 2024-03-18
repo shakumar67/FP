@@ -1,0 +1,113 @@
+﻿@model FP.Models.FilterModel
+@{
+
+}
+<style>
+    .table th {
+        font-size: 14px;
+        background: #fff;
+    }
+
+    .table td {
+        font-size: 13px;
+    }
+
+    .dataTables_filter, .dataTables_length {
+        margin-bottom: 15px;
+    }
+    /*  .actives2 {
+        color: #009CFF !important;
+        background: #FFFFFF;
+        border-color: #009CFF;
+    }*/
+</style>
+<div class="breadcrumb">
+    <h2>FollowupList</h2>
+    <p><a href="~/Beneficiary/Beneficiary">Beneficiary </a> / FollowupList</p>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <fieldset class="border rounded-3 p-3">
+        <legend class="float-none w-auto px-2">Search By</legend>
+        @using (Html.BeginForm("Beneficiary", "FollowupList", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        {
+            <div class="row g-4">
+                <div class="col-sm-12">
+                    <div class="bg-light rounded h-100 p-4">
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.BlockId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.BlockId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.CLFId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.CLFId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.CLFId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.PanchayatId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <div class="position-relative form-group">
+                                        @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                        @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="position-relative form-group">
+                                        @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                        @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="position-relative form-group">
+                                        @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                        @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="check-spacer">
+                                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Filter" />
+                                </span>&nbsp;&nbsp;&nbsp;
+                                <span class="check-spacer">
+                                    <a href="~/Beneficiary/BFYList" class="btn btn-info"><i class="fa fa-refresh"></i>Refresh</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </fieldset>
+
+    <div class="row">
+        <div class="col=md-12" id="div-download"></div>
+        <div class="col=md-6"></div>
+        <div class="col=md-6"></div>
+        <div class="col=md-6"></div>
+        <div class="col-md-12">
+            <div id="subdata"></div>
+        </div>
+    </div>
+</div>

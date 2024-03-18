@@ -226,11 +226,38 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult FollowupList()
+        {
+            FilterModel model = new FilterModel();
+            return View(model);
+        }
+        public ActionResult GetFollowupList(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SPBFYFUpMonthList(model);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_FollowupList", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult BFYFollow()
         {
             CMFollowupModel model = new CMFollowupModel();
             return View(model);
         }
+
         public ActionResult GetBFYFollowList(CMFollowupModel model)
         {
             try
