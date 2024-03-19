@@ -228,20 +228,20 @@ namespace FP.Controllers
         }
         public ActionResult FollowupList()
         {
-            FilterModel model = new FilterModel();
+            CMFollowupModel model = new CMFollowupModel();
             return View(model);
         }
-        public ActionResult GetFollowupList(FilterModel model)
+        public ActionResult GetFollowupList(CMFollowupModel model)
         {
             try
             {
                 bool IsCheck = false;
-                var tbllist = SP_Model.SPBFYFUpMonthList(model);
+                var tbllist = SP_Model.SPFollowUpDataList(model);
                 if (tbllist.Rows.Count > 0)
                 {
                     IsCheck = true;
                 }
-                var html = ConvertViewToString("_FollowupList", tbllist);
+                var html = ConvertViewToString("_BFYFollowDataList", tbllist);
                 var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
                 res.MaxJsonLength = int.MaxValue;
                 return res;
@@ -252,12 +252,12 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public ActionResult BFYFollow()
         {
             CMFollowupModel model = new CMFollowupModel();
             return View(model);
         }
-
         public ActionResult GetBFYFollowList(CMFollowupModel model)
         {
             try

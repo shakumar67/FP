@@ -148,7 +148,7 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SPBFYFUpMonthList(FilterModel model)
+        public static DataTable SPBFYFUpMonthList(CMFollowupModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_BFYFUpMonthList");
             sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
@@ -163,6 +163,22 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SPFollowUpDataList(CMFollowupModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_BFYFollowUpDataList");
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@CLFId", model.CLFId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+
         #endregion
 
         #region Plan
