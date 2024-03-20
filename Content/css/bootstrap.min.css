@@ -2858,14 +2858,14 @@ textarea.form-control-lg {
 
 .btn-primary {
     color: #000;
-    background-color: #009CFF;
-    border-color: #009CFF
+    background-color: #EF7F2D;
+    border-color: #FF9244
 }
 
     .btn-primary:hover {
         color: #000;
-        background-color: #26abff;
-        border-color: #1aa6ff
+        background-color: #FF9244;
+        border-color: #FF9244
     }
 
     .btn-check:focus + .btn-primary, .btn-primary:focus {
@@ -3695,7 +3695,7 @@ textarea.form-control-lg {
     padding: .25rem 1rem;
     clear: both;
     font-weight: 400;
-    color: #212529;
+    color: #FFEADB;
     text-align: inherit;
     white-space: nowrap;
     background-color: transparent;
@@ -3704,13 +3704,13 @@ textarea.form-control-lg {
 
     .dropdown-item:hover, .dropdown-item:focus {
         color: #1e2125;
-        background-color: #e9ecef
+        background-color: #FFEADB
     }
 
     .dropdown-item.active, .dropdown-item:active {
-        color: #fff;
+        color: #000;
         text-decoration: none;
-        background-color: #009CFF
+        background-color: #FFEADB
     }
 
     .dropdown-item.disabled, .dropdown-item:disabled {
@@ -3967,7 +3967,8 @@ textarea.form-control-lg {
     align-items: center;
     justify-content: space-between;
     padding-top: .5rem;
-    padding-bottom: .5rem
+    padding-bottom: .5rem;
+    background: #EF7F2D !important
 }
 
     .navbar > .container, .navbar > .container-fluid, .navbar > .container-sm, .navbar > .container-md, .navbar > .container-lg, .navbar > .container-xl, .navbar > .container-xxl {
@@ -7729,7 +7730,10 @@ textarea.form-control-lg {
 }
 
 .text-primary {
-    color: #009CFF !important
+    color: #EF7F2D !important;
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px
 }
 
 .text-secondary {
