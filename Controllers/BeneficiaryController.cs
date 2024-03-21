@@ -46,7 +46,7 @@ namespace FP.Controllers
                     model.Q2 = tbl.Q2;
                     model.Q3 = tbl.Q3;
                     //model.Q4 = tbl.Q4;
-                    model.BFYDOB=tbl.BFYDOB;
+                    model.BFYDOB = tbl.BFYDOB;
                     model.Q5 = tbl.Q5;
                     model.Q6DOMYear = tbl.Q6DOMYear;
                     model.Q6 = tbl.Q6;
@@ -253,6 +253,7 @@ namespace FP.Controllers
             }
         }
 
+        #region Add Follow-up code
         public ActionResult BFYFollow()
         {
             CMFollowupModel model = new CMFollowupModel();
@@ -279,6 +280,7 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public ActionResult AddFollowup(CMFollowupModel model)
         {
             int res = 0;
@@ -304,36 +306,58 @@ namespace FP.Controllers
                 }
                 var tblf = model.FollowupID_pk != Guid.Empty ? _db.tbl_BFYFollowup.Find(model.FollowupID_pk) : new tbl_BFYFollowup();
 
-                tblf.FMonth = model.FMonth;
-                tblf.FYear = model.FYear;
-                tblf.IsFollowUp = model.IsFollowUp;
-                tblf.IsContraception = model.IsContraception;
-                tblf.ContraceptionId_fk = model.ContraceptionId_fk;
-                tblf.ContraceptionOther = model.ContraceptionOther;
-                tblf.UseMethodId_fk = model.UseMethodId_fk;
-                tblf.ModuleRollout = model.ModuleRollout;
-                tblf.ModuleRolloutId_fk = model.ModuleRolloutId_fk;
-                if (model.FollowupID_pk == Guid.Empty)
+                if (model.BFYID_fk != Guid.Empty)
                 {
-                    tblf.FollowupID_pk = Guid.NewGuid();
-                    tblf.BFYID_fk = model.BFYID_fk;
-                    tblf.CreatedBy = MvcApplication.CUser.Id;
-                    tblf.CreatedOn = DateTime.Now;
-                    _db.tbl_BFYFollowup.Add(tblf);
+                    tblf.FMonth = model.FMonth;
+                    tblf.FYear = model.FYear;
+                    tblf.IsFollowUp = model.IsFollowUp;
+                    tblf.IsContraception = model.IsContraception;
+                    tblf.ContraceptionId_fk = model.ContraceptionId_fk;
+                    tblf.ContraceptionOther = model.ContraceptionOther;
+                    tblf.UseMethodId_fk = model.UseMethodId_fk;
+                    tblf.ModuleRollout = model.ModuleRollout;
+                    tblf.ModuleRolloutId_fk = model.ModuleRolloutId_fk;
+                    if (model.FollowupID_pk == Guid.Empty)
+                    {
+                        tblf.FollowupID_pk = Guid.NewGuid();
+                        tblf.BFYID_fk = model.BFYID_fk;
+                        tblf.CreatedBy = MvcApplication.CUser.Id;
+                        tblf.CreatedOn = DateTime.Now;
+                        _db.tbl_BFYFollowup.Add(tblf);
+                        //TBL_Beneficiary tblBFY = _db.TBL_Beneficiary.Find(model.BFYID_fk);
+                        //tblBFY.Q15 = model.ContraceptionId_fk;
+                        //tblBFY.Q16 = model.ContraceptionId_fk==1? model.UseMethodId_fk:null;
+                        //tblBFY.Q17 = model.ContraceptionId_fk == 2 ? model.UseMethodId_fk : null;
+                        //tblBFY.Q18 = model.ContraceptionId_fk == 4 ? model.ContraceptionOther : null;
+                        //tblBFY.Q20 = model.ModuleRollout;
+                        //tblBFY.Q21 = model.ModuleRolloutId_fk;
+                        //tblBFY.Q10 = model.Totalnoof_malechild;
+                        //tblBFY.Q11 = model.Totalnoof_Femalechild;
+                        //res = _db.SaveChanges();
+                    }
+
+                    else
+                    {
+                        tblf.UpdatedBy = MvcApplication.CUser.Id;
+                        tblf.UpdatedOn = DateTime.Now;
+                    }
+                    res = _db.SaveChanges();
+                    if (res > 0)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Insert), Data = null };
+                        var resResponse = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse.MaxJsonLength = int.MaxValue;
+                        return resResponse;
+                    }
                 }
                 else
                 {
-                    tblf.UpdatedBy = MvcApplication.CUser.Id;
-                    tblf.UpdatedOn = DateTime.Now;
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired), Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
                 }
-                res = _db.SaveChanges();
-                if (res > 0)
-                {
-                    response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Insert), Data = null };
-                    var resResponse = Json(response, JsonRequestBehavior.AllowGet);
-                    resResponse.MaxJsonLength = int.MaxValue;
-                    return resResponse;
-                }
+               
                 response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Error), Data = null };
                 var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                 resResponse1.MaxJsonLength = int.MaxValue;
@@ -369,7 +393,7 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        #endregion
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

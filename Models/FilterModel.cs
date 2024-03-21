@@ -37,6 +37,7 @@ namespace FP.Models
         public string Year { get; set; }
         [Display(Name = "Achieved")]
         public string IsPlanAchved { get; set; }
+        public int Type { get; set; }
     }
    
 }

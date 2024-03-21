@@ -51,12 +51,12 @@
                                         }
                                         else
                                         {
-                                            <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BpkID"]')" class="btn btn-primary btn-sm"><i class="fa fa-arrow-up"></i> Follow-up</a>
+                                            <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BpkID"]','@dr["BFYID"]')" class="btn btn-primary btn-sm"><i class="fa fa-arrow-up"></i> Follow-up</a>
                                         }
                                     }
                                 </td>
                                 <td class="text-center">
-                                    <a href="javascript:void(0);" onclick="BFYDataView('@dr["BpkID"]')" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>
+                                    <a href="javascript:void(0);" onclick="BFYDataView('@dr["BpkID"]',1)" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>
                                 </td>
                                 <td class="text-left">@dr["DistrictName"]</td>
                                 <td class="text-left">@dr["Block"]</td>

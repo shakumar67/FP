@@ -29,6 +29,8 @@ namespace FP.Models
         public System.Guid FollowupID_pk { get; set; }
         [Required]
         public Nullable<System.Guid> BFYID_fk { get; set; }
+        [Display(Name = "Beneficiary ID")]
+        public string BFYRegID { get; set; }
         [Required]
         [Display(Name = "Month")]
         public Nullable<int> FMonth { get; set; }
@@ -36,7 +38,7 @@ namespace FP.Models
         [Display(Name = "Year")]
         public Nullable<int> FYear { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = DisplayFollowBFY.IsFUpHV)]
         public Nullable<bool> IsFollowUp { get; set; }
         //[Required]
@@ -64,6 +66,14 @@ namespace FP.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+
+        [Display(Name = DisplayFollowBFY.Totalnoof_malechild)]
+        [Required]
+        public Nullable<int> Totalnoof_malechild { get; set; }
+        [Required]
+        [Display(Name = DisplayFollowBFY.Totalnoof_Femalechild)]
+        public Nullable<int> Totalnoof_Femalechild { get; set; }
+        public Nullable<int> Type { get; set; }
     }
     public  static class DisplayFollowBFY
     {
@@ -75,5 +85,7 @@ namespace FP.Models
         public const string CtusemethodOther = "Other use method";
         public const string ModuleRollout = "Number of SHGs where module was rolled out";
         public const string ModuleRolloutId_fk = "Medium of module rollout";
+        public const string Totalnoof_malechild = "No of male child at present";
+        public const string Totalnoof_Femalechild = "No of female child at present";
     }
 }

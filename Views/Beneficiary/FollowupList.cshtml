@@ -288,9 +288,9 @@
 
     
    
-    function BFYDataView(BFYId) {
+    function BFYDataView(BFYId,Type) {
         var cmfollowupmodel = new Object();
-        cmfollowupmodel.BFYId = BFYId;
+        cmfollowupmodel.Type = Type;
 
         $.ajax({
             type: "GET",

@@ -80,6 +80,24 @@
                                         </div>
                                     </div>
                                 }
+                                @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["NoofMaleChild"].ToString()))
+                                {
+                                    <div class="col-sm-12">
+                                        <div lass="position-relative form-group">
+                                            <label>@FP.Models.DisplayFollowBFY.Totalnoof_malechild </label>
+                                            <strong>@dt.Rows[0]["NoofMaleChild"].ToString()</strong>
+                                        </div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["NofFemalehild"].ToString()))
+                                {
+                                    <div class="col-sm-12">
+                                        <div lass="position-relative form-group">
+                                            <label>@FP.Models.DisplayFollowBFY.Totalnoof_Femalechild </label>
+                                            <strong>@dt.Rows[0]["NofFemalehild"].ToString()</strong>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
