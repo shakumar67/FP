@@ -38,24 +38,24 @@
         @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.Admin) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.State))
         {
             <div class="navbar-nav w-100">
-                <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                <a href="~/Home/Index" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2 showactive" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle showactive" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
                     <div class="dropdown-menu bg-transparent border-0 showactive">
                         <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
                         <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives3" data-bs-toggle="dropdown"><i class="fa  fa-arrow-up me-2"></i>Follow up</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa  fa-arrow-up me-2"></i>Follow up</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Beneficiary/BFYFollow" class="dropdown-item">Follow up</a>
                     </div>
                 </div>
-                <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link actives"><i class="fa fa-users me-2"></i>Achievement</a>
+                <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Achievement</a>
                 <div class="navbar-nav w-100" >
                     <div class="nav-item dropdown">
-                        <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2 showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
                         <div class="dropdown-menu bg-transparent border-0 showactive">
                             <a href="~/Achievement/AddAchieveApprove" class="nav-item nav-link actives">Monthly Incentive (@CommonModel.RoleNameCont.MRP)</a>
                             <a href="~/Achievement/LevelSecAchvApprove" class="nav-item nav-link actives">Monthly Incentive (@CommonModel.RoleNameCont.CC)</a>
@@ -64,21 +64,21 @@
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives3" data-bs-toggle="dropdown"><i class="fas fa-tasks me-2"></i>Plan</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-tasks me-2"></i>Plan</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Plan/CreatePlan" class="dropdown-item">Add Plan</a>
                         <a href="~/Plan/PlanList" class="dropdown-item">Planning List</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives4" data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Account/Register" class="dropdown-item">Registration</a>
                         <a href="~/Master/UserDetaillist" class="dropdown-item">User List</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives5" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
                         <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives5" data-bs-toggle="dropdown"><i class="fa fa-database me-2"></i>Master</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-database me-2"></i>Master</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Master/CLFMaster" class="nav-item nav-link actives6">@CommonModel.DispLevel.Cluster</a>
                         <a href="~/Master/PanchayatMaster" class="nav-item nav-link actives6">@CommonModel.DispLevel.Panchayat</a>
@@ -114,12 +114,12 @@
             <div class="navbar-nav w-100">
                 <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
                     </div>
                 </div>
-                <a href="~/Master/UserDetaillist" class="nav-item nav-link actives3"><i class="fa fa-list"></i>User List</a>
+                <a href="~/Master/UserDetaillist" class="nav-item nav-link"><i class="fa fa-list"></i>User List</a>
                 <div class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
                     <div class="dropdown-menu bg-transparent border-0">
@@ -135,14 +135,14 @@
             <div class="navbar-nav w-100">
                 <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
                         <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives3" data-bs-toggle="dropdown"><i class="fa fa-arrow-up me-2"></i>Follow up</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-arrow-up me-2"></i>Follow up</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Beneficiary/BFYFollow" class="dropdown-item">Follow up</a>
                     </div>
@@ -151,24 +151,24 @@
                 {
                     <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link actives"><i class="fa fa-users me-2"></i>Achievement</a>
                     <div class="nav-item dropdown">
-                        <a href="javascript:void(0)" class="nav-link dropdown-toggle actives3" data-bs-toggle="dropdown"><i class="fas fa-tasks me-2"></i>Plan</a>
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-tasks me-2"></i>Plan</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="~/Plan/CreatePlan" class="dropdown-item">Add Plan</a>
                             <a href="~/Plan/PlanList" class="dropdown-item">Planning List</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="javascript:void(0)" class="nav-link dropdown-toggle actives4" data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="~/Account/Register" class="dropdown-item">Registration</a>
                             <a href="~/Master/UserDetaillist" class="dropdown-item">User List</a>
                         </div>
                     </div>
 
-                    <a href="~/Master/VillMaster" class="nav-item nav-link actives6"><i class="fa fa-database"></i>Village Organization</a>
+                    <a href="~/Master/VillMaster" class="nav-item nav-link"><i class="fa fa-database"></i>Village Organization</a>
                 }
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives5" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
                         <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
@@ -182,21 +182,21 @@
             <div class="navbar-nav w-100">
                 <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
                         <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives4" data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Account/Register" class="dropdown-item">Registration</a>
                         <a href="~/Master/UserDetaillist" class="dropdown-item">User List</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives5" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
                         <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
@@ -209,9 +209,9 @@
         {
             <div class="navbar-nav w-100" style="display:none;">
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2 showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
                     <div class="dropdown-menu bg-transparent border-0 showactive">
-                        <a href="~/Achievement/AddAchieveApprove" class="nav-item nav-link actives">Monthly Incentive (@CommonModel.RoleNameCont.MRP)</a>
+                        <a href="~/Achievement/AddAchieveApprove" class="nav-item nav-link">Monthly Incentive (@CommonModel.RoleNameCont.MRP)</a>
                         @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
                     </div>
                 </div>
@@ -221,9 +221,9 @@
         {
             <div class="navbar-nav w-100" style="display:none;">
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle actives2 showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
                     <div class="dropdown-menu bg-transparent border-0 showactive">
-                        <a href="~/Achievement/LevelSecAchvApprove" class="nav-item nav-link actives">Monthly Incentive  (@CommonModel.RoleNameCont.CC)</a>
+                        <a href="~/Achievement/LevelSecAchvApprove" class="nav-item nav-link">Monthly Incentive  (@CommonModel.RoleNameCont.CC)</a>
                         @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
                     </div>
                 </div>

@@ -241,7 +241,7 @@ namespace FP.Controllers
                 {
                     IsCheck = true;
                 }
-                var html = ConvertViewToString("_BFYFollowDataList", tbllist);
+                var html = ConvertViewToString("_FollowDataList", tbllist);
                 var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
                 res.MaxJsonLength = int.MaxValue;
                 return res;
@@ -269,7 +269,7 @@ namespace FP.Controllers
                 {
                     IsCheck = true;
                 }
-                var html = ConvertViewToString("_BFYFollow", tbllist);
+                var html = ConvertViewToString("_BFYFollowData", tbllist);
                 var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
                 res.MaxJsonLength = int.MaxValue;
                 return res;

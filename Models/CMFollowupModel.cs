@@ -87,5 +87,6 @@ namespace FP.Models
         public const string ModuleRolloutId_fk = "Medium of module rollout";
         public const string Totalnoof_malechild = "No of male child at present";
         public const string Totalnoof_Femalechild = "No of female child at present";
+        public const string BeneficiaryRegID = "Beneficiary ID";
     }
 }

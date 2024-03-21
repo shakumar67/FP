@@ -133,23 +133,29 @@
                         <div class="col-sm-12">
                             <div class="bg-light rounded h-100 p-2">
                                 <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                        <div class="position-relative form-group">
+                                            <strong class="text-secondary">@FP.Models.DisplayFollowBFY.BeneficiaryRegID :</strong>
+                                            <strong class="text-success" id="stBFYRegID"></strong>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-6">
                                         <div class="position-relative form-group">
-                                            @Html.LabelFor(model => model.FYear, htmlAttributes: new { @class = "control-label" })
+                                            @Html.LabelFor(model => model.FYear, htmlAttributes: new { @class = "control-label" })<em>*</em>
                                             @Html.DropDownListFor(m => m.FYear, new List<SelectListItem>(), null, new { @class = "form-select " })
                                             @Html.ValidationMessageFor(model => model.FYear, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="position-relative form-group">
-                                            @Html.LabelFor(model => model.FMonth, htmlAttributes: new { @class = "control-label" })
+                                            @Html.LabelFor(model => model.FMonth, htmlAttributes: new { @class = "control-label" })<em>*</em>
                                             @Html.DropDownListFor(m => m.FMonth, new List<SelectListItem>(), null, new { @class = "form-select " })
                                             @Html.ValidationMessageFor(model => model.FMonth, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <div class="position-relative form-group">
-                                            @Html.LabelFor(model => model.IsFollowUp, htmlAttributes: new { @class = "control-label" })
+                                        <div class="position-relative form-group" style="display:none;">
+                                            @Html.LabelFor(model => model.IsFollowUp, htmlAttributes: new { @class = "control-label" })<em>*</em>
                                             <div class="checkbox">
                                                 @foreach (var item in CommonModel.GetYesNotrue())
                                                 {
@@ -161,9 +167,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div lass="position-relative form-group" id="div-IsContraception" style="display:none;">
-                                            @Html.LabelFor(model => model.IsContraception, htmlAttributes: new { @class = "control-label" })
+                                    <div class="col-sm-12">
+                                        @*id="div-IsContraception"*@
+                                        <div lass="position-relative form-group">
+                                            @Html.LabelFor(model => model.IsContraception, htmlAttributes: new { @class = "control-label" })<em>*</em>
                                             <div class="checkbox">
                                                 @foreach (var item in CommonModel.GetYesNotrue())
                                                 {
@@ -175,51 +182,67 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div lass="position-relative form-group" id="div-ContraceptionId_fk" style="display:none;">
-                                            @Html.LabelFor(m => m.ContraceptionId_fk, new { @class = "control-label" })
+                                            @Html.LabelFor(m => m.ContraceptionId_fk, new { @class = "control-label" })<em>*</em>
                                             @Html.DropDownListFor(m => m.ContraceptionId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
                                             @Html.ValidationMessageFor(model => model.ContraceptionId_fk, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-6" id="div-ContraceptionOther" style="display:none;">
+                                    <div class="col-sm-12" id="div-ContraceptionOther" style="display:none;">
                                         <div lass="position-relative form-group">
-                                            @Html.LabelFor(model => model.ContraceptionOther, htmlAttributes: new { @class = "control-label" })
+                                            @Html.LabelFor(model => model.ContraceptionOther, htmlAttributes: new { @class = "control-label" })<em>*</em>
                                             @Html.EditorFor(model => model.ContraceptionOther, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.ContraceptionOther, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div lass="position-relative form-group" id="div-UseMethodId_fk" style="display:none;">
-                                            @Html.LabelFor(m => m.UseMethodId_fk, new { @class = "control-label" })
+                                            @Html.LabelFor(m => m.UseMethodId_fk, new { @class = "control-label" })<em>*</em>
                                             @Html.DropDownListFor(m => m.UseMethodId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
                                             @Html.ValidationMessageFor(model => model.UseMethodId_fk, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div lass="position-relative form-group">
-                                          @Html.LabelFor(m => m.ModuleRollout, new { @class = "control-label" })
-                                         @Html.EditorFor(m => m.ModuleRollout, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "999", maxlength = "3" } })
-                                         @Html.ValidationMessageFor(m => m.ModuleRollout, "", new { @class = "text-danger" })
-                                </div>
-                                </div>
+
                                     <div class="col-sm-12">
                                         <div lass="position-relative form-group">
-                                           @Html.LabelFor(m => m.ModuleRolloutId_fk, new { @class = "control-label" })
-                                             @Html.DropDownListFor(m => m.ModuleRolloutId_fk, CommonModel.GetModuleRollout(), "Select", new { @class = "form-control col-md-4" })
-                                             @Html.ValidationMessageFor(m => m.ModuleRolloutId_fk, "", new { @class = "text-danger" })
-                                    </div>
-                                    </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            @*<button type="button" class="btn btn-primary">Submit</button>*@
-                                            <input type="submit" name="btnsubmit" id="btnpopsubmit" class="btn btn-primary" value="Submit" />
+                                            @Html.LabelFor(m => m.ModuleRollout, new { @class = "control-label" })<em>*</em>
+                                            @Html.EditorFor(m => m.ModuleRollout, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "999", maxlength = "3" } })
+                                            @Html.ValidationMessageFor(m => m.ModuleRollout, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
+                                    <div class="col-sm-12">
+                                        <div lass="position-relative form-group">
+                                            @Html.LabelFor(m => m.ModuleRolloutId_fk, new { @class = "control-label" })<em>*</em>
+                                            @Html.DropDownListFor(m => m.ModuleRolloutId_fk, CommonModel.GetModuleRollout(), "Select", new { @class = "form-control col-md-4" })
+                                            @Html.ValidationMessageFor(m => m.ModuleRolloutId_fk, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div lass="position-relative form-group">
+                                            @Html.LabelFor(m => m.Totalnoof_malechild, new { @class = "control-label" })<em>*</em>
+                                            @Html.EditorFor(m => m.Totalnoof_malechild, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", maxlength = "2" } })
+                                            @Html.ValidationMessageFor(m => m.Totalnoof_malechild, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div lass="position-relative form-group">
+                                            @Html.LabelFor(m => m.Totalnoof_Femalechild, new { @class = "control-label" })<em>*</em>
+                                            @Html.EditorFor(m => m.Totalnoof_Femalechild, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", minlength = "0", maxlength = "2" } })
+                                            @Html.ValidationMessageFor(m => m.Totalnoof_Femalechild, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        @*<button type="button" class="btn btn-primary">Submit</button>*@
+                                        <input type="submit" name="btnsubmit" id="btnpopsubmit" class="btn btn-primary" value="Submit" />
+                                    </div>
                                 </div>
-
                             </div>
+
+
+                        </div>
+                    </div>
                 </div>
             </div>
         }
@@ -228,7 +251,6 @@
 
 
 <div id="div-View">
-
 </div>
 
 @section Scripts {
@@ -242,7 +264,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
 
-<script>
+    <script>
         $(document).ready(function () {
 
             GetYearList("Year", 0);
@@ -272,10 +294,9 @@
 
             BindData();
 
-
             /* Follow-Up Function Start Cont */
             $(document).on('change', ".Cont", function () {
-               // $('#div-IsContraception').hide();
+                // $('#div-IsContraception').hide();
                 HideInput();
 
                 var value1 = $('input[name=IsFollowUp]:checked').val();
@@ -294,7 +315,7 @@
                 $('#ContraceptionOther').removeAttr('required');
                 $('#ContraceptionId_fk').removeAttr('required');
                 $('#UseMethodId_fk').removeAttr('required');
-              
+
                 var value = $('input[name=IsContraception]:checked').val();
                 if (value == "true") {
                     $('#div-ContraceptionId_fk').show();
@@ -302,14 +323,14 @@
             });
 
             $(document).on('change', '#ContraceptionId_fk', function () {
-               
+
                 GetContraceptiveChildList("UseMethodId_fk", 0, "");
                 $('#div-UseMethodId_fk').hide();
                 $('#div-ContraceptionOther').hide();
                 $('#ContraceptionOther').val('');
                 $('#ContraceptionOther').removeAttr('required');
                 $('#UseMethodId_fk').removeAttr('required');
-                
+
                 GetContraceptiveChildList("UseMethodId_fk", 0, "");
                 $('#UseMethodId_fk').removeAttr('required');
 
@@ -338,15 +359,15 @@
 
             $(document).on('submit', "#followupformid", function (e) {
                 e.preventDefault();
-               CUFollowupBFYData();
+                CUFollowupBFYData();
             });
-             /* Follow-Up Function End */
+            /* Follow-Up Function End */
 
         });
 
-    function BindData() {
+        function BindData() {
             $("#subdata").html('');
-            var cmfollowupmodel  = new Object();
+            var cmfollowupmodel = new Object();
             cmfollowupmodel.DistrictId = $('#DistrictId').val() == '' ? '' : $('#DistrictId').val();
             cmfollowupmodel.BlockId = $('#BlockId').val() == '' ? '' : $('#BlockId').val();
             cmfollowupmodel.CLFId = $('#CLFId').val() == '' ? '' : $('#CLFId').val();
@@ -403,119 +424,124 @@
             });
         }
 
-    function HideInput() {
-        GetContraceptive("ContraceptionId_fk", 0);
-        GetContraceptiveChildList("UseMethodId_fk", 0, "");
-        $("input[name=IsContraception]").prop('checked', false);
-        $('#div-IsContraception').hide();
-        $('#div-ContraceptionId_fk').hide();
-        $('#div-UseMethodId_fk').hide();
-        $('#div-ContraceptionOther').hide();
-        $('#ContraceptionOther').val('');
-        $('#ContraceptionOther').removeAttr('required');
-        $('#ContraceptionId_fk').removeAttr('required');
-        $('#UseMethodId_fk').removeAttr('required');
-    }
-    function BindFollowupPop(BFYID_fk) {
-        GetYearList("FYear", 0);
-        GetMonthList("FMonth", 0);
-        $("#followupformid")[0].reset();
-        $('#myModal').modal('show');
-        GetContraceptive("ContraceptionId_fk", 0);
-        HideInput();
-        //$('#myModal').modal(); $('#myModal').modal('toggle');
-        $('#BFYID_fk').val(BFYID_fk);
-    }
-    function DisplayPOP(BFYID_fk) {
-        if (BFYID_fk) {
-            BindFollowupPop(BFYID_fk);
+        function HideInput() {
+            GetContraceptive("ContraceptionId_fk", 0);
+            GetContraceptiveChildList("UseMethodId_fk", 0, "");
+            $("input[name=IsContraception]").prop('checked', false);
+            $('#div-IsContraception').hide();
+            $('#div-ContraceptionId_fk').hide();
+            $('#div-UseMethodId_fk').hide();
+            $('#div-ContraceptionOther').hide();
+            $('#ContraceptionOther').val('');
+            $('#ContraceptionOther').removeAttr('required');
+            $('#ContraceptionId_fk').removeAttr('required');
+            $('#UseMethodId_fk').removeAttr('required');
         }
-    }
-    function CUFollowupBFYData() {
-        debugger;
-        //var vl = $.validator.unobtrusive.parse("#formid");
-        //var Isvalid= $("#formid").validate();//CreatePlanformid
-        var isvalid = $("#followupformid").valid();
-        var IsCheck = true;
-        IsCheck = $('#BFYID_fk').val() == '' ? false : true;
-        if ($('input[name="IsFollowUp"]:checked').length == 0) {
-            toastr.error("Error", 'Please Select FollowUp/HV in Current Month');
-            IsCheck = false;
+        function BindFollowupPop(BFYID_fk, BFYRegID) {
+            $("#stBFYRegID").html(BFYRegID);
+            GetYearList("FYear", 0);
+            GetMonthList("FMonth", 0);
+            $("#followupformid")[0].reset();
+            $('#myModal').modal('show');
+            GetContraceptive("ContraceptionId_fk", 0);
+            HideInput();
+            //$('#myModal').modal(); $('#myModal').modal('toggle');
+            $('#BFYID_fk').val(BFYID_fk);
         }
-        if ($('input[name="IsPeerPresent"]:checked').length != 0 || $('input[name="IsFollowUpHV"]:checked').length != 0) {
+        function DisplayPOP(BFYID_fk, BFYRegID) {
+            if (BFYID_fk) {
+                BindFollowupPop(BFYID_fk, BFYRegID);
+            }
+        }
+        function CUFollowupBFYData() {
+            debugger;
+            //var vl = $.validator.unobtrusive.parse("#formid");
+            //var Isvalid= $("#formid").validate();//CreatePlanformid
+            var isvalid = $("#followupformid").valid();
+            var IsCheck = true;
+            IsCheck = $('#BFYID_fk').val() == '' ? false : true;
+            //if ($('input[name="IsFollowUp"]:checked').length == 0) {
+            //    toastr.error("Error", 'Please Select FollowUp/HV in Current Month');
+            //    IsCheck = false;
+            //}
+
             if ($('input[name="IsContraception"]:checked').length == 0) {
                 toastr.error("Error", 'Please Select Want to use contraception after meeting/HV');
                 IsCheck = false;
             }
+
+            if (isvalid && IsCheck) {
+                document.getElementById("btnpopsubmit").disabled = true;
+
+                var formData = $('#followupformid').serialize();
+
+                $.ajax({
+                    url: document.baseURI + "/Beneficiary/AddFollowup",
+                    type: "Post",
+                    data: formData,
+                    //contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    // processData: false, contentType: false,
+                    //cache: false,
+                    //contentType: false,
+                    //processData: false,
+                    //data: JSON.stringify(model),
+                    success: function (resp) {
+                        if (resp.StatusType == "success") {
+                            toastr.success("Success", resp.Message);
+                            //$("#followupformid")[0].reset();
+                            BindData();
+                            document.getElementById("btnpopsubmit").disabled = false;
+                        }
+                        else {
+                            document.getElementById("btnpopsubmit").disabled = false;
+                            toastr.error("Error", resp.Message);
+                            return false;
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
+                        document.getElementById("btnpopsubmit").disabled = false;
+                        //jQuery.event.trigger("ajaxStop");
+                        return false;
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+
         }
 
-        if (isvalid && IsCheck) {
-            document.getElementById("btnpopsubmit").disabled = true;
-
-            var formData = $('#followupformid').serialize();
+        function BFYDataView(BFYId,Type) {
+            var cmfollowupmodel = new Object();
+            cmfollowupmodel.BFYId = BFYId;
+            cmfollowupmodel.Type = Type;
 
             $.ajax({
-                url: document.baseURI + "/Beneficiary/AddFollowup",
-                type: "Post",
-                data: formData,
-                //contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                // processData: false, contentType: false,
+                type: "GET",
+                url: document.baseURI + "/Beneficiary/GetBFYFollowView",
+                data: cmfollowupmodel,
                 //cache: false,
-                //contentType: false,
-                //processData: false,
-                //data: JSON.stringify(model),
-                success: function (resp) {
-                    if (resp.StatusType == "success") {
-                        toastr.success("Success", resp.Message);
-                        //$("#followupformid")[0].reset();
-                        BindData();
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $('#myModalview').modal('show');
+                        $("#div-View").html(res.Data);
                     }
                     else {
-                        toastr.error("Error", resp.Message);
+                        $("#div-View").html(res.Data);
                     }
                 },
                 error: function (req, error) {
                     if (error === 'error') { error = req.statusText; }
                     var errormsg = 'There was a communication error: ' + error;
-                    toastr.error("Error", errormsg);
-                    //jQuery.event.trigger("ajaxStop");
-                    return false;
+                    //Do To Message display
                 }
             });
         }
-        else {
-            return false;
-        }
 
-    }
-
-    function BFYDataView(BFYId) {
-        var cmfollowupmodel = new Object();
-        cmfollowupmodel.BFYId = BFYId;
-
-        $.ajax({
-            type: "GET",
-            url: document.baseURI + "/Beneficiary/GetBFYFollowView",
-            data: cmfollowupmodel,
-            //cache: false,
-            success: function (res) {
-                if (res.IsSuccess) {
-                    $('#myModalview').modal('show');
-                    $("#div-View").html(res.Data);
-                }
-                else {
-                    $("#div-View").html(res.Data);
-                }
-            },
-            error: function (req, error) {
-                if (error === 'error') { error = req.statusText; }
-                var errormsg = 'There was a communication error: ' + error;
-                //Do To Message display
-            }
-        });
-    }
-
-</script>
+    </script>
 }
 
