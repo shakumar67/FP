@@ -712,7 +712,7 @@
     <Content Include="Views\Report\_PrapatraOneData.cshtml" />
     <Content Include="Views\Report\PrapatraOne.cshtml" />
     <Content Include="Views\Beneficiary\BFYFollow.cshtml" />
-    <Content Include="Views\Beneficiary\_BFYFollow.cshtml" />
+    <Content Include="Views\Beneficiary\_BFYFollowData.cshtml" />
     <Content Include="Views\Beneficiary\_BFYFollowView.cshtml" />
     <Content Include="Views\Master\CLFMaster.cshtml" />
     <Content Include="Views\Master\_CLFData.cshtml" />
@@ -729,7 +729,7 @@
     <Content Include="Views\Achievement\_AchvPlanApvLevelSec.cshtml" />
     <Content Include="Views\Achievement\LevelSecAchvApprove.cshtml" />
     <Content Include="Views\Beneficiary\FollowupList.cshtml" />
-    <Content Include="Views\Beneficiary\_BFYFollowDataList.cshtml" />
+    <Content Include="Views\Beneficiary\_FollowDataList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
