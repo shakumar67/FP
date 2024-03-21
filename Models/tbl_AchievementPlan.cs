@@ -46,5 +46,9 @@ namespace FP.Models
         public Nullable<System.DateTime> Level2RejectDt { get; set; }
         public string Level2RejectBy { get; set; }
         public string Remark2 { get; set; }
+        public Nullable<bool> IsLevel3Reject { get; set; }
+        public Nullable<System.DateTime> Level3RejectDt { get; set; }
+        public string Level3RejectBy { get; set; }
+        public string Remark3 { get; set; }
     }
 }

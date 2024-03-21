@@ -267,6 +267,31 @@ namespace FP.Controllers
                                     }
                                 }
                                 // results += db_.SaveChanges();
+                                var groups = mlist.GroupBy(x => x.UserId);
+                                foreach (var group in groups)
+                                {
+                                    var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).ToList();
+                                    var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).ToList();
+                                    tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
+                                    tblpay.PaymentHistoryId_pk = Guid.NewGuid();
+                                    tblpay.ApprovedAchvId = string.Join(",", appovlist);
+                                    tblpay.RejectedAchvId = string.Join(",", rejectlist);
+                                    tblpay.NoofApproved = appovlist.Count;
+                                    tblpay.NoofRejected = rejectlist.Count;
+                                    tblpay.VerifyUserTypeId = Guid.Parse(MvcApplication.CUser.RoleId);
+                                    tblpay.TargetUserTypeId = Guid.Parse(db_.AspNetRoles.First(x => x.Name == CommonModel.RoleNameCont.CNRP).Id);
+                                    tblpay.TargetUserId = group.Key;
+                                    tblpay.ClaimAmount = CommonModel.GetClaimApprove(appovlist.Count, CommonModel.RoleNameCont.CNRP);
+                                    tblpay.ApprovedAmount = CommonModel.GetClaimApprove(rejectlist.Count, CommonModel.RoleNameCont.CNRP);
+                                    tblpay.PayMonth = model.PlanMonth;
+                                    tblpay.PayYear = model.PlanYear;
+                                    tblpay.IsActive = true;
+                                    tblpay.CreatedBy = MvcApplication.CUser.Id;
+                                    tblpay.UpdatedBy = MvcApplication.CUser.Id;
+                                    tblpay.CreatedOn = tblpay.UpdatedOn = DateTime.Now;
+                                    db_.tbl_PaymentHistory.Add(tblpay);
+                                }
+                                db_.SaveChanges();
                             }
                             else
                             {

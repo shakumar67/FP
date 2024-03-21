@@ -21,6 +21,13 @@ namespace FP.Manager
         {
             Jharkhand = 20
         }
+        public enum eAmount
+        {
+            CMMonthly = 300, //Monthly Incentive per month Amount(300)
+            CNRMonthly = 160, //Monthly Incentive per day fixed -10 days Amount(160 * 10)
+            CMMobilization = 20, // Mobilization Incentives per beneficiary Service Adopted amount CM - Amount 20 distribution 20
+            CNPMobilization = 80 // Mobilization Incentives per beneficiary Service Adopted amount CM - Amount 80 distribution 80
+        }
 
         public enum eEnumExtension
         {

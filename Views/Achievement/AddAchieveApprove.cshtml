@@ -159,7 +159,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
 
-    <script>
+<script>
         $(document).ready(function () {
 
             GetYearList("PlanYear", 0);
@@ -202,6 +202,25 @@
                 e.preventDefault();
                 BindDataTable();
                // document.getElementById("btnsubmit").disabled = false;
+            });
+
+            $(document).on("change", "input[name=chkApprove]", function (e) {
+                e.preventDefault();
+                console.log(this);
+                var achvplanid = $(this).attr('data-achvplanid');
+                var uid = $(this).attr('data-uid');
+                var empid = $(this).attr('data-empid');
+                var tr = $('#DataList tr[data-empid=' + empid + ']');
+                var noOfCheckedRows = $('input[name=chkApprove][data-empid=' + empid + ']:checked').length;
+                var amount = noOfCheckedRows * @((int)@Enums.eAmount.CNRMonthly);
+                $('#appvamount-' + empid, tr).html(amount);
+                if ($(this).is(':checked')) {
+                    $('textarea[id=remark-' + achvplanid + ']').removeAttr('requied');
+                }
+                else {
+                    $('textarea[id=remark-' + achvplanid + ']').attr('requied', 'requied');
+                }
+
             });
 
             //$('#mdt-1').datepicker({
@@ -272,12 +291,20 @@
             });
         }
     function CUData(Achvplanid_reject, indx) {
-            debugger;
+        debugger;
+        var isvalid = $("#formid").valid();
+        var IsCheck = true;
+        if ($('#DistrictId_fk').val() == '' || $('#BlockId_fk').val() == ''
+             || $('#ClusterId_fk').val() == ''|| $('#PlanYear').val() == '' || $('#PlanMonth').val() == ''
+        ) {
+            toastr.error("Error", "Please Select District, Block & Cluster");
+            return false;
+        }
+
             jQuery.event.trigger("ajaxStart");
             //var vl = $.validator.unobtrusive.parse("#formid");
             //var Isvalid= $("#formid").validate();//CreatePlanformid
-            var isvalid = $("#formid").valid();
-            var IsCheck = true;
+           
            // IsCheck = $('#BFYID_fk').val() == '' ? false : true;
             var tblpushdata = [];
             var formData = new FormData();
@@ -291,7 +318,8 @@
            // $('#DataList').each(function () {
 
                 let table2 = $('#DataList').DataTable();
-                table2.$('input:checked').each(function (i, row) {
+                  table2.$('input[name=chkApprove]').each(function (i, row) {
+
                     var achvplanid = $(row).attr('data-achvplanid');
                     var uid = $(row).attr('data-uid');
                     var empid = $(row).attr('data-empid');
@@ -301,8 +329,9 @@
                     var pchytid = $(row).attr('data-pchytid');
                     var vorgid = $(row).attr('data-vorgid');
                     debugger;
-                    if (achvplanid != '' && achvplanid != '@Guid.Empty') {
-                        if (!Achvplanid_reject || Achvplanid_reject == undefined) {
+                      if (achvplanid != '' && achvplanid != '@Guid.Empty') {
+                        //(!Achvplanid_reject || Achvplanid_reject == undefined) &&
+                        if ($(this).is(':checked')) {
                             tblpushdata.push({
                                 AchieveId_pk: achvplanid,
                                 DistrictId: disid,
@@ -310,12 +339,15 @@
                                 ClusterId: clfid,
                                 PanchayatId: pchytid,
                                 VoId_fk: vorgid,
+                                UserId: uid,
+                                empId: empid,
                                 PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Approve)',
                             });
                         }
-                        else if (Achvplanid_reject && Achvplanid_reject != undefined && achvplanid == Achvplanid_reject) {
-                            var remark1 = $('textarea[id=remark-' + indx + ']').val();
-                            $('textarea[id=remark-' + indx + ']').attr('requied', 'requied');
+                        //Achvplanid_reject && Achvplanid_reject != undefined && achvplanid == Achvplanid_reject &&
+                        else if (!$(this).is(':checked')) {
+                            var remark1 = $('#remark-' + achvplanid).val();
+                            $('textarea[id=remark-' + achvplanid + ']').attr('requied', 'requied');
                             if (remark1 != '') {
                                 tblpushdata.push({
                                     AchieveId_pk: achvplanid,
@@ -324,11 +356,15 @@
                                     ClusterId: clfid,
                                     PanchayatId: pchytid,
                                     VoId_fk: vorgid,
+                                    UserId: uid,
+                                    empId: empid,
                                     Remark1: remark1,
                                     PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Reject)',
                                 });
                             }
                             else {
+                                IsCheck = false;
+                                //toastr.error("Error", "Enter the Remarks");
                                 return false;
                             }
                         }
@@ -400,6 +436,6 @@
             }
 
         }
-    </script>
+</script>
 }
 

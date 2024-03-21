@@ -9,7 +9,7 @@
         //ds = Model;
         dtg = Model;
     }
-    DataView view = new DataView(dtg.Select("EmpName<>'_All' And Emp_ID<>'__All'").CopyToDataTable());
+    DataView view = new DataView(dtg);//.Select("EmpName<>'_All' And Emp_ID<>'__All'"
     DataTable dtsn = view.ToTable(true, "EmpName");
     DataTable dtts = view.ToTable(true, "Emp_ID");
 }
@@ -40,6 +40,8 @@
                         <tr>
                             <th>@CommonModel.DisAchvlbl.Name</th>
                             <th>@CommonModel.DisAchvlbl.TotalNoofParticipant</th>
+                            <th>@CommonModel.DisAchvlbl.ClaimAmount</th>
+                            <th>@CommonModel.DisAchvlbl.ApproveAmount</th>
                             <th></th>
                             @*<th>@CommonModel.DispLevel.District</th>
                                 <th>@CommonModel.DispLevel.Block</th>
@@ -62,11 +64,18 @@
                                     string EmpName = Convert.ToString(dr["EmpName"]);
                                     string Emp_ID = Convert.ToString(dr["Emp_ID"]);
 
-                                    if (Emp_ID.ToLower() == "__all" && EmpName.ToLower() != "_all")
+                                    if (!string.IsNullOrWhiteSpace(Emp_ID.ToLower()) && !string.IsNullOrWhiteSpace(EmpName.ToLower()))
                                     {
-                                        <tr style="color:#1b6907;">
+                                        var am = CommonModel.GetClaimApprove(Convert.ToInt32(dr["NoOfMeetingHeld"]), CommonModel.RoleNameCont.CNRP);
+                                        <tr style="color:#1b6907;" data-empid="@Emp_ID">
                                             <td data-title="EmpName" class="@("empname-" + EmpName.Replace(" ", "_").ToLower())">@EmpName</td>
                                             <td data-title="NoOfMeetingHeld">@dr["NoOfMeetingHeld"]</td>
+                                            <td data-title="@CommonModel.DisAchvlbl.ClaimAmount">
+                                                @am
+                                            </td>
+                                            <td data-title="@CommonModel.DisAchvlbl.ApproveAmount">
+                                                <strong id="appvamount-@Emp_ID">@am</strong>
+                                            </td>
                                             @*<td></td>
                                                 <td></td>
                                                 <td></td>*@
@@ -103,8 +112,10 @@
                                                             <tr class="@("empname-" + EmpName.Replace(" ", "_").ToLower()) index-@indx @distbl">
                                                                 <td></td>
                                                                 <td></td>
+                                                                <td></td>
+                                                                <td></td>
                                                                 <td>
-                                                                    <input type="checkbox" data-achvplanid="@dr1["AchieveId_pk"]"
+                                                                    <input type="checkbox" name="chkApprove" data-achvplanid="@dr1["AchieveId_pk"]"
                                                                            data-uid="@dr1["UserID_fk"]" data-empid="@dr1["Emp_ID"]"
                                                                            data-disid="@dr1["DistrictId_pk"]" data-blckid="@dr1["BlockId_pk"]"
                                                                            data-clfid="@dr1["CLF_ID_pk"]" data-pchytid="@dr1["Panchayatid_pk"]" data-vorgid="@dr1["Void_pk"]"
@@ -123,12 +134,12 @@
                                                                 <td data-title="Noofparticipant">@dr1["Noofparticipant"]</td>
                                                                 <td data-title="PlanMonthYear">@dr1["PlanMonthYear"]</td>
                                                                 <td data-title="Remark" width="300px">
-                                                                    <textarea id="remark-@indx" value="" name="Remark-@indx" class="form-control" rows="5" cols="12">@dr1["Remark1"].ToString()</textarea>
+                                                                    <textarea id="remark-@dr1["AchieveId_pk"]" value="" name="Remark-@dr1["AchieveId_pk"]" class="form-control" rows="5" cols="12">@dr1["Remark1"].ToString()</textarea>
                                                                     @dr1["Level1RejectDt"].ToString()
-                                                                    @if (dr1["PlanStatus"].ToString() != appr && "trdisableAprroved" != distbl)
+                                                                    @*@if (dr1["PlanStatus"].ToString() != appr && "trdisableAprroved" != distbl)
                                                                     {
                                                                         <a href="JavaScript:void(0);" class="btn btn-danger" id="hrfrejectid" onclick="CUData('@dr1["AchieveId_pk"]','@indx')"><i class="fa fa-reject"></i>Reject</a>
-                                                                    }
+                                                                    }*@
                                                                 </td>
                                                             </tr>
                                                             indx++;
