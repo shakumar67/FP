@@ -1842,6 +1842,20 @@ namespace FP.Manager
 
         #endregion
 
+        #region Payment Module Calucation Part
+        public static int GetClaimApprove(int NoofPlan = 0, string TypeOfRole = "")
+        {
+            if (!string.IsNullOrWhiteSpace(TypeOfRole))
+            {
+                if (TypeOfRole == CommonModel.RoleNameCont.CNRP)
+                {
+                    var am = Convert.ToInt32(Enums.eAmount.CNRMonthly) * NoofPlan;
+                    return am;
+                }
+            }
+            return 0;
+        }
+        #endregion
         public static decimal ToDecimal(string str)
         {
             return Decimal.TryParse(str, out decimal res) ? res : 0M;
@@ -1875,18 +1889,20 @@ namespace FP.Manager
             public const string Role = "Role";
             public const string Name = "Name";
             public const string Achieved = "Achieved";
-      }
+        }
         public static class DisAchvlbl
         {
             public const string Name = "Name";//MeetingHeld
             public const string MeetingDate = "Meeting Date";//MeetingHeld
-            public const string TotalNoofParticipant = "Total No of Participant";
+            public const string TotalNoofParticipant = "No of Plan";
             public const string NoofParticipant = "No of Participant";
             public const string AchvPlanDate = "Planning Month\r\nYear ";//
             public const string AchvPlanMRPRemark = "Remark";//\r\n
             public const string AchvPlanMRPDate = "MRP \r\nApproved\r\n Date";//\r\n
             public const string AchvPlanCCRemark = "Remark";//\r\n
             public const string AchvPlanCCDate = "CC \r\nApproved\r\n Date";//\r\n
+            public const string ClaimAmount = "Claim \r\n Amount";//\r\n
+            public const string ApproveAmount = "Approve \r\n Amount";//\r\n
         }
     }
 }
