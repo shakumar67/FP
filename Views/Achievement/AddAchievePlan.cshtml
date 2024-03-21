@@ -23,104 +23,86 @@
     }
 </style>
 <div class="breadcrumb">
-    <h2>Add Achievement Plan</h2>
-    <p><a href="~/Achievement/AddAchievePlan">Achievement List </a> / Add Achievement Plan</p>
+    <h2>Meeting Achivments - @CommonModel.RoleNameCont.CNRP</h2>
 </div>
 <div class="container-fluid pt-4 px-4">
-    <fieldset class="border rounded-3 p-3">
-        <legend class="float-none w-auto px-2">Achievement-@CommonModel.RoleNameCont.CNRP</legend>
-        @using (Html.BeginForm("AddAchievePlan", "Achievement", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
-        {
-            <div class="row g-4">
-                <div class="col-sm-12">
-                    <div class="bg-light rounded h-100 p-4">
-                        <div class="row mb-3">
-                            <div class="col-sm-2">
-                                <div class="position-relative form-group">
-                                    @Html.Label(CommonModel.DispLevel.District, htmlAttributes: new { @class = "control-label" })
-                                    @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                    @Html.ValidationMessageFor(model => model.DistrictId_fk, "", new { @class = "text-danger" })
-                                </div>
+    @using (Html.BeginForm("AddAchievePlan", "Achievement", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+    {
+        <div class="row g-4">
+            <div class="col-sm-12">
+                <div class="bg-light rounded h-100 p-4">
+                    <div class="row mb-3">
+                        <div class="col-sm-2">
+                            <div class="position-relative form-group">
+                                @Html.Label(CommonModel.DispLevel.District, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                @Html.ValidationMessageFor(model => model.DistrictId_fk, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-sm-2">
-                                <div class="position-relative form-group">
-                                    @*@Html.LabelFor(model => model.BlockId_fk, htmlAttributes: new { @class = "control-label" })*@
-                                    @Html.Label(CommonModel.DispLevel.Block, htmlAttributes: new { @class = "control-label" })
-                                    @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                    @Html.ValidationMessageFor(model => model.BlockId_fk, "", new { @class = "text-danger" })
-                                </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="position-relative form-group">
+                                @*@Html.LabelFor(model => model.BlockId_fk, htmlAttributes: new { @class = "control-label" })*@
+                                @Html.Label(CommonModel.DispLevel.Block, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                @Html.ValidationMessageFor(model => model.BlockId_fk, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-sm-2">
-                                <div class="position-relative form-group">
-                                    @Html.Label(CommonModel.DispLevel.Cluster, htmlAttributes: new { @class = "control-label" })
-                                    @Html.DropDownListFor(m => m.ClusterId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                    @Html.ValidationMessageFor(model => model.ClusterId_fk, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-2">
-                                <div class="position-relative form-group">
-                                    @Html.Label(CommonModel.DispLevel.Panchayat, htmlAttributes: new { @class = "control-label" })
-                                    @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                    @Html.ValidationMessageFor(model => model.PanchayatId_fk, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="position-relative form-group">
-                                    @Html.Label(CommonModel.DispLevel.Year, htmlAttributes: new { @class = "control-label" })
-                                    @Html.DropDownListFor(m => m.PlanYear, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                    @Html.ValidationMessageFor(model => model.PlanYear, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="position-relative form-group">
-                                    @Html.Label(CommonModel.DispLevel.Month, htmlAttributes: new { @class = "control-label" })
-                                    @Html.DropDownListFor(m => m.PlanMonth, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                    @Html.ValidationMessageFor(model => model.PlanMonth, "", new { @class = "text-danger" })
-                                </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="position-relative form-group">
+                                @Html.Label(CommonModel.DispLevel.Cluster, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.ClusterId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                @Html.ValidationMessageFor(model => model.ClusterId_fk, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-03"></div>
-                                    <div class="col-md-7"></div>
-                                </div>
+
+                        <div class="col-sm-2">
+                            <div class="position-relative form-group">
+                                @Html.Label(CommonModel.DispLevel.Panchayat, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                @Html.ValidationMessageFor(model => model.PanchayatId_fk, "", new { @class = "text-danger" })
                             </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12"><strong id="msg" class="text-danger"></strong></div>
-                                    @{
-                                        int index = 1; var achvplanid = Guid.Empty;
-                                        <div class="col-md-12">
-                                            <table class="table rowfy" id="tbl">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>@CommonModel.DispLevel.VO</th>
-                                                        <th>@CommonModel.DisAchvlbl.MeetingDate</th>
-                                                        <th>@CommonModel.DisAchvlbl.NoofParticipant</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @*<tr>
-                                                            <td class="index"></td>
-                                                            <td>
-                                                                <select name="Void_fk" class="Void_fk form-select" required></select>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" name="MDt" value="" class="form-control col-md-4 mdt" minlength="10" maxlength="15" required />
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" name="NoofPart" value="" class="form-control col-md-4 numbersOnly noofpart" minlength="1" maxlength="3" required />
-                                                            </td>
-                                                            <td class="action"></td>
-                                                        </tr>*@
-                                                </tbody>
-                                                <tfoot style="display:none;">
-                                                    <tr>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="position-relative form-group">
+                                @Html.Label(CommonModel.DispLevel.Year, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.PlanYear, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                @Html.ValidationMessageFor(model => model.PlanYear, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="position-relative form-group">
+                                @Html.Label(CommonModel.DispLevel.Month, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.PlanMonth, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                @Html.ValidationMessageFor(model => model.PlanMonth, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-03"></div>
+                                <div class="col-md-7"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12"><strong id="msg" class="text-danger"></strong></div>
+                                @{
+                                    int index = 1; var achvplanid = Guid.Empty;
+                                    <div class="col-md-12">
+                                        <table class="table rowfy" id="tbl">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>@CommonModel.DispLevel.VOFull</th>
+                                                    <th>@CommonModel.DisAchvlbl.MeetingDate</th>
+                                                    <th>@CommonModel.DisAchvlbl.NoofParticipant</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @*<tr>
                                                         <td class="index"></td>
                                                         <td>
                                                             <select name="Void_fk" class="Void_fk form-select" required></select>
@@ -131,33 +113,49 @@
                                                         <td>
                                                             <input type="text" name="NoofPart" value="" class="form-control col-md-4 numbersOnly noofpart" minlength="1" maxlength="3" required />
                                                         </td>
-                                                        <td class="action">
-                                                            <button type="button" class="btn btn-sm rowfy-addrow btn-success" style="display:none">+</button>
-                                                            <button type="button" class="btn btn-sm rowfy-deleterow btn-danger" style="display:none">-</button>
-                                                        </td>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
+                                                        <td class="action"></td>
+                                                    </tr>*@
+                                            </tbody>
+                                            <tfoot style="display:none;">
+                                                <tr>
+                                                    <td class="index"></td>
+                                                    <td>
+                                                        <select name="Void_fk" class="Void_fk form-select" required></select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="MDt" value="" class="form-control col-md-4 mdt" minlength="10" maxlength="15" required />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="NoofPart" value="" class="form-control col-md-4 numbersOnly noofpart" minlength="1" maxlength="3" required />
+                                                    </td>
+                                                    <td class="action">
+                                                        <button type="button" class="btn btn-sm rowfy-addrow btn-success" style="display:none">+</button>
+                                                        <button type="button" class="btn btn-sm rowfy-deleterow btn-danger" style="display:none">-</button>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
 
-                                        </div>
-                                    }
-                                </div>
+                                    </div>
+                                }
                             </div>
                         </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <span class="check-spacer">
-                                <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
-                            </span>&nbsp;&nbsp;&nbsp;
-                            <span class="check-spacer">
-                                <a href="~/Achievement/AddAchievePlan" class="btn btn-info" id="hrfid"><i class="fa fa-refresh"></i>Refresh</a>
-                            </span>
-                        </div>
+                    <div class="mb-3">
+                        <span class="check-spacer">
+                            <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
+                        </span>&nbsp;&nbsp;&nbsp;
+                        <span class="check-spacer">
+                            <a href="~/Achievement/AddAchievePlan" class="btn btn-info" id="hrfid"><i class="fa fa-refresh"></i>Refresh</a>
+                        </span>
                     </div>
                 </div>
             </div>
-        }
-    </fieldset>
+        </div>
+    }
+
+    <hr />
 
     <div class="row">
         <div class="col=md-12" id="div-download"></div>
@@ -333,6 +331,8 @@
             formData.append('PlanYear', $('#PlanYear').val());
             formData.append('PlanMonth', $('#PlanMonth').val());
 
+            var isValidRows = true;
+            var rowDatavalid = true;
             $('.rowfy').each(function () {
                 $('tbody', this).find('tr').each(function (i, row) {
                     var index = parseInt($('.index', row).text());
@@ -344,21 +344,41 @@
                     if ($('#DistrictId_fk').val() != '' && $('#BlockId_fk').val() != ''
                         && $('#ClusterId_fk').val() != '' && $('#PanchayatId_fk').val() != '' && vogid != ''
                         && $('#PlanYear').val() != '' && $('#PlanMonth').val() != ''
-                        && (mdt != '' && mdt !='Invalid Date') && noofpart!='') {
-                        tblpushdata.push({
-                            AchieveId_pk: id,
-                            VoId_fk: vogid,
-                            Meetingheld: toDate(mdt),
-                            Noofparticipant: noofpart,
-                        });
+                        && (mdt != '' && mdt != 'Invalid Date') && noofpart != '') {
+
+                        var existingIndex = tblpushdata.findIndex(x => moment(x.Meetingheld).isSame(moment(toDate(mdt))) && x.VoId_fk == vogid);
+                        if (existingIndex == -1) {
+                            tblpushdata.push({
+                                AchieveId_pk: id,
+                                VoId_fk: vogid,
+                                Meetingheld: toDate(mdt),
+                                Noofparticipant: noofpart,
+                            });
+                        }
+                        else {
+                            isValidRows = false;
+                            return;
+                        }
                     }
+                    //else {
+                    //    rowDatavalid = false;
+                    //    return;
+                    //}
                 });
             });
 
             if (tblpushdata.length == 0) {
-                toastr.error("Error", "Please choice at least one Village Org,\n Meeting Date & No of Participant .");
+                toastr.error("Error", "Please fill at least one Village Org,\n Meeting Date & No of Participant.");
                 return false;
             }
+            else if (!isValidRows) {
+                toastr.error("Error", "Please select unique Village Org,\n Meeting Date per row.");
+                return false;
+            }
+            //else if (!rowDatavalid) {
+            //    toastr.error("Error", "Please remove not filled row.");
+            //    return false;
+            //}
 
             formData.append('AVPlanModel', JSON.stringify(tblpushdata));
 
