@@ -207,6 +207,7 @@
             $(document).on("change", "input[name=chkApprove]", function (e) {
                 e.preventDefault();
                 console.log(this);
+                $('span[id=remark-' + achvplanid + '-error]').html('');
                 var achvplanid = $(this).attr('data-achvplanid');
                 var uid = $(this).attr('data-uid');
                 var empid = $(this).attr('data-empid');
@@ -216,9 +217,12 @@
                 $('#appvamount-' + empid, tr).html(amount);
                 if ($(this).is(':checked')) {
                     $('textarea[id=remark-' + achvplanid + ']').removeAttr('requied');
+                    //$('span[id=remark-' + achvplanid + '-error]').hide();
                 }
                 else {
                     $('textarea[id=remark-' + achvplanid + ']').attr('requied', 'requied');
+                    //$('span[id=remark-' + achvplanid + '-error]').show();
+                    //$('span[id=remark-' + achvplanid + '-error]').html('The Remark field is required.');
                 }
 
             });
@@ -241,7 +245,7 @@
             var filtermodel = new Object();
             filtermodel.DistrictId = $('#DistrictId_fk').val() == '' ? '' : $('#DistrictId_fk').val();
             filtermodel.BlockId = $('#BlockId_fk').val() == '' ? '' : $('#BlockId_fk').val();
-            filtermodel.CLFId = $('#CLFId_fk').val() == '' ? '' : $('#CLFId_fk').val();
+            filtermodel.CLFId = $('#ClusterId_fk').val() == '' ? '' : $('#ClusterId_fk').val();
             filtermodel.PanchayatId = $('#PanchayatId_fk').val() == '' ? '' : $('#PanchayatId_fk').val();
             //filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
             filtermodel.Year = $('#PlanYear').val() == '' ? '' : $('#PlanYear').val();
@@ -257,6 +261,11 @@
                     if (res.IsSuccess) {
                         $("#subdata").html(res.Data);
                         $('#div-btn').css('display', 'block');
+                        $("#DataList").DataTable({
+                            "ordering": false,
+                            pageLength: 500,
+                            lengthChange: false
+                        });
                         //if ($.fn.dataTable.isDataTable('#DataList')) {
                         //    $("#tblPlan").dataTable().fnDestroy();
                         //}

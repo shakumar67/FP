@@ -35,7 +35,7 @@
         <div class="card">
             <div class="table-responsive">
 
-                <table class="table table-bordered table-hover dt-responsive display" id="DataList" width="100%">
+                <table class="table table-bordered table-hover dt-responsive display" id="DataList" bSort="false" width="100%">
                     <thead>
                         <tr>
                             <th>@CommonModel.DisAchvlbl.Name</th>
@@ -43,9 +43,6 @@
                             <th>@CommonModel.DisAchvlbl.ClaimAmount</th>
                             <th>@CommonModel.DisAchvlbl.ApproveAmount</th>
                             <th></th>
-                            @*<th>@CommonModel.DispLevel.District</th>
-                                <th>@CommonModel.DispLevel.Block</th>
-                                <th>@CommonModel.DispLevel.Cluster</th>*@
                             <th>@CommonModel.DispLevel.Panchayat</th>
                             <th>@CommonModel.DispLevel.VO</th>
                             <th>@CommonModel.DisAchvlbl.MeetingDate</th>
@@ -57,7 +54,7 @@
                     <tbody>
                         @{
                             int sno = 1; int indx = 1;
-                            if (Model != null)
+                            if (dtg.Rows.Count > 0)
                             {
                                 foreach (DataRow dr in dtg.Rows)
                                 {
@@ -76,9 +73,6 @@
                                             <td data-title="@CommonModel.DisAchvlbl.ApproveAmount">
                                                 <strong id="appvamount-@Emp_ID">@am</strong>
                                             </td>
-                                            @*<td></td>
-                                                <td></td>
-                                                <td></td>*@
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -108,7 +102,8 @@
                                                             //var Level2nd = dr1["IsLevel2Approve"].ToString() == appr ? "trdisableAprroved" :"";
                                                             var distbl = dr1["IsLevel1Approve"].ToString() == appr ? "trdisableAprroved" :
                                                                   dr1["PlanStatus"].ToString() == Reject ? "trdisableReject" : "trcolor";
-                                                            var strchecked = dr1["IsLevel1Approve"].ToString() == Reject ? "" : "checked=checked";
+                                                            var strchecked = dr1["IsLevel1Approve"].ToString() == "1"
+                                                                ? "checked=checked" : dr1["IsLevel1Reject"].ToString() == "1" ? "" : "";
                                                             <tr class="@("empname-" + EmpName.Replace(" ", "_").ToLower()) index-@indx @distbl">
                                                                 <td></td>
                                                                 <td></td>
@@ -121,13 +116,7 @@
                                                                            data-clfid="@dr1["CLF_ID_pk"]" data-pchytid="@dr1["Panchayatid_pk"]" data-vorgid="@dr1["Void_pk"]"
                                                                            data-planstatus="@dr1["PlanStatus"]"
                                                                            value="@dr1["AchieveId_pk"]" @strchecked />
-                                                                    @*<a href="javascript:void(0);" onclick="return BindData('1', '', '@dr1["SectionDetailEng"]');">
-                                                                            <p>@dr1["SectionDetailNoEng"] . @dr1["SectionDetailEng"]</p>
-                                                                        </a>*@
                                                                 </td>
-                                                                @*<td data-title="DistrictName">@dr1["DistrictName"]</td>
-                                                                    <td data-title="Block">@dr1["Block"]</td>
-                                                                    <td data-title="CLFName">@dr1["CLFName"]</td>*@
                                                                 <td data-title="Panchayat">@dr1["Panchayat"]</td>
                                                                 <td data-title="VO">@dr1["VO"]</td>
                                                                 <td data-title="Meetingheld">@(CommonModel.FormateDtDMY(dr1["Meetingheld"].ToString()))</td>
@@ -135,11 +124,12 @@
                                                                 <td data-title="PlanMonthYear">@dr1["PlanMonthYear"]</td>
                                                                 <td data-title="Remark" width="300px">
                                                                     <textarea id="remark-@dr1["AchieveId_pk"]" value="" name="Remark-@dr1["AchieveId_pk"]" class="form-control" rows="5" cols="12">@dr1["Remark1"].ToString()</textarea>
+                                                                    <span id="remark-@dr1["AchieveId_pk"]-error" class="text-danger"></span>
                                                                     @dr1["Level1RejectDt"].ToString()
                                                                     @*@if (dr1["PlanStatus"].ToString() != appr && "trdisableAprroved" != distbl)
-                                                                    {
-                                                                        <a href="JavaScript:void(0);" class="btn btn-danger" id="hrfrejectid" onclick="CUData('@dr1["AchieveId_pk"]','@indx')"><i class="fa fa-reject"></i>Reject</a>
-                                                                    }*@
+                                                                        {
+                                                                            <a href="JavaScript:void(0);" class="btn btn-danger" id="hrfrejectid" onclick="CUData('@dr1["AchieveId_pk"]','@indx')"><i class="fa fa-reject"></i>Reject</a>
+                                                                        }*@
                                                                 </td>
                                                             </tr>
                                                             indx++;
@@ -149,26 +139,11 @@
                                             }
                                         }
                                     }
-
-                                    else
-                                    {
-                                        @*<tr style="font-size:14px;">
-                                                <td data-title=""><strong></strong></td>
-                                                <td data-title=""><strong></strong></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>*@
-                                    }
-
                                 }
+                            }
+                            else
+                            {
+                                <tr><td colspan="11" class="text-danger text-center"><strong>@(Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound))</strong></td></tr>
                             }
                         }
 

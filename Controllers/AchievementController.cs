@@ -216,25 +216,29 @@ namespace FP.Controllers
                                         var tblu = db_.tbl_AchievementPlan.Find(m.AchieveId_pk);
                                         if (tblu != null && m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve))
                                         {
-                                            var cdt = DateTime.Now;
-                                            tbl_Achievement_Log tblLog = new tbl_Achievement_Log();
-                                            tblLog.LogId_pk = Guid.NewGuid();
-                                            tblLog.AchieveId_fk = m.AchieveId_pk;
-                                            tblLog.PlanStatus = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? Convert.ToInt16(eTypeApprove.Approve) : 0;
-                                            tblLog.PlanStatusDate = cdt;
-                                            tblLog.CreatedBy = MvcApplication.CUser.Id;
-                                            tblLog.CreatedOn = DateTime.Now;
-                                            db_.tbl_Achievement_Log.Add(tblLog);
-                                            db_.SaveChanges();
+                                            if (tblu.IsLevel1Approve != true)
+                                            {
+                                                var cdt = DateTime.Now;
+                                                tbl_Achievement_Log tblLog = new tbl_Achievement_Log();
+                                                tblLog.LogId_pk = Guid.NewGuid();
+                                                tblLog.AchieveId_fk = m.AchieveId_pk;
+                                                tblLog.PlanStatus = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? Convert.ToInt16(eTypeApprove.Approve) : 0;
+                                                tblLog.PlanStatusDate = cdt;
+                                                tblLog.CreatedBy = MvcApplication.CUser.Id;
+                                                tblLog.CreatedOn = DateTime.Now;
+                                                db_.tbl_Achievement_Log.Add(tblLog);
+                                                db_.SaveChanges();
 
-                                            tblu.FinalApproved = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? Convert.ToInt16(eTypeApprove.Approve) : 0;
-                                            tblu.FinalApprovedDate = cdt;
-                                            tblu.FinalApprovedBy = MvcApplication.CUser.Id;
+                                                tblu.FinalApproved = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? Convert.ToInt16(eTypeApprove.Approve) : 0;
+                                                tblu.FinalApprovedDate = cdt;
+                                                tblu.FinalApprovedBy = MvcApplication.CUser.Id;
 
-                                            tblu.IsLevel1Approve = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
-                                            tblu.Level1ApproveDt = cdt;
-                                            tblu.Level1ApproveBy = MvcApplication.CUser.Id;
-                                            results += db_.SaveChanges();
+                                                tblu.IsLevel1Approve = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
+                                                tblu.Level1ApproveDt = cdt;
+                                                tblu.Level1ApproveBy = MvcApplication.CUser.Id;
+                                                results += db_.SaveChanges();
+
+                                            }
                                         }
                                     }
                                     else if (m.AchieveId_pk != Guid.Empty && m.PanchayatId != null && m.VoId_fk != null && !string.IsNullOrWhiteSpace(m.Remark1))
@@ -303,9 +307,10 @@ namespace FP.Controllers
                         }
                     }
                 }
-                response = results > 0 && results_Reject == 0 ? new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, Achievement Planning Approved Successfully ! \r\n", Data = null }
-                : results == 0 && results_Reject > 0 ? new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = " Congratulations, Achievement Planning Rejected Successfully ! \r\n", Data = null }
-                : new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.NotSubmitData), Data = null };
+                response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Congratulations,Monthly Incentive" + GetEnumDescription(Enums.eReturnReg.Insert) + "Successfully! \r\n", Data = null };
+                //response = results > 0 && results_Reject == 0 ? new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, Achievement Planning Approved Successfully ! \r\n", Data = null }
+                //: results == 0 && results_Reject > 0 ? new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = " Congratulations, Achievement Planning Rejected Successfully ! \r\n", Data = null }
+                //: new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.NotSubmitData), Data = null };
                 var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                 resResponse3.MaxJsonLength = int.MaxValue;
                 return resResponse3;
