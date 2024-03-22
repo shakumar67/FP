@@ -571,7 +571,7 @@ function GetYearList(Ele, Sel, IsAll = 0) {
                 $.each(data, function (i, exp) {
                     $('#' + Ele).append($("<option>").val(exp.Value).text(exp.Text));
                 });
-                $('#' + Ele + ' option[value="' + GetCurrentYear() + '"]').prop('selected', true);
+                $('#' + Ele + ' option:contains("' + GetCurrentYear() + '")').prop('selected', true);
             }
         },
         error: function (req, error) {
