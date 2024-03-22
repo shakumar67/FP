@@ -39,7 +39,7 @@ $(function () {
 
     //DatePicker();
 
-     //ComponentID Filter
+    //ComponentID Filter
     //$('#ComponentID').multiselect({
     //    includeSelectAllOption: true,
     //});
@@ -76,7 +76,7 @@ function validate(evt) {
         if (theEvent.preventDefault) theEvent.preventDefault();
     }
 }
- 
+
 $(".numberonly").on("input", function (evt) {
     var self = $(this);
     self.val(self.val().replace(/[^0-9.]/g, ''));
@@ -90,7 +90,7 @@ $(".numberonly").on("input", function (evt) {
 function toDate(dateString) {
 
     var parts = dateString.split('-');
-    return new Date( parts[2] + "-" + parts[1] + "-" + parts[0]);      
+    return new Date(parts[2] + "-" + parts[1] + "-" + parts[0]);
 }
 function getAge(dateString) {
 
@@ -160,7 +160,7 @@ function getAge(dateString) {
 
     if ((age.years > 15) && (age.months > 0) && (age.days > 0))
         ageString = age.years + yearString + ", " + age.months + monthString + ", and " + age.days + dayString + " old.";
-   else if ((age.years > 0) && (age.months > 0) && (age.days > 0))
+    else if ((age.years > 0) && (age.months > 0) && (age.days > 0))
         ageString = age.years + yearString + ", " + age.months + monthString + ", and " + age.days + dayString + " old.";
     else if ((age.years == 0) && (age.months == 0) && (age.days > 0))
         ageString = "Only " + age.days + dayString + " old!";
@@ -174,7 +174,7 @@ function getAge(dateString) {
         ageString = age.years + yearString + " and " + age.days + dayString + " old.";
     else if ((age.years == 0) && (age.months > 0) && (age.days == 0))
         ageString = age.months + monthString + " old.";
-   // else ageString = "Oops! Could not calculate age!";
+    // else ageString = "Oops! Could not calculate age!";
     else ageString = ""; //toastr.error("Error", "Can't be valid date.");
 
     return ageString;
@@ -332,7 +332,7 @@ function GetDistrict(Ele, Sel) {
     });
     $('#' + Ele).trigger("chosen:updated");
 }
-function GetBlock(Ele, Sel,Para1) {
+function GetBlock(Ele, Sel, Para1) {
     $('#' + Ele).empty();
     $('#' + Ele).prop("disabled", false);
     $('#' + Ele).append($("<option>").val('').text('Select'));
@@ -480,16 +480,16 @@ function OnChagDistricts(Ele, Sel) {
         GetBlock(Ele, '', Sel);
     }
 }
-function OnChagBlocks(Ele, Sel, Para1,Para2) {
+function OnChagBlocks(Ele, Sel, Para1, Para2) {
     if (Sel != 'undefined') {
         var d = Ele;
         GetPanchayat(Ele, '', Para1, Para2);
     }
 }
-function OnChagPanchayats(Ele, Sel, Para1, Para2,Para3) {
+function OnChagPanchayats(Ele, Sel, Para1, Para2, Para3) {
     if (Sel != 'undefined') {
         var d = Ele;
-        GetVillage(Ele, '', Para1, Para2,Para3);
+        GetVillage(Ele, '', Para1, Para2, Para3);
     }
 }
 function GetContraceptive(Ele, Sel) {
@@ -548,12 +548,12 @@ function GetContraceptiveChildList(Ele, Sel, Para1) {
             }
         });
     }
-  
+
     $('#' + Ele).trigger("chosen:updated");
 }
 
 
-function GetYearList(Ele, Sel,IsAll=0) {
+function GetYearList(Ele, Sel, IsAll = 0) {
     $('#' + Ele).empty();
     $('#' + Ele).prop("disabled", false);
     //$('#' + Ele).append($("<option>").val('').text('Select'));
@@ -571,6 +571,7 @@ function GetYearList(Ele, Sel,IsAll=0) {
                 $.each(data, function (i, exp) {
                     $('#' + Ele).append($("<option>").val(exp.Value).text(exp.Text));
                 });
+                $('#' + Ele + ' option[value="' + GetCurrentYear() + '"]').prop('selected', true);
             }
         },
         error: function (req, error) {
@@ -586,29 +587,45 @@ function GetMonthList(Ele, Sel, IsAll = 0) {
     $('#' + Ele).empty();
     $('#' + Ele).prop("disabled", false);
     //$('#' + Ele).append($("<option>").val('').text('Select'));
-  
+
     $.ajax({
         url: document.baseURI + "/Master/GetMonthList",
-            type: "Post",
-            data: JSON.stringify({ 'IsAll': IsAll }),
-            contentType: "application/json; charset=utf-8",
-            global: false,
-            async: false,
-            dataType: "json",
-            success: function (resp) {
-                if (resp.IsSuccess) {
-                    var data = JSON.parse(resp.res);
-                    $.each(data, function (i, exp) {
-                        $('#' + Ele).append($("<option>").val(exp.Value).text(exp.Text));
-                    });
-                }
-            },
-            error: function (req, error) {
-                if (error === 'error') { error = req.statusText; }
-                var errormsg = 'There was a communication error: ' + error;
-                //Do To Message display
+        type: "Post",
+        data: JSON.stringify({ 'IsAll': IsAll }),
+        contentType: "application/json; charset=utf-8",
+        global: false,
+        async: false,
+        dataType: "json",
+        success: function (resp) {
+            if (resp.IsSuccess) {
+                var data = JSON.parse(resp.res);
+                $.each(data, function (i, exp) {
+                    $('#' + Ele).append($("<option>").val(exp.Value).text(exp.Text));
+                });
+                $('#' + Ele + ' option[value="' + GetCurrentMonth() + '"]').prop('selected', true);
+
             }
-        });
+        },
+        error: function (req, error) {
+            if (error === 'error') { error = req.statusText; }
+            var errormsg = 'There was a communication error: ' + error;
+            //Do To Message display
+        }
+    });
 
     $('#' + Ele).trigger("chosen:updated");
+}
+
+function GetCurrentMonth() {
+    var d = new Date(),
+        n = d.getMonth(),
+        n = n + 1;
+    console.log(n)
+    return n;
+}
+function GetCurrentYear() {
+    var d = new Date(),
+        y = d.getFullYear();
+    console.log(y)
+    return y;
 }

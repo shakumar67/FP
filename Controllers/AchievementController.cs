@@ -43,7 +43,7 @@ namespace FP.Controllers
                     var mlist = JsonConvert.DeserializeObject<List<AVPlanModel>>(resAchvPlanlist);
                     if (mlist != null)
                     {
-                        if (mlist.Count() > 0)
+                        if (mlist.Count() > 0 && mlist.Count <= 10)
                         {
                             tbl_AchievementPlan tbl;
                             List<tbl_AchievementPlan> tbl_list = new List<tbl_AchievementPlan>();
@@ -52,27 +52,34 @@ namespace FP.Controllers
                             {
                                 foreach (var m in mlist)
                                 {
-                                    if (m.AchieveId_pk == Guid.Empty && m.Meetingheld != null && m.Noofparticipant != null)
+                                    var existsRow = db_.tbl_AchievementPlan.FirstOrDefault(x => x.DistrictId_fk == model.DistrictId_fk && x.BlockId_fk == model.BlockId_fk
+                                        && x.ClusterId_fk == model.ClusterId_fk && x.PanchayatId_fk == model.PanchayatId_fk && x.PlanYear == model.PlanYear
+                                        && x.PlanMonth == model.PlanMonth && x.VoId_fk == m.VoId_fk && x.Meetingheld == m.Meetingheld);
+
+                                    if (existsRow == null)
                                     {
-                                        tbl = new tbl_AchievementPlan()
+                                        if (m.AchieveId_pk == Guid.Empty && m.Noofparticipant != null)
                                         {
-                                            AchieveId_pk = Guid.NewGuid(),
-                                            DistrictId_fk = model.DistrictId_fk,
-                                            BlockId_fk = model.BlockId_fk,
-                                            PanchayatId_fk = model.PanchayatId_fk,
-                                            ClusterId_fk = model.ClusterId_fk,
-                                            PlanYear = model.PlanYear,
-                                            PlanMonth = model.PlanMonth,
-                                            VoId_fk = m.VoId_fk,
-                                            Meetingheld = m.Meetingheld,
-                                            Noofparticipant = m.Noofparticipant,
-                                            CreatedBy = MvcApplication.CUser.Id,
-                                            CreatedOn = DateTime.Now,
-                                            IsActive = true
-                                        };
-                                        tbl_list.Add(tbl);
+                                            tbl = new tbl_AchievementPlan()
+                                            {
+                                                AchieveId_pk = Guid.NewGuid(),
+                                                DistrictId_fk = model.DistrictId_fk,
+                                                BlockId_fk = model.BlockId_fk,
+                                                PanchayatId_fk = model.PanchayatId_fk,
+                                                ClusterId_fk = model.ClusterId_fk,
+                                                PlanYear = model.PlanYear,
+                                                PlanMonth = model.PlanMonth,
+                                                VoId_fk = m.VoId_fk,
+                                                Meetingheld = m.Meetingheld,
+                                                Noofparticipant = m.Noofparticipant,
+                                                CreatedBy = MvcApplication.CUser.Id,
+                                                CreatedOn = DateTime.Now,
+                                                IsActive = true
+                                            };
+                                            tbl_list.Add(tbl);
+                                        }
                                     }
-                                    else if (m.AchieveId_pk != Guid.Empty && m.Meetingheld != null && m.Noofparticipant != null)
+                                    else if (m.AchieveId_pk != Guid.Empty && m.AchieveId_pk == existsRow.AchieveId_pk && m.Noofparticipant != null)
                                     {
                                         var tblu = db_.tbl_AchievementPlan.Find(m.AchieveId_pk);
                                         tblu.VoId_fk = m.VoId_fk;

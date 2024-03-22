@@ -15,43 +15,27 @@ function addRow(tbl) {
     let rowfyable = tbl;
     let lastRow = $('tfoot tr:last', rowfyable).clone(true).off();
     var index = parseInt($('tbody tr', rowfyable).length) + 1;
-    var dataId = $(lastRow).attr('data-id');
+    if (index <= 10) {
+        $(lastRow).attr('data-index', index);
+        $(lastRow).attr('data-id', '');
+        $('input', lastRow).val('');
 
-    //if (dataId != "" && dataId != "00000000-0000-0000-0000-000000000000") {
-    //    $('button', $('tbody tr:last', rowfyable)).remove();
-    //}
+        $('.index', lastRow).text(index);
 
-    $(lastRow).attr('data-index', index);
-    $(lastRow).attr('data-id', '');
-    $('input', lastRow).val('');
+        $('input.mdt', lastRow).attr('id', 'mdt-' + index);
+        $('select.Void_fk', lastRow).attr('id', 'void-' + index);
+        $('input.noofpart', lastRow).attr('id', 'noofpart-' + index);
 
-
-    $('.index', lastRow).text(index);
-
-    $('input.mdt', lastRow).attr('id', 'mdt-' + index);
-    $('select.Void_fk', lastRow).attr('id', 'void-' + index);
-    $('input.noofpart', lastRow).attr('id', 'noofpart-' + index);
-
-    //$('input', lastRow).removeClass('hasDatepicker');
-
-    //$('#mdt-' + index, lastRow).datepicker({
-    //    dateFormat: 'dd-mm-yy',
-    //    maxDate: '0',
-    //    //maxDate: "+1M +10D",
-    //    changeMonth: true,
-    //    changeYear: true,
-    //});
-
-
-    $('tbody', rowfyable).append(lastRow);
-    $('tbody tr button', rowfyable).hide();
-    if (index > 1) {
-        $('tbody tr:not(:last) button.rowfy-deleterow', rowfyable).show();
+        $('tbody', rowfyable).append(lastRow);
+        $('tbody tr button', rowfyable).hide();
+        if (index > 1) {
+            $('tbody tr:not(:last) button.rowfy-deleterow', rowfyable).show();
+        }
+        $('tbody tr:last button.rowfy-addrow', rowfyable).show();
+    } else {
+        toastr.error("Error", "You can not add more than 10 row per month.");
+        return false;
     }
-    $('tbody tr:last button.rowfy-addrow', rowfyable).show();
-
-    //$('button', tbl).removeClass('rowfy-addrow btn-success').addClass('rowfy-deleterow btn-danger').text('-');
-    //$('button', tbl).removeClass('rowfy-addrow btn-success').addClass('rowfy-deleterow btn-danger').text('-');
 }
 
 addRow($("#tbl"));

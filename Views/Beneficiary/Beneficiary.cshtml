@@ -21,6 +21,7 @@
         display: inline-block;
         margin-right: 15px;
     }
+
     .actives2 {
         color: #009A3F !important;
         background: #FFFFFF;
@@ -38,210 +39,218 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.Beneficiary_Id_pk)
             @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
-        <div class="bg-light rounded h-100 p-4 row g-4">
-            <div class="col-sm-12 col-xl-6">
-                <div class="mb-3">
-                    @Html.LabelFor(m => m.HindiEng, new { @class = "col-md-2 col-form-label" })
-                    @Html.DropDownListFor(m => m.HindiEng, CommonModel.GetLanguangeType(), null, new { @class = "form-select mb-3" })
+            <div class="bg-light rounded h-100 p-4 row g-4">
+                <div class="col-sm-12 col-xl-6">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.HindiEng, new { @class = "col-md-2 col-form-label" })
+                        @Html.DropDownListFor(m => m.HindiEng, CommonModel.GetLanguangeType(), null, new { @class = "form-select mb-3" })
+                    </div>
+                    <div class="mb-3" style="display:none;" id="div-Q1">
+                        @Html.Label(Model.Q1D, htmlAttributes: new { @class = "" })
+                        @Html.LabelFor(m => m.Q1, htmlAttributes: new { @class = "form-control col-md-4" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.DDis, htmlAttributes: new { @class = "" })
+                        @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                        @Html.ValidationMessageFor(m => m.DistrictId_fk, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.DBlck, htmlAttributes: new { @class = "" })
+                        @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                        @Html.ValidationMessageFor(m => m.BlockId_fk, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.DCLF, htmlAttributes: new { @class = "" })
+                        @Html.DropDownListFor(m => m.CLFId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                        @Html.ValidationMessageFor(m => m.CLFId_fk, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.DPanyt, htmlAttributes: new { @class = "" })
+                        @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                        @Html.ValidationMessageFor(m => m.PanchayatId_fk, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.DVO, htmlAttributes: new { @class = "" })
+                        @Html.DropDownListFor(m => m.VillageOId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                        @Html.ValidationMessageFor(m => m.VillageOId_fk, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.ReportingDtD, htmlAttributes: new { @class = "" })
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.ReportingMonth, CommonModel.GetMonth(1), null, new { @class = "form-control " })
+                                @Html.ValidationMessageFor(m => m.ReportingMonth, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.ReportingYear, CommonModel.GetYear(1), null, new { @class = "form-control " })
+                                @Html.ValidationMessageFor(m => m.ReportingYear, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.HealthCD, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.HealthCenter, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
+                        @Html.ValidationMessageFor(m => m.HealthCenter, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.Q2D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.Q2, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
+                        @Html.ValidationMessageFor(m => m.Q2, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.Q3D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.Q3, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
+                        @Html.ValidationMessageFor(m => m.Q3, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.Q4D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.BFYDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker clage" } })@*//, minlength = "10", maxlength = "10"*@
+                        <strong id="bfyage" class="text-success"></strong>
+                        @Html.ValidationMessageFor(m => m.BFYDOB, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.Q5D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.Q5, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
+                        @Html.ValidationMessageFor(m => m.Q5, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="position-relative form-group">
+                            <div class="checkbox">
+                                @foreach (var item in CommonModel.GetDOMYear())
+                                {
+                                    <span class="check-spacer">
+                                        @Html.RadioButtonFor(model => model.Q6DOMYear, item.Value, new { id = "Q6DOMYear" + item.Value, @required = "required" }) @item.Text
+                                    </span>
+                                }
+                                @Html.ValidationMessageFor(model => model.Q6DOMYear, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3" id="Q6-div" style="display:none;">
+                        @Html.Label(Model.Q6D, htmlAttributes: new { @class = "cl-Q6", @style = "display:none;" })
+                        @Html.EditorFor(m => m.Q6, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker cl-Q6", maxlength = "12", @style = "display:none;" } })
+                        @Html.ValidationMessageFor(m => m.Q6, "", new { @class = "text-danger cl-Q6", @style = "display:none;" })
+                        @Html.Label(Model.Q6_YearD, htmlAttributes: new { @class = "cl-Q6_Year", @style = "display:none;" })
+                        @Html.EditorFor(m => m.Q6_Year, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly cl-Q6_Year", min = "4", maxlength = "4", @style = "display:none;" } })
+                        @Html.ValidationMessageFor(m => m.Q6_Year, "", new { @class = "text-danger cl-Q6_Year" })
+                    </div>
+
                 </div>
-                <div class="mb-3" style="display:none;" id="div-Q1">
-                    @Html.Label(Model.Q1D, htmlAttributes: new { @class = "" })
-                    @Html.LabelFor(m => m.Q1, htmlAttributes: new { @class = "form-control col-md-4" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.DDis, htmlAttributes: new { @class = "" })
-                    @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                    @Html.ValidationMessageFor(m => m.DistrictId_fk, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.DBlck, htmlAttributes: new { @class = "" })
-                    @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                    @Html.ValidationMessageFor(m => m.BlockId_fk, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.DCLF, htmlAttributes: new { @class = "" })
-                    @Html.DropDownListFor(m => m.CLFId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                    @Html.ValidationMessageFor(m => m.CLFId_fk, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.DPanyt, htmlAttributes: new { @class = "" })
-                    @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                    @Html.ValidationMessageFor(m => m.PanchayatId_fk, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.DVO, htmlAttributes: new { @class = "" })
-                    @Html.DropDownListFor(m => m.VillageOId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                    @Html.ValidationMessageFor(m => m.VillageOId_fk, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.ReportingDtD, htmlAttributes: new { @class = "" })
-                    @Html.DropDownListFor(m => m.ReportingMonth, CommonModel.GetMonth(1), null, new { @class = "form-control col-md-4" })
-                    @Html.ValidationMessageFor(m => m.ReportingMonth, "", new { @class = "text-danger" })
-                    @Html.DropDownListFor(m => m.ReportingYear, CommonModel.GetYear(1), null, new { @class = "form-control col-md-4" })
-                    @Html.ValidationMessageFor(m => m.ReportingYear, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.HealthCD, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.HealthCenter, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
-                    @Html.ValidationMessageFor(m => m.HealthCenter, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.Q2D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q2, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
-                    @Html.ValidationMessageFor(m => m.Q2, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.Q3D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q3, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
-                    @Html.ValidationMessageFor(m => m.Q3, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.Q4D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.BFYDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker clage" } })@*//, minlength = "10", maxlength = "10"*@
-                    <strong id="bfyage" class="text-success"></strong>
-                    @Html.ValidationMessageFor(m => m.BFYDOB, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.Q5D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q5, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
-                    @Html.ValidationMessageFor(m => m.Q5, "", new { @class = "text-danger" })
+                <div class="col-sm-12 col-xl-6">
+                    <div class="mb-3">
+                        @Html.Label(Model.Q7D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.Q7, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "10", maxlength = "10", } })
+                        @Html.ValidationMessageFor(m => m.Q7, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        <div class="position-relative form-group">
+                            @Html.Label(Model.Q8D, htmlAttributes: new { @class = "" })
+                            <div class="checkbox">
+                                @foreach (var item in CommonModel.GetSHGAffiliation())
+                                {
+                                    <span class="check-spacer">
+                                        @Html.RadioButtonFor(model => model.Q8, item.Value, new { id = "Q8" + item.Value, @required = "required" }) @item.Text
+                                    </span>
+                                }
+                                @Html.ValidationMessageFor(model => model.Q8, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3" id="div-q9" style="display:none;">
+                        @Html.Label(Model.Q9D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.Q9, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
+                        @Html.ValidationMessageFor(m => m.Q9, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.Q10D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.Q10, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "99", maxlength = "2" } })
+                        @Html.ValidationMessageFor(m => m.Q10, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.Q11D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.Q11, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "99", maxlength = "2" } })
+                        @Html.ValidationMessageFor(m => m.Q11, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.Q12_1D, htmlAttributes: new { @class = "" })
+                        <div class="position-relative form-group">
+                            <div class="checkbox">
+                                @foreach (var item in CommonModel.GetBoyGirl())
+                                {
+                                    <span class="check-spacer">
+                                        @Html.RadioButtonFor(model => model.Q12_1, item.Value, new { id = "Q12_1" + item.Value, @required = "required" }) @item.Text
+                                    </span>
+                                }
+                                @Html.ValidationMessageFor(model => model.Q12_1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3" style="display:none;" id="YoungestDOB-div">
+                        @Html.Label(Model.Q12D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.YoungestDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker" } })@*, minlength = "10", maxlength = "10"*@
+                        <strong id="youngestyage" class="text-success"></strong>
+                        @Html.ValidationMessageFor(m => m.YoungestDOB, "", new { @class = "text-danger " })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.DBFYVillage, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.BFYVillageName, new { htmlAttributes = new { @class = "form-control col-md-4", maxlength = "400" } })
+                        @Html.ValidationMessageFor(m => m.BFYVillageName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.Q13D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.Q13, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+                        @Html.ValidationMessageFor(m => m.Q13, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.Q14D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.Q14, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+                        @Html.ValidationMessageFor(m => m.Q14, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.Q15D, htmlAttributes: new { @class = "" })
+                        @Html.DropDownListFor(m => m.Q15, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                        @Html.ValidationMessageFor(m => m.Q15, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3" id="div-Q16" style="display:none;">
+                        @Html.Label(Model.Q16D, htmlAttributes: new { @class = "" })
+                        @Html.DropDownListFor(m => m.Q16, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                        @Html.ValidationMessageFor(m => m.Q16, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3" id="div-Q17" style="display:none;">
+                        @Html.Label(Model.Q17D, htmlAttributes: new { @class = "" })
+                        @Html.DropDownListFor(m => m.Q17, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                        @Html.ValidationMessageFor(m => m.Q17, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3" id="div-Q18" style="display:none;">
+                        @Html.Label(Model.Q18D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.Q18, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+                        @Html.ValidationMessageFor(m => m.Q18, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3" style="display:none">
+                        @Html.Label(Model.Q20D, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(m => m.Q20, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "999", maxlength = "3" } })
+                        @Html.ValidationMessageFor(m => m.Q20, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3" style="display:none">
+                        @Html.Label(Model.Q21D, htmlAttributes: new { @class = "" })
+                        @Html.DropDownListFor(m => m.Q21, CommonModel.GetModuleRollout(), "Select", new { @class = "form-control col-md-4" })
+                        @Html.ValidationMessageFor(m => m.Q21, "", new { @class = "text-danger" })
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <div class="position-relative form-group">
-                        <div class="checkbox">
-                            @foreach (var item in CommonModel.GetDOMYear())
-                            {
-                                <span class="check-spacer">
-                                    @Html.RadioButtonFor(model => model.Q6DOMYear, item.Value, new { id = "Q6DOMYear" + item.Value, @required = "required" }) @item.Text
-                                </span>
-                            }
-                            @Html.ValidationMessageFor(model => model.Q6DOMYear, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3" id="Q6-div" style="display:none;">
-                    @Html.Label(Model.Q6D, htmlAttributes: new { @class = "cl-Q6", @style = "display:none;" })
-                    @Html.EditorFor(m => m.Q6, new { htmlAttributes = new { @class = "form-control col-md-4 datepicker cl-Q6", maxlength = "12", @style = "display:none;" } })
-                    @Html.ValidationMessageFor(m => m.Q6, "", new { @class = "text-danger cl-Q6", @style = "display:none;" })
-                    @Html.Label(Model.Q6_YearD, htmlAttributes: new { @class = "cl-Q6_Year", @style = "display:none;" })
-                    @Html.EditorFor(m => m.Q6_Year, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly cl-Q6_Year", min = "4", maxlength = "4", @style = "display:none;" } })
-                    @Html.ValidationMessageFor(m => m.Q6_Year, "", new { @class = "text-danger cl-Q6_Year" })
-                </div>
 
-            </div>
-            <div class="col-sm-12 col-xl-6">
                 <div class="mb-3">
-                    @Html.Label(Model.Q7D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q7, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "10", maxlength = "10", } })
-                    @Html.ValidationMessageFor(m => m.Q7, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    <div class="position-relative form-group">
-                        @Html.Label(Model.Q8D, htmlAttributes: new { @class = "" })
-                        <div class="checkbox">
-                            @foreach (var item in CommonModel.GetSHGAffiliation())
-                            {
-                                <span class="check-spacer">
-                                    @Html.RadioButtonFor(model => model.Q8, item.Value, new { id = "Q8" + item.Value, @required = "required" }) @item.Text
-                                </span>
-                            }
-                            @Html.ValidationMessageFor(model => model.Q8, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3" id="div-q9" style="display:none;">
-                    @Html.Label(Model.Q9D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q9, new { htmlAttributes = new { @class = "form-control col-md-4 count-input", maxlength = "400" } })
-                    @Html.ValidationMessageFor(m => m.Q9, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.Q10D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q10, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "99", maxlength = "2" } })
-                    @Html.ValidationMessageFor(m => m.Q10, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.Q11D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q11, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "99", maxlength = "2" } })
-                    @Html.ValidationMessageFor(m => m.Q11, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.Q12_1D, htmlAttributes: new { @class = "" })
-                    <div class="position-relative form-group">
-                        <div class="checkbox">
-                            @foreach (var item in CommonModel.GetBoyGirl())
-                            {
-                                <span class="check-spacer">
-                                    @Html.RadioButtonFor(model => model.Q12_1, item.Value, new { id = "Q12_1" + item.Value, @required = "required" }) @item.Text
-                                </span>
-                            }
-                            @Html.ValidationMessageFor(model => model.Q12_1, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3" style="display:none;" id="YoungestDOB-div">
-                    @Html.Label(Model.Q12D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.YoungestDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker" } })@*, minlength = "10", maxlength = "10"*@
-                    <strong id="youngestyage" class="text-success"></strong>
-                    @Html.ValidationMessageFor(m => m.YoungestDOB, "", new { @class = "text-danger " })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.DBFYVillage, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.BFYVillageName, new { htmlAttributes = new { @class = "form-control col-md-4", maxlength = "400" } })
-                    @Html.ValidationMessageFor(m => m.BFYVillageName, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.Q13D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q13, new { htmlAttributes = new { @class = "form-control col-md-4" } })
-                    @Html.ValidationMessageFor(m => m.Q13, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.Q14D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q14, new { htmlAttributes = new { @class = "form-control col-md-4" } })
-                    @Html.ValidationMessageFor(m => m.Q14, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3">
-                    @Html.Label(Model.Q15D, htmlAttributes: new { @class = "" })
-                    @Html.DropDownListFor(m => m.Q15, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                    @Html.ValidationMessageFor(m => m.Q15, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3" id="div-Q16" style="display:none;">
-                    @Html.Label(Model.Q16D, htmlAttributes: new { @class = "" })
-                    @Html.DropDownListFor(m => m.Q16, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                    @Html.ValidationMessageFor(m => m.Q16, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3" id="div-Q17" style="display:none;">
-                    @Html.Label(Model.Q17D, htmlAttributes: new { @class = "" })
-                    @Html.DropDownListFor(m => m.Q17, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                    @Html.ValidationMessageFor(m => m.Q17, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3" id="div-Q18" style="display:none;">
-                    @Html.Label(Model.Q18D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q18, new { htmlAttributes = new { @class = "form-control col-md-4" } })
-                    @Html.ValidationMessageFor(m => m.Q18, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3" style="display:none">
-                    @Html.Label(Model.Q20D, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(m => m.Q20, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "999", maxlength = "3" } })
-                    @Html.ValidationMessageFor(m => m.Q20, "", new { @class = "text-danger" })
-                </div>
-                <div class="mb-3" style="display:none">
-                    @Html.Label(Model.Q21D, htmlAttributes: new { @class = "" })
-                    @Html.DropDownListFor(m => m.Q21, CommonModel.GetModuleRollout(), "Select", new { @class = "form-control col-md-4" })
-                    @Html.ValidationMessageFor(m => m.Q21, "", new { @class = "text-danger" })
+                    <span class="check-spacer">
+                        <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
+                    </span>
+                    <span class="check-spacer">
+                        <a href="~/Beneficiary/Beneficiary" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
+                    </span>
                 </div>
             </div>
-            
-            
-            <div class="mb-3">
-                <span class="check-spacer">
-                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
-                </span>
-                <span class="check-spacer">
-                    <a href="~/Beneficiary/Beneficiary" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
-                </span>
-            </div>
-        </div>
         }
     </div>
 </div>
@@ -254,7 +263,7 @@
               rel='stylesheet'>
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>*@
 
-<script>
+    <script>
         $(document).ready(function () {
 
             $('.count-input').unbind('keyup change input paste').bind('keyup change input paste', function (e) {
@@ -805,5 +814,5 @@
 
     }
 
-</script>
+    </script>
 }

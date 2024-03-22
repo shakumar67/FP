@@ -23,7 +23,7 @@
     }
 </style>
 <div class="breadcrumb">
-    <h2>Meeting Achivments - @CommonModel.RoleNameCont.CNRP</h2>
+    <h2>Meeting Achievements - @CommonModel.RoleNameCont.CNRP</h2>
 </div>
 <div class="container-fluid pt-4 px-4">
     @using (Html.BeginForm("AddAchievePlan", "Achievement", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
@@ -344,7 +344,7 @@
                     if ($('#DistrictId_fk').val() != '' && $('#BlockId_fk').val() != ''
                         && $('#ClusterId_fk').val() != '' && $('#PanchayatId_fk').val() != '' && vogid != ''
                         && $('#PlanYear').val() != '' && $('#PlanMonth').val() != ''
-                        && (mdt != '' && mdt != 'Invalid Date') && noofpart != '') {
+                        && (mdt && mdt != '' && mdt != 'Invalid Date') && noofpart != '') {
 
                         var existingIndex = tblpushdata.findIndex(x => moment(x.Meetingheld).isSame(moment(toDate(mdt))) && x.VoId_fk == vogid);
                         if (existingIndex == -1) {
@@ -400,8 +400,8 @@
                     success: function (resp) {
                         if (resp.StatusType == "success") {
                             toastr.success("Success", resp.Message);
-                            //$("#followupformid")[0].reset();
-                            //BindData();
+                            BindDataTable();
+                            BindData();
                         }
                         else {
                             toastr.error("Error", resp.Message);
