@@ -153,8 +153,8 @@
                                             @Html.ValidationMessageFor(model => model.FMonth, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="position-relative form-group" style="display:none;">
+                                    <div class="col-sm-12">
+                                        <div class="position-relative form-group">
                                             @Html.LabelFor(model => model.IsFollowUp, htmlAttributes: new { @class = "control-label" })<em>*</em>
                                             <div class="checkbox">
                                                 @foreach (var item in CommonModel.GetYesNotrue())
@@ -167,69 +167,71 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12">
-                                        @*id="div-IsContraception"*@
-                                        <div lass="position-relative form-group">
-                                            @Html.LabelFor(model => model.IsContraception, htmlAttributes: new { @class = "control-label" })<em>*</em>
-                                            <div class="checkbox">
-                                                @foreach (var item in CommonModel.GetYesNotrue())
-                                                {
-                                                    <span class="check-spacer">
-                                                        @Html.RadioButtonFor(model => model.IsContraception, item.Value, new { id = "IsContraception" + item.Value, @required = "required" }) @item.Text
-                                                    </span>
-                                                }
-                                                @Html.ValidationMessageFor(model => model.IsContraception, "", new { @class = "text-danger" })
+                                    <div id="div-fupyes" style="display:none">
+                                        <div class="col-sm-12">
+                                            @*id="div-IsContraception"*@
+                                            <div lass="position-relative form-group">
+                                                @Html.LabelFor(model => model.IsContraception, htmlAttributes: new { @class = "control-label" })<em>*</em>
+                                                <div class="checkbox">
+                                                    @foreach (var item in CommonModel.GetYesNotrue())
+                                                    {
+                                                        <span class="check-spacer">
+                                                            @Html.RadioButtonFor(model => model.IsContraception, item.Value, new { id = "IsContraception" + item.Value, @required = "required" }) @item.Text
+                                                        </span>
+                                                    }
+                                                    @Html.ValidationMessageFor(model => model.IsContraception, "", new { @class = "text-danger" })
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div lass="position-relative form-group" id="div-ContraceptionId_fk" style="display:none;">
-                                            @Html.LabelFor(m => m.ContraceptionId_fk, new { @class = "control-label" })<em>*</em>
-                                            @Html.DropDownListFor(m => m.ContraceptionId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                                            @Html.ValidationMessageFor(model => model.ContraceptionId_fk, "", new { @class = "text-danger" })
+                                        <div class="col-sm-12">
+                                            <div lass="position-relative form-group" id="div-ContraceptionId_fk" style="display:none;">
+                                                @Html.LabelFor(m => m.ContraceptionId_fk, new { @class = "control-label" })<em>*</em>
+                                                @Html.DropDownListFor(m => m.ContraceptionId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                                                @Html.ValidationMessageFor(model => model.ContraceptionId_fk, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12" id="div-ContraceptionOther" style="display:none;">
-                                        <div lass="position-relative form-group">
-                                            @Html.LabelFor(model => model.ContraceptionOther, htmlAttributes: new { @class = "control-label" })<em>*</em>
-                                            @Html.EditorFor(model => model.ContraceptionOther, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.ContraceptionOther, "", new { @class = "text-danger" })
+                                        <div class="col-sm-12" id="div-ContraceptionOther" style="display:none;">
+                                            <div lass="position-relative form-group">
+                                                @Html.LabelFor(model => model.ContraceptionOther, htmlAttributes: new { @class = "control-label" })<em>*</em>
+                                                @Html.EditorFor(model => model.ContraceptionOther, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.ContraceptionOther, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div lass="position-relative form-group" id="div-UseMethodId_fk" style="display:none;">
-                                            @Html.LabelFor(m => m.UseMethodId_fk, new { @class = "control-label" })<em>*</em>
-                                            @Html.DropDownListFor(m => m.UseMethodId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
-                                            @Html.ValidationMessageFor(model => model.UseMethodId_fk, "", new { @class = "text-danger" })
+                                        <div class="col-sm-12">
+                                            <div lass="position-relative form-group" id="div-UseMethodId_fk" style="display:none;">
+                                                @Html.LabelFor(m => m.UseMethodId_fk, new { @class = "control-label" })<em>*</em>
+                                                @Html.DropDownListFor(m => m.UseMethodId_fk, new List<SelectListItem>(), null, new { @class = "form-select mb-3" })
+                                                @Html.ValidationMessageFor(model => model.UseMethodId_fk, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-sm-12">
-                                        <div lass="position-relative form-group">
-                                            @Html.LabelFor(m => m.ModuleRollout, new { @class = "control-label" })<em>*</em>
-                                            @Html.EditorFor(m => m.ModuleRollout, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "999", maxlength = "3" } })
-                                            @Html.ValidationMessageFor(m => m.ModuleRollout, "", new { @class = "text-danger" })
+                                        <div class="col-sm-12">
+                                            <div lass="position-relative form-group">
+                                                @Html.LabelFor(m => m.ModuleRollout, new { @class = "control-label" })<em>*</em>
+                                                @Html.EditorFor(m => m.ModuleRollout, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "999", maxlength = "3" } })
+                                                @Html.ValidationMessageFor(m => m.ModuleRollout, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div lass="position-relative form-group">
-                                            @Html.LabelFor(m => m.ModuleRolloutId_fk, new { @class = "control-label" })<em>*</em>
-                                            @Html.DropDownListFor(m => m.ModuleRolloutId_fk, CommonModel.GetModuleRollout(), "Select", new { @class = "form-control col-md-4" })
-                                            @Html.ValidationMessageFor(m => m.ModuleRolloutId_fk, "", new { @class = "text-danger" })
+                                        <div class="col-sm-12">
+                                            <div lass="position-relative form-group">
+                                                @Html.LabelFor(m => m.ModuleRolloutId_fk, new { @class = "control-label" })<em>*</em>
+                                                @Html.DropDownListFor(m => m.ModuleRolloutId_fk, CommonModel.GetModuleRollout(), "Select", new { @class = "form-control col-md-4" })
+                                                @Html.ValidationMessageFor(m => m.ModuleRolloutId_fk, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div lass="position-relative form-group">
-                                            @Html.LabelFor(m => m.Totalnoof_malechild, new { @class = "control-label" })<em>*</em>
-                                            @Html.EditorFor(m => m.Totalnoof_malechild, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", maxlength = "2" } })
-                                            @Html.ValidationMessageFor(m => m.Totalnoof_malechild, "", new { @class = "text-danger" })
+                                        <div class="col-sm-12">
+                                            <div lass="position-relative form-group">
+                                                @Html.LabelFor(m => m.Totalnoof_malechild, new { @class = "control-label" })<em>*</em>
+                                                @Html.EditorFor(m => m.Totalnoof_malechild, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", maxlength = "2" } })
+                                                @Html.ValidationMessageFor(m => m.Totalnoof_malechild, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div lass="position-relative form-group">
-                                            @Html.LabelFor(m => m.Totalnoof_Femalechild, new { @class = "control-label" })<em>*</em>
-                                            @Html.EditorFor(m => m.Totalnoof_Femalechild, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", minlength = "0", maxlength = "2" } })
-                                            @Html.ValidationMessageFor(m => m.Totalnoof_Femalechild, "", new { @class = "text-danger" })
+                                        <div class="col-sm-12">
+                                            <div lass="position-relative form-group">
+                                                @Html.LabelFor(m => m.Totalnoof_Femalechild, new { @class = "control-label" })<em>*</em>
+                                                @Html.EditorFor(m => m.Totalnoof_Femalechild, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", minlength = "0", maxlength = "2" } })
+                                                @Html.ValidationMessageFor(m => m.Totalnoof_Femalechild, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -264,11 +266,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
 
-    <script>
+<script>
         $(document).ready(function () {
 
-            GetYearList("Year", 0);
-            GetMonthList("Month", 0);
+            GetYearList("Year", 0,1);
+            GetMonthList("Month", 0,1);
             GetDistrict("DistrictId", 0);
             $('#DistrictId').change(function () {
                 GetBlock("BlockId", 0, $(this).val());
@@ -294,14 +296,15 @@
 
             BindData();
 
-            /* Follow-Up Function Start Cont */
+            /* Follow-Up Yes/No Function Start Cont */
             $(document).on('change', ".Cont", function () {
                 // $('#div-IsContraception').hide();
-                HideInput();
-
+                HideInput(); $('#div-fupyes').hide();
                 var value1 = $('input[name=IsFollowUp]:checked').val();
                 if (value1 == "true") {
                     $('#div-IsContraception').show();
+                    $('#div-fupyes').show();
+                    GetBFYData();
                 }
             });
 
@@ -323,38 +326,7 @@
             });
 
             $(document).on('change', '#ContraceptionId_fk', function () {
-
-                GetContraceptiveChildList("UseMethodId_fk", 0, "");
-                $('#div-UseMethodId_fk').hide();
-                $('#div-ContraceptionOther').hide();
-                $('#ContraceptionOther').val('');
-                $('#ContraceptionOther').removeAttr('required');
-                $('#UseMethodId_fk').removeAttr('required');
-
-                GetContraceptiveChildList("UseMethodId_fk", 0, "");
-                $('#UseMethodId_fk').removeAttr('required');
-
-                if ($(this).val() == "1") {
-                    $('#div-UseMethodId_fk').show();
-                    GetContraceptiveChildList("UseMethodId_fk", 0, 1);
-                    $('#UseMethodId_fk').attr('required', 'required');
-                    $('#div-Isservice').show();
-                }
-                else if ($(this).val() == "2") {
-                    $('#div-UseMethodId_fk').show();
-                    GetContraceptiveChildList("UseMethodId_fk", 0, 2);
-                    $('#UseMethodId_fk').attr('required', 'required');
-                    $('#div-Isservice').show();
-                }
-                else if ($(this).val() == "4") {
-                    $('#ContraceptionOther').attr('required', 'required');
-                    $('#div-ContraceptionOther').show();
-                }
-                else {
-                    $('#div-ContraceptionOther').css('display', 'none');
-                    $('#div-UseMethodId_fk').css('display', 'none');
-                }
-
+                bindloadContraceptive($(this).val());
             });
 
             $(document).on('submit', "#followupformid", function (e) {
@@ -364,6 +336,41 @@
             /* Follow-Up Function End */
 
         });
+
+        function bindloadContraceptive(ContraceptionId_fk, UseMethodId) {
+            GetContraceptiveChildList("UseMethodId_fk", 0, "");
+            $('#div-UseMethodId_fk').hide();
+            $('#div-ContraceptionOther').hide();
+            $('#ContraceptionOther').val('');
+            $('#ContraceptionOther').removeAttr('required');
+            $('#UseMethodId_fk').removeAttr('required');
+            GetContraceptiveChildList("UseMethodId_fk", 0, "");
+            $('#UseMethodId_fk').removeAttr('required');
+
+            if (ContraceptionId_fk == "1") {
+                $('#div-UseMethodId_fk').show();
+                GetContraceptiveChildList("UseMethodId_fk", 0, 1);
+                $('#UseMethodId_fk').attr('required', 'required');
+                $('#div-Isservice').show();
+            }
+            else if (ContraceptionId_fk == "2") {
+                $('#div-UseMethodId_fk').show();
+                GetContraceptiveChildList("UseMethodId_fk", 0, 2);
+                $('#UseMethodId_fk').attr('required', 'required');
+                $('#div-Isservice').show();
+            }
+            else if (ContraceptionId_fk == "4") {
+                $('#ContraceptionOther').attr('required', 'required');
+                $('#div-ContraceptionOther').show();
+            }
+            else {
+                $('#div-ContraceptionOther').css('display', 'none');
+                $('#div-UseMethodId_fk').css('display', 'none');
+            }
+            if (UseMethodId != '') {
+                $('#UseMethodId_fk').val(UseMethodId);
+            }
+        }
 
         function BindData() {
             $("#subdata").html('');
@@ -436,17 +443,48 @@
             $('#ContraceptionOther').removeAttr('required');
             $('#ContraceptionId_fk').removeAttr('required');
             $('#UseMethodId_fk').removeAttr('required');
+            $('#ModuleRollout').val('');
+            $('#ModuleRolloutId_fk').val('');
+            $('#Totalnoof_malechild').val('');
+            $('#Totalnoof_Femalechild').val('');
         }
         function BindFollowupPop(BFYID_fk, BFYRegID) {
             $("#stBFYRegID").html(BFYRegID);
-            GetYearList("FYear", 0);
-            GetMonthList("FMonth", 0);
-            $("#followupformid")[0].reset();
             $('#myModal').modal('show');
+            HideInput(); $('#div-fupyes').hide();
+            $("#followupformid")[0].reset();
             GetContraceptive("ContraceptionId_fk", 0);
-            HideInput();
-            //$('#myModal').modal(); $('#myModal').modal('toggle');
             $('#BFYID_fk').val(BFYID_fk);
+            setTimeout(function () {
+                GetYearList("FYear", 0);
+                GetMonthList("FMonth", 0);
+            }, 500);
+            //$('#myModal').modal(); $('#myModal').modal('toggle');
+        }
+        function GetBFYData() {
+            var BFYID_fk = $('#BFYID_fk').val();
+            if (BFYID_fk != '' && BFYID_fk != undefined) {
+                $.get("/Beneficiary/GetBFYIDWise", { BFYPKID: BFYID_fk }, function (res) {
+                    if (res!='') {
+                        var data = res.resData;
+                        $('#div-fupyes').show();
+                        $('input[name=IsContraception][value=true]').prop('checked', true);
+                        if ($('input[name="IsContraception"]:checked').val() == "true") {
+                            $('#div-ContraceptionId_fk').show();
+                            $('#ContraceptionId_fk').val(data.Q15);
+                            var usemd = data.Q15 == '@((int)Enums.eContraceptive.Temporary)'
+                                ? data.Q16 : data.Q15 == '@((int)Enums.eContraceptive.Permanent)'
+                                    ? data.Q17 : data.Q15 == '@((int)Enums.eContraceptive.OtherMethod)'
+                                        ? data.Q18 : "";
+                            bindloadContraceptive(data.Q15.toString(), usemd);
+                        }
+                        $('#ModuleRollout').val(data.Q20);
+                        $('#ModuleRolloutId_fk').val(data.Q21);
+                        $('#Totalnoof_malechild').val(data.Q10);
+                        $('#Totalnoof_Femalechild').val(data.Q11);
+                    }
+                });
+            }
         }
         function DisplayPOP(BFYID_fk, BFYRegID) {
             if (BFYID_fk) {
@@ -515,7 +553,7 @@
 
         }
 
-        function BFYDataView(BFYId,Type) {
+        function BFYDataView(BFYId, Type) {
             var cmfollowupmodel = new Object();
             cmfollowupmodel.BFYId = BFYId;
             cmfollowupmodel.Type = Type;
@@ -542,6 +580,6 @@
             });
         }
 
-    </script>
+</script>
 }
 

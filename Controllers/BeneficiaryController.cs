@@ -138,8 +138,8 @@ namespace FP.Controllers
                         tbl.Q16 = item.Q15 == 1 ? item.Q16 : null;
                         tbl.Q17 = item.Q15 == 2 ? item.Q17 : null;
                         tbl.Q18 = item.Q15 == 4 ? item.Q18 : null;
-                        tbl.Q20 = item.Q20;
-                        tbl.Q21 = item.Q21;
+                        //tbl.Q20 = item.Q20;
+                        //tbl.Q21 = item.Q21;
                         tbl.IsActive = true;
                         if (item.Beneficiary_Id_pk == Guid.Empty)
                         {
@@ -280,7 +280,17 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        public JsonResult GetBFYIDWise(string BFYPKID)
+        {
+            FP_DBEntities db_=new FP_DBEntities();
+            if (!string.IsNullOrWhiteSpace(BFYPKID))
+            {
+                var bfyid=Guid.Parse(BFYPKID);
+                var resD = db_.TBL_Beneficiary.First(x=>x.Beneficiary_Id_pk== bfyid);
+                return Json(new { resData = resD}, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { resData = ""}, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult AddFollowup(CMFollowupModel model)
         {
             int res = 0;
@@ -324,24 +334,23 @@ namespace FP.Controllers
                         tblf.CreatedBy = MvcApplication.CUser.Id;
                         tblf.CreatedOn = DateTime.Now;
                         _db.tbl_BFYFollowup.Add(tblf);
-                        //TBL_Beneficiary tblBFY = _db.TBL_Beneficiary.Find(model.BFYID_fk);
-                        //tblBFY.Q15 = model.ContraceptionId_fk;
-                        //tblBFY.Q16 = model.ContraceptionId_fk==1? model.UseMethodId_fk:null;
-                        //tblBFY.Q17 = model.ContraceptionId_fk == 2 ? model.UseMethodId_fk : null;
-                        //tblBFY.Q18 = model.ContraceptionId_fk == 4 ? model.ContraceptionOther : null;
-                        //tblBFY.Q20 = model.ModuleRollout;
-                        //tblBFY.Q21 = model.ModuleRolloutId_fk;
-                        //tblBFY.Q10 = model.Totalnoof_malechild;
-                        //tblBFY.Q11 = model.Totalnoof_Femalechild;
-                        //res = _db.SaveChanges();
+                        TBL_Beneficiary tblBFY = _db.TBL_Beneficiary.Find(model.BFYID_fk);
+                        tblBFY.Q15 = model.ContraceptionId_fk;
+                        tblBFY.Q16 = model.ContraceptionId_fk == 1 ? model.UseMethodId_fk : null;
+                        tblBFY.Q17 = model.ContraceptionId_fk == 2 ? model.UseMethodId_fk : null;
+                        tblBFY.Q18 = model.ContraceptionId_fk == 4 ? model.ContraceptionOther : null;
+                        tblBFY.Q20 = model.ModuleRollout;
+                        tblBFY.Q21 = model.ModuleRolloutId_fk;
+                        tblBFY.Q10 = model.Totalnoof_malechild;
+                        tblBFY.Q11 = model.Totalnoof_Femalechild;
+                        res += _db.SaveChanges();
                     }
-
                     else
                     {
                         tblf.UpdatedBy = MvcApplication.CUser.Id;
                         tblf.UpdatedOn = DateTime.Now;
+                        res += _db.SaveChanges();
                     }
-                    res = _db.SaveChanges();
                     if (res > 0)
                     {
                         response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Insert), Data = null };

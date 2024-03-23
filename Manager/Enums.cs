@@ -21,6 +21,17 @@ namespace FP.Manager
         {
             Jharkhand = 20
         }
+        public enum eContraceptive
+        {
+            [Description("Temporary")]
+            Temporary = 1,
+            [Description("Permanent")]
+            Permanent = 2,
+            [Description("No Method")]
+            NoMethod = 3,
+            [Description("Other Method")]
+            OtherMethod = 4,
+        }
         public enum eAmount
         {
             CMMonthly = 300, //Monthly Incentive per month Amount(300)

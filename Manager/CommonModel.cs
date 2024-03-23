@@ -22,6 +22,7 @@ using System.Reflection;
 using SubSonic.Extensions;
 using System.ComponentModel.DataAnnotations;
 using FP.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FP.Manager
 {
@@ -1072,6 +1073,17 @@ namespace FP.Manager
         }
         #endregion
 
+        //public int OnlyContraUseMethod(int ContraId,int UseMethodId)
+        //{
+        //    if (ContraId > 0)
+        //    {
+        //        var usemethod = ContraId == (int)Enums.eContraceptive.Temporary
+        //                        ? UseMethodId : ContraId == (int)Enums.eContraceptive.Permanent
+        //                        ? UseMethodId : ContraId == (int)Enums.eContraceptive.OtherMethod:"";
+                               
+        //    }
+            
+        //}
         //public static List<SelectListItem> GetSupportOrganization(bool isAddSel = false)
         //{
         //    try
