@@ -117,7 +117,7 @@ function BindDataTable() {
                     $('input.noofpart', row).attr('id', 'noofpart-' + index);
 
                     $('select[id=void-' + index + ']', row).val(item.VoId_fk);
-                    $('input[id=mdt-' + index + ']', row).val(moment(item.Meetingheld).format("DD-MM-YYYY"));
+                    $('input[id=mdt-' + index + ']', row).val(moment(item.Meetingheld).format("DD/MM/YYYY"));
                     $('input[id=noofpart-' + index + ']', row).val(item.Noofparticipant);
 
                     //$('input', row).removeClass('hasDatepicker');

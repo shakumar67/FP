@@ -98,7 +98,15 @@ namespace FP.Controllers
                 {
                     foreach (var item in model)
                     {
-                        string leftBFYName = item.Q3.Substring(0, 3);
+                        var leftBFYName = string.Empty;
+                        if (item.Q3.Length > 3)
+                        {
+                            leftBFYName = item.Q3.Substring(0, 3);
+                        }
+                        else
+                        {
+                            break;
+                        }
                         string leftBFYmobile = leftBFYName + item.Q7;
                         if (_db.TBL_Beneficiary.Any(x => x.Q1 == leftBFYmobile && (x.Beneficiary_Id_pk != item.Beneficiary_Id_pk || x.Beneficiary_Id_pk == Guid.Empty)))
                         {
@@ -187,7 +195,7 @@ namespace FP.Controllers
                     return resResponse3;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Error), Data = null };
                 var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
@@ -366,7 +374,7 @@ namespace FP.Controllers
                     resResponse3.MaxJsonLength = int.MaxValue;
                     return resResponse3;
                 }
-               
+
                 response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Error), Data = null };
                 var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                 resResponse1.MaxJsonLength = int.MaxValue;

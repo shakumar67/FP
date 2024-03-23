@@ -19,12 +19,16 @@ $(function () {
     });
 
     $('.datepicker').datepicker({
-        dateformat: 'dd-mm-yy',
+        dateformat: 'dd/mm/yy',
         maxdate: '0',
         //maxdate: "+1m +10d",
         changemonth: true,
         changeyear: true,
     });
+    $.validator.methods.date = function (value, element) {
+        return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+    }
+
     //$('.datepicker').datepicker({
     //    format: 'dd-M-yyyy',
     //    //startDate: '-3d'
@@ -89,12 +93,15 @@ $(".numberonly").on("input", function (evt) {
 
 function toDate(dateString) {
 
-    var parts = dateString.split('-');
+    var parts = dateString.split('/');
     return new Date(parts[2] + "-" + parts[1] + "-" + parts[0]);
 }
 function getAge(dateString) {
-
-    const dates = new Date(dateString); // {object Date}            
+    dates = dateString;
+    if (dateString != typeof (Date)) {
+        dates = toDate(dateString);
+    }
+    //const dates = new Date(dateString); // {object Date}            
 
     const covdate = new Intl.DateTimeFormat("en-US", {
         year: "numeric",

@@ -79,7 +79,7 @@ namespace FP.Controllers
                                             tbl_list.Add(tbl);
                                         }
                                     }
-                                    else if (m.AchieveId_pk != Guid.Empty && m.AchieveId_pk == existsRow.AchieveId_pk && m.Noofparticipant != null)
+                                    if (m.AchieveId_pk != Guid.Empty && m.Noofparticipant != null)
                                     {
                                         var tblu = db_.tbl_AchievementPlan.Find(m.AchieveId_pk);
                                         tblu.VoId_fk = m.VoId_fk;
