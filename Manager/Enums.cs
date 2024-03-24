@@ -79,6 +79,8 @@ namespace FP.Manager
             AllFieldsRequired = 7,
             [Description("Not Submit Data !!.")]
             NotSubmitData = 9,
+            [Description("Please Select Vaild Month !!.")]
+            VaildMonth = 10,
         }
 
         public enum eIsStatus

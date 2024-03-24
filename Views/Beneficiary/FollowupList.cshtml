@@ -285,35 +285,6 @@
                 }
             });
         }
-
-    
-   
-    function BFYDataView(BFYId,Type) {
-        var cmfollowupmodel = new Object();
-        cmfollowupmodel.Type = Type;
-
-        $.ajax({
-            type: "GET",
-            url: document.baseURI + "/Beneficiary/GetBFYFollowView",
-            data: cmfollowupmodel,
-            //cache: false,
-            success: function (res) {
-                if (res.IsSuccess) {
-                    $('#myModalview').modal('show');
-                    $("#div-View").html(res.Data);
-                }
-                else {
-                    $("#div-View").html(res.Data);
-                }
-            },
-            error: function (req, error) {
-                if (error === 'error') { error = req.statusText; }
-                var errormsg = 'There was a communication error: ' + error;
-                //Do To Message display
-            }
-        });
-    }
-
     </script>
 }
 

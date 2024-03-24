@@ -636,3 +636,33 @@ function GetCurrentYear() {
     console.log(y)
     return y;
 }
+
+function BFYFollowDataView(BFYId, FollowupID_pk, Type) {
+    var filtermodel = new Object();
+    filtermodel.BFYId = BFYId;
+    filtermodel.BFYFollowUpId = FollowupID_pk;
+    filtermodel.Type = Type;
+    //filtermodel.MonthId = FMId;
+    //filtermodel.YearId = FYId;
+
+    $.ajax({
+        type: "GET",
+        url: document.baseURI + "/Beneficiary/GetBFYFollowView",
+        data: filtermodel,
+        //cache: false,
+        success: function (res) {
+            if (res.IsSuccess) {
+                $("#div-View").html(res.Data);
+                $('#myModalview').modal('show');
+            }
+            else {
+                $("#div-View").html(res.Data);
+            }
+        },
+        error: function (req, error) {
+            if (error === 'error') { error = req.statusText; }
+            var errormsg = 'There was a communication error: ' + error;
+            //Do To Message display
+        }
+    });
+}

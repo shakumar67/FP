@@ -1072,6 +1072,17 @@ namespace FP.Manager
             return list.ToList();
         }
         #endregion
+        public static Boolean GetValidTillMonth(int MonthId, int YearId)
+        {
+            var year = YearId + 2022;
+            var dt = new DateTime(year, MonthId, 1);
+            if ((dt.Year == DateTime.Now.Year && dt.Month <= DateTime.Now.Month) || dt.Year < DateTime.Now.Year)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         //public int OnlyContraUseMethod(int ContraId,int UseMethodId)
         //{
@@ -1080,9 +1091,9 @@ namespace FP.Manager
         //        var usemethod = ContraId == (int)Enums.eContraceptive.Temporary
         //                        ? UseMethodId : ContraId == (int)Enums.eContraceptive.Permanent
         //                        ? UseMethodId : ContraId == (int)Enums.eContraceptive.OtherMethod:"";
-                               
+
         //    }
-            
+
         //}
         //public static List<SelectListItem> GetSupportOrganization(bool isAddSel = false)
         //{

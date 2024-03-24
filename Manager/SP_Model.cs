@@ -145,6 +145,7 @@ namespace FP.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_CMFollowupView");
             sp.Command.AddParameter("@BFYID_fk", model.BFYId, DbType.String);
+            sp.Command.AddParameter("@FollowupID_pk", model.BFYFollowUpId, DbType.String);
             sp.Command.AddParameter("@Type", model.Type, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;

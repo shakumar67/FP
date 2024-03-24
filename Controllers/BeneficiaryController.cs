@@ -146,8 +146,8 @@ namespace FP.Controllers
                         tbl.Q16 = item.Q15 == 1 ? item.Q16 : null;
                         tbl.Q17 = item.Q15 == 2 ? item.Q17 : null;
                         tbl.Q18 = item.Q15 == 4 ? item.Q18 : null;
-                        //tbl.Q20 = item.Q20;
-                        //tbl.Q21 = item.Q21;
+                        ////tbl.Q20 = item.Q20;
+                        ////tbl.Q21 = item.Q21;
                         tbl.IsActive = true;
                         if (item.Beneficiary_Id_pk == Guid.Empty)
                         {
@@ -306,6 +306,14 @@ namespace FP.Controllers
             JsonResponseData response = new JsonResponseData();
             try
             {
+                if (!CommonModel.GetValidTillMonth(model.FMonth.Value,model.FYear.Value))
+                {
+                    var d = Enums.GetEnumDescription(Enums.eReturnReg.VaildMonth);
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.VaildMonth), Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+                }
                 if (!ModelState.IsValid)
                 {
                     var d = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired);
