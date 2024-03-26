@@ -53,8 +53,9 @@
                         <a href="~/Beneficiary/FollowupList" class="dropdown-item">Follow List</a>
                     </div>
                 </div>
+                <a href="~/Service/AddServiceCNRP" class="nav-item nav-link"><i class="fa fa-database me-2"></i>Service-CNRP</a>
                 <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Achievement</a>
-                <div class="navbar-nav w-100" >
+                <div class="navbar-nav w-100">
                     <div class="nav-item dropdown">
                         <a href="javascript:void(0)" class="nav-link dropdown-toggle showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
                         <div class="dropdown-menu bg-transparent border-0 showactive">
@@ -96,18 +97,18 @@
                 </div>
 
                 @*<a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-                <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>*@
+        <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
+        <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>*@
                 @*<div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="signin.html" class="dropdown-item">Sign In</a>
-                        <a href="signup.html" class="dropdown-item">Sign up</a>
-                        <a href="signup.html" class="dropdown-item">Sign up</a>
-                        <a href="404.html" class="dropdown-item">404 Error</a>
-                        <a href="blank.html" class="dropdown-item">Blank Page</a>
-                    </div>
-                </div>*@
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+            <div class="dropdown-menu bg-transparent border-0">
+                <a href="signin.html" class="dropdown-item">Sign In</a>
+                <a href="signup.html" class="dropdown-item">Sign up</a>
+                <a href="signup.html" class="dropdown-item">Sign up</a>
+                <a href="404.html" class="dropdown-item">404 Error</a>
+                <a href="blank.html" class="dropdown-item">Blank Page</a>
+            </div>
+        </div>*@
             </div>
         }
         else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.Viewer))
@@ -133,50 +134,51 @@
         }
         else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CM))
         {
-            <div class="navbar-nav w-100">
-                <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
-                        <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-arrow-up me-2"></i>Follow up</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Beneficiary/BFYFollow" class="dropdown-item">Follow up</a>
-                    </div>
-                </div>
-                @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP))
-                {
-                    <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link actives"><i class="fa fa-users me-2"></i>Achievement</a>
-                    <div class="nav-item dropdown">
-                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-tasks me-2"></i>Plan</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="~/Plan/CreatePlan" class="dropdown-item">Add Plan</a>
-                            <a href="~/Plan/PlanList" class="dropdown-item">Planning List</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="~/Account/Register" class="dropdown-item">Registration</a>
-                            <a href="~/Master/UserDetaillist" class="dropdown-item">User List</a>
-                        </div>
-                    </div>
-
-                    <a href="~/Master/VillMaster" class="nav-item nav-link"><i class="fa fa-database"></i>Village Organization</a>
-                }
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
-                        <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
-                        <a href="~/Report/AchBFYList" class="dropdown-item">Achievement Details</a>
-                    </div>
+    <div class="navbar-nav w-100">
+        <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+        <div class="nav-item dropdown">
+            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+            <div class="dropdown-menu bg-transparent border-0">
+                <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
+                <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
+            </div>
+        </div>
+        <div class="nav-item dropdown">
+            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-arrow-up me-2"></i>Follow up</a>
+            <div class="dropdown-menu bg-transparent border-0">
+                <a href="~/Beneficiary/BFYFollow" class="dropdown-item">Follow up</a>
+            </div>
+        </div>
+        @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP))
+        {
+            <a href="~/Service/AddServiceCNRP" class="nav-item nav-link"><i class="fa fa-tasks me-2"></i>Service-CNRP</a>
+            <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link actives"><i class="fa fa-users me-2"></i>Achievement</a>
+            <div class="nav-item dropdown">
+                <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-tasks me-2"></i>Plan</a>
+                <div class="dropdown-menu bg-transparent border-0">
+                    <a href="~/Plan/CreatePlan" class="dropdown-item">Add Plan</a>
+                    <a href="~/Plan/PlanList" class="dropdown-item">Planning List</a>
                 </div>
             </div>
+            <div class="nav-item dropdown">
+                <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
+                <div class="dropdown-menu bg-transparent border-0">
+                    <a href="~/Account/Register" class="dropdown-item">Registration</a>
+                    <a href="~/Master/UserDetaillist" class="dropdown-item">User List</a>
+                </div>
+            </div>
+
+            <a href="~/Master/VillMaster" class="nav-item nav-link"><i class="fa fa-database"></i>Village Organization</a>
+        }
+        <div class="nav-item dropdown">
+            <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
+            <div class="dropdown-menu bg-transparent border-0">
+                <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
+                <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
+                <a href="~/Report/AchBFYList" class="dropdown-item">Achievement Details</a>
+            </div>
+        </div>
+    </div>
         }
         else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPM) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPIU) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.District))
         {
