@@ -1,0 +1,72 @@
+﻿@using System.Data
+@using FP.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="tbl">
+        <thead class="text-center">
+            <tr>
+                <th>Srno.</th>
+                <th>Beneficiary<br /> ID</th>
+                <th>Reporting <br />Month</th>
+                <th>Health <br />Center </th>
+                <th>Name of<br />Beneficiary</th>
+                <th>Mobile no. of beneficiary</th>
+                <th>Reported By </th>
+                <th>View </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (dt.Rows.Count > 0)
+                {
+                    int srno = 1;
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        var fcl = !string.IsNullOrWhiteSpace(dr["AchbgColor"].ToString()) ? "#fff;" : "";
+
+                        <tr class="@dr["AchbgColor"]" style="color:@fcl">
+                            <td class="text-center">@(srno++)</td>
+                            <td class="text-center">@dr["BFYRegId"]</td>
+                            <td class="text-center">@CommonModel.FormateDtDMY(dr["BFYReportingDate"].ToString())</td>
+                            <td class="text-left">@dr["HealthCenter"]</td>
+                            <td class="text-left">@dr["BFYName"]</td>
+                            <td class="text-center">@dr["BFYMobileNo"]</td>
+                            <td class="text-center">@dr["ReportedBy"]</td>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(dr["NoofService"].ToString()) && dr["NoofService"].ToString() != "0")
+                                {
+                                    <a href="javascript:void(0);" onclick="BFYServiceDataView('@dr["BFYPKId"]','@dr["ServiceBFYId_pk"]','')" class="btn btn-outline-success btn-sm"><i class="fa fa-view"></i> View</a>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (!string.IsNullOrEmpty(dr["BFYPKId"].ToString()))
+                                {
+                                    if (dr["NoofService"].ToString() != "0")
+                                    {
+                                        <strong class="text-warning">Service Done</strong>
+                                    }
+                                    else
+                                    {
+                                        <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BFYPKId"]','@dr["BFYRegId"]','@dr["ServiceBFYId_pk"]')" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add</a>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

@@ -13,6 +13,8 @@ namespace FP.Models
         public string BFYId { get; set; }
         [Display(Name = "Follow-up")]
         public string BFYFollowUpId { get; set; }
+        [Display(Name = "Service")]
+        public string ServiceBFYId_pk { get; set; }
         [Display(Name = CommonModel.DispLevel.District)]
         public string DistrictId { get; set; }
         [Display(Name = CommonModel.DispLevel.Block)]

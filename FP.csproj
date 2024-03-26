@@ -316,6 +316,7 @@
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\PlanController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -334,7 +335,7 @@
     <Compile Include="Manager\JsonResponseData.cs" />
     <Compile Include="Manager\SP_Model.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AchBFYModel.cs" />
+    <Compile Include="Models\ServiceBFYModel.cs" />
     <Compile Include="Models\AchvPlanModel.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
@@ -404,13 +405,13 @@
     <Compile Include="Models\tbl_Achievement_Log.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_Achvt.cs">
-      <DependentUpon>DB_Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TBL_Beneficiary.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_BFYFollowup.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_BFYService.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_CLFPlanReject.cs">
@@ -730,6 +731,10 @@
     <Content Include="Views\Achievement\LevelSecAchvApprove.cshtml" />
     <Content Include="Views\Beneficiary\FollowupList.cshtml" />
     <Content Include="Views\Beneficiary\_FollowDataList.cshtml" />
+    <Content Include="Views\Service\_BFYPOPView.cshtml" />
+    <Content Include="Views\Service\_BFYPOP.cshtml" />
+    <Content Include="Views\Service\_ServiceBFYData.cshtml" />
+    <Content Include="Views\Service\AddServiceCNRP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

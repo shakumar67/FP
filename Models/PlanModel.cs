@@ -12,7 +12,7 @@ namespace FP.Models
         public PlanModel()
         {
             PlanID_pk = Guid.Empty;
-            AchBFYModel =new AchBFYModel();
+            AchBFYModel =new ServiceBFYModel();
         }
         //[Key]
         public System.Guid PlanID_pk { get; set; }
@@ -67,7 +67,7 @@ namespace FP.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
-        public  AchBFYModel AchBFYModel { get; set; }
+        public  ServiceBFYModel AchBFYModel { get; set; }
     }
     public class CLFPlanApproveModel
     {

@@ -1,0 +1,129 @@
+﻿@using FP.Manager
+@using FP.Models
+@using System.Data
+@{
+    DataTable dt = new DataTable();
+    FP_DBEntities db = new FP_DBEntities();
+    ViewBag.Title = "Service View";
+    if (Model != null)
+    {
+        dt = Model;
+    }
+}
+
+<style>
+    #ui-datepicker-div {
+        top: 112.073px !important;
+    }
+</style>
+<!-- Modal -->
+
+<div class="modal fade" id="myModalview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        @using (Html.BeginForm("GetBFYServiceView", "Service", FormMethod.Post, new { @class = "", @id = "AchViewBFYformid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalTitle">Contraception View</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-1">
+                        <div class="col-sm-12">
+                            <div class="bg-light rounded h-100 p-2">
+                                @{
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        // var ct = CommonModel.GetContraceptive().Where(x => x.Value == tbl.ContraceptionId_fk.ToString()).FirstOrDefault().Text;
+                                        //  var usemn = CommonModel.GetContraceptive_Child(tbl.ContraceptionId_fk.Value).Where(x => x.Value == tbl.UseMethodId_fk.ToString()).FirstOrDefault().Text;
+                                        //   var sp = CommonModel.GetServiceProvider().Where(x => x.Value == tbl.ServiceProvider.ToString()).FirstOrDefault().Text;
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-12">
+                                                <div class="position-relative form-group">
+                                                    <label>@FP.Models.DisplayFollowBFY.BeneficiaryRegID : </label>
+                                                    <strong class="text-success">@dt.Rows[0]["BFYRegId"].ToString()</strong>
+                                                </div>
+                                            </div>
+                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["ServiceYearId"].ToString()))
+                                            {
+                                                <div class="col-sm-12">
+                                                    <div class="position-relative form-group">
+                                                        <label>Service Reporting Month/Year : </label>
+                                                        <strong class="text-success">@dt.Rows[0]["SReportingDate"].ToString()</strong>
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["EmpReported"].ToString()))
+                                            {
+                                                <div class="col-sm-12">
+                                                    <div class="position-relative form-group">
+                                                        <label>Reporting By : </label>
+                                                        <strong class="text-success">@dt.Rows[0]["EmpReported"].ToString()</strong>
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="col-sm-12">
+                                                <div class="position-relative form-group">
+                                                    @DisplayAchBFY.IsPPresent <strong>: @dt.Rows[0]["IsPeerPresentText"].ToString()</strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="position-relative form-group">
+                                                    @DisplayAchBFY.IsFUpHV <strong>: @dt.Rows[0]["IsFollowUpHVText"].ToString()</strong>
+                                                </div>
+                                            </div>
+                                            @if (dt.Rows[0]["IsContraception"].ToString().ToLower() == "true")
+                                            {
+                                                <div class="col-sm-12">
+                                                    <div class="position-relative form-group">
+                                                        @DisplayAchBFY.IsPPrIsCt <strong>: @dt.Rows[0]["IsContraceptionText"].ToString()</strong>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="position-relative form-group">
+                                                        @DisplayAchBFY.Ct <strong>: @dt.Rows[0]["C_Name"].ToString()</strong>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="position-relative form-group">
+                                                        @DisplayAchBFY.Ctusemethod <strong>: @dt.Rows[0]["Method_Name"].ToString()</strong>
+                                                    </div>
+                                                </div>
+                                                if (dt.Rows[0]["Isservice"].ToString().ToLower() == "true")
+                                                {
+                                                    <div class="col-sm-12">
+                                                        <div class="position-relative form-group">
+                                                            @DisplayAchBFY.ServiceProvider<strong>: @dt.Rows[0]["ServiceProviderName"].ToString()</strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="position-relative form-group">
+                                                            @DisplayAchBFY.ServiceRevcDt<strong>: @dt.Rows[0]["ServiceRevcDate"].ToString()</strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="position-relative form-group">
+                                                            @DisplayAchBFY.Location<strong>: @dt.Rows[0]["Location"].ToString()</strong>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

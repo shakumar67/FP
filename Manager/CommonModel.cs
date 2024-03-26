@@ -961,8 +961,9 @@ namespace FP.Manager
         }
         public static List<SelectListItem> GetServiceProvider()
         {
+            FP_DBEntities fP_=new FP_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
-            list = new SelectList(dbe.ServiceProvider_Master.Where(x => x.IsActive == true), "ID", "ServiceProvider").OrderBy(x => x.Text).ToList();
+            list = new SelectList(fP_.ServiceProvider_Master.Where(x => x.IsActive == true), "ID", "ServiceProvider").OrderBy(x => x.Text).ToList();
             return list.OrderByDescending(x => x.Text).ToList();
         }
         public static List<SelectListItem> GetBoyGirl()

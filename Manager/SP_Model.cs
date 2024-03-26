@@ -183,7 +183,7 @@ namespace FP.Manager
 
         #endregion
 
-        #region Plan
+        #region CNRP Service Plan
         public static DataTable SPPlanBFYList(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_PlanBFYList");
@@ -196,6 +196,15 @@ namespace FP.Manager
             sp.Command.AddParameter("@Year", model.Year, DbType.String);
             sp.Command.AddParameter("@Role", model.RoleId, DbType.String);
             sp.Command.AddParameter("@CutUser", model.CutUser, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SPCNRPServiceBFYView(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_CNRPServiceBFYView");
+            sp.Command.AddParameter("@BFYID_fk", model.BFYId, DbType.String);
+            sp.Command.AddParameter("@ServiceBFYId_pk", model.ServiceBFYId_pk, DbType.String);
+            sp.Command.AddParameter("@Type", model.Type, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -246,6 +255,7 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+     
         #endregion
         #region Achievement Plan 
         public static DataTable SP_AchvPlanList(FilterModel model)
@@ -308,6 +318,7 @@ namespace FP.Manager
         }
 
         #endregion
+
 
 
         #region Report Letter and Dashboard Home

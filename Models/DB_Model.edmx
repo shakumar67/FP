@@ -199,31 +199,6 @@
           <Property Name="Level3RejectBy" Type="nvarchar" MaxLength="200" />
           <Property Name="Remark3" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="tbl_Achvt">
-          <Key>
-            <PropertyRef Name="AchvtBFYID_pk" />
-          </Key>
-          <Property Name="AchvtBFYID_pk" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="PlanId_fk" Type="uniqueidentifier" />
-          <Property Name="BFYId_fk" Type="uniqueidentifier" />
-          <Property Name="IsPeerPresent" Type="bit" />
-          <Property Name="IsFollowUpHV" Type="bit" />
-          <Property Name="IsContraception" Type="bit" />
-          <Property Name="ContraceptionId_fk" Type="int" />
-          <Property Name="ContraceptionOther" Type="nvarchar" MaxLength="1000" />
-          <Property Name="UseMethodId_fk" Type="int" />
-          <Property Name="Isservice" Type="bit" />
-          <Property Name="ServiceRevcDt" Type="date" />
-          <Property Name="ServiceProvider" Type="int" />
-          <Property Name="Location" Type="nvarchar(max)" />
-          <Property Name="CMEligible" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="CNRPEligible" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="IsActive" Type="bit" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
-          <Property Name="CreatedOn" Type="datetime" />
-          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
-          <Property Name="UpdatedOn" Type="datetime" />
-        </EntityType>
         <EntityType Name="TBL_Beneficiary">
           <Key>
             <PropertyRef Name="Beneficiary_Id_pk" />
@@ -286,6 +261,35 @@
           <Property Name="ContraceptionOther" Type="nvarchar" MaxLength="1200" />
           <Property Name="ModuleRollout" Type="int" />
           <Property Name="ModuleRolloutId_fk" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="Totalnoof_Femalechild" Type="int" />
+          <Property Name="Totalnoof_malechild" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_BFYService">
+          <Key>
+            <PropertyRef Name="ServiceBFYId_pk" />
+          </Key>
+          <Property Name="ServiceBFYId_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FollowId_fk" Type="uniqueidentifier" />
+          <Property Name="BFYId_fk" Type="uniqueidentifier" />
+          <Property Name="ServiceYearId" Type="int" />
+          <Property Name="ServiceMonthId" Type="int" />
+          <Property Name="IsPeerPresent" Type="bit" />
+          <Property Name="IsFollowUpHV" Type="bit" />
+          <Property Name="IsContraception" Type="bit" />
+          <Property Name="ContraceptionId_fk" Type="int" />
+          <Property Name="ContraceptionOther" Type="nvarchar" MaxLength="1000" />
+          <Property Name="UseMethodId_fk" Type="int" />
+          <Property Name="Isservice" Type="bit" />
+          <Property Name="ServiceRevcDt" Type="date" />
+          <Property Name="ServiceProvider" Type="int" />
+          <Property Name="Location" Type="nvarchar(max)" />
+          <Property Name="CMEligible" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CNRPEligible" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedOn" Type="datetime" />
@@ -495,9 +499,9 @@
           <EntitySet Name="Subject_Master" EntityType="Self.Subject_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Achievement_Log" EntityType="Self.tbl_Achievement_Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_AchievementPlan" EntityType="Self.tbl_AchievementPlan" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_Achvt" EntityType="Self.tbl_Achvt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Beneficiary" EntityType="Self.TBL_Beneficiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_BFYFollowup" EntityType="Self.tbl_BFYFollowup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_BFYService" EntityType="Self.tbl_BFYService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CLF_Emp" EntityType="Self.tbl_CLF_Emp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CLFPlanReject" EntityType="Self.tbl_CLFPlanReject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Emp" EntityType="Self.TBL_Emp" Schema="dbo" store:Type="Tables" />
@@ -641,8 +645,8 @@
           <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
           <EntitySet Name="tbl_Achievement_Log" EntityType="FP_DBModel.tbl_Achievement_Log" />
           <EntitySet Name="tbl_AchievementPlan" EntityType="FP_DBModel.tbl_AchievementPlan" />
-          <EntitySet Name="tbl_Achvt" EntityType="FP_DBModel.tbl_Achvt" />
           <EntitySet Name="tbl_PaymentHistory" EntityType="FP_DBModel.tbl_PaymentHistory" />
+          <EntitySet Name="tbl_BFYService" EntityType="FP_DBModel.tbl_BFYService" />
         </EntityContainer>
         <EntityType Name="Contraceptive_Child_Master">
           <Key>
@@ -749,6 +753,8 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="Totalnoof_Femalechild" Type="Int32" />
+          <Property Name="Totalnoof_malechild" Type="Int32" />
         </EntityType>
         <EntityType Name="CLF_Master">
           <Key>
@@ -967,31 +973,6 @@
           <Property Name="Level3RejectBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Remark3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tbl_Achvt">
-          <Key>
-            <PropertyRef Name="AchvtBFYID_pk" />
-          </Key>
-          <Property Name="AchvtBFYID_pk" Type="Guid" Nullable="false" />
-          <Property Name="PlanId_fk" Type="Guid" />
-          <Property Name="BFYId_fk" Type="Guid" />
-          <Property Name="IsPeerPresent" Type="Boolean" />
-          <Property Name="IsFollowUpHV" Type="Boolean" />
-          <Property Name="IsContraception" Type="Boolean" />
-          <Property Name="ContraceptionId_fk" Type="Int32" />
-          <Property Name="ContraceptionOther" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="UseMethodId_fk" Type="Int32" />
-          <Property Name="Isservice" Type="Boolean" />
-          <Property Name="ServiceRevcDt" Type="DateTime" Precision="0" />
-          <Property Name="ServiceProvider" Type="Int32" />
-          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CMEligible" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CNRPEligible" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="tbl_PaymentHistory">
           <Key>
             <PropertyRef Name="PaymentHistoryId_pk" />
@@ -1008,6 +989,33 @@
           <Property Name="ApprovedAmount" Type="Decimal" Precision="18" Scale="5" />
           <Property Name="PayMonth" Type="Int32" />
           <Property Name="PayYear" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_BFYService">
+          <Key>
+            <PropertyRef Name="ServiceBFYId_pk" />
+          </Key>
+          <Property Name="ServiceBFYId_pk" Type="Guid" Nullable="false" />
+          <Property Name="FollowId_fk" Type="Guid" />
+          <Property Name="BFYId_fk" Type="Guid" />
+          <Property Name="ServiceYearId" Type="Int32" />
+          <Property Name="ServiceMonthId" Type="Int32" />
+          <Property Name="IsPeerPresent" Type="Boolean" />
+          <Property Name="IsFollowUpHV" Type="Boolean" />
+          <Property Name="IsContraception" Type="Boolean" />
+          <Property Name="ContraceptionId_fk" Type="Int32" />
+          <Property Name="ContraceptionOther" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="UseMethodId_fk" Type="Int32" />
+          <Property Name="Isservice" Type="Boolean" />
+          <Property Name="ServiceRevcDt" Type="DateTime" Precision="0" />
+          <Property Name="ServiceProvider" Type="Int32" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CMEligible" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CNRPEligible" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
@@ -1172,6 +1180,8 @@
           <EntitySetMapping Name="tbl_BFYFollowup">
             <EntityTypeMapping TypeName="FP_DBModel.tbl_BFYFollowup">
               <MappingFragment StoreEntitySet="tbl_BFYFollowup">
+                <ScalarProperty Name="Totalnoof_malechild" ColumnName="Totalnoof_malechild" />
+                <ScalarProperty Name="Totalnoof_Femalechild" ColumnName="Totalnoof_Femalechild" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
@@ -1418,32 +1428,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Achvt">
-            <EntityTypeMapping TypeName="FP_DBModel.tbl_Achvt">
-              <MappingFragment StoreEntitySet="tbl_Achvt">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CNRPEligible" ColumnName="CNRPEligible" />
-                <ScalarProperty Name="CMEligible" ColumnName="CMEligible" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="ServiceProvider" ColumnName="ServiceProvider" />
-                <ScalarProperty Name="ServiceRevcDt" ColumnName="ServiceRevcDt" />
-                <ScalarProperty Name="Isservice" ColumnName="Isservice" />
-                <ScalarProperty Name="UseMethodId_fk" ColumnName="UseMethodId_fk" />
-                <ScalarProperty Name="ContraceptionOther" ColumnName="ContraceptionOther" />
-                <ScalarProperty Name="ContraceptionId_fk" ColumnName="ContraceptionId_fk" />
-                <ScalarProperty Name="IsContraception" ColumnName="IsContraception" />
-                <ScalarProperty Name="IsFollowUpHV" ColumnName="IsFollowUpHV" />
-                <ScalarProperty Name="IsPeerPresent" ColumnName="IsPeerPresent" />
-                <ScalarProperty Name="BFYId_fk" ColumnName="BFYId_fk" />
-                <ScalarProperty Name="PlanId_fk" ColumnName="PlanId_fk" />
-                <ScalarProperty Name="AchvtBFYID_pk" ColumnName="AchvtBFYID_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_PaymentHistory">
             <EntityTypeMapping TypeName="FP_DBModel.tbl_PaymentHistory">
               <MappingFragment StoreEntitySet="tbl_PaymentHistory">
@@ -1464,6 +1448,34 @@
                 <ScalarProperty Name="RejectedAchvId" ColumnName="RejectedAchvId" />
                 <ScalarProperty Name="ApprovedAchvId" ColumnName="ApprovedAchvId" />
                 <ScalarProperty Name="PaymentHistoryId_pk" ColumnName="PaymentHistoryId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_BFYService">
+            <EntityTypeMapping TypeName="FP_DBModel.tbl_BFYService">
+              <MappingFragment StoreEntitySet="tbl_BFYService">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CNRPEligible" ColumnName="CNRPEligible" />
+                <ScalarProperty Name="CMEligible" ColumnName="CMEligible" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ServiceProvider" ColumnName="ServiceProvider" />
+                <ScalarProperty Name="ServiceRevcDt" ColumnName="ServiceRevcDt" />
+                <ScalarProperty Name="Isservice" ColumnName="Isservice" />
+                <ScalarProperty Name="UseMethodId_fk" ColumnName="UseMethodId_fk" />
+                <ScalarProperty Name="ContraceptionOther" ColumnName="ContraceptionOther" />
+                <ScalarProperty Name="ContraceptionId_fk" ColumnName="ContraceptionId_fk" />
+                <ScalarProperty Name="IsContraception" ColumnName="IsContraception" />
+                <ScalarProperty Name="IsFollowUpHV" ColumnName="IsFollowUpHV" />
+                <ScalarProperty Name="IsPeerPresent" ColumnName="IsPeerPresent" />
+                <ScalarProperty Name="ServiceMonthId" ColumnName="ServiceMonthId" />
+                <ScalarProperty Name="ServiceYearId" ColumnName="ServiceYearId" />
+                <ScalarProperty Name="BFYId_fk" ColumnName="BFYId_fk" />
+                <ScalarProperty Name="FollowId_fk" ColumnName="FollowId_fk" />
+                <ScalarProperty Name="ServiceBFYId_pk" ColumnName="ServiceBFYId_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

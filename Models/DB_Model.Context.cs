@@ -49,7 +49,7 @@ namespace FP.Models
         public virtual DbSet<TBL_Beneficiary> TBL_Beneficiary { get; set; }
         public virtual DbSet<tbl_Achievement_Log> tbl_Achievement_Log { get; set; }
         public virtual DbSet<tbl_AchievementPlan> tbl_AchievementPlan { get; set; }
-        public virtual DbSet<tbl_Achvt> tbl_Achvt { get; set; }
         public virtual DbSet<tbl_PaymentHistory> tbl_PaymentHistory { get; set; }
+        public virtual DbSet<tbl_BFYService> tbl_BFYService { get; set; }
     }
 }

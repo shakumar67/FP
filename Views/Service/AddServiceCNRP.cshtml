@@ -1,0 +1,510 @@
+﻿@model FP.Models.FilterModel
+@using FP.Manager
+@{
+    ViewBag.Title = "Add Service";
+}
+<style>
+    .bt-mrgn {
+        margin-bottom: 15px;
+    }
+
+    .actives3 {
+        color: #009A3F !important;
+        background: #FFFFFF;
+        border-color: #009CFF;
+    }
+
+    .chck {
+        height: 18px !important;
+        width: 41px;
+    }
+</style>
+<div class="breadcrumb">
+    <h2>Add Plan</h2>
+    <p><a href="~/Plan/PlanList">Planning Lists</a> / @ViewBag.Title </p>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <fieldset class="border rounded-3 p-3">
+        <legend class="float-none w-auto px-2">Search By</legend>
+        @using (Html.BeginForm("GetPlanBFYList", "Service", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        {
+            <div class="row g-4">
+                <div class="col-sm-12">
+                    <div class="bg-light rounded h-100 p-4">
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.BlockId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.BlockId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.CLFId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.CLFId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.CLFId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.PanchayatId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <div class="position-relative form-group">
+                                        @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                        @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="position-relative form-group">
+                                        @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                        @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="position-relative form-group">
+                                        @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                        @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="check-spacer">
+                                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Filter" />
+                                </span>&nbsp;&nbsp;&nbsp;
+                                <span class="check-spacer">
+                                    <a href="~/Beneficiary/BFYList" class="btn btn-info"><i class="fa fa-refresh"></i>Refresh</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </fieldset>
+    <div class="row g-4">
+
+        <div class="row">
+            <div class="col=md-12" id="div-download"></div>
+            <div class="col=md-6"></div>
+            <div class="col=md-6"></div>
+            <div class="col=md-6"></div>
+            <div class="col-md-12">
+                @*@if (!string.IsNullOrWhiteSpace(Model.BFYId))
+                    {
+                        <h5>List-Listing Details</h5>
+                    }*@
+                <div id="subdata"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="col-md-12" id="div-popmodal">
+    @*@Html.Partial("_BFYPOP", Model.AchBFYModel)*@
+</div>
+
+<div class="col-md-12" id="div-popmodalview">
+</div>
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/JS/Master.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#IsBFY').change(function () {
+                IsPGYHV();
+            });
+
+            GetYearList("Year", 0, 1);
+            GetMonthList("Month", 0, 1);
+            GetDistrict("DistrictId", 0);
+            $('#DistrictId').change(function () {
+                GetBlock("BlockId", 0, $(this).val());
+            });
+            $('#BlockId').change(function () {
+                GetCLF("CLFId", 0, $('#DistrictId').val(), $(this).val());
+            });
+            $('#CLFId').change(function () {
+                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+            });
+
+            $('#PanchayatId').change(function () {
+                GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId').val(), $(this).val());
+            });
+            /* Role Wise */
+            BindRolewise("DistrictId", "BlockId", "CLFId", "PanchayatId", "VOId");
+
+            $('#IsPlanAchv').change(function () {
+                bindIsPlanAch();
+            });
+
+            /* Achievement Function Start Cont */
+            $(document).on('change',".Cont",function () {
+                var value = $('input[name=IsPeerPresent]:checked').val();
+                $('#div-IsContraception').hide();
+                var value1 = $('input[name=IsFollowUpHV]:checked').val();
+                if (value == "true" || value1 == "true") {
+                    $('#div-IsContraception').show();
+                }
+            });
+
+            $(document).on('change', 'input[name=IsContraception]', function () {
+            //$('input[name=IsContraception]').change(function () {
+                var value = $('input[name=IsContraception]:checked').val();
+                Inputclear();
+                $('#div-ContraceptionId_fk').hide(); $('#div-Service').hide();
+                if (value == "true") {
+                    GetBFYData();
+                    $('#div-ContraceptionId_fk').show();
+                }
+            });
+            $(document).on('change', 'input[name=Isservice]', function () {
+           // $('input[name=Isservice]').change(function () {
+                var value = $('input[name=Isservice]:checked').val();
+                $('#div-Service').hide();
+                //$('#div-ServiceRevcDt').hide();
+                //$('#div-ServiceProvider').hide();
+                //$('#div-Location').hide();
+                $('#ServiceRevcDt').val('');
+                $('#ServiceProvider').val('');
+                $('#Location').val('');
+                if (value == "true") {
+                    $('#div-Service').show();
+                    $('#ServiceRevcDt').attr('required', 'required');
+                    $('#ServiceProvider').attr('required', 'required');
+                    $('#Location').attr('required', 'required');
+                    $('#ServiceRevcDt').datepicker({
+                        dateFormat: 'dd-M-yy',
+                        maxDate: '0',
+                        maxDate: "+1M +10D",
+                        changeMonth: true,
+                        changeYear: true,
+                    });
+                    //$('#div-ServiceRevcDt').show();
+                    // $('#div-ServiceProvider').show();
+                    // $('#div-Location').show();
+                }
+                else {
+                    $('#ServiceRevcDt').removeAttr('required');
+                    $('#ServiceProvider').removeAttr('required');
+                    $('#Location').removeAttr('required');
+                }
+            });
+
+            $(document).on('change', '#ContraceptionId_fk', function () {
+            //$('#ContraceptionId_fk').change(function () {
+                $('#ContraceptionOther').val('');
+                $('#div-ContraceptionOther').hide();
+                $('#ContraceptionOther').removeAttr('required');
+                $('#div-UseMethodId_fk').hide();
+                $('#div-Isservice').hide();
+                $('#div-Service').hide();
+                GetContraceptiveChildList("UseMethodId_fk", 0, "");
+                $('#UseMethodId_fk').removeAttr('required');
+
+                if ($(this).val() == "1") {
+                    $('#div-UseMethodId_fk').show();
+                    GetContraceptiveChildList("UseMethodId_fk", 0, 1);
+                    $('#UseMethodId_fk').attr('required', 'required');
+                    $('#div-Isservice').show();
+                }
+                else if ($(this).val() == "2") {
+                    $('#div-UseMethodId_fk').show();
+                    GetContraceptiveChildList("UseMethodId_fk", 0, 2);
+                    $('#UseMethodId_fk').attr('required', 'required');
+                    $('#div-Isservice').show();
+                }
+                else if ($(this).val() == "4") {
+                    $('#ContraceptionOther').attr('required', 'required');
+                    $('#div-ContraceptionOther').show();
+                }
+                else {
+                    $('#div-ContraceptionOther').css('display', 'none');
+                    $('#div-UseMethodId_fk').css('display', 'none');
+                }
+
+            });
+
+            $(document).on('submit', "#AchBFYformid", function (e) {
+            //$("#AchBFYformid").submit(function (e) {
+                e.preventDefault();
+                CUAchBFYData();
+            });
+            /* Achievement Function End */
+            //$('#myModal').on('hidden.bs.modal', function () {
+            //    $(this).find("#AchBFYformid")[0].reset();
+            //});
+            BindData();
+            $("#formid").submit(function (e) {
+                e.preventDefault();
+                BindData();
+            });
+
+        });
+
+        function bindIsPlanAch() {
+            IsPGYHV();
+            $('#IsBFY').val(''); //$('#DOMDt').val(''); $('#DOMHVDt').val('');
+            if ($('#IsPlanAchv').is(':checked')) {
+                $('#div-achv').show();
+            }
+            else {
+                $('#div-achv').hide();
+            }
+        }
+
+        function Inputclear() {
+            $('#ContraceptionOther').val('');
+            $('#div-ContraceptionOther').hide();
+            $('#ContraceptionOther').removeAttr('required');
+            $('#div-UseMethodId_fk').hide();
+            $('#div-Isservice').hide();
+            $('#div-Service').hide();
+            GetContraceptiveChildList("UseMethodId_fk", 0, "");
+            $('#UseMethodId_fk').removeAttr('required');
+            $('#ContraceptionId_fk').val('');
+            $('#UseMethodId_fk').val('');
+            $("input[name=Isservice]").prop('checked', false);
+            $('#ServiceRevcDt').val('');
+            $('#ServiceProvider').val('');
+            $('#Location').val('');
+        }
+    function IsPGYHV() {
+        $('#DOMDt').val(''); $('#div-DOMDt').hide();
+        $('#DOMHVDt').val(''); $('#div-DOMHVDt').hide();
+        $('#DOMDt').removeAttr('required');
+        $('#DOMHVDt').attr('required');
+            if ($('#IsBFY').val() == "1") {
+                $('#div-DOMDt').show();
+                $('#DOMDt').attr('required','required');
+
+            }
+            else if ($('#IsBFY').val() == "2") {
+                $('#div-DOMHVDt').show();
+                $('#DOMHVDt').attr('required', 'required');
+            }
+            else if ($('#IsBFY').val() == "3") {
+                $('#div-DOMHVDt').show();
+                $('#div-DOMDt').show();
+                $('#DOMDt').attr('required', 'required');
+                $('#DOMHVDt').attr('required', 'required');
+            }
+        }
+    /* Service Function */
+    function BindData() {
+            var filtermodel = new Object();
+            filtermodel.DistrictId = $('#DistrictId').val();
+            filtermodel.BlockId = $('#BlockId').val();
+            filtermodel.CLFId = $('#CLFId').val();
+            filtermodel.PanchayatId = $('#PanchayatId').val();
+            filtermodel.VoId = $('#VOId').val();
+            filtermodel.Year = $('#Year').val();
+            filtermodel.Month = $('#Month').val();
+
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Service/GetPlanBFYList",
+                data: filtermodel, //JSON.stringify({ 'DistrictId': $('#DistrictId_fk').val(), 'BlockId': $('#BlockId_fk').val(), 'PanchayatId': $('#Panchayatid_fk').val() }),
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+                    }
+                    $("#subdata").html(res.Data);
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+        function GetBFYData() {
+            if ($('input[name="IsContraception"]:checked').val() == "true") {
+                var BFYID_fk = $('#BFYId_fk').val();
+                if (BFYID_fk != '' && BFYID_fk != undefined) {
+                    $.get("/Beneficiary/GetBFYIDWise", { BFYPKID: BFYID_fk }, function (res) {
+                        if (res != '') {
+                            var data = res.resData;
+                            /* $('#div-fupyes').show();*/
+                            $('input[name=IsContraception][value=true]').prop('checked', true);
+                            if ($('input[name="IsContraception"]:checked').val() == "true") {
+                                $('#div-ContraceptionId_fk').show();
+                                $('#ContraceptionId_fk').val(data.Q15);
+                                var usemd = data.Q15 == '@((int)Enums.eContraceptive.Temporary)'
+                                    ? data.Q16 : data.Q15 == '@((int)Enums.eContraceptive.Permanent)'
+                                        ? data.Q17 : data.Q15 == '@((int)Enums.eContraceptive.OtherMethod)'
+                                            ? data.Q18 : "";
+                                bindloadContraceptive(data.Q15.toString(), usemd);
+                            }
+                        }
+                    });
+                }
+            }
+            else {
+                //$('#div-ContraceptionId_fk').hide();
+                //GetContraceptive("ContraceptionId_fk", 0);
+                //$('#ContraceptionId_fk').removeAttr('required');
+                //$('#div-UseMethodId_fk').hide();
+                //$('#UseMethodId_fk').removeAttr('required');
+                //GetContraceptiveChildList("UseMethodId_fk", 0, "");
+                //$('#div-ContraceptionOther').hide();
+                //$('#ContraceptionOther').val('');
+                //$('#ContraceptionOther').removeAttr('required');
+                //$('#div-Isservice').hide();
+                //$('input[name=Isservice][value=true]').prop('checked', false);
+                //gets("ServiceProvider", 0);
+                //$('#ContraceptionId_fk').removeAttr('required');
+            }
+        }
+    function BindAchPop(BpkID,BFYRegID) {
+        $('#div-popmodal').html('');
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Content("~/Service/AchvpopForm")',
+            data: '', //objectToPass,
+            success: function (data) {
+                debugger;
+                $('#div-popmodal').html(data);
+                $("#AchBFYformid")[0].reset();
+                if (BpkID) {
+                    GetContraceptive("ContraceptionId_fk", 0);
+                    //$('#myModal').modal(); $('#myModal').modal('toggle');
+                    $('#BFYId_fk').val(BpkID);
+                    $('#stBFYRegID').html(BFYRegID);
+                    GetYearList("ServiceYearId", 0, 1);
+                    GetMonthList("ServiceMonthId", 0, 1);
+                    $('#myModal').modal('show');
+                }
+            }
+        });
+    }
+        function DisplayPOP(BpkID, BFYRegId) {
+            BindAchPop(BpkID, BFYRegId);
+        }
+        function CUAchBFYData() {
+            debugger;
+            //var vl = $.validator.unobtrusive.parse("#formid");
+            //var Isvalid= $("#formid").validate();//CreatePlanformid
+            var isvalid = $("#AchBFYformid").valid();
+            var IsCheck = true;
+            IsCheck = $('#BFYId_fk').val() == '' ? false : true;
+            // IsCheck = $('#PlanId_fk').val() == '' ? false : true;
+            if ($('input[name="IsPeerPresent"]:checked').length == 0) {
+                toastr.error("Error", 'Please Select Present in Peer Group Meeting');
+                IsCheck = false;
+            }
+            if ($('input[name="IsFollowUpHV"]:checked').length == 0) {
+                toastr.error("Error", 'Please Select FollowUp/HV in Current Month');
+                IsCheck = false;
+            }
+            if ($('input[name="IsPeerPresent"]:checked').length != 0 || $('input[name="IsFollowUpHV"]:checked').length != 0) {
+                if ($('input[name="IsContraception"]:checked').length == 0) {
+                    toastr.error("Error", 'Please Select Want to use contraception after meeting/HV');
+                    IsCheck = false;
+                }
+            }
+
+            if (isvalid && IsCheck) {
+                document.getElementById("btnpopsubmit").disabled = true;
+
+                var formData = $('#AchBFYformid').serialize();
+
+                $.ajax({
+                    url: document.baseURI + "/Service/AddServiceCNRP",
+                    type: "Post",
+                    data: formData,
+                    //contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    // processData: false, contentType: false,
+                    //cache: false,
+                    //contentType: false,
+                    //processData: false,
+                    //data: JSON.stringify(model),
+                    success: function (resp) {
+                        if (resp.StatusType == "success") {
+                            toastr.success("Success", resp.Message);
+                            $("#AchBFYformid")[0].reset();
+                            BindData();
+                        }
+                        else {
+                            toastr.error("Error", resp.Message);
+                            document.getElementById("btnpopsubmit").disabled = false;
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
+                        //jQuery.event.trigger("ajaxStop");
+                        document.getElementById("btnpopsubmit").disabled = false;
+                        return false;
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+
+        }
+        function AchvmtInputClear() {
+
+        }
+        function bindloadContraceptive(ContraceptionId_fk, UseMethodId) {
+            //GetContraceptiveChildList("UseMethodId_fk", 0, "");
+             //$('#UseMethodId_fk').removeAttr('required');
+            $('#UseMethodId_fk').removeAttr('required');
+            GetContraceptiveChildList("UseMethodId_fk", 0, "");
+            $('#div-UseMethodId_fk').hide();
+            $('#div-ContraceptionOther').hide();
+            $('#ContraceptionOther').val('');
+            $('#ContraceptionOther').removeAttr('required');
+
+            if (ContraceptionId_fk == "1") {
+                $('#div-UseMethodId_fk').show();
+                GetContraceptiveChildList("UseMethodId_fk", 0, 1);
+                $('#UseMethodId_fk').attr('required', 'required');
+                $('#div-Isservice').show();
+            }
+            else if (ContraceptionId_fk == "2") {
+                $('#div-UseMethodId_fk').show();
+                GetContraceptiveChildList("UseMethodId_fk", 0, 2);
+                $('#UseMethodId_fk').attr('required', 'required');
+                $('#div-Isservice').show();
+            }
+            else if (ContraceptionId_fk == "4") {
+                $('#ContraceptionOther').attr('required', 'required');
+                $('#div-ContraceptionOther').show();
+            }
+            else {
+                $('#div-ContraceptionOther').css('display', 'none');
+                $('#div-UseMethodId_fk').css('display', 'none');
+            }
+            if (UseMethodId != '') {
+                $('#UseMethodId_fk').val(UseMethodId);
+            }
+        }
+    </script>
+}

@@ -638,6 +638,7 @@ function GetCurrentYear() {
 }
 
 function BFYFollowDataView(BFYId, FollowupID_pk, Type) {
+    $("#div-View").html('');
     var filtermodel = new Object();
     filtermodel.BFYId = BFYId;
     filtermodel.BFYFollowUpId = FollowupID_pk;
@@ -657,6 +658,37 @@ function BFYFollowDataView(BFYId, FollowupID_pk, Type) {
             }
             else {
                 $("#div-View").html(res.Data);
+            }
+        },
+        error: function (req, error) {
+            if (error === 'error') { error = req.statusText; }
+            var errormsg = 'There was a communication error: ' + error;
+            //Do To Message display
+        }
+    });
+}
+
+function BFYServiceDataView(BFYId, ServiceBFYId_pk, Type) {
+    $("#div-popmodalview").html('');
+    var filtermodel = new Object();
+    filtermodel.BFYId = BFYId;
+    filtermodel.ServiceBFYId_pk = ServiceBFYId_pk;
+    filtermodel.Type = Type;
+    //filtermodel.MonthId = FMId;
+    //filtermodel.YearId = FYId;
+
+    $.ajax({
+        type: "GET",
+        url: document.baseURI + "/Service/GetBFYServiceView",
+        data: filtermodel,
+        //cache: false,
+        success: function (res) {
+            if (res.IsSuccess) {
+                $("#div-popmodalview").html(res.Data);
+                $('#myModalview').modal('show');
+            }
+            else {
+                $("#div-popmodalview").html(res.Data);
             }
         },
         error: function (req, error) {
