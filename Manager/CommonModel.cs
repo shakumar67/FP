@@ -1927,6 +1927,12 @@ namespace FP.Manager
             public const string AchvPlanCCDate = "CC \r\nApproved\r\n Date";//\r\n
             public const string ClaimAmount = "Claim \r\n Amount";//\r\n
             public const string ApproveAmount = "Approve \r\n Amount";//\r\n
+            public const string ApprovedByMRP = "Approved MRP";//\r\n
+            public const string ApprovedByCC = "Approved CC";//\r\n
+            public const string ApprovedByBPIU = "Approved BPIU";//\r\n
+            public const string ApprovedDTMRP = "Approved Date MRP";//\r\n
+            public const string ApprovedDTCC = "Approved Date CC";//\r\n
+            public const string ApprovedDTBPIU = "Approved Date BPIU";//\r\n
         }
     }
 }

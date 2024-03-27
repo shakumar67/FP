@@ -44,6 +44,7 @@ namespace FP.Models
         [Display(Name = "Achieved")]
         public string IsPlanAchved { get; set; }
         public int Type { get; set; }
+        public int TypeLayer { get; set; }
     }
    
 }

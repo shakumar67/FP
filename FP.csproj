@@ -308,7 +308,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AchievementController.cs" />
-    <Compile Include="Controllers\ApproveController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BeneficiaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -720,8 +720,8 @@
     <Content Include="Views\Master\PanchayatMaster.cshtml" />
     <Content Include="Views\Master\_PanchayatData.cshtml" />
     <Content Include="Views\Plan\_BFYPOPView.cshtml" />
-    <Content Include="Views\Approve\AppPlanList.cshtml" />
-    <Content Include="Views\Approve\_AppPlanData.cshtml" />
+    <Content Include="Views\Payment\AppPlanList.cshtml" />
+    <Content Include="Views\Payment\_AppPlanData.cshtml" />
     <Content Include="Views\Achievement\AddAchievePlan.cshtml" />
     <Content Include="Views\Achievement\Index.cshtml" />
     <Content Include="Views\Achievement\_AchvPlanData.cshtml" />
@@ -735,6 +735,8 @@
     <Content Include="Views\Service\_BFYPOP.cshtml" />
     <Content Include="Views\Service\_ServiceBFYData.cshtml" />
     <Content Include="Views\Service\AddServiceCNRP.cshtml" />
+    <Content Include="Views\Payment\LevelTwoPayment.cshtml" />
+    <Content Include="Views\Payment\_LevelTwoPaymentData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

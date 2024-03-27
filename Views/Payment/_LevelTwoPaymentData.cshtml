@@ -48,7 +48,8 @@
                             <th>@CommonModel.DisAchvlbl.MeetingDate</th>
                             <th>@CommonModel.DisAchvlbl.NoofParticipant</th>
                             <th>@CommonModel.DisAchvlbl.AchvPlanDate</th>
-                            <th>@CommonModel.DisAchvlbl.AchvPlanMRPRemark</th>
+                            <th>@CommonModel.DisAchvlbl.ApprovedDTMRP</th>
+                            <th>@CommonModel.DisAchvlbl.AchvPlanCCRemark</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,15 +59,15 @@
                             {
                                 foreach (DataRow dr in dtg.Rows)
                                 {
-                                    var clam = 0;var appvam = 0;
+                                    var clam = 0; var appvam = 0;
                                     string EmpName = Convert.ToString(dr["EmpName"]);
                                     string Emp_ID = Convert.ToString(dr["Emp_ID"]);
 
                                     if (!string.IsNullOrWhiteSpace(Emp_ID.ToLower()) && !string.IsNullOrWhiteSpace(EmpName.ToLower()))
                                     {
                                         DataTable dtcount = FP.Manager.SP_Model.SP_GetAchvPlanApproveChild("", dr["Emp_ID"].ToString(),
-                                            Convert.ToInt32(dr["PlanMonth"].ToString()), Convert.ToInt32(dr["PlanYear"].ToString()), (int)(Enums.eTypeLayer.MRP));
-                                        var dtnoAppvd = dtcount.AsEnumerable().Where(x => x.Field<int?>("IsLevel1Approve") == 1);
+                                                   Convert.ToInt32(dr["PlanMonth"].ToString()), Convert.ToInt32(dr["PlanYear"].ToString()), (int)(Enums.eTypeLayer.CC));
+                                        var dtnoAppvd = dtcount.AsEnumerable().Where(x => x.Field<int?>("IsLevel2Approve") == 1);
                                         if (dtnoAppvd.Count() > 0)
                                         {
                                             appvam = CommonModel.GetClaimApprove(dtnoAppvd.Count(), CommonModel.RoleNameCont.CNRP);
@@ -91,16 +92,17 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
+                                            <td></td>
                                             <td width="50%"></td>
                                         </tr>
                                     }
-                                    if (Emp_ID.ToLower() != "")
+                                    if (Emp_ID.ToLower() != "__all")
                                     {
                                         if (!string.IsNullOrWhiteSpace(dr["PlanMonthYear"].ToString()))
                                         {
                                             var mysplit = dr["PlanMonthYear"].ToString().Split('/');
                                             dtm = FP.Manager.SP_Model.SP_GetAchvPlanApproveChild("", dr["Emp_ID"].ToString(),
-                                               Convert.ToInt32(dr["PlanMonth"].ToString()), Convert.ToInt32(dr["PlanYear"].ToString()), (int)(Enums.eTypeLayer.MRP));
+                                               Convert.ToInt32(dr["PlanMonth"].ToString()), Convert.ToInt32(dr["PlanYear"].ToString()), (int)(Enums.eTypeLayer.CC));
                                             if (dtm.Rows.Count > 0)
                                             {
                                                 var dtsdetails = dtm.AsEnumerable().CopyToDataTable();
@@ -111,11 +113,11 @@
                                                         {
                                                             var appr = Convert.ToInt16(Enums.eTypeApprove.Approve).ToString();
                                                             var Reject = Convert.ToInt16(Enums.eTypeApprove.Reject).ToString();
-                                                            //var Level2nd = dr1["IsLevel2Approve"].ToString() == appr ? "trdisableAprroved" :"";
-                                                            var distbl = dr1["IsLevel1Approve"].ToString() == appr ? "trdisableAprroved" :
-                                                                 dr1["IsLevel1Reject"].ToString() == "1" && dr1["PlanStatus"].ToString() == Reject ? "trdisableReject" : "trcolor";
-                                                            var strchecked = dr1["IsLevel1Approve"].ToString() == "1"
-                                                                ? "checked=checked" : dr1["IsLevel1Reject"].ToString() == "1" ? "" : "checked=checked";
+                                                            var Level1AppvdDtMRP = dr1["IsLevel1Approve"].ToString() == appr ? dr1["Level1ApproveDt"].ToString() : "";
+                                                            var distbl = dr1["IsLevel2Approve"].ToString() == appr ? "trdisableAprroved" :
+                                                                   dr1["IsLevel2Reject"].ToString() == "1" && dr1["PlanStatus"].ToString() == Reject ? "trdisableReject" : "trcolor";
+                                                            var strchecked = dr1["IsLevel2Approve"].ToString() == "1"
+                                                                ? "checked=checked" : dr1["IsLevel2Reject"].ToString() == "1" ? "" : "checked=checked";
                                                             <tr class="@("empname-" + EmpName.Replace(" ", "_").ToLower()) index-@indx @distbl">
                                                                 <td></td>
                                                                 <td></td>
@@ -134,10 +136,11 @@
                                                                 <td data-title="Meetingheld">@(CommonModel.FormateDtDMY(dr1["Meetingheld"].ToString()))</td>
                                                                 <td data-title="Noofparticipant">@dr1["Noofparticipant"]</td>
                                                                 <td data-title="PlanMonthYear">@dr1["PlanMonthYear"]</td>
+                                                                <td data-title="PlanMonthYear">@Level1AppvdDtMRP</td>
                                                                 <td data-title="Remark" width="300px">
                                                                     <textarea id="remark-@dr1["AchieveId_pk"]" value="" name="Remark-@dr1["AchieveId_pk"]" class="form-control" rows="5" cols="12">@dr1["Remark1"].ToString()</textarea>
                                                                     <span id="remark-@dr1["AchieveId_pk"]-error" class="text-danger"></span>
-                                                                    @dr1["Level1RejectDt"].ToString()
+                                                                    @dr1["Level2RejectDt"].ToString()
                                                                     @*@if (dr1["PlanStatus"].ToString() != appr && "trdisableAprroved" != distbl)
                                                                         {
                                                                             <a href="JavaScript:void(0);" class="btn btn-danger" id="hrfrejectid" onclick="CUData('@dr1["AchieveId_pk"]','@indx')"><i class="fa fa-reject"></i>Reject</a>

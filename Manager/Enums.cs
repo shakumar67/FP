@@ -88,6 +88,15 @@ namespace FP.Manager
             True = 1,
             False = 0
         }
+        public enum eTypeLayer
+        {
+            [Description("MRP")]
+            MRP = 1,
+            [Description("CC")]
+            CC = 2,
+            [Description("BPIU")]//BPMU
+            BPIU = 3,
+        }
         public enum eTypeApprove
         {
 

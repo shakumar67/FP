@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FP.Models;
 using System.Security.Cryptography.X509Certificates;
+using static FP.Manager.Enums;
 
 namespace FP.Manager
 {
@@ -255,7 +256,7 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-     
+
         #endregion
         #region Achievement Plan 
         public static DataTable SP_AchvPlanList(FilterModel model)
@@ -273,7 +274,7 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        /* MRP */
+        /* MRP Payment*/
         public static DataTable SP_AchvPlanApprove(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_AchvPlanApprove");
@@ -286,21 +287,23 @@ namespace FP.Manager
             sp.Command.AddParameter("@Year", model.Year, DbType.String);
             sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
             sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
+            sp.Command.AddParameter("@TypeLayer", model.TypeLayer, DbType.Int16);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SP_GetAchvPlanApproveChild(string UserId, string EmpId, int MonthId, int YearId)
+        public static DataTable SP_GetAchvPlanApproveChild(string UserId, string EmpId, int MonthId, int YearId,int TypeLayer)
         {
             StoredProcedure sp = new StoredProcedure("SP_GetAchvPlanApproveChild");
             sp.Command.AddParameter("@UserId", UserId, DbType.String);
             sp.Command.AddParameter("@EmpId", EmpId, DbType.String);
             sp.Command.AddParameter("@MonthId", MonthId, DbType.Int32);
             sp.Command.AddParameter("@YearId", YearId, DbType.Int32);
+            sp.Command.AddParameter("@TypeLayer", TypeLayer, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
 
-        /* CC */
+        /* CC Payment*/
         public static DataTable SP_AchvPlanApv2ndlevel(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_AchvPlanApv2ndlevel");
