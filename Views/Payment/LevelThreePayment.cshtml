@@ -1,0 +1,430 @@
+﻿@model FP.Models.AchvPlanModel
+@using FP.Manager
+@{
+}
+<style>
+    .table th {
+        font-size: 14px;
+        background: #fff;
+    }
+
+    .table td {
+        font-size: 13px;
+    }
+
+    .dataTables_filter, .dataTables_length {
+        margin-bottom: 15px;
+    }
+
+    .actives2 {
+        color: #009A3F !important;
+        background: #FFFFFF;
+        border-color: #009CFF;
+    }
+
+    li {
+        list-style-type: none;
+        position: relative; /* It's needed for setting position to absolute in the next rule. */
+    }
+
+    .liApprove::before {
+        color: #90c767;
+        content: '■';
+        position: absolute;
+        left: -0.8em; /* Adjust this value so that it appears where you want. */
+        font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
+    }
+
+    .liReject::before {
+        color: #da3f3f;
+        content: '■';
+        position: absolute;
+        left: -0.8em; /* Adjust this value so that it appears where you want. */
+        font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
+    }
+
+    .liDefault::before {
+        color: #808080;
+        content: '■';
+        position: absolute;
+        left: -0.8em; /* Adjust this value so that it appears where you want. */
+        font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
+    }
+</style>
+<div class="breadcrumb">
+    <h2>Monthly Incentive (@CommonModel.RoleNameCont.BPIU)</h2>
+    <p><a href="~/Achievement/AddAchieveApprove">Monthly Incentive </a> / </p>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <fieldset class="border rounded-3 p-3">
+        <legend class="float-none w-auto px-2">(@CommonModel.RoleNameCont.BPIU)</legend>
+        @using (Html.BeginForm("GetApproveThreePlanList", "Payment", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        {
+            <div class="row g-4">
+                <div class="col-sm-12">
+                    <div class="bg-light rounded h-100 p-4">
+                        <div class="row mb-3">
+                            <div class="col-sm-2">
+                                <div class="position-relative form-group">
+                                    @Html.Label(CommonModel.DispLevel.District, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.DistrictId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.DistrictId_fk, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="position-relative form-group">
+                                    @*@Html.LabelFor(model => model.BlockId_fk, htmlAttributes: new { @class = "control-label" })*@
+                                    @Html.Label(CommonModel.DispLevel.Block, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.BlockId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.BlockId_fk, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="position-relative form-group">
+                                    @Html.Label(CommonModel.DispLevel.Cluster, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.ClusterId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.ClusterId_fk, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @*<div class="col-sm-2">
+                                    <div class="position-relative form-group">
+                                        @Html.Label(CommonModel.DispLevel.Panchayat, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                        @Html.ValidationMessageFor(model => model.PanchayatId_fk, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+                            <div class="col-sm-2">
+                                <div class="position-relative form-group">
+                                    @Html.Label(CommonModel.DispLevel.Year, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.PlanYear, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.PlanYear, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="position-relative form-group">
+                                    @Html.Label(CommonModel.DispLevel.Month, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.PlanMonth, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.PlanMonth, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="position-relative form-group">
+                                    <ul>
+                                        <li class="liDefault">@Enums.GetEnumDescription(Enums.eTypeApprove.Default)</li>
+                                        <li class="liApprove">@Enums.GetEnumDescription(Enums.eTypeApprove.Approve)</li>
+                                        <li class="liReject">@Enums.GetEnumDescription(Enums.eTypeApprove.Reject)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col=md-12" id="div-download"></div>
+                            <div class="col=md-6"></div>
+                            <div class="col=md-6"></div>
+                            <div class="col=md-6"></div>
+                            <div class="col-md-12">
+                                <div id="subdata"></div>
+                                <div class="mb-3 offset-8" id="div-btn" style="display:none;">
+                                    <span class="check-spacer">
+                                        <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Validate" />
+                                    </span>&nbsp;&nbsp;&nbsp;
+                                    <span class="check-spacer">
+                                        <a href="~/Payment/LevelThreePayment" class="btn btn-info" id="hrfid"><i class="fa fa-refresh"></i>Refresh</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </fieldset>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <link href="~/Content/css/TreeTable.css" rel="stylesheet" />
+    <script src="~/Scripts/JS/Master.js"></script>
+    <script src="~/Scripts/JS/TreeTable.js"></script>
+
+
+    @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
+
+    <script>
+        $(document).ready(function () {
+
+            GetYearList("PlanYear", 0);
+            GetMonthList("PlanMonth", 0);
+            GetDistrict("DistrictId_fk", 0);
+            BindData();
+            $('#DistrictId_fk').change(function () {
+                GetBlock("BlockId_fk", 0, $(this).val());
+            });
+            $('#BlockId_fk').change(function () {
+                GetCLF("ClusterId_fk", 0, $('#DistrictId_fk').val(), $(this).val());
+            });
+            $('#ClusterId_fk').change(function () {
+                GetPanchayat("PanchayatId_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $(this).val());
+                BindData();
+            });
+            //$('#PanchayatId_fk').change(function () {
+            //    // GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId').val(), $(this).val());
+            //    GetVOrg(".Void_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#ClusterId_fk').val(), $(this).val());
+            //    BindData();
+            //});
+            //if ($('#PanchayatId_fk').val() != "") {
+            //    GetVOrg(".Void_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#ClusterId_fk').val(), $(this).val());
+            //}
+            $('#PlanYear').change(function () {
+                BindData();
+            });
+            $('#PlanMonth').change(function () {
+                BindData();
+            });
+
+            /* Role Wise */
+            BindRolewise("DistrictId_fk", "BlockId_fk", "ClusterId_fk", "PanchayatId_fk", "VOId_fk");
+
+            $("#formid").submit(function (e) {
+                e.preventDefault();
+                CUData();
+            });
+            $("#hrfid").click(function (e) {
+                e.preventDefault();
+                BindDataTable();
+               // document.getElementById("btnsubmit").disabled = false;
+            });
+
+            $(document).on("change", "input[name=chkApprove]", function (e) {
+                e.preventDefault();
+                console.log(this);
+                $('span[id=remark-' + achvplanid + '-error]').html('');
+                var achvplanid = $(this).attr('data-achvplanid');
+                var uid = $(this).attr('data-uid');
+                var empid = $(this).attr('data-empid');
+                var tr = $('#DataList tr[data-empid=' + empid + ']');
+                var noOfCheckedRows = $('input[name=chkApprove][data-empid=' + empid + ']:checked').length;
+                var amount = noOfCheckedRows * @((int)@Enums.eAmount.CNRMonthly);
+                $('#appvamount-' + empid, tr).html(amount);
+                if ($(this).is(':checked')) {
+                    $('textarea[id=remark-' + achvplanid + ']').removeAttr('requied');
+                    //$('span[id=remark-' + achvplanid + '-error]').hide();
+                }
+                else {
+                    $('textarea[id=remark-' + achvplanid + ']').attr('requied', 'requied');
+                    //$('span[id=remark-' + achvplanid + '-error]').show();
+                    //$('span[id=remark-' + achvplanid + '-error]').html('The Remark field is required.');
+                }
+
+            });
+
+        });
+
+        function BindData() {
+            $("#subdata").html(''); $('#div-btn').css('display', 'none');
+            var filtermodel = new Object();
+            filtermodel.DistrictId = $('#DistrictId_fk').val() == '' ? '' : $('#DistrictId_fk').val();
+            filtermodel.BlockId = $('#BlockId_fk').val() == '' ? '' : $('#BlockId_fk').val();
+            filtermodel.CLFId = $('#ClusterId_fk').val() == '' ? '' : $('#ClusterId_fk').val();
+            filtermodel.PanchayatId = $('#PanchayatId_fk').val() == '' ? '' : $('#PanchayatId_fk').val();
+            //filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
+            filtermodel.Year = $('#PlanYear').val() == '' ? '' : $('#PlanYear').val();
+            filtermodel.Month = $('#planMonth').val() == '' ? '' : $('#PlanMonth').val();
+            //var formData = $('#formid').serialize();
+
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Payment/GetApproveThreePlanList",
+                data: filtermodel,//JSON.stringify({ 'Roles': '' }),
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+                        $('#div-btn').css('display', 'block');
+                        $("#DataList").DataTable({
+                            "ordering": false,
+                            pageLength: 500,
+                            lengthChange: false
+                        });
+                        //if ($.fn.dataTable.isDataTable('#DataList')) {
+                        //    $("#tblPlan").dataTable().fnDestroy();
+                        //}
+                        //table = $('#tblPlan').DataTable({
+                        //    pageLength: 100,
+                        //    fixedColumns: {
+                        //        leftColumns: 1,
+                        //        rightColumns: 1
+                        //    },
+                        //    buttons: [{
+                        //        extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Achievement Plan Lists',//$('#IDDistrict option:selected').text() +
+                        //        className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                        //        filename: 'Achievement Plan List',
+                        //        exportOptions: { modifier: { page: 'all' } }
+                        //    }],
+                        //});
+                        //$('.dataTables_filter input[type="search"]').css(
+                        //    { 'width': '500px', 'display': 'inline-block' }
+                        //);
+                        //$('#div-download').empty();
+                        //table.buttons().container().appendTo($('#div-download'));
+                    }
+                    else {
+                        $("#subdata").html(res.Data);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+    function CUData(Achvplanid_reject, indx) {
+        debugger;
+        var isvalid = $("#formid").valid();
+        var IsCheck = true;
+        if ($('#DistrictId_fk').val() == '' || $('#BlockId_fk').val() == ''
+             || $('#ClusterId_fk').val() == ''|| $('#PlanYear').val() == '' || $('#PlanMonth').val() == ''
+        ) {
+            toastr.error("Error", "Please Select District, Block & Cluster");
+            return false;
+        }
+
+            jQuery.event.trigger("ajaxStart");
+            //var vl = $.validator.unobtrusive.parse("#formid");
+            //var Isvalid= $("#formid").validate();//CreatePlanformid
+
+           // IsCheck = $('#BFYID_fk').val() == '' ? false : true;
+            var tblpushdata = [];
+            var formData = new FormData();
+            formData.append('DistrictId_fk', $('#DistrictId_fk').val());
+            formData.append('BlockId_fk', $('#BlockId_fk').val());
+            formData.append('ClusterId_fk', $('#ClusterId_fk').val());
+            //formData.append('PanchayatId_fk', $('#PanchayatId_fk').val());
+            formData.append('PlanYear', $('#PlanYear').val());
+            formData.append('PlanMonth', $('#PlanMonth').val());
+             var countrecject = 0;
+           // $('#DataList').each(function () {
+
+                let table2 = $('#DataList').DataTable();
+                  table2.$('input[name=chkApprove]').each(function (i, row) {
+
+                    var achvplanid = $(row).attr('data-achvplanid');
+                    var uid = $(row).attr('data-uid');
+                    var empid = $(row).attr('data-empid');
+                    var disid = $(row).attr('data-disid');
+                    var blckid = $(row).attr('data-blckid');
+                    var clfid = $(row).attr('data-clfid');
+                    var pchytid = $(row).attr('data-pchytid');
+                      var vorgid = $(row).attr('data-vorgid');
+
+                    debugger;
+                      if (achvplanid != '' && achvplanid != '@Guid.Empty') {
+                        //(!Achvplanid_reject || Achvplanid_reject == undefined) &&
+                        if ($(this).is(':checked')) {
+                            tblpushdata.push({
+                                AchieveId_pk: achvplanid,
+                                DistrictId: disid,
+                                BlockId: blckid,
+                                ClusterId: clfid,
+                                PanchayatId: pchytid,
+                                VoId_fk: vorgid,
+                                UserId: uid,
+                                empId: empid,
+                                PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Approve)',
+                            });
+                        }
+                        //Achvplanid_reject && Achvplanid_reject != undefined && achvplanid == Achvplanid_reject &&
+                        else if (!$(this).is(':checked')) {
+                            var remark1 = $('#remark-' + achvplanid).val();
+                            $('textarea[id=remark-' + achvplanid + ']').attr('requied', 'requied');
+                            if (remark1 != '') {
+                                tblpushdata.push({
+                                    AchieveId_pk: achvplanid,
+                                    DistrictId: disid,
+                                    BlockId: blckid,
+                                    ClusterId: clfid,
+                                    PanchayatId: pchytid,
+                                    VoId_fk: vorgid,
+                                    UserId: uid,
+                                    empId: empid,
+                                    Remark1: remark1,
+                                    PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Reject)',
+                                });
+                            }
+                            else {
+                                IsCheck = false;
+                                countrecject += 1;
+                                //toastr.error("Error", "Enter the Remarks");
+                                //return false;
+                            }
+                        }
+                    }
+            });
+            if (countrecject > 0) {
+                toastr.error("Error", "Enter the Remarks.");
+                return false;
+            } else { countrecject = 0; }
+
+            if (tblpushdata.length == 0) {
+                toastr.error("Error", "Please choice at least one.");
+                return false;
+            }
+
+            formData.append('AVPlanModel', JSON.stringify(tblpushdata));
+
+            if (isvalid && IsCheck) {
+               // document.getElementById("btnsubmit").disabled = true;
+                //var formData = $('#formid').serialize();
+
+                $.ajax({
+                    url: document.baseURI + "/Payment/PostLevelThreePayment",
+                    type: "Post",
+                    data: formData,
+                    //contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    // processData: false, contentType: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    //data: JSON.stringify(model),
+                    success: function (resp) {
+                        if (resp.StatusType == "success") {
+                            toastr.success("Success", resp.Message);
+                            //$("#followupformid")[0].reset();
+                            BindData();
+                        }
+                        else {
+                            toastr.error("Error", resp.Message);
+                            document.getElementById("btnsubmit").disabled = false;
+                            jQuery.event.trigger("ajaxStop");
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
+                        document.getElementById("btnsubmit").disabled = false;
+                        jQuery.event.trigger("ajaxStop");
+                        return false;
+                    }
+                });
+            }
+            else {
+                toastr.error('Error', "Please fill all required fields!!");
+                jQuery.event.trigger("ajaxStop");
+                return false;
+            }
+
+        }
+    </script>
+}
+

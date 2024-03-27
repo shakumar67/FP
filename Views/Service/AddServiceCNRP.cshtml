@@ -168,6 +168,12 @@
                 if (value == "true" || value1 == "true") {
                     $('#div-IsContraception').show();
                 }
+                else {
+                    $("input[name=IsContraception]").prop('checked', false);
+                    $('#div-ContraceptionId_fk').hide();
+                    GetContraceptive("ContraceptionId_fk", 0);
+                    Inputclear();
+                }
             });
 
             $(document).on('change', 'input[name=IsContraception]', function () {

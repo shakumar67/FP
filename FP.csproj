@@ -741,6 +741,10 @@
     <Content Include="Views\Payment\_LevelTwoPaymentData.cshtml" />
     <Content Include="Views\Report\_ServiceBFYListData.cshtml" />
     <Content Include="Views\Report\ServiceBFYList.cshtml" />
+
+    <Content Include="Views\Payment\LevelThreePayment.cshtml" />
+    <Content Include="Views\Payment\_LevelThreePaymentData.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1924,6 +1924,7 @@ namespace FP.Manager
             public const string AchvPlanMRPRemark = "Remark";//\r\n
             public const string AchvPlanMRPDate = "MRP \r\nApproved\r\n Date";//\r\n
             public const string AchvPlanCCRemark = "Remark";//\r\n
+            public const string AchvPlanBPIURemark = "Remark";//\r\n
             public const string AchvPlanCCDate = "CC \r\nApproved\r\n Date";//\r\n
             public const string ClaimAmount = "Claim \r\n Amount";//\r\n
             public const string ApproveAmount = "Approve \r\n Amount";//\r\n
