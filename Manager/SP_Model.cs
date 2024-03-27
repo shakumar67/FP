@@ -149,6 +149,13 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SPBFYDetailView(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SPBFYDetailView");
+            sp.Command.AddParameter("@BFYPKID", model.BFYId, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         public static DataTable SPBFYFUpMonthList(CMFollowupModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_BFYFUpMonthList");
