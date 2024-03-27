@@ -732,16 +732,15 @@
     <Content Include="Views\Achievement\LevelSecAchvApprove.cshtml" />
     <Content Include="Views\Beneficiary\FollowupList.cshtml" />
     <Content Include="Views\Beneficiary\_FollowDataList.cshtml" />
-
     <Content Include="Views\Beneficiary\_BFYDetailView.cshtml" />
-
     <Content Include="Views\Service\_BFYPOPView.cshtml" />
     <Content Include="Views\Service\_BFYPOP.cshtml" />
     <Content Include="Views\Service\_ServiceBFYData.cshtml" />
     <Content Include="Views\Service\AddServiceCNRP.cshtml" />
     <Content Include="Views\Payment\LevelTwoPayment.cshtml" />
     <Content Include="Views\Payment\_LevelTwoPaymentData.cshtml" />
-
+    <Content Include="Views\Report\_ServiceBFYListData.cshtml" />
+    <Content Include="Views\Report\ServiceBFYList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

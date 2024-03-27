@@ -19,6 +19,36 @@ namespace FP.Controllers
         {
             return View();
         }
+        public ActionResult ServiceBFYList()
+        {
+            FilterModel model = new FilterModel();
+            return View(model);
+        }
+        public ActionResult GetServiceBFYList(FilterModel model)
+        {
+            bool IsCheck = false;
+            try
+            {
+                DataTable tbllist = SP_Model.SPBFYServiceList(model);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_ServiceBFYListData", tbllist);
+                var res1 = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res1.MaxJsonLength = int.MaxValue;
+                return res1;
+                //var res = Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound) }, JsonRequestBehavior.AllowGet);
+                //res.MaxJsonLength = int.MaxValue;
+                //return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet);
+            }
+        }
+       
         public ActionResult PrapatraOne()
         {
             FilterModel model = new FilterModel();
