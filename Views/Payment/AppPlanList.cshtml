@@ -28,7 +28,7 @@
 <div class="container-fluid pt-4 px-4">
     <fieldset class="border rounded-3 p-3">
         <legend class="float-none w-auto px-2">Search By</legend>
-        @using (Html.BeginForm("AppPlanList", "Approve", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        @using (Html.BeginForm("AppPlanList", "Payment", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
         {
             <div class="row g-4">
                 <div class="col-sm-12">
@@ -235,7 +235,7 @@
 
             $.ajax({
                 type: "GET",
-                url: document.baseURI + "/Approve/GetAppPlanList",
+                url: document.baseURI + "/Payment/GetAppPlanList",
                 data: filtermodel,//JSON.stringify({ 'Roles': '' }),
                 // cache: false,
                 // data: formData,

@@ -42,7 +42,7 @@
                             <tr>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-center">
-                                    <a href="javascript:void(0);" onclick="BFYDataView('@dr["BpkID"]',2)" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>
+                                    <a href="javascript:void(0);" onclick="BFYFollowDataView('@dr["BpkID"]','@dr["FollowupID_pk"]',2)" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>
                                 </td>
                                 <td class="text-left">@dr["DistrictName"]</td>
                                 <td class="text-left">@dr["Block"]</td>

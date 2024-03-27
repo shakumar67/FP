@@ -12,11 +12,13 @@ namespace FP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_Achvt
+    public partial class tbl_BFYService
     {
-        public System.Guid AchvtBFYID_pk { get; set; }
-        public Nullable<System.Guid> PlanId_fk { get; set; }
+        public System.Guid ServiceBFYId_pk { get; set; }
+        public Nullable<System.Guid> FollowId_fk { get; set; }
         public Nullable<System.Guid> BFYId_fk { get; set; }
+        public Nullable<int> ServiceYearId { get; set; }
+        public Nullable<int> ServiceMonthId { get; set; }
         public Nullable<bool> IsPeerPresent { get; set; }
         public Nullable<bool> IsFollowUpHV { get; set; }
         public Nullable<bool> IsContraception { get; set; }

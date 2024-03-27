@@ -961,8 +961,9 @@ namespace FP.Manager
         }
         public static List<SelectListItem> GetServiceProvider()
         {
+            FP_DBEntities fP_=new FP_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
-            list = new SelectList(dbe.ServiceProvider_Master.Where(x => x.IsActive == true), "ID", "ServiceProvider").OrderBy(x => x.Text).ToList();
+            list = new SelectList(fP_.ServiceProvider_Master.Where(x => x.IsActive == true), "ID", "ServiceProvider").OrderBy(x => x.Text).ToList();
             return list.OrderByDescending(x => x.Text).ToList();
         }
         public static List<SelectListItem> GetBoyGirl()
@@ -1072,6 +1073,17 @@ namespace FP.Manager
             return list.ToList();
         }
         #endregion
+        public static Boolean GetValidTillMonth(int MonthId, int YearId)
+        {
+            var year = YearId + 2022;
+            var dt = new DateTime(year, MonthId, 1);
+            if ((dt.Year == DateTime.Now.Year && dt.Month <= DateTime.Now.Month) || dt.Year < DateTime.Now.Year)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         //public int OnlyContraUseMethod(int ContraId,int UseMethodId)
         //{
@@ -1080,9 +1092,9 @@ namespace FP.Manager
         //        var usemethod = ContraId == (int)Enums.eContraceptive.Temporary
         //                        ? UseMethodId : ContraId == (int)Enums.eContraceptive.Permanent
         //                        ? UseMethodId : ContraId == (int)Enums.eContraceptive.OtherMethod:"";
-                               
+
         //    }
-            
+
         //}
         //public static List<SelectListItem> GetSupportOrganization(bool isAddSel = false)
         //{
@@ -1915,6 +1927,12 @@ namespace FP.Manager
             public const string AchvPlanCCDate = "CC \r\nApproved\r\n Date";//\r\n
             public const string ClaimAmount = "Claim \r\n Amount";//\r\n
             public const string ApproveAmount = "Approve \r\n Amount";//\r\n
+            public const string ApprovedByMRP = "Approved MRP";//\r\n
+            public const string ApprovedByCC = "Approved CC";//\r\n
+            public const string ApprovedByBPIU = "Approved BPIU";//\r\n
+            public const string ApprovedDTMRP = "Approved Date MRP";//\r\n
+            public const string ApprovedDTCC = "Approved Date CC";//\r\n
+            public const string ApprovedDTBPIU = "Approved Date BPIU";//\r\n
         }
     }
 }

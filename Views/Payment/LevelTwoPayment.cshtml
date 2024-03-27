@@ -53,13 +53,13 @@
     }
 </style>
 <div class="breadcrumb">
-    <h2>Achievement Planning Approve (@CommonModel.RoleNameCont.CC)</h2>
-    <p><a href="~/Achievement/LevelSecAchvApprove">Achievement List </a> / Achievement Planning Approve</p>
+    <h2>Monthly Incentive (@CommonModel.RoleNameCont.CC)</h2>
+    <p><a href="~/Achievement/AddAchieveApprove">Monthly Incentive </a> / </p>
 </div>
 <div class="container-fluid pt-4 px-4">
     <fieldset class="border rounded-3 p-3">
         <legend class="float-none w-auto px-2">(@CommonModel.RoleNameCont.CC)</legend>
-        @using (Html.BeginForm("GetAchApprovePlanList", "Achievement", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        @using (Html.BeginForm("GetAchApprovePlanList", "Payment", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
         {
             <div class="row g-4">
                 <div class="col-sm-12">
@@ -131,7 +131,7 @@
                                         <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Validate" />
                                     </span>&nbsp;&nbsp;&nbsp;
                                     <span class="check-spacer">
-                                        <a href="~/Achievement/LevelSecAchvApprove" class="btn btn-info" id="hrfid"><i class="fa fa-refresh"></i>Refresh</a>
+                                        <a href="~/Achievement/AddAchieveApprove" class="btn btn-info" id="hrfid"><i class="fa fa-refresh"></i>Refresh</a>
                                     </span>
                                 </div>
                             </div>
@@ -206,16 +206,28 @@
                // document.getElementById("btnsubmit").disabled = false;
             });
 
-            //$('#mdt-1').datepicker({
-            //    dateformat: 'dd-mm-yy',
-            //    maxdate: '0',
-            //    changemonth: true,
-            //    changeyear: true,
-            //    onSelect: function (dateText, inst) {
-            //        $(this).val(moment(dateText).format("DD-MM-YYYY"));
-            //        //$("#mdt-1").datepicker('option', 'maxDate', ge_today_date(new Date()) );
-            //    }
-            //});
+            $(document).on("change", "input[name=chkApprove]", function (e) {
+                e.preventDefault();
+                console.log(this);
+                $('span[id=remark-' + achvplanid + '-error]').html('');
+                var achvplanid = $(this).attr('data-achvplanid');
+                var uid = $(this).attr('data-uid');
+                var empid = $(this).attr('data-empid');
+                var tr = $('#DataList tr[data-empid=' + empid + ']');
+                var noOfCheckedRows = $('input[name=chkApprove][data-empid=' + empid + ']:checked').length;
+                var amount = noOfCheckedRows * @((int)@Enums.eAmount.CNRMonthly);
+                $('#appvamount-' + empid, tr).html(amount);
+                if ($(this).is(':checked')) {
+                    $('textarea[id=remark-' + achvplanid + ']').removeAttr('requied');
+                    //$('span[id=remark-' + achvplanid + '-error]').hide();
+                }
+                else {
+                    $('textarea[id=remark-' + achvplanid + ']').attr('requied', 'requied');
+                    //$('span[id=remark-' + achvplanid + '-error]').show();
+                    //$('span[id=remark-' + achvplanid + '-error]').html('The Remark field is required.');
+                }
+
+            });
 
         });
 
@@ -224,7 +236,7 @@
             var filtermodel = new Object();
             filtermodel.DistrictId = $('#DistrictId_fk').val() == '' ? '' : $('#DistrictId_fk').val();
             filtermodel.BlockId = $('#BlockId_fk').val() == '' ? '' : $('#BlockId_fk').val();
-            filtermodel.CLFId = $('#CLFId_fk').val() == '' ? '' : $('#CLFId_fk').val();
+            filtermodel.CLFId = $('#ClusterId_fk').val() == '' ? '' : $('#ClusterId_fk').val();
             filtermodel.PanchayatId = $('#PanchayatId_fk').val() == '' ? '' : $('#PanchayatId_fk').val();
             //filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
             filtermodel.Year = $('#PlanYear').val() == '' ? '' : $('#PlanYear').val();
@@ -233,13 +245,18 @@
 
             $.ajax({
                 type: "GET",
-                url: document.baseURI + "/Achievement/GetAchApvSecPlanList",
+                url: document.baseURI + "/Payment/GetAchApprovePlanList",
                 data: filtermodel,//JSON.stringify({ 'Roles': '' }),
                 //cache: false,
                 success: function (res) {
                     if (res.IsSuccess) {
                         $("#subdata").html(res.Data);
                         $('#div-btn').css('display', 'block');
+                        $("#DataList").DataTable({
+                            "ordering": false,
+                            pageLength: 500,
+                            lengthChange: false
+                        });
                         //if ($.fn.dataTable.isDataTable('#DataList')) {
                         //    $("#tblPlan").dataTable().fnDestroy();
                         //}
@@ -274,12 +291,20 @@
             });
         }
     function CUData(Achvplanid_reject, indx) {
-            debugger;
+        debugger;
+        var isvalid = $("#formid").valid();
+        var IsCheck = true;
+        if ($('#DistrictId_fk').val() == '' || $('#BlockId_fk').val() == ''
+             || $('#ClusterId_fk').val() == ''|| $('#PlanYear').val() == '' || $('#PlanMonth').val() == ''
+        ) {
+            toastr.error("Error", "Please Select District, Block & Cluster");
+            return false;
+        }
+
             jQuery.event.trigger("ajaxStart");
             //var vl = $.validator.unobtrusive.parse("#formid");
             //var Isvalid= $("#formid").validate();//CreatePlanformid
-            var isvalid = $("#formid").valid();
-            var IsCheck = true;
+
            // IsCheck = $('#BFYID_fk').val() == '' ? false : true;
             var tblpushdata = [];
             var formData = new FormData();
@@ -289,11 +314,12 @@
             //formData.append('PanchayatId_fk', $('#PanchayatId_fk').val());
             formData.append('PlanYear', $('#PlanYear').val());
             formData.append('PlanMonth', $('#PlanMonth').val());
-
+             var countrecject = 0;
            // $('#DataList').each(function () {
 
                 let table2 = $('#DataList').DataTable();
-                table2.$('input:checked').each(function (i, row) {
+                  table2.$('input[name=chkApprove]').each(function (i, row) {
+
                     var achvplanid = $(row).attr('data-achvplanid');
                     var uid = $(row).attr('data-uid');
                     var empid = $(row).attr('data-empid');
@@ -301,10 +327,12 @@
                     var blckid = $(row).attr('data-blckid');
                     var clfid = $(row).attr('data-clfid');
                     var pchytid = $(row).attr('data-pchytid');
-                    var vorgid = $(row).attr('data-vorgid');
+                      var vorgid = $(row).attr('data-vorgid');
+
                     debugger;
-                    if (achvplanid != '' && achvplanid != '@Guid.Empty') {
-                        if (!Achvplanid_reject || Achvplanid_reject == undefined) {
+                      if (achvplanid != '' && achvplanid != '@Guid.Empty') {
+                        //(!Achvplanid_reject || Achvplanid_reject == undefined) &&
+                        if ($(this).is(':checked')) {
                             tblpushdata.push({
                                 AchieveId_pk: achvplanid,
                                 DistrictId: disid,
@@ -312,13 +340,16 @@
                                 ClusterId: clfid,
                                 PanchayatId: pchytid,
                                 VoId_fk: vorgid,
+                                UserId: uid,
+                                empId: empid,
                                 PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Approve)',
                             });
                         }
-                        else if (Achvplanid_reject && Achvplanid_reject != undefined && achvplanid == Achvplanid_reject) {
-                            var remark2 = $('textarea[id=remark-' + indx + ']').val();
-                            $('textarea[id=remark-' + indx + ']').attr('requied', 'requied');
-                            if (remark2 != '') {
+                        //Achvplanid_reject && Achvplanid_reject != undefined && achvplanid == Achvplanid_reject &&
+                        else if (!$(this).is(':checked')) {
+                            var remark1 = $('#remark-' + achvplanid).val();
+                            $('textarea[id=remark-' + achvplanid + ']').attr('requied', 'requied');
+                            if (remark1 != '') {
                                 tblpushdata.push({
                                     AchieveId_pk: achvplanid,
                                     DistrictId: disid,
@@ -326,30 +357,25 @@
                                     ClusterId: clfid,
                                     PanchayatId: pchytid,
                                     VoId_fk: vorgid,
-                                    Remark2: remark2,
+                                    UserId: uid,
+                                    empId: empid,
+                                    Remark1: remark1,
                                     PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Reject)',
                                 });
                             }
                             else {
-                                return false;
+                                IsCheck = false;
+                                countrecject += 1;
+                                //toastr.error("Error", "Enter the Remarks");
+                                //return false;
                             }
                         }
                     }
-
-                    //if ($('#DistrictId_fk').val() != '' && $('#BlockId_fk').val() != ''
-                    //    && $('#ClusterId_fk').val() != '' && $('#PanchayatId_fk').val() != '' && vogid != ''
-                    //    && $('#PlanYear').val() != '' && $('#PlanMonth').val() != ''
-                    //    && (mdt != '' && mdt !='Invalid Date') && noofpart!='') {
-                    //    tblpushdata.push({
-                    //        AchieveId_pk: id,
-                    //        VoId_fk: vogid,
-                    //        Meetingheld: toDate(mdt),
-                    //        Noofparticipant: noofpart,
-                    //    });
-                    //}
-
-                //});
             });
+            if (countrecject > 0) {
+                toastr.error("Error", "Enter the Remarks.");
+                return false;
+            } else { countrecject = 0; }
 
             if (tblpushdata.length == 0) {
                 toastr.error("Error", "Please choice at least one.");
@@ -363,7 +389,7 @@
                 //var formData = $('#formid').serialize();
 
                 $.ajax({
-                    url: document.baseURI + "/Achievement/AchvPlanApvLevSec",
+                    url: document.baseURI + "/Payment/PostLevelTwoPayment",
                     type: "Post",
                     data: formData,
                     //contentType: "application/json; charset=utf-8",

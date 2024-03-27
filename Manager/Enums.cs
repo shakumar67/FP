@@ -79,12 +79,23 @@ namespace FP.Manager
             AllFieldsRequired = 7,
             [Description("Not Submit Data !!.")]
             NotSubmitData = 9,
+            [Description("Please Select Vaild Month !!.")]
+            VaildMonth = 10,
         }
 
         public enum eIsStatus
         {
             True = 1,
             False = 0
+        }
+        public enum eTypeLayer
+        {
+            [Description("MRP")]
+            MRP = 1,
+            [Description("CC")]
+            CC = 2,
+            [Description("BPIU")]//BPMU
+            BPIU = 3,
         }
         public enum eTypeApprove
         {

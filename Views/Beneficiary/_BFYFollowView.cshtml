@@ -26,12 +26,40 @@
                                         <strong class="text-success">@dt.Rows[0]["BeneficiaryRegID"].ToString()</strong>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div class="position-relative form-group">
-                                        <label>Month/Year : </label>
-                                        <strong>@dt.Rows[0]["ReportingDate"].ToString()</strong>
+                                @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["FMonth"].ToString()))
+                                {
+                                    <div class="col-sm-12">
+                                        <div class="position-relative form-group">
+                                            <label>Follow-up Month/Year : </label>
+                                            <strong class="text-success">@dt.Rows[0]["FupReportingDate"].ToString()</strong>
+                                        </div>
                                     </div>
-                                </div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-12">
+                                        <div class="position-relative form-group">
+                                            @if (dt.Rows[0]["NoofFollowup"].ToString() != "0")
+                                            {
+                                                <label>Follow-up Month/Year : </label>
+                                            }
+                                            else
+                                            {
+                                                <label>Reporting Month/Year : </label>
+                                            }
+                                            <strong class="text-success">@dt.Rows[0]["ReportingDate"].ToString()</strong>
+                                        </div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["EmpReported"].ToString()))
+                                {
+                                    <div class="col-sm-12">
+                                        <div class="position-relative form-group">
+                                            <label>Reporting By : </label>
+                                            <strong class="text-success">@dt.Rows[0]["EmpReported"].ToString()</strong>
+                                        </div>
+                                    </div>
+                                }
                                 @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["IsFollowUpHV"].ToString()))
                                 {
                                     <div class="col-sm-12">

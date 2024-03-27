@@ -8,16 +8,23 @@ using System.Web;
 
 namespace FP.Models
 {
-    public class AchBFYModel
+    public class ServiceBFYModel
     {
-        public AchBFYModel()
+        public ServiceBFYModel()
         {
-            AchvtBFYID_pk = Guid.Empty;
+            ServiceBFYId_pk = Guid.Empty;
         }
         [Key]
-        public System.Guid AchvtBFYID_pk { get; set; }
+        public System.Guid ServiceBFYId_pk { get; set; }
         [Required]
-        public Nullable<System.Guid> PlanId_fk { get; set; }
+        [Display(Name = DisplayAchBFY.ServiceYearId)]
+        public Nullable<int> ServiceYearId { get; set; }
+        [Required]
+        [Display(Name = DisplayAchBFY.ServiceMonthId)]
+        public Nullable<int> ServiceMonthId { get; set; }
+        //[Required]
+        public Nullable<System.Guid> FollowId_fk { get; set; }
+       // public Nullable<System.Guid> PlanId_fk { get; set; }
         [Required]
         public Nullable<System.Guid> BFYId_fk { get; set; }
 
@@ -69,6 +76,8 @@ namespace FP.Models
     }
     public static class DisplayAchBFY
     {
+        public const string ServiceYearId = "Year";
+        public const string ServiceMonthId = "Month";
         public const string IsPPresent= "Present in Peer Group Meeting";
         public const string IsFUpHV = "FollowUp/HV in Current Month";
         public const string IsPPrIsCt = "Want to use contraception after meeting/HV";

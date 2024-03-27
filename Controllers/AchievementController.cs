@@ -175,6 +175,7 @@ namespace FP.Controllers
             try
             {
                 bool IsCheck = false;
+                model.TypeLayer =(int)Enums.eTypeLayer.MRP;
                 var tbllist = SP_Model.SP_AchvPlanApprove(model);
                 if (tbllist.Rows.Count > 0)
                 {
@@ -217,92 +218,103 @@ namespace FP.Controllers
                                 {
                                     if (m.AchieveId_pk != Guid.Empty &&
                                         m.DistrictId != null && m.BlockId != null && m.ClusterId != null &&
-                                        m.PanchayatId != null && m.VoId_fk != null && string.IsNullOrWhiteSpace(m.Remark1))
+                                        m.PanchayatId != null && m.VoId_fk != null)
                                     {
                                         //MRP Approve
                                         var tblu = db_.tbl_AchievementPlan.Find(m.AchieveId_pk);
-                                        if (tblu != null && m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve))
+                                        if (tblu != null)
                                         {
-                                            if (tblu.IsLevel1Approve != true)
-                                            {
-                                                var cdt = DateTime.Now;
-                                                tbl_Achievement_Log tblLog = new tbl_Achievement_Log();
-                                                tblLog.LogId_pk = Guid.NewGuid();
-                                                tblLog.AchieveId_fk = m.AchieveId_pk;
-                                                tblLog.PlanStatus = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? Convert.ToInt16(eTypeApprove.Approve) : 0;
-                                                tblLog.PlanStatusDate = cdt;
-                                                tblLog.CreatedBy = MvcApplication.CUser.Id;
-                                                tblLog.CreatedOn = DateTime.Now;
-                                                db_.tbl_Achievement_Log.Add(tblLog);
-                                                db_.SaveChanges();
-
-                                                tblu.FinalApproved = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? Convert.ToInt16(eTypeApprove.Approve) : 0;
-                                                tblu.FinalApprovedDate = cdt;
-                                                tblu.FinalApprovedBy = MvcApplication.CUser.Id;
-
-                                                tblu.IsLevel1Approve = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
-                                                tblu.Level1ApproveDt = cdt;
-                                                tblu.Level1ApproveBy = MvcApplication.CUser.Id;
-                                                results += db_.SaveChanges();
-
-                                            }
-                                        }
-                                    }
-                                    else if (m.AchieveId_pk != Guid.Empty && m.PanchayatId != null && m.VoId_fk != null && !string.IsNullOrWhiteSpace(m.Remark1))
-                                    {
-                                        //MRP Reject
-                                        var cdt = DateTime.Now;
-                                        var tblu = db_.tbl_AchievementPlan.Find(m.AchieveId_pk);
-                                        if (tblu != null && m.PlanApprove == Convert.ToInt16(eTypeApprove.Reject))
-                                        {
+                                            var cdt = DateTime.Now;
                                             tbl_Achievement_Log tblLog = new tbl_Achievement_Log();
                                             tblLog.LogId_pk = Guid.NewGuid();
                                             tblLog.AchieveId_fk = m.AchieveId_pk;
-                                            tblLog.PlanStatus = m.PlanApprove == Convert.ToInt16(eTypeApprove.Reject) ? Convert.ToInt16(eTypeApprove.Reject) : 0;
                                             tblLog.PlanStatusDate = cdt;
                                             tblLog.CreatedBy = MvcApplication.CUser.Id;
                                             tblLog.CreatedOn = DateTime.Now;
-                                            db_.tbl_Achievement_Log.Add(tblLog);
-                                            db_.SaveChanges();
 
-                                            tblu.FinalApproved = m.PlanApprove == Convert.ToInt16(eTypeApprove.Reject) ? Convert.ToInt16(eTypeApprove.Reject) : 0;
-                                            tblu.FinalApprovedDate = cdt;
-                                            tblu.FinalApprovedBy = MvcApplication.CUser.Id;
+                                            if (m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve))
+                                            {
+                                                if (tblu.IsLevel1Approve != true)
+                                                {
+                                                    tblLog.PlanStatus = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? Convert.ToInt16(eTypeApprove.Approve) : 0;
+                                                    db_.tbl_Achievement_Log.Add(tblLog);
+                                                    db_.SaveChanges();
 
-                                            tblu.Remark1 = m.Remark1.Trim();
-                                            tblu.IsLevel1Reject = true;
-                                            tblu.Level1RejectDt = cdt;
-                                            tblu.Level1RejectBy = MvcApplication.CUser.Id;
-                                            results_Reject += db_.SaveChanges();
+                                                    /*Reject Status set NULL Started*/
+                                                    tblu.Remark1 = null;
+                                                    tblu.IsLevel1Reject = null;
+                                                    tblu.Level1RejectDt = null;
+                                                    tblu.Level1RejectBy = null;
+                                                    /*Reject Status set NULL end*/
+
+                                                    tblu.FinalApproved = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? Convert.ToInt16(eTypeApprove.Approve) : 0;
+                                                    tblu.FinalApprovedDate = cdt;
+                                                    tblu.FinalApprovedBy = MvcApplication.CUser.Id;
+
+                                                    tblu.Remark1 = !(string.IsNullOrWhiteSpace(m.Remark1)) ? m.Remark1.Trim() : null;
+                                                    tblu.IsLevel1Approve = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
+                                                    tblu.Level1ApproveDt = cdt;
+                                                    tblu.Level1ApproveBy = MvcApplication.CUser.Id;
+                                                    results += db_.SaveChanges();
+                                                }
+                                            }
+                                            else if (m.PlanApprove == Convert.ToInt16(eTypeApprove.Reject) && !string.IsNullOrWhiteSpace(m.Remark1))
+                                            {
+                                                //MRP Reject
+                                                if (m.PlanApprove == Convert.ToInt16(eTypeApprove.Reject))
+                                                {
+                                                    tblLog.PlanStatus = m.PlanApprove == Convert.ToInt16(eTypeApprove.Reject) ? Convert.ToInt16(eTypeApprove.Reject) : 0;
+                                                    db_.tbl_Achievement_Log.Add(tblLog);
+                                                    db_.SaveChanges();
+
+                                                    tblu.FinalApproved = m.PlanApprove == Convert.ToInt16(eTypeApprove.Reject) ? Convert.ToInt16(eTypeApprove.Reject) : 0;
+                                                    tblu.FinalApprovedDate = cdt;
+                                                    tblu.FinalApprovedBy = MvcApplication.CUser.Id;
+                                                    /*Approved Status set NULL Started*/
+                                                    tblu.IsLevel1Approve = null;
+                                                    tblu.Level1ApproveBy = null;
+                                                    tblu.Level1ApproveDt = null;
+                                                    /*Approved Status set NULL end*/
+
+                                                    tblu.Remark1 = m.Remark1.Trim();
+                                                    tblu.IsLevel1Reject = true;
+                                                    tblu.Level1RejectDt = cdt;
+                                                    tblu.Level1RejectBy = MvcApplication.CUser.Id;
+                                                    results_Reject += db_.SaveChanges();
+                                                }
+                                            }
                                         }
                                     }
                                 }
                                 // results += db_.SaveChanges();
                                 var groups = mlist.GroupBy(x => x.UserId);
-                                foreach (var group in groups)
+                                if (groups != null)
                                 {
-                                    var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).ToList();
-                                    var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).ToList();
-                                    tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
-                                    tblpay.PaymentHistoryId_pk = Guid.NewGuid();
-                                    tblpay.ApprovedAchvId = string.Join(",", appovlist);
-                                    tblpay.RejectedAchvId = string.Join(",", rejectlist);
-                                    tblpay.NoofApproved = appovlist.Count;
-                                    tblpay.NoofRejected = rejectlist.Count;
-                                    tblpay.VerifyUserTypeId = Guid.Parse(MvcApplication.CUser.RoleId);
-                                    tblpay.TargetUserTypeId = Guid.Parse(db_.AspNetRoles.First(x => x.Name == CommonModel.RoleNameCont.CNRP).Id);
-                                    tblpay.TargetUserId = group.Key;
-                                    tblpay.ClaimAmount = CommonModel.GetClaimApprove(appovlist.Count, CommonModel.RoleNameCont.CNRP);
-                                    tblpay.ApprovedAmount = CommonModel.GetClaimApprove(rejectlist.Count, CommonModel.RoleNameCont.CNRP);
-                                    tblpay.PayMonth = model.PlanMonth;
-                                    tblpay.PayYear = model.PlanYear;
-                                    tblpay.IsActive = true;
-                                    tblpay.CreatedBy = MvcApplication.CUser.Id;
-                                    tblpay.UpdatedBy = MvcApplication.CUser.Id;
-                                    tblpay.CreatedOn = tblpay.UpdatedOn = DateTime.Now;
-                                    db_.tbl_PaymentHistory.Add(tblpay);
+                                    foreach (var group in groups)
+                                    {
+                                        var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).ToList();
+                                        var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).ToList();
+                                        tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
+                                        tblpay.PaymentHistoryId_pk = Guid.NewGuid();
+                                        tblpay.ApprovedAchvId = string.Join(",", appovlist);
+                                        tblpay.RejectedAchvId = string.Join(",", rejectlist);
+                                        tblpay.NoofApproved = appovlist.Count;
+                                        tblpay.NoofRejected = rejectlist.Count;
+                                        tblpay.VerifyUserTypeId = Guid.Parse(MvcApplication.CUser.RoleId);
+                                        tblpay.TargetUserTypeId = Guid.Parse(db_.AspNetRoles.First(x => x.Name == CommonModel.RoleNameCont.CNRP).Id);
+                                        tblpay.TargetUserId = group.Key;
+                                        tblpay.ClaimAmount = CommonModel.GetClaimApprove(appovlist.Count, CommonModel.RoleNameCont.CNRP);
+                                        tblpay.ApprovedAmount = CommonModel.GetClaimApprove(rejectlist.Count, CommonModel.RoleNameCont.CNRP);
+                                        tblpay.PayMonth = model.PlanMonth;
+                                        tblpay.PayYear = model.PlanYear;
+                                        tblpay.IsActive = true;
+                                        tblpay.CreatedBy = MvcApplication.CUser.Id;
+                                        tblpay.UpdatedBy = MvcApplication.CUser.Id;
+                                        tblpay.CreatedOn = tblpay.UpdatedOn = DateTime.Now;
+                                        db_.tbl_PaymentHistory.Add(tblpay);
+                                    }
+                                    db_.SaveChanges();
                                 }
-                                db_.SaveChanges();
                             }
                             else
                             {

@@ -30,5 +30,7 @@ namespace FP.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public Nullable<int> Totalnoof_Femalechild { get; set; }
+        public Nullable<int> Totalnoof_malechild { get; set; }
     }
 }

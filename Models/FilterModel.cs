@@ -11,6 +11,10 @@ namespace FP.Models
     {
         [Display(Name = "Beneficiary")]
         public string BFYId { get; set; }
+        [Display(Name = "Follow-up")]
+        public string BFYFollowUpId { get; set; }
+        [Display(Name = "Service")]
+        public string ServiceBFYId_pk { get; set; }
         [Display(Name = CommonModel.DispLevel.District)]
         public string DistrictId { get; set; }
         [Display(Name = CommonModel.DispLevel.Block)]
@@ -34,10 +38,13 @@ namespace FP.Models
         public string Roles { get; set; }
         public string CutUser { get; set; }
         public string Month { get; set; }
+        public int MonthId { get; set; }
+        public int YearId { get; set; }
         public string Year { get; set; }
         [Display(Name = "Achieved")]
         public string IsPlanAchved { get; set; }
         public int Type { get; set; }
+        public int TypeLayer { get; set; }
     }
    
 }
