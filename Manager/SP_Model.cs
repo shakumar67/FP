@@ -362,6 +362,7 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+
         public static DataTable SP_GetTotalChild(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_GetTotalChild");
