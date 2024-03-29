@@ -18,7 +18,7 @@ namespace FP.Controllers
         {
             return View();
         }
-        #region 2nd Monthly Payment Level Approved Planning (CC Level Two)
+        #region CNR Monthly Incentive 2nd Monthly Payment Level Approved Planning (CC Level Two)
         public ActionResult LevelTwoPayment()
         {
             AchvPlanModel model = new AchvPlanModel();
@@ -197,7 +197,7 @@ namespace FP.Controllers
         }
         #endregion
 
-        #region 3th Monthly Payment Level Approved Planning (CC Level Two)
+        #region CNR Monthly Incentive 3th Monthly Payment Level Approved Planning (CC Level Two)
         public ActionResult LevelThreePayment()
         {
             AchvPlanModel model = new AchvPlanModel();
@@ -402,6 +402,36 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        #region CM Level Monthly Incentive 2nd Monthly Payment Level Approved Planning (MRP Level First)
+        public ActionResult CMMRPBFYFollow()
+        {
+            FilterModel model = new FilterModel();  
+            return View(model);  
+        }
+        public ActionResult GetCMMRPBFYFollowList(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SPBFYList(model);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_BFYData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        #endregion
 
         private string ConvertViewToString(string viewName, object model)
         {
