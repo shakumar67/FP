@@ -26,7 +26,7 @@ namespace FP.Controllers
             {
                 bool IsCheck = false;
                 DataSet ds = new DataSet();
-                ds= SP_Model.SPContraceptive(model);
+                ds = SP_Model.SPContraceptive(model);
                 if (ds.Tables.Count > 0)
                 {
                     IsCheck = true;
@@ -80,10 +80,35 @@ namespace FP.Controllers
                 }
                 else
                 {
-                    var res = Json(new { IsSuccess = false, Data = Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound)}, JsonRequestBehavior.AllowGet);
+                    var res = Json(new { IsSuccess = false, Data = Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound) }, JsonRequestBehavior.AllowGet);
                     res.MaxJsonLength = int.MaxValue;
                     return res;
                 }
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetServiceContraceptionChart(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                DataSet ds = new DataSet();
+                DataTable dt = new DataTable();
+                ds = SP_Model.SP_ServiceContraceptionChart(model);
+                if (ds.Tables.Count > 0)
+                {
+                    IsCheck = true;
+                    dt = ds.Tables[0];
+                }
+                var dslist = JsonConvert.SerializeObject(dt);
+                //var html = ConvertViewToString("_BFYData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data1 = dslist }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
             }
             catch (Exception ex)
             {

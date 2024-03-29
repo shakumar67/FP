@@ -11,43 +11,43 @@
 </style>
 <div class="container-fluid pt-4 px-4">
     @*<div class="row g-4">
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-line fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Today Sale</p>
-                    <h6 class="mb-0">$1234</h6>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-line fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2">Today Sale</p>
+                        <h6 class="mb-0">$1234</h6>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Total Sale</p>
-                    <h6 class="mb-0">$1234</h6>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2">Total Sale</p>
+                        <h6 class="mb-0">$1234</h6>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-area fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Today Revenue</p>
-                    <h6 class="mb-0">$1234</h6>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-area fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2">Today Revenue</p>
+                        <h6 class="mb-0">$1234</h6>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Total Revenue</p>
-                    <h6 class="mb-0">$1234</h6>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2">Total Revenue</p>
+                        <h6 class="mb-0">$1234</h6>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
     <br />
     <div class="row g-4">
         <div class="col-sm-4 col-xl-6">
@@ -66,6 +66,10 @@
             <div id="moduleroll">
             </div>
         </div>
+        <div class="col-md-12 col-xl-6">
+            <div id="servicecontraceptionchart">
+            </div>
+        </div>
 
     </div>
 </div>
@@ -75,26 +79,74 @@
         <script src="https://code.highcharts.com/highcharts-more.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>*@
+
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+        <script src="https://code.highcharts.com/modules/cylinder.js"></script>
+        <script src="https://code.highcharts.com/modules/funnel3d.js"></script>
+        <script src="https://code.highcharts.com/modules/pyramid3d.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 
     <script src="~/Scripts/JS/ChartChild.js"></script>
     <script src="~/Scripts/JS/ChartModuleroll.js"></script>
 
 
+    <script src="~/Scripts/JS/DashboardChart.js"></script>
 
     @*<script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/series-label.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>*@
+
     <script>
         $(document).ready(function () {
             Bindload();
             BindDistrict();
-    });
+            BindServiceContraception();
+        });
+
+        function BindServiceContraception() {
+            var FilterModel = {}; var model = [];
+            FilterModel.DistrictId = "";
+            FilterModel.BlockId = "";
+            FilterModel.PanchayatId = "";
+            FilterModel.VoId = "";
+            model.push(FilterModel);
+            $.ajax({
+                url: document.baseURI + "/Home/GetServiceContraceptionChart",
+                type: "Post",
+                // data: formData,
+                //cache: false,
+                //contentType: false,
+                //processData: false,
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(model),
+                global: false,
+                async: false,
+                dataType: "json",
+                success: function (resp) {
+                    if (resp.IsSuccess) {
+                        var resData1 = JSON.parse(resp.Data1);
+                        if (resData1 && resData1.length != 0 ) {
+                            ServiceContraceptionChart(resData1);
+                        }
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //toastr.error("Error", errormsg);
+                    //jQuery.event.trigger("ajaxStop");
+                    return false;
+                }
+            });
+        }
+
 
         function Bindload() {
             var FilterModel = {}; var model = [];

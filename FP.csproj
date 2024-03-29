@@ -645,6 +645,7 @@
     <Content Include="Scripts\JS\accessibility.js" />
     <Content Include="Scripts\JS\ChartModuleroll.js" />
     <Content Include="Scripts\JS\ChartChild.js" />
+    <Content Include="Scripts\JS\DashboardChart.js" />
     <Content Include="Scripts\JS\export-data.js" />
     <Content Include="Scripts\JS\ExportAll.js" />
     <Content Include="Scripts\JS\exporting.js" />
