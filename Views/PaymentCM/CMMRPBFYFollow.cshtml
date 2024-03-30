@@ -132,7 +132,6 @@
             <div id="subdata"></div>
         </div>
 
-
         @*Started Model View*@
         <div class="modal fade" id="myModalview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -145,7 +144,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                       
+                        <div id="div-BFYDefollowup"></div>
                     </div>
                 </div>
 
@@ -155,6 +154,7 @@
 
 
     </div>
+
 </div>
 
 @section Scripts {
@@ -253,6 +253,24 @@
                 }
             });
         }
+        function BFYViewFollowData(BFYId) {
+            $('#div-BFYDefollowup').html('');
+            if (BFYId != '' && BFYId != undefined) {
+                $.ajax({
+                    url: document.baseURI + '/Beneficiary/BFYDetailFollowData',
+                    contentType: 'application/html; charset=utf-8',
+                    type: 'GET',
+                    dataType: 'html',
+                    data: { 'BFYId': BFYId },
+                    success: function (result) {
+                        $('#div-BFYDefollowup').html(result);
+                        BFYDetailView(BFYId);
+                    }
+                })
+              
+            }
+        }
+
     </script>
 }
 

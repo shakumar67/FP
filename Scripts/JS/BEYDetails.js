@@ -33,3 +33,20 @@
         $("#div-View").css('color', 'red');
     }
 }
+function BFYViewFollowData(BFYId) {
+    $('#div-BFYDefollowup').html('');
+    if (BFYId != '' && BFYId != undefined) {
+        $.ajax({
+            url: document.baseURI + '/Beneficiary/BFYDetailFollowData',
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html',
+            data: { 'BFYId': BFYId },
+            success: function (result) {
+                $('#div-BFYDefollowup').html(result);
+                BFYDetailView(BFYId);
+            }
+        })
+
+    }
+}

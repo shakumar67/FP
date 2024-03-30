@@ -11,7 +11,7 @@
 @*Started Accordion View*@
 <div class="col-sm-12 col-xl-12">
     <div class="bg-light rounded h-100 p-4">
-        <h6 class="mb-4">Flush Accordion</h6>
+        @*<h6 class="mb-4">Flush Accordion</h6>*@
         <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingOne">
@@ -30,27 +30,119 @@
                 </div>
             </div>
             @{
-                    int Index = 1;
-                    foreach (DataRow dr in dt.Rows)
-                    {
+                int Index = 1;
+                foreach (DataRow dr in dt.Rows)
+                {
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-heading@(Index)">
                             <button class="accordion-button collapsed" type="button"
                                     data-bs-toggle="collapse" data-bs-target="#flush-collapse@(Index)"
                                     aria-expanded="false" aria-controls="flush-collapse@(Index)">
-                               Follow-up View @dr["RowNo"].ToString()
+                                Follow-up View &nbsp;&nbsp;<strong class="text-success">@dr["FollowReportedMonth"].ToString() (@dr["RowNo"].ToString())</strong>
                             </button>
                         </h2>
                         <div id="flush-collapse@(Index)" class="accordion-collapse collapse"
                              aria-labelledby="flush-heading@(Index)" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Sea diam dolore aliquyam aliquyam diam et consetetur et. Accusam amet no invidunt invidunt et consetetur, magna ut nonumy kasd erat tempor dolor et. Diam magna dolor sed amet duo dolores magna vero. Amet sit sadipscing ea diam clita lorem sit. Vero et et et tempor diam. Ipsum eirmod sit.
+
+                                <div class="row g-1">
+                                    <div class="col-sm-12">
+                                        <div class="h-100 p-2">
+                                            <div class="benefit">
+                                                <div class="col-sm-6 benefit-box">
+                                                    <div class="col-sm-12">
+                                                        <div class="position-relative form-group">
+                                                            <label>@FP.Models.DisplayFollowBFY.BeneficiaryRegID : </label>
+                                                            <strong class="text-success">@dr["BFYRegId"].ToString()</strong>
+                                                        </div>
+                                                    </div>
+                                                    @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["FollowReportedMonth"].ToString()))
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="position-relative form-group">
+                                                                <label>Follow-up Month/Year : </label>
+                                                                <strong>@dr["FollowReportedMonth"].ToString()</strong>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["IsFollowUpYesNo"].ToString()))
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="position-relative form-group">
+                                                                <label>@FP.Models.BFYView_Model.DDis : </label>
+                                                                <strong>@dr["IsFollowUpYesNo"].ToString()</strong>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(dr["IsContraceptionYesNo"].ToString()))
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="position-relative form-group">
+                                                                <label>@FP.Models.DisplayFollowBFY.Ct : </label>
+                                                                <strong>@dr["Contraceptive_Name"].ToString()</strong>
+                                                            </div>
+                                                        </div>
+                                                        if (!string.IsNullOrWhiteSpace(dr["Method_Name"].ToString()))
+                                                        {
+                                                            <div class="col-sm-12">
+                                                                <div class="position-relative form-group">
+                                                                    <label>@FP.Models.DisplayFollowBFY.Ctusemethod : </label>
+                                                                    <strong>@dr["Method_Name"].ToString()</strong>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(dr["Totalnoof_Femalechild"].ToString()))
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="position-relative form-group">
+                                                                <label>@FP.Models.DisplayFollowBFY.Totalnoof_Femalechild : </label>
+                                                                <strong>@dr["Totalnoof_Femalechild"].ToString()</strong>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(dr["Totalnoof_malechild"].ToString()))
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="position-relative form-group">
+                                                                <label>@FP.Models.DisplayFollowBFY.Totalnoof_malechild : </label>
+                                                                <strong>@dr["Totalnoof_malechild"].ToString()</strong>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(dr["ModuleRollout"].ToString()))
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="position-relative form-group">
+                                                                <label>@FP.Models.DisplayFollowBFY.ModuleRollout : </label>
+                                                                <strong>@dr["ModuleRollout"].ToString()</strong>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(dr["ModuleName"].ToString()))
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="position-relative form-group">
+                                                                <label>@FP.Models.DisplayFollowBFY.ModuleRolloutId_fk : </label>
+                                                                <strong>@dr["ModuleName"].ToString()</strong>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
                     Index++;
                 }
-
             }
 
         </div>

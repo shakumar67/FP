@@ -33,7 +33,7 @@
                             <tr>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-center">
-                                    <a href="javascript:void(0);" onclick="BFYDetailView('@dr["BpkID"]')" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>
+                                    <a href="javascript:void(0);" onclick="BFYViewFollowData('@dr["BpkID"]')" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>
                                 </td>
                                 <td class="text-left">@dr["Panchayat"]</td>
                                 <td class="text-left">@dr["VO"]</td>
@@ -46,7 +46,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="11" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                            <td colspan="7" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
                         </tr>
                     }
                 }

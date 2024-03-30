@@ -161,6 +161,8 @@ namespace FP.Controllers
                             tbl.VillageOId_fk = item.VillageOId_fk;
                             tbl.CreatedBy = MvcApplication.CUser.Id;
                             tbl.CreatedOn = DateTime.Now;
+                            tbl.UpdatedBy = MvcApplication.CUser.Id;
+                            tbl.UpdatedOn = DateTime.Now;
                             tbllist.Add(tbl);
                         }
                         else
@@ -384,6 +386,8 @@ namespace FP.Controllers
                         tblBFY.Q21 = model.ModuleRolloutId_fk;
                         tblBFY.Q10 = model.Totalnoof_malechild;
                         tblBFY.Q11 = model.Totalnoof_Femalechild;
+                        tblBFY.UpdatedBy = MvcApplication.CUser.Id;
+                        tblBFY.UpdatedOn = DateTime.Now;
                         res += _db.SaveChanges();
                     }
                     else
@@ -450,7 +454,7 @@ namespace FP.Controllers
         /* Multiple time Follow-up View Data Display Method */
         public ActionResult BFYDetailFollowData(Guid? BFYId)
         {
-            DataTable dt=new DataTable();
+            DataTable dt = new DataTable();
             FilterModel model = new FilterModel();
             if (BFYId != null && BFYId != Guid.Empty)
             {
