@@ -308,6 +308,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AchievementController.cs" />
+    <Compile Include="Controllers\PaymentCMController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BeneficiaryController.cs" />
@@ -643,6 +644,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\JS\accessibility.js" />
+    <Content Include="Scripts\JS\BEYDetails.js" />
     <Content Include="Scripts\JS\ChartModuleroll.js" />
     <Content Include="Scripts\JS\ChartChild.js" />
     <Content Include="Scripts\JS\DashboardChart.js" />
@@ -744,8 +746,9 @@
     <Content Include="Views\Report\ServiceBFYList.cshtml" />
     <Content Include="Views\Payment\LevelThreePayment.cshtml" />
     <Content Include="Views\Payment\_LevelThreePaymentData.cshtml" />
-    <Content Include="Views\Payment\CMMRPBFYFollow.cshtml" />
-    <Content Include="Views\Payment\_BFYData.cshtml" />
+    <Content Include="Views\PaymentCM\CMMRPBFYFollow.cshtml" />
+    <Content Include="Views\PaymentCM\_MIncPayBFYData.cshtml" />
+    <Content Include="Views\Shared\_BFYDetailFollowData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

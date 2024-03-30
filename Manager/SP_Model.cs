@@ -188,13 +188,20 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-
+        public static DataTable SPFollowMultipleView(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_FollowMultipleView");
+            sp.Command.AddParameter("@BFYId", model.BFYId, DbType.String);
+            sp.Command.AddParameter("@FollowupId", model.BFYFollowUpId, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         #endregion
 
         #region CNRP Service Plan
-        public static DataTable SPPlanBFYList(FilterModel model)
+        public static DataTable SP_PlanBFYAddServiceList(FilterModel model)
         {
-            StoredProcedure sp = new StoredProcedure("SP_PlanBFYList");
+            StoredProcedure sp = new StoredProcedure("SP_PlanBFYAddServiceList");
             sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
             sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
             sp.Command.AddParameter("@CLFId", model.CLFId, DbType.String);
@@ -265,7 +272,8 @@ namespace FP.Manager
         }
 
         #endregion
-        #region Achievement Plan 
+
+        #region Achievement Plan CNRP Level Monthly Incentive Payment Approved
         public static DataTable SP_AchvPlanList(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_AchvPlanList");
@@ -327,6 +335,24 @@ namespace FP.Manager
             return dt;
         }
 
+        #endregion
+
+        #region Plan CM Level Monthly Incentive Payment Approved
+        public static DataTable SPMIPayBFYApproved(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_MIPayBFYApproved");
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@CLFId", model.CLFId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         #endregion
 
         #region Report Letter and Dashboard Home

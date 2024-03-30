@@ -86,10 +86,10 @@
                             </div>
                             <div class="mb-3">
                                 <span class="check-spacer">
-                                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Filter" />
+                                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-info" value="Filter" />
                                 </span>&nbsp;&nbsp;&nbsp;
                                 <span class="check-spacer">
-                                    <a href="~/Beneficiary/BFYList" class="btn btn-info"><i class="fa fa-refresh"></i>Refresh</a>
+                                    <a href="~/Service/AddServiceCNRP" class="btn btn-warning"><i class="fa fa-refresh"></i></a>
                                 </span>
                             </div>
                         </div>
@@ -98,7 +98,6 @@
             </div>
         }
     </fieldset>
-    <div class="row g-4">
 
         <div class="row">
             <div class="col=md-12" id="div-download"></div>
@@ -106,26 +105,17 @@
             <div class="col=md-6"></div>
             <div class="col=md-6"></div>
             <div class="col-md-12">
-                @*@if (!string.IsNullOrWhiteSpace(Model.BFYId))
-                    {
-                        <h5>List-Listing Details</h5>
-                    }*@
                 <div id="subdata"></div>
             </div>
         </div>
-
-    </div>
 </div>
 
 <div class="col-md-12" id="div-popmodal">
-    @*@Html.Partial("_BFYPOP", Model.AchBFYModel)*@
 </div>
 
 <div class="col-md-12" id="div-popmodalview">
 </div>
-@*<div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>*@
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -337,8 +327,36 @@
                 success: function (res) {
                     if (res.IsSuccess) {
                         $("#subdata").html(res.Data);
+
+                        if ($.fn.dataTable.isDataTable('#tbl')) {
+                            $("#tbl").dataTable().fnDestroy();
+                        }
+                        table = $('#tbl').DataTable({
+                            //scrollY: "400px",
+                            //scrollX: true,
+                            //scrollCollapse: true,
+                            //paging: false,
+                            pageLength: 50,
+                            fixedColumns: {
+                                leftColumns: 1,
+                                rightColumns: 1
+                            },
+                            buttons: [{
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
+                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                filename: 'Beneficiary List',
+                                exportOptions: { modifier: { page: 'all' } }
+                            }],
+                        });
+                        $('.dataTables_filter input[type="search"]').css(
+                            { 'width': '500px', 'display': 'inline-block' }
+                        );
+                        $('#div-download').empty();
+                        table.buttons().container().appendTo($('#div-download'));
                     }
-                    $("#subdata").html(res.Data);
+                    else {
+                        $("#subdata").html(res.Data);
+                    }
                 },
                 error: function (req, error) {
                     if (error === 'error') { error = req.statusText; }

@@ -44,17 +44,7 @@
                                 }
                             </td>
                             <td class="text-center">
-                                @if (!string.IsNullOrEmpty(dr["BFYPKId"].ToString()))
-                                {
-                                    if (dr["NoofService"].ToString() != "0")
-                                    {
-                                        <strong class="text-warning">Service Done</strong>
-                                    }
-                                    else
-                                    {
                                         <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BFYPKId"]','@dr["BFYRegId"]','@dr["ServiceBFYId_pk"]')" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add</a>
-                                    }
-                                }
                             </td>
                         </tr>
                     }

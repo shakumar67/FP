@@ -3,6 +3,7 @@ using FP.Models;
 using Microsoft.AspNetCore.Cors;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -364,10 +365,13 @@ namespace FP.Controllers
                     tblf.UseMethodId_fk = model.UseMethodId_fk;
                     tblf.ModuleRollout = model.ModuleRollout;
                     tblf.ModuleRolloutId_fk = model.ModuleRolloutId_fk;
+                    tblf.Totalnoof_malechild = model.Totalnoof_malechild;
+                    tblf.Totalnoof_Femalechild = model.Totalnoof_Femalechild;
                     if (model.FollowupID_pk == Guid.Empty)
                     {
                         tblf.FollowupID_pk = Guid.NewGuid();
                         tblf.BFYID_fk = model.BFYID_fk;
+                        tblf.IsActive = true;
                         tblf.CreatedBy = MvcApplication.CUser.Id;
                         tblf.CreatedOn = DateTime.Now;
                         _db.tbl_BFYFollowup.Add(tblf);
@@ -418,6 +422,7 @@ namespace FP.Controllers
                 return resResponse3;
             }
         }
+        /* Last Follow-up View Data Display Method */
         public ActionResult GetBFYFollowView(FilterModel model)
         {
             bool IsCheck = false;
@@ -442,6 +447,19 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet);
             }
         }
+        /* Multiple time Follow-up View Data Display Method */
+        public ActionResult BFYDetailFollowData(Guid? BFYId)
+        {
+            DataTable dt=new DataTable();
+            FilterModel model = new FilterModel();
+            if (BFYId != null && BFYId != Guid.Empty)
+            {
+                model.BFYId = Convert.ToString(BFYId);
+                dt = SP_Model.SPFollowMultipleView(model);
+            }
+            return PartialView("_BFYDetailFollowData", dt);
+        }
+
         #endregion
         private string ConvertViewToString(string viewName, object model)
         {

@@ -1,9 +1,26 @@
 ﻿@model FP.Models.FilterModel
 @{
-    ViewBag.Title = "CM Level MRP Approved Beneficiary list";
+    ViewBag.Title = "Approved Payment Beneficiary Wise";
 }
 
 <style>
+    .closed {
+        border: none;
+        padding: 5px 12px;
+        background: #009A3F;
+        color: #fff;
+        border-radius: 100%;
+    }
+
+    .modal-dialog {
+        max-width: 900px !important;
+    }
+
+    .benefit {
+        display: flex;
+        gap: 10px;
+    }
+
     .table th {
         font-size: 14px;
         background: #fff;
@@ -25,15 +42,15 @@
 <div class="breadcrumb">
     <h2>@ViewBag.Title</h2>
     @*<p>
-        <a href="~/Beneficiary/Beneficiary">Add Beneficiary </a> / Beneficiary Lists
-    </p>*@
+            <a href="~/Beneficiary/Beneficiary">Add Beneficiary </a> / Beneficiary Lists
+        </p>*@
     <strong id="div-download"></strong>
 </div>
 
 <div class="container-fluid pt-4 px-4">
     <fieldset class="border rounded-3 p-3">
         <legend class="float-none w-auto px-2">Search By</legend>
-        @using (Html.BeginForm("GetCMMRPBFYFollowList", "Payment", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        @using (Html.BeginForm("GetCMMRPBFYFollowList", "PaymentCM", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
         {
             <div class="row g-4">
                 <div class="col-sm-12">
@@ -93,10 +110,10 @@
                             </div>
                             <div class="mb-3">
                                 <span class="check-spacer">
-                                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Filter" />
+                                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-info" value="Filter" />
                                 </span>&nbsp;&nbsp;&nbsp;
                                 <span class="check-spacer">
-                                    <a href="~/Beneficiary/BFYList" class="btn btn-info"><i class="fa-solid fa-rotate-right"></i>Refresh</a>
+                                    <a href="~/PaymentCM/CMMRPBFYFollow" class="btn btn-warning"><i class="fa-solid fa-rotate-right"></i></a>
                                 </span>
                             </div>
                         </div>
@@ -114,20 +131,36 @@
         <div class="col-md-12">
             <div id="subdata"></div>
         </div>
-        <div id="div-View"></div>
+
+
+        @*Started Model View*@
+        <div class="modal fade" id="myModalview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalTitle">Beneficiary Details & Follow-up Details</h5>
+                        <button type="button" class="closed" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                       
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @*End Model View*@
+
+
     </div>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/JS/Master.js"></script>
-
-    @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
-        <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
-        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
+    <script src="~/Scripts/JS/BEYDetails.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -176,7 +209,7 @@
 
             $.ajax({
                 type: "GET",
-                url: document.baseURI + "/Payment/GetCMMRPBFYFollowList",
+                url: document.baseURI + "/PaymentCM/GetCMMRPBFYFollowList",
                 data: filtermodel,//JSON.stringify({ 'Roles': '' }),
                 //cache: false,
                 success: function (res) {
@@ -220,32 +253,6 @@
                 }
             });
         }
-        function BFYDetailView(BFYId) {
-            var filtermodel = new Object();
-            filtermodel.BFYId = BFYId;
-            debugger;
-            $.ajax({
-                type: "GET",
-                url: document.baseURI + "/Beneficiary/GetBFYDetailView",
-                data: filtermodel,
-                //cache: false,
-                success: function (res) {
-                    if (res.IsSuccess) {
-                        $("#div-View").html(res.Data);
-                        $('#myModalview').modal('show');
-                    }
-                    else {
-                        $("#div-View").html(res.Data);
-                    }
-                },
-                error: function (req, error) {
-                    if (error === 'error') { error = req.statusText; }
-                    var errormsg = 'There was a communication error: ' + error;
-                    //Do To Message display
-                }
-            });
-        }
-
     </script>
 }
 

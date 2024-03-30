@@ -26,7 +26,7 @@ namespace FP.Controllers
             try
             {
                 bool IsCheck = false;
-                var tbllist = SP_Model.SPPlanBFYList(model);
+                var tbllist = SP_Model.SP_PlanBFYAddServiceList(model);
                 if (tbllist.Rows.Count > 0)
                 {
                     IsCheck = true;

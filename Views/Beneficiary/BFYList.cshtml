@@ -3,6 +3,22 @@
 
 }
 <style>
+    .closed {
+        border: none;
+        padding: 5px 12px;
+        background: #009A3F;
+        color: #fff;
+        border-radius: 100%;
+    }
+
+    .modal-dialog {
+        max-width: 900px !important;
+    }
+
+    .benefit {
+        display: flex;
+        gap: 10px;
+    }
     .table th {
         font-size: 14px;
         background: #fff;
@@ -113,20 +129,36 @@
         <div class="col-md-12">
             <div id="subdata"></div>
         </div>
-        <div id="div-View"></div>
+
+        @*Started Model POP View*@
+        <div class="modal fade" id="myModalview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalTitle">Beneficiary Details</h5>
+                        <button type="button" class="closed" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="div-View"></div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @*End Model POP View*@
+
+
     </div>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/JS/Master.js"></script>
-
-    @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
-        <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
-        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
+    <script src="~/Scripts/JS/BEYDetails.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -218,31 +250,7 @@
                 }
             });
         }
-        function BFYDetailView(BFYId) {
-            var filtermodel = new Object();
-            filtermodel.BFYId = BFYId;
-            debugger;
-            $.ajax({
-                type: "GET",
-                url: document.baseURI + "/Beneficiary/GetBFYDetailView",
-                data: filtermodel,
-                //cache: false,
-                success: function (res) {
-                    if (res.IsSuccess) {
-                        $("#div-View").html(res.Data);
-                        $('#myModalview').modal('show');
-                    }
-                    else {
-                        $("#div-View").html(res.Data);
-                    }
-                },
-                error: function (req, error) {
-                    if (error === 'error') { error = req.statusText; }
-                    var errormsg = 'There was a communication error: ' + error;
-                    //Do To Message display
-                }
-            });
-        }
+
 
     </script>
 }
