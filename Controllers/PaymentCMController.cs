@@ -18,7 +18,7 @@ namespace FP.Controllers
         }
 
         #region CM Level Monthly Incentive 2nd Monthly Payment Level Approved Planning (MRP Level First)
-        public ActionResult CMMRPBFYFollow()
+        public ActionResult CMBFYFollowMIPay()
         {
             FilterModel model = new FilterModel();
             return View(model);
@@ -52,6 +52,11 @@ namespace FP.Controllers
                 model.BFYId = Convert.ToString(BFYId);
             }
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult PostDataCMMIPay(List<CMMIncentivePayModel> modellist)
+        {
+            return View();
         }
 
         #endregion

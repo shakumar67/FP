@@ -319,6 +319,35 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbl_CMMIncentivePayment">
+          <Key>
+            <PropertyRef Name="CMMIPId_pk" />
+          </Key>
+          <Property Name="CMMIPId_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DistrictId_fk" Type="int" />
+          <Property Name="BlockId_fk" Type="int" />
+          <Property Name="ClusterId_fk" Type="int" />
+          <Property Name="PanchayatId_fk" Type="int" />
+          <Property Name="VoId_fk" Type="int" />
+          <Property Name="BFYId_fk" Type="uniqueidentifier" />
+          <Property Name="FollowupId_fk" Type="uniqueidentifier" />
+          <Property Name="MIMonth" Type="int" />
+          <Property Name="MIYear" Type="int" />
+          <Property Name="Approved1Status" Type="bit" />
+          <Property Name="Approved1Date" Type="datetime" />
+          <Property Name="Approved1Remarks" Type="nvarchar(max)" />
+          <Property Name="Approved1By" Type="nvarchar" MaxLength="200" />
+          <Property Name="Approved2Status" Type="bit" />
+          <Property Name="Approved2Date" Type="datetime" />
+          <Property Name="Approved2Remarks" Type="nvarchar(max)" />
+          <Property Name="Approved2By" Type="nvarchar" MaxLength="200" />
+          <Property Name="Approved3Status" Type="bit" />
+          <Property Name="Approved3Date" Type="datetime" />
+          <Property Name="Approved3Remarks" Type="nvarchar(max)" />
+          <Property Name="Approved3By" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedUpdatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="TBL_Emp">
           <Key>
             <PropertyRef Name="EmpID_pk" />
@@ -507,6 +536,7 @@
           <EntitySet Name="tbl_BFYService" EntityType="Self.tbl_BFYService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CLF_Emp" EntityType="Self.tbl_CLF_Emp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CLFPlanReject" EntityType="Self.tbl_CLFPlanReject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_CMMIncentivePayment" EntityType="Self.tbl_CMMIncentivePayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Emp" EntityType="Self.TBL_Emp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_ExceptionHandle" EntityType="Self.Tbl_ExceptionHandle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_PaymentHistory" EntityType="Self.tbl_PaymentHistory" Schema="dbo" store:Type="Tables" />
@@ -650,6 +680,7 @@
           <EntitySet Name="tbl_PaymentHistory" EntityType="FP_DBModel.tbl_PaymentHistory" />
           <EntitySet Name="tbl_BFYService" EntityType="FP_DBModel.tbl_BFYService" />
           <EntitySet Name="tbl_AchievementPlan" EntityType="FP_DBModel.tbl_AchievementPlan" />
+          <EntitySet Name="tbl_CMMIncentivePayment" EntityType="FP_DBModel.tbl_CMMIncentivePayment" />
         </EntityContainer>
         <EntityType Name="Contraceptive_Child_Master">
           <Key>
@@ -1027,6 +1058,35 @@
           <Property Name="Level3RejectDt" Type="DateTime" Precision="3" />
           <Property Name="Level3RejectBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Remark3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_CMMIncentivePayment">
+          <Key>
+            <PropertyRef Name="CMMIPId_pk" />
+          </Key>
+          <Property Name="CMMIPId_pk" Type="Guid" Nullable="false" />
+          <Property Name="DistrictId_fk" Type="Int32" />
+          <Property Name="BlockId_fk" Type="Int32" />
+          <Property Name="ClusterId_fk" Type="Int32" />
+          <Property Name="PanchayatId_fk" Type="Int32" />
+          <Property Name="VoId_fk" Type="Int32" />
+          <Property Name="BFYId_fk" Type="Guid" />
+          <Property Name="FollowupId_fk" Type="Guid" />
+          <Property Name="MIMonth" Type="Int32" />
+          <Property Name="MIYear" Type="Int32" />
+          <Property Name="Approved1Status" Type="Boolean" />
+          <Property Name="Approved1Date" Type="DateTime" Precision="3" />
+          <Property Name="Approved1Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Approved1By" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Approved2Status" Type="Boolean" />
+          <Property Name="Approved2Date" Type="DateTime" Precision="3" />
+          <Property Name="Approved2Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Approved2By" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Approved3Status" Type="Boolean" />
+          <Property Name="Approved3Date" Type="DateTime" Precision="3" />
+          <Property Name="Approved3Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Approved3By" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedUpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1485,6 +1545,36 @@
                 <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
                 <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
                 <ScalarProperty Name="AchieveId_pk" ColumnName="AchieveId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_CMMIncentivePayment">
+            <EntityTypeMapping TypeName="FP_DBModel.tbl_CMMIncentivePayment">
+              <MappingFragment StoreEntitySet="tbl_CMMIncentivePayment">
+                <ScalarProperty Name="CreatedUpdatedOn" ColumnName="CreatedUpdatedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Approved3By" ColumnName="Approved3By" />
+                <ScalarProperty Name="Approved3Remarks" ColumnName="Approved3Remarks" />
+                <ScalarProperty Name="Approved3Date" ColumnName="Approved3Date" />
+                <ScalarProperty Name="Approved3Status" ColumnName="Approved3Status" />
+                <ScalarProperty Name="Approved2By" ColumnName="Approved2By" />
+                <ScalarProperty Name="Approved2Remarks" ColumnName="Approved2Remarks" />
+                <ScalarProperty Name="Approved2Date" ColumnName="Approved2Date" />
+                <ScalarProperty Name="Approved2Status" ColumnName="Approved2Status" />
+                <ScalarProperty Name="Approved1By" ColumnName="Approved1By" />
+                <ScalarProperty Name="Approved1Remarks" ColumnName="Approved1Remarks" />
+                <ScalarProperty Name="Approved1Date" ColumnName="Approved1Date" />
+                <ScalarProperty Name="Approved1Status" ColumnName="Approved1Status" />
+                <ScalarProperty Name="MIYear" ColumnName="MIYear" />
+                <ScalarProperty Name="MIMonth" ColumnName="MIMonth" />
+                <ScalarProperty Name="FollowupId_fk" ColumnName="FollowupId_fk" />
+                <ScalarProperty Name="BFYId_fk" ColumnName="BFYId_fk" />
+                <ScalarProperty Name="VoId_fk" ColumnName="VoId_fk" />
+                <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
+                <ScalarProperty Name="ClusterId_fk" ColumnName="ClusterId_fk" />
+                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
+                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
+                <ScalarProperty Name="CMMIPId_pk" ColumnName="CMMIPId_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

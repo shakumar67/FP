@@ -1,0 +1,370 @@
+﻿@model FP.Models.FilterModel
+@using FP.Manager
+@{
+    ViewBag.Title = "Approved Payment Beneficiary Wise";
+}
+
+<style>
+    .closed {
+        border: none;
+        padding: 5px 12px;
+        background: #009A3F;
+        color: #fff;
+        border-radius: 100%;
+    }
+
+    .modal-dialog {
+        max-width: 900px !important;
+    }
+
+    .benefit {
+        display: flex;
+        gap: 10px;
+    }
+
+    .table th {
+        font-size: 14px;
+        background: #fff;
+    }
+
+    .table td {
+        font-size: 13px;
+    }
+
+    .dataTables_filter, .dataTables_length {
+        margin-bottom: 15px;
+    }
+    /*  .actives2 {
+        color: #009CFF !important;
+        background: #FFFFFF;
+        border-color: #009CFF;
+    }*/
+</style>
+<div class="breadcrumb">
+    <h2>@ViewBag.Title</h2>
+    <strong id="div-download"></strong>
+</div>
+
+<div class="container-fluid pt-4 px-4">
+    <fieldset class="border rounded-3 p-3">
+        <legend class="float-none w-auto px-2">Search By</legend>
+        @using (Html.BeginForm("GetCMMRPBFYFollowList", "PaymentCM", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        {
+            <div class="row g-4">
+                <div class="col-sm-12">
+                    <div class="bg-light rounded h-100 p-4">
+                        <div class="row mb-3">
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.BlockId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.BlockId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.CLFId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.CLFId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.CLFId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <br />
+                                <div class="mb-3">
+                                    <span class="check-spacer">
+                                        <input type="submit" name="btnfilter" id="btnfilter" class="btn btn-info" value="Filter" />
+                                    </span>&nbsp;&nbsp;&nbsp;
+                                    <span class="check-spacer">
+                                        <a href="~/PaymentCM/CMBFYFollowMIPay" class="btn btn-warning"><i class="fa-solid fa-rotate-right"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </fieldset>
+
+    <div class="row">
+
+        <div class="col=md-6"></div>
+        <div class="col=md-6"></div>
+        <div class="col=md-6"></div>
+        <div class="col-md-12">
+            <div id="subdata"></div>
+            Comment :  <textarea id="ApprovedRemarks" name="ApprovedRemarks" class="form-control" cols="2" rows="4" required></textarea>
+            <br />
+            <div class="mb-3 offset-10">
+                <span class="check-spacer">
+                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-info" value="Validate" />
+                </span>&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/JS/Master.js"></script>
+    <script src="~/Scripts/JS/BEYDetails.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            GetYearList("Year", 0, 0);
+            GetMonthList("Month", 0, 0);
+            GetDistrict("DistrictId", 0);
+            $('#DistrictId').change(function () {
+                GetBlock("BlockId", 0, $(this).val());
+            });
+            $('#BlockId').change(function () {
+                GetCLF("CLFId", 0, $('#DistrictId').val(), $(this).val());
+            });
+            $('#CLFId').change(function () {
+                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+            });
+
+            //$('#PanchayatId').change(function () {
+            //    GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId').val(), $(this).val());
+            //});
+            /* Role Wise */
+            BindRolewise("DistrictId", "BlockId", "CLFId");//, "PanchayatId", "VOId"
+
+            setTimeout(BindData, 2000);
+            CheckUnchecked();
+
+            $("#formid").submit(function (e) {
+                e.preventDefault();
+                BindData();
+            });
+            $("#btnsubmit").click(function (e) {
+                e.preventDefault();
+                CUData();
+            });
+
+        });
+
+        function BindData() {
+            $("#subdata").html('');
+            var filtermodel = new Object();
+            filtermodel.DistrictId = $('#DistrictId').val() == '' ? '' : $('#DistrictId').val();
+            filtermodel.BlockId = $('#BlockId').val() == '' ? '' : $('#BlockId').val();
+            filtermodel.CLFId = $('#CLFId').val() == '' ? '' : $('#CLFId').val();
+            //filtermodel.PanchayatId = $('#PanchayatId').val() == '' ? '' : $('#PanchayatId').val();
+            //filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
+            filtermodel.Year = $('#Year').val() == '' ? '' : $('#Year').val();
+            filtermodel.Month = $('#Month').val() == '' ? '' : $('#Month').val();
+            var formData = $('#formid').serialize();
+
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/PaymentCM/GetCMMRPBFYFollowList",
+                data: filtermodel,//JSON.stringify({ 'Roles': '' }),
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+
+                        if ($.fn.dataTable.isDataTable('#tbl')) {
+                            $("#tbl").dataTable().fnDestroy();
+                        }
+                        table = $('#tbl').DataTable({
+                            //scrollY: "400px",
+                            //scrollX: true,
+                            //scrollCollapse: true,
+                            paging: false,
+                            //pageLength: 100,
+                            fixedColumns: {
+                                leftColumns: 1,
+                                rightColumns: 1
+                            },
+                            buttons: [{
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
+                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                filename: 'Beneficiary List',
+                                exportOptions: { modifier: { page: 'all' } }
+                            }],
+                        });
+                        $('.dataTables_filter input[type="search"]').css(
+                            { 'width': '500px', 'display': 'inline-block' }
+                        );
+                        $('#div-download').empty();
+                        table.buttons().container().appendTo($('#div-download'));
+                    }
+                    else {
+                        $("#subdata").html(res.Data);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+
+        function CheckUnchecked(cur) {
+            debugger;
+            if ($(cur).attr('id') == 'selectAll') {
+                $('#tbl tbody tr .check').each(function (i, item) {
+                    $(item).prop('checked', $(cur).prop('checked'));
+                });
+            } else {
+                var isallChecked = true;
+                $('#tbl tbody tr .check').each(function (i, item) {
+                    if (!$(item).prop('checked')) {
+                        isallChecked = false;
+                        return;
+                    }
+                });
+                $('#selectAll').prop('checked', isallChecked);
+            }
+        }
+
+       function CUData() {
+          debugger;
+          var isvalid = $("#formid").valid();
+          var IsCheck = true;
+              if ($('#DistrictId').val() == '' || $('#BlockId').val() == ''
+                  || $('#CLFId').val() == '' || $('#Month').val() == '' || $('#Year').val() == ''
+          ) {
+              toastr.error("Error", "Please Select District, Block & Cluster");
+              return false;
+          }
+           //if ($('#ApprovedRemarks').val()!='') {
+           //    toastr.error("Error", "Enter the Remarks.");
+           //    return false;
+           //} 
+
+          jQuery.event.trigger("ajaxStart");
+          //var vl = $.validator.unobtrusive.parse("#formid");
+          //var Isvalid= $("#formid").validate();//CreatePlanformid
+
+         // IsCheck = $('#BFYID_fk').val() == '' ? false : true;
+          var tblpushdata = [];
+          var formData = new FormData();
+          formData.append('DistrictId_fk', $('#DistrictId_fk').val());
+          formData.append('BlockId_fk', $('#BlockId_fk').val());
+          formData.append('ClusterId_fk', $('#ClusterId_fk').val());
+          //formData.append('PanchayatId_fk', $('#PanchayatId_fk').val());
+          formData.append('PlanYear', $('#PlanYear').val());
+          formData.append('PlanMonth', $('#PlanMonth').val());
+           var countrecject = 0;
+         // $('#DataList').each(function () {
+
+              let table2 = $('#tbl').DataTable();
+              table2.$('input[name=check]').each(function (i, row) {
+
+                  var achvplanid = $(row).attr('data-achvplanid');
+                  var cmmipid = $(row).attr('data-cmmipid');
+                  var bfyid = $(row).attr('data-bfyid');
+                  var folloupid = $(row).attr('data-folloupid');
+                  var disid = $(row).attr('data-disid');
+                  var blckid = $(row).attr('data-blckid');
+                  var clfid = $(row).attr('data-clfid');
+                  var pchytid = $(row).attr('data-pchytid');
+                  var vorgid = $(row).attr('data-vorgid');
+                  var ApprovedRemarks = $('#ApprovedRemarks').val();
+
+                  debugger;
+                  if (bfyid != '' && bfyid != '@Guid.Empty') {
+                      if ($(this).is(':checked')) {
+                          tblpushdata.push({
+                              CMMIPId_pk: cmmipid,
+                              BFYId_fk: bfyid,
+                              FollowupId_fk: folloupid,
+                              DistrictId_fk: disid,
+                              BlockId_fk: blckid,
+                              ClusterId_fk: clfid,
+                              PanchayatId_fk: pchytid,
+                              VoId_fk: vorgid,
+                              MIMonth: $('#Month').val(),
+                              MIYear: $('#Year').val(),
+                              ApprovedRemarks: ApprovedRemarks,
+                              PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Approve)',
+                          });
+                      }
+                  }
+          });
+       
+          if (tblpushdata.length == 0) {
+              toastr.error("Error", "Please choice at least one.");
+              return false;
+          }
+
+              formData.append('modellist', JSON.stringify(tblpushdata));
+
+          if (isvalid && IsCheck) {
+             // document.getElementById("btnsubmit").disabled = true;
+              //var formData = $('#formid').serialize();
+
+              $.ajax({
+                  url: document.baseURI + "/PaymentCM/PostDataCMMIPay",
+                  type: "Post",
+                  data: formData,
+                  //contentType: "application/json; charset=utf-8",
+                  dataType: "json",
+                  // processData: false, contentType: false,
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+                  //data: JSON.stringify(model),
+                  success: function (resp) {
+                      if (resp.StatusType == "success") {
+                          toastr.success("Success", resp.Message);
+                          //$("#followupformid")[0].reset();
+                          BindData();
+                      }
+                      else {
+                          toastr.error("Error", resp.Message);
+                          document.getElementById("btnsubmit").disabled = false;
+                          jQuery.event.trigger("ajaxStop");
+                      }
+                  },
+                  error: function (req, error) {
+                      if (error === 'error') { error = req.statusText; }
+                      var errormsg = 'There was a communication error: ' + error;
+                      toastr.error("Error", errormsg);
+                      document.getElementById("btnsubmit").disabled = false;
+                      jQuery.event.trigger("ajaxStop");
+                      return false;
+                  }
+              });
+          }
+          else {
+              toastr.error('Error', "Please fill all required fields!!");
+              jQuery.event.trigger("ajaxStop");
+              return false;
+          }
+
+      }
+
+    </script>
+}
+
+

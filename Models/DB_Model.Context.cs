@@ -51,5 +51,6 @@ namespace FP.Models
         public virtual DbSet<tbl_PaymentHistory> tbl_PaymentHistory { get; set; }
         public virtual DbSet<tbl_BFYService> tbl_BFYService { get; set; }
         public virtual DbSet<tbl_AchievementPlan> tbl_AchievementPlan { get; set; }
+        public virtual DbSet<tbl_CMMIncentivePayment> tbl_CMMIncentivePayment { get; set; }
     }
 }

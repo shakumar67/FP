@@ -237,17 +237,22 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
             }
         }
+        /* Multiple time BFYDetail with Follow-up View Data Display Method */
         public ActionResult GetBFYDetailView(FilterModel model)
         {
             try
             {
                 bool IsCheck = false;
-                var tbllist = SP_Model.SPBFYDetailView(model);
-                if (tbllist.Rows.Count > 0)
+                DataSet ds = SP_Model.SPBFYDetailView(model);
+                DataTable dt = SP_Model.SPFollowMultipleView(model).Copy();
+                dt.TableName= "BFYFollowList";
+                ds.Tables[0].TableName= "BFYDetail";
+                ds.Tables.Add(dt);
+                if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     IsCheck = true;
                 }
-                var html = ConvertViewToString("_BFYDetailView", tbllist);
+                var html = ConvertViewToString("_BFYDetailView", ds);
                 var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
                 res.MaxJsonLength = int.MaxValue;
                 return res;
@@ -451,19 +456,6 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet);
             }
         }
-        /* Multiple time Follow-up View Data Display Method */
-        public ActionResult BFYDetailFollowData(Guid? BFYId)
-        {
-            DataTable dt = new DataTable();
-            FilterModel model = new FilterModel();
-            if (BFYId != null && BFYId != Guid.Empty)
-            {
-                model.BFYId = Convert.ToString(BFYId);
-                dt = SP_Model.SPFollowMultipleView(model);
-            }
-            return PartialView("_BFYDetailFollowData", dt);
-        }
-
         #endregion
         private string ConvertViewToString(string viewName, object model)
         {

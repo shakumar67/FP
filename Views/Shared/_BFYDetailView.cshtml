@@ -1,0 +1,474 @@
+﻿@*@using FP.Models.BeneficiaryModel*@
+@using System.Data
+@using FP.Manager
+@{
+    DataSet ds = new DataSet();
+    DataTable dt = new DataTable();
+    DataTable dt1 = new DataTable();
+    if (Model != null)
+    {
+        ds = Model;
+        dt = ds.Tables[0];
+        dt1 = ds.Tables[1];
+    }
+
+}
+<style>
+    .benefit-box {
+        padding: 15px 10px;
+        border-radius: 6px;
+        background: #F3F6F9;
+        font-size: 13px;
+    }
+
+        .benefit-box div {
+            padding: 2px 0
+        }
+
+        .benefit-box .form-group strong {
+            float: right
+        }
+
+    @@media screen and (max-width: 768px) {
+        .benefit {
+            flex-direction: column
+        }
+    }
+</style>
+
+
+@*Started Accordion View*@
+<div class="modal fade" id="myModalviewBFYFollow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalTitle">Beneficiary Details & Follow-up Details</h5>
+                <button type="button" class="closed" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12 col-xl-12">
+                    <div class="bg-light rounded h-100 p-4">
+                        @*<h6 class="mb-4">Flush Accordion</h6>*@
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                                            aria-expanded="true" aria-controls="flush-collapseOne">
+                                        Beneficiary Details
+                                    </button>
+                                </h2>
+
+                                <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                                     aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="row g-1">
+                                            <div class="col-sm-12">
+                                                <div class="h-100 p-2">
+                                                    <div class="benefit">
+                                                        <div class="col-sm-6 benefit-box ">
+                                                            <div class="col-sm-12">
+                                                                <div class="position-relative form-group">
+                                                                    <label>@FP.Models.DisplayFollowBFY.BeneficiaryRegID : </label>
+                                                                    <strong class="text-success">@dt.Rows[0]["BFYRegId"].ToString()</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12">
+                                                                <div class="position-relative form-group">
+                                                                    <label>Month/Year : </label>
+                                                                    <strong>@dt.Rows[0]["BFYReportingDate"].ToString()</strong>
+                                                                </div>
+                                                            </div>
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["DistrictName"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.DDis : </label>
+                                                                        <strong>@dt.Rows[0]["DistrictName"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["Block"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.DBlck : </label>
+                                                                        <strong>@dt.Rows[0]["Block"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["CLFName"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.DCLF : </label>
+                                                                        <strong>@dt.Rows[0]["CLFName"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["Panchayat"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.DPanyt : </label>
+                                                                        <strong>@dt.Rows[0]["Panchayat"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["VO"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.DVO : </label>
+                                                                        <strong>@dt.Rows[0]["VO"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["HealthCenter"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.HealthCD : </label>
+                                                                        <strong>@dt.Rows[0]["HealthCenter"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["BFYVillageName"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.DBFYVillage : </label>
+                                                                        <strong>@dt.Rows[0]["BFYVillageName"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["SHGName"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q2D : </label>
+                                                                        <strong>@dt.Rows[0]["SHGName"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["BFYName"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q3D : </label>
+                                                                        <strong>@dt.Rows[0]["BFYName"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["BFYDOB"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q4ABFYAgeD : </label>
+                                                                        <strong>@dt.Rows[0]["BFYAge"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["HusbandName"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q5D : </label>
+                                                                        <strong>@dt.Rows[0]["HusbandName"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["MarriageType"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@dt.Rows[0]["MarriageType"].ToString() : </label>
+                                                                        <strong>@dt.Rows[0]["DOM"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                        <div class="col-sm-6 benefit-box">
+
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["BFYMobileNo"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q7D : </label>
+                                                                        <strong>@dt.Rows[0]["BFYMobileNo"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["SHGAffiliation"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q8D : </label>
+                                                                        <strong>@dt.Rows[0]["SHGAffiliation"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["SHGGroupName"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q9D :   <strong>@dt.Rows[0]["SHGGroupName"].ToString()</strong></label>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["NoofChildMale"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q10D : </label>
+                                                                        <strong>@dt.Rows[0]["NoofChildMale"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["NoofChildFemale"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q11D : </label>
+                                                                        <strong>@dt.Rows[0]["NoofChildFemale"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["YoungestChild"].ToString()) && dt.Rows[0]["YoungestChild"].ToString() != "No")
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q12D : </label>
+                                                                        <strong>@dt.Rows[0]["YoungestChildAge"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["AWCCode"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q13D : </label>
+                                                                        <strong>@dt.Rows[0]["AWCCode"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["ASHAName"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q14D : </label>
+                                                                        <strong>@dt.Rows[0]["ASHAName"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["ContraceptiveName"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q15D : </label>
+                                                                        <strong>@dt.Rows[0]["ContraceptiveName"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                                if (!string.IsNullOrWhiteSpace(dt.Rows[0]["UseMethodName"].ToString()))
+                                                                {
+                                                                    <div class="col-sm-12">
+                                                                        <div class="position-relative form-group">
+                                                                            @if (dt.Rows[0]["Q15"].ToString() == ((int)Enums.eContraceptive.Temporary).ToString())
+                                                                            {
+                                                                                <label>@FP.Models.BFYView_Model.Q16D : </label>
+                                                                                <strong>@dt.Rows[0]["UseMethodName"].ToString()</strong>
+                                                                            }
+                                                                            @if (dt.Rows[0]["Q15"].ToString() == ((int)Enums.eContraceptive.Permanent).ToString())
+                                                                            {
+                                                                                <label>@FP.Models.BFYView_Model.Q17D : </label>
+                                                                                <strong>@dt.Rows[0]["UseMethodName"].ToString()</strong>
+                                                                            }
+                                                                            @if (dt.Rows[0]["Q15"].ToString() == ((int)Enums.eContraceptive.OtherMethod).ToString())
+                                                                            {
+                                                                                <label>@FP.Models.BFYView_Model.Q17D : </label>
+                                                                                <strong>@dt.Rows[0]["UseMethodName"].ToString()</strong>
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            }
+
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["NumberofSHG"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q20D : </label>
+                                                                        <strong>@dt.Rows[0]["NumberofSHG"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["MediumMRollout"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Q21D : </label>
+                                                                        <strong>@dt.Rows[0]["MediumMRollout"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["ReportedBy"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.Reportedby : </label>
+                                                                        <strong>@dt.Rows[0]["ReportedBy"].ToString()</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            @if (!string.IsNullOrWhiteSpace(dt.Rows[0]["ReportedOn"].ToString()))
+                                                            {
+                                                                <div class="col-sm-12">
+                                                                    <div class="position-relative form-group">
+                                                                        <label>@FP.Models.BFYView_Model.ReportedDt : </label>
+                                                                        <strong>@CommonModel.FormateDtDMY(dt.Rows[0]["ReportedOn"].ToString())</strong>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @{
+                                int Index = 1;
+                                if (dt1.Rows.Count > 0)
+                                {
+                                    foreach (DataRow dr in dt1.Rows)
+                                    {
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-heading@(Index)">
+                                                <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse" data-bs-target="#flush-collapse@(Index)"
+                                                        aria-expanded="false" aria-controls="flush-collapse@(Index)">
+                                                    Follow-up View &nbsp;&nbsp;<strong class="text-success">@dr["FollowReportedMonth"].ToString() (@dr["RowNo"].ToString())</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapse@(Index)" class="accordion-collapse collapse"
+                                                 aria-labelledby="flush-heading@(Index)" data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">
+
+                                                    <div class="row g-1">
+                                                        <div class="col-sm-12">
+                                                            <div class="h-100 p-2">
+                                                                <div class="benefit">
+                                                                    <div class="col-sm-6 benefit-box">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="position-relative form-group">
+                                                                                <label>@FP.Models.DisplayFollowBFY.BeneficiaryRegID : </label>
+                                                                                <strong class="text-success">@dr["BFYRegId"].ToString()</strong>
+                                                                            </div>
+                                                                        </div>
+                                                                        @if (!string.IsNullOrWhiteSpace(dr["FollowReportedMonth"].ToString()))
+                                                                        {
+                                                                            <div class="col-sm-12">
+                                                                                <div class="position-relative form-group">
+                                                                                    <label>Follow-up Month/Year : </label>
+                                                                                    <strong>@dr["FollowReportedMonth"].ToString()</strong>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        @if (!string.IsNullOrWhiteSpace(dr["IsFollowUpYesNo"].ToString()))
+                                                                        {
+                                                                            <div class="col-sm-12">
+                                                                                <div class="position-relative form-group">
+                                                                                    <label>@FP.Models.DisplayFollowBFY.IsFUpHV: </label>
+                                                                                    <strong>@dr["IsFollowUpYesNo"].ToString()</strong>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        @if (!string.IsNullOrWhiteSpace(dr["IsContraceptionYesNo"].ToString()))
+                                                                        {
+                                                                            <div class="col-sm-12">
+                                                                                <div class="position-relative form-group">
+                                                                                    <label>@FP.Models.DisplayFollowBFY.Ct : </label>
+                                                                                    <strong>@dr["Contraceptive_Name"].ToString()</strong>
+                                                                                </div>
+                                                                            </div>
+                                                                            if (!string.IsNullOrWhiteSpace(dr["Method_Name"].ToString()))
+                                                                            {
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="position-relative form-group">
+                                                                                        <label>@FP.Models.DisplayFollowBFY.Ctusemethod : </label>
+                                                                                        <strong>@dr["Method_Name"].ToString()</strong>
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                        }
+                                                                        @if (!string.IsNullOrWhiteSpace(dr["Totalnoof_Femalechild"].ToString()))
+                                                                        {
+                                                                            <div class="col-sm-12">
+                                                                                <div class="position-relative form-group">
+                                                                                    <label>@FP.Models.DisplayFollowBFY.Totalnoof_Femalechild : </label>
+                                                                                    <strong>@dr["Totalnoof_Femalechild"].ToString()</strong>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        @if (!string.IsNullOrWhiteSpace(dr["Totalnoof_malechild"].ToString()))
+                                                                        {
+                                                                            <div class="col-sm-12">
+                                                                                <div class="position-relative form-group">
+                                                                                    <label>@FP.Models.DisplayFollowBFY.Totalnoof_malechild : </label>
+                                                                                    <strong>@dr["Totalnoof_malechild"].ToString()</strong>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        @if (!string.IsNullOrWhiteSpace(dr["ModuleRollout"].ToString()))
+                                                                        {
+                                                                            <div class="col-sm-12">
+                                                                                <div class="position-relative form-group">
+                                                                                    <label>@FP.Models.DisplayFollowBFY.ModuleRollout : </label>
+                                                                                    <strong>@dr["ModuleRollout"].ToString()</strong>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        @if (!string.IsNullOrWhiteSpace(dr["ModuleName"].ToString()))
+                                                                        {
+                                                                            <div class="col-sm-12">
+                                                                                <div class="position-relative form-group">
+                                                                                    <label>@FP.Models.DisplayFollowBFY.ModuleRolloutId_fk : </label>
+                                                                                    <strong>@dr["ModuleName"].ToString()</strong>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        Index++;
+                                    }
+
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@*End Accordion View*@

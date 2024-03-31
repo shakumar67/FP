@@ -336,6 +336,7 @@
     <Compile Include="Manager\JsonResponseData.cs" />
     <Compile Include="Manager\SP_Model.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CMMIncentivePayModel.cs" />
     <Compile Include="Models\ServiceBFYModel.cs" />
     <Compile Include="Models\AchvPlanModel.cs" />
     <Compile Include="Models\AspNetRole.cs">
@@ -420,6 +421,9 @@
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_CLF_Emp.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_CMMIncentivePayment.cs">
       <DependentUpon>DB_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TBL_Emp.cs">
@@ -735,7 +739,7 @@
     <Content Include="Views\Achievement\LevelSecAchvApprove.cshtml" />
     <Content Include="Views\Beneficiary\FollowupList.cshtml" />
     <Content Include="Views\Beneficiary\_FollowDataList.cshtml" />
-    <Content Include="Views\Beneficiary\_BFYDetailView.cshtml" />
+    <Content Include="Views\Shared\_BFYDetailView.cshtml" />
     <Content Include="Views\Service\_BFYPOPView.cshtml" />
     <Content Include="Views\Service\_BFYPOP.cshtml" />
     <Content Include="Views\Service\_ServiceBFYData.cshtml" />
@@ -746,9 +750,8 @@
     <Content Include="Views\Report\ServiceBFYList.cshtml" />
     <Content Include="Views\Payment\LevelThreePayment.cshtml" />
     <Content Include="Views\Payment\_LevelThreePaymentData.cshtml" />
-    <Content Include="Views\PaymentCM\CMMRPBFYFollow.cshtml" />
+    <Content Include="Views\PaymentCM\CMBFYFollowMIPay.cshtml" />
     <Content Include="Views\PaymentCM\_MIncPayBFYData.cshtml" />
-    <Content Include="Views\Shared\_BFYDetailFollowData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
