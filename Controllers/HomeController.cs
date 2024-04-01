@@ -98,15 +98,18 @@ namespace FP.Controllers
                 bool IsCheck = false;
                 DataSet ds = new DataSet();
                 DataTable dt = new DataTable();
+                DataTable dt1 = new DataTable();
                 ds = SP_Model.SP_ServiceContraceptionChart(model);
                 if (ds.Tables.Count > 0)
                 {
                     IsCheck = true;
                     dt = ds.Tables[0];
+                    dt1 = ds.Tables[1];
                 }
                 var dslist = JsonConvert.SerializeObject(dt);
+                var dslist1 = JsonConvert.SerializeObject(dt1);
                 //var html = ConvertViewToString("_BFYData", tbllist);
-                var res = Json(new { IsSuccess = IsCheck, Data1 = dslist }, JsonRequestBehavior.AllowGet);
+                var res = Json(new { IsSuccess = IsCheck, Data1 = dslist, Data2 = dslist1 }, JsonRequestBehavior.AllowGet);
                 res.MaxJsonLength = int.MaxValue;
                 return res;
             }

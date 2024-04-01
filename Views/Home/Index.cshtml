@@ -9,6 +9,7 @@
         border-color: #009CFF;
     }
 </style>
+
 <div class="container-fluid pt-4 px-4">
     @*<div class="row g-4">
             <div class="col-sm-6 col-xl-3">
@@ -51,7 +52,7 @@
     <br />
     <div class="row g-4">
         <div class="col-sm-4 col-xl-6">
-            
+
             <div id="DisGraph" style="height:400px; width:500px"></div>
         </div>
         <div class="col-md-8 col-xl-6">
@@ -71,8 +72,14 @@
             </div>
         </div>
 
+        <div class="col-md-12 col-xl-6">
+            <div id="serviceusemethodchart">
+            </div>
+        </div>
+
     </div>
 </div>
+
 @section Scripts {
 
     @*<script src="https://code.highcharts.com/highcharts.js"></script>
@@ -104,6 +111,7 @@
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>*@
 
     <script>
+        var resDataUseMlist = []; 
         $(document).ready(function () {
             Bindload();
             BindDistrict();
@@ -132,8 +140,12 @@
                 success: function (resp) {
                     if (resp.IsSuccess) {
                         var resData1 = JSON.parse(resp.Data1);
-                        if (resData1 && resData1.length != 0 ) {
+                        resDataUseMlist = JSON.parse(resp.Data2);
+                        if (resData1 && resData1.length != 0  ) {
                             ServiceContraceptionChart(resData1);
+                        }
+                        if (resDataUseMlist && resDataUseMlist.length != 0) {
+                            ServiceUseMethodChart(resDataUseMlist);
                         }
                     }
                 },
@@ -146,7 +158,6 @@
                 }
             });
         }
-
 
         function Bindload() {
             var FilterModel = {}; var model = [];
