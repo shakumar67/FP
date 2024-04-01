@@ -141,6 +141,7 @@ namespace FP.Controllers
                                 }
                                 // results += db_.SaveChanges();
                                 var groups = mlist.GroupBy(x => x.ReportedByUserId);
+                                var grplist = tbl_list.Select(x => x.CMMIPId_pk);
                                 if (groups != null && results > 0)
                                 {
                                     foreach (var group in groups)
@@ -148,7 +149,7 @@ namespace FP.Controllers
                                         var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).ToList();
                                         tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
                                         tblpay.PaymentHistoryId_pk = Guid.NewGuid();
-                                        tblpay.ApprovedAchvId = string.Join(",", appovlist);
+                                        tblpay.ApprovedAchvId = string.Join(",", grplist).ToUpper();
                                         tblpay.NoofApproved = appovlist.Count;
                                         tblpay.VerifyUserTypeId = Guid.Parse(MvcApplication.CUser.RoleId);
                                         tblpay.TargetUserTypeId = Guid.Parse(db_.AspNetRoles.First(x => x.Name == CommonModel.RoleNameCont.CM).Id);

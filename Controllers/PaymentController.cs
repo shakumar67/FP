@@ -20,7 +20,7 @@ namespace FP.Controllers
             return View();
         }
 
-        #region 1st Level Approved Planning (MRP Level)
+        #region CNR Monthly Incentive 1st Monthly Payment Level Approved Planning (MRP Level)
         public ActionResult LevelOnePayment()
         {
             AchvPlanModel model = new AchvPlanModel();
@@ -149,8 +149,8 @@ namespace FP.Controllers
                                 {
                                     foreach (var group in groups)
                                     {
-                                        var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).ToList();
-                                        var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).ToList();
+                                        var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).Select(x => x.AchieveId_pk).ToList();
+                                        var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).Select(x => x.AchieveId_pk).ToList();
                                         tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
                                         tblpay.PaymentHistoryId_pk = Guid.NewGuid();
                                         tblpay.ApprovedAchvId = string.Join(",", appovlist);
@@ -200,6 +200,7 @@ namespace FP.Controllers
             }
         }
         #endregion
+
         #region CNR Monthly Incentive 2nd Monthly Payment Level Approved Planning (CC Level Two)
         public ActionResult LevelTwoPayment()
         {
@@ -327,8 +328,8 @@ namespace FP.Controllers
                                 {
                                     foreach (var group in groups)
                                     {
-                                        var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).ToList();
-                                        var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).ToList();
+                                        var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).Select(x => x.AchieveId_pk).ToList();
+                                        var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).Select(x => x.AchieveId_pk).ToList();
                                         tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
                                         tblpay.PaymentHistoryId_pk = Guid.NewGuid();
                                         tblpay.ApprovedAchvId = string.Join(",", appovlist);
@@ -379,7 +380,7 @@ namespace FP.Controllers
         }
         #endregion
 
-        #region CNR Monthly Incentive 3th Monthly Payment Level Approved Planning (BPIU Level Two)
+        #region CNR Monthly Incentive 3th Monthly Payment Level Approved Planning (BPM Level Two)
         public ActionResult LevelThreePayment()
         {
             AchvPlanModel model = new AchvPlanModel();
@@ -413,6 +414,7 @@ namespace FP.Controllers
             var results = 0; var results_Reject = 0;
             FP_DBEntities db_ = new FP_DBEntities();
             JsonResponseData response = new JsonResponseData();
+            var cdt = DateTime.Now;
             try
             {
                 var resAchvPlanlist = this.Request.Unvalidated.Form["AVPlanModel"];
@@ -438,7 +440,7 @@ namespace FP.Controllers
                                         var tblu = db_.tbl_AchievementPlan.Find(m.AchieveId_pk);
                                         if (tblu != null)
                                         {
-                                            var cdt = DateTime.Now;
+                                            
                                             tbl_Achievement_Log tblLog = new tbl_Achievement_Log();
                                             tblLog.LogId_pk = Guid.NewGuid();
                                             tblLog.AchieveId_fk = m.AchieveId_pk;
@@ -507,8 +509,8 @@ namespace FP.Controllers
                                 {
                                     foreach (var group in groups)
                                     {
-                                        var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).ToList();
-                                        var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).ToList();
+                                        var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).Select(x=>x.AchieveId_pk).ToList();
+                                        var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).Select(x => x.AchieveId_pk).ToList();
                                         tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
                                         tblpay.PaymentHistoryId_pk = Guid.NewGuid();
                                         tblpay.ApprovedAchvId = string.Join(",", appovlist);
@@ -525,7 +527,8 @@ namespace FP.Controllers
                                         tblpay.IsActive = true;
                                         tblpay.CreatedBy = MvcApplication.CUser.Id;
                                         tblpay.UpdatedBy = MvcApplication.CUser.Id;
-                                        tblpay.CreatedOn = tblpay.UpdatedOn = DateTime.Now;
+                                        tblpay.CreatedOn = cdt;
+                                        tblpay.UpdatedOn = cdt;
                                         db_.tbl_PaymentHistory.Add(tblpay);
                                     }
                                     db_.SaveChanges();

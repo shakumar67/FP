@@ -40,8 +40,8 @@
             <div class="navbar-nav w-100">
                 <a href="~/Home/Index" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle showactive" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
-                    <div class="dropdown-menu bg-transparent border-0 showactive">
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+                    <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
                         <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
                     </div>
@@ -57,13 +57,13 @@
                 <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Achievement</a>
                 <div class="navbar-nav w-100">
                     <div class="nav-item dropdown">
-                        <a href="javascript:void(0)" class="nav-link dropdown-toggle showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
-                        <div class="dropdown-menu bg-transparent border-0 showactive">
-                            <a href="~/Payment/LevelOnePayment" class="nav-item nav-link actives">Monthly Incentive @CommonModel.RoleNameCont.CNRP  (@CommonModel.RoleNameCont.MRP)</a>
-                            <a href="~/Payment/LevelTwoPayment" class="nav-item nav-link actives">Monthly Incentive @CommonModel.RoleNameCont.CNRP (@CommonModel.RoleNameCont.CC)</a>
-                            <a href="~/Payment/LevelThreePayment" class="nav-item nav-link actives">Monthly Incentive @CommonModel.RoleNameCont.CNRP (@CommonModel.RoleNameCont.BPIU)</a>
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Payment/LevelOnePayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP  (@CommonModel.RoleNameCont.MRP)</a>
+                            <a href="~/Payment/LevelTwoPayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP (@CommonModel.RoleNameCont.CC)</a>
+                            <a href="~/Payment/LevelThreePayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP (@CommonModel.RoleNameCont.BPM)</a>
                           
-                            <a href="~/PaymentCM/CMBFYFollowMIPay" class="nav-item nav-link actives">Monthly Incentive @CommonModel.RoleNameCont.CM (@CommonModel.RoleNameCont.MRP)</a>
+                            <a href="~/PaymentCM/CMBFYFollowMIPay" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CM (@CommonModel.RoleNameCont.MRP)</a>
                             @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
                         <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
-                        <a href="~/Report/AchBFYList" class="dropdown-item">Achievement Details</a>
+                        @*<a href="~/Report/AchBFYList" class="dropdown-item">Achievement Details</a>*@
                         <a href="~/Report/ServiceBFYList" class="dropdown-item">Service Details</a>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
                         <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
-                        <a href="~/Report/AchBFYList" class="dropdown-item">Achievement Details</a>
+                        @*<a href="~/Report/AchBFYList" class="dropdown-item">Achievement Details</a>*@
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                 @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP))
                 {
                     <a href="~/Service/AddServiceCNRP" class="nav-item nav-link"><i class="fa fa-tasks me-2"></i>Service-CNRP</a>
-                    <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link actives"><i class="fa fa-users me-2"></i>Achievement</a>
+                    <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Achievement</a>
                     @*<div class="nav-item dropdown">
                         <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-tasks me-2"></i>Plan</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -180,7 +180,7 @@
                         <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
                         <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
                         <a href="~/Report/ServiceBFYList" class="dropdown-item">Service List</a>
-                        <a href="~/Report/AchBFYList" class="dropdown-item">Achievement Details</a>
+                        @*<a href="~/Report/AchBFYList" class="dropdown-item">Achievement Details</a>*@
                     </div>
                 </div>
             </div>
@@ -208,7 +208,7 @@
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
                         <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
-                        <a href="~/Report/AchBFYList" class="dropdown-item">Achievement Detail</a>
+                        @*<a href="~/Report/AchBFYList" class="dropdown-item">Achievement Detail</a>*@
                     </div>
                 </div>
             </div>
@@ -217,8 +217,8 @@
         {
             <div class="navbar-nav w-100" style="display:none;">
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
-                    <div class="dropdown-menu bg-transparent border-0 showactive">
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                    <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Payment/LevelOnePayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP (@CommonModel.RoleNameCont.MRP)</a>
                         <a href="~/PaymentCM/CMBFYFollowMIPay" class="nav-item nav-link actives">Monthly Incentive @CommonModel.RoleNameCont.CM (@CommonModel.RoleNameCont.MRP)</a>
 
@@ -231,21 +231,21 @@
         {
             <div class="navbar-nav w-100" style="display:none;">
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
-                    <div class="dropdown-menu bg-transparent border-0 showactive">
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                    <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Payment/LevelTwoPayment" class="nav-item nav-link">Monthly Incentive  @CommonModel.RoleNameCont.CNRP  (@CommonModel.RoleNameCont.CC)</a>
                         @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
                     </div>
                 </div>
             </div>
         }
-        else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPIU))
+        else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPM))
         {
             <div class="navbar-nav w-100" style="display:none;">
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle showactive" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
-                    <div class="dropdown-menu bg-transparent border-0 showactive">
-                        <a href="~/Payment/LevelThreePayment" class="nav-item nav-link">Monthly Incentive  @CommonModel.RoleNameCont.CNRP  (@CommonModel.RoleNameCont.BPIU)</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="~/Payment/LevelThreePayment" class="nav-item nav-link">Monthly Incentive  @CommonModel.RoleNameCont.CNRP  (@CommonModel.RoleNameCont.BPM)</a>
                         @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
                     </div>
                 </div>
