@@ -292,9 +292,9 @@
                   if (bfyid != '' && bfyid != '@Guid.Empty' && bfyid != undefined) {
                       if ($(this).is(':checked')) {
                           tblpushdata.push({
-                              CMMIPId_pk: cmmipid,
+                              CMMIPId_pk: cmmipid == "" ? '@Guid.Empty' : cmmipid,
                               BFYId_fk: bfyid,
-                              FollowupId_fk: folloupid,
+                              FollowupId_fk: folloupid == "" ? '@Guid.Empty' : folloupid,
                               DistrictId_fk: disid,
                               BlockId_fk: blckid,
                               ClusterId_fk: clfid,

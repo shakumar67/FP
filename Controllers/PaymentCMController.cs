@@ -75,6 +75,21 @@ namespace FP.Controllers
                     {
                         if (mlist.Count() > 0)
                         {
+                            if (model.Month == null || model.Month == 0 || model.Year == null || model.Year == 0)
+                            {
+                                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.AllFieldsRequired), Data = null };
+                                var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+                                resResponse4.MaxJsonLength = int.MaxValue;
+                                return resResponse4;
+                            }
+                            if (db_.tbl_CMMIncentivePayment.Any(x => x.DistrictId_fk == model.DistrictId && x.BlockId_fk == model.BlockId && x.ClusterId_fk == model.ClusterId && x.MIMonth == model.Month && x.MIYear == model.Year))
+                            {
+                                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.Already), Data = null };
+                                var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+                                resResponse4.MaxJsonLength = int.MaxValue;
+                                return resResponse4;
+                            }
+
                             tbl_CMMIncentivePayment tbl;
                             List<tbl_CMMIncentivePayment> tbl_list = new List<tbl_CMMIncentivePayment>();
                             if (model.DistrictId != null && model.BlockId != null && model.ClusterId != null
@@ -92,32 +107,37 @@ namespace FP.Controllers
                                         {
                                             if (m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve))
                                             {
-                                                if (tbl.CMMIPId_pk == Guid.Empty)
+                                                if (m.CMMIPId_pk == Guid.Empty)
                                                 {
                                                     tbl.CMMIPId_pk = Guid.NewGuid();
-                                                    tbl.DistrictId_fk = m.DistrictId_fk;
-                                                    tbl.BlockId_fk = m.BlockId_fk;
-                                                    tbl.ClusterId_fk = m.ClusterId_fk;
-                                                    tbl.PanchayatId_fk = m.PanchayatId_fk;
-                                                    tbl.VoId_fk = m.VoId_fk;
-                                                    tbl.BFYId_fk = m.BFYId_fk;
-                                                    tbl.FollowupId_fk = m.FollowupId_fk;
-                                                    tbl.MIMonth = model.Month;
-                                                    tbl.MIYear = model.Year;
-                                                    tbl.Approved1Status = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
-                                                    tbl.Approved1Date = cdt;
-                                                    tbl.Approved1Remarks = model.ApprovedRemarks;
-                                                    tbl.Approved1By = MvcApplication.CUser.Id;
-                                                    tbl.IsActive = true;
-                                                    tbl_list.Add(tbl);
+                                                    if (m.DistrictId_fk == model.DistrictId && m.BlockId_fk == model.BlockId && m.ClusterId_fk == model.ClusterId)
+                                                    {
+                                                        tbl.DistrictId_fk = m.DistrictId_fk;
+                                                        tbl.BlockId_fk = m.BlockId_fk;
+                                                        tbl.ClusterId_fk = m.ClusterId_fk;
+
+                                                        tbl.PanchayatId_fk = m.PanchayatId_fk;
+                                                        tbl.VoId_fk = m.VoId_fk;
+                                                        tbl.BFYId_fk = m.BFYId_fk;
+                                                        tbl.FollowupId_fk = m.FollowupId_fk;
+                                                        tbl.MIMonth = model.Month;
+                                                        tbl.MIYear = model.Year;
+                                                        tbl.Approved1Status = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
+                                                        tbl.Approved1Date = cdt;
+                                                        tbl.Approved1Remarks = model.ApprovedRemarks;
+                                                        tbl.Approved1By = MvcApplication.CUser.Id;
+                                                        tbl.IsActive = true;
+                                                        tbl_list.Add(tbl);
+                                                    }
                                                 }
                                             }
                                         }
-                                        if (tbl_list.Count > 0)
-                                        {
-                                            results += db_.SaveChanges();
-                                        }
                                     }
+                                }
+                                if (tbl_list.Count > 0)
+                                {
+                                    db_.tbl_CMMIncentivePayment.AddRange(tbl_list);
+                                    results += db_.SaveChanges();
                                 }
                                 // results += db_.SaveChanges();
                                 var groups = mlist.GroupBy(x => x.ReportedByUserId);
@@ -143,8 +163,8 @@ namespace FP.Controllers
                                         tblpay.CreatedOn = cdt;
                                         tblpay.UpdatedOn = cdt;
                                         db_.tbl_PaymentHistory.Add(tblpay);
+                                        results += db_.SaveChanges();
                                     }
-                                    db_.SaveChanges();
                                 }
                             }
                             else
@@ -164,7 +184,7 @@ namespace FP.Controllers
             }
             catch (Exception)
             {
-                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Congratulations,Monthly Incentive" + GetEnumDescription(Enums.eReturnReg.Insert) + "Successfully! \r\n", Data = null };
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.ExceptionError), Data = null };
                 var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                 resResponse3.MaxJsonLength = int.MaxValue;
                 return resResponse3;
