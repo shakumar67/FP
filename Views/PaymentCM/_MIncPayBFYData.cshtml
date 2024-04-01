@@ -31,10 +31,13 @@
                         int srno = 1;
                         foreach (DataRow dr in dt.Rows)
                         {
-                            <tr data-cmmipid="@dr["CMMIPId_pk"]" data-bfyid="@dr["BpkID"]" data-folloupid="@dr["FollowupId"]"
-                                disid="@dr["DistrictId_pk"]" blckid="@dr["BlockId_pk"]"
-                                clfid="@dr["CLF_ID_pk"]" pchytid="@dr["Panchayatid_pk"]" vorgid="@dr["Void_pk"]">
-                                <td><input type="checkbox" class="check" name="check" id="check@(srno)" checked onchange="CheckUnchecked(this)" /></td>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="check" name="check" id="check@(srno)" checked onchange="CheckUnchecked(this)"
+                                           data-cmmipid="@dr["CMMIPId_pk"]" data-bfyid="@dr["BpkID"]" data-folloupid="@dr["FollowupId"]"
+                                           disid="@dr["DistrictId_pk"]" blckid="@dr["BlockId_pk"]"
+                                           clfid="@dr["CLF_ID_pk"]" pchytid="@dr["Panchayatid_pk"]" vorgid="@dr["Void_pk"]" reportedbyuserid="@dr["ReportedByUserId"]" />
+                                </td>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-center">
                                     <a href="javascript:void(0);" onclick="BFYDetailView('@dr["BpkID"]')" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>

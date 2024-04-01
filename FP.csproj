@@ -733,10 +733,10 @@
     <Content Include="Views\Achievement\AddAchievePlan.cshtml" />
     <Content Include="Views\Achievement\Index.cshtml" />
     <Content Include="Views\Achievement\_AchvPlanData.cshtml" />
-    <Content Include="Views\Achievement\AddAchieveApprove.cshtml" />
-    <Content Include="Views\Achievement\_AchvPlanApprove.cshtml" />
-    <Content Include="Views\Achievement\_AchvPlanApvLevelSec.cshtml" />
-    <Content Include="Views\Achievement\LevelSecAchvApprove.cshtml" />
+    <Content Include="Views\Payment\LevelOnePayment.cshtml" />
+    <Content Include="Views\Payment\_LevelOnePaymentData.cshtml" />
+    <Content Include="Views\Achievement\_AchvPlanApvLevelSec_old.cshtml" />
+    <Content Include="Views\Achievement\LevelSecAchvApprove_old.cshtml" />
     <Content Include="Views\Beneficiary\FollowupList.cshtml" />
     <Content Include="Views\Beneficiary\_FollowDataList.cshtml" />
     <Content Include="Views\Shared\_BFYDetailView.cshtml" />

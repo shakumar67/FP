@@ -38,7 +38,6 @@ namespace FP.Models
         public string Approved3By { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedUpdatedOn { get; set; }
-        public int PlanApprove {  get; set; }
-        public string ApprovedRemarks { get; set; }
+        
     }
 }

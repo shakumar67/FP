@@ -59,7 +59,7 @@
 <div class="container-fluid pt-4 px-4">
     <fieldset class="border rounded-3 p-3">
         <legend class="float-none w-auto px-2">(@CommonModel.RoleNameCont.MRP)</legend>
-        @using (Html.BeginForm("GetAchApprovePlanList", "Achievement", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        @using (Html.BeginForm("GetAchApproveOnePlanList", "Payment", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
         {
             <div class="row g-4">
                 <div class="col-sm-12">
@@ -131,7 +131,7 @@
                                         <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Validate" />
                                     </span>&nbsp;&nbsp;&nbsp;
                                     <span class="check-spacer">
-                                        <a href="~/Achievement/AddAchieveApprove" class="btn btn-info" id="hrfid"><i class="fa fa-refresh"></i>Refresh</a>
+                                        <a href="~/Payment/LevelOnePayment" class="btn btn-info" id="hrfid"><i class="fa fa-refresh"></i>Refresh</a>
                                     </span>
                                 </div>
                             </div>
@@ -256,7 +256,7 @@
 
             $.ajax({
                 type: "GET",
-                url: document.baseURI + "/Achievement/GetAchApprovePlanList",
+                url: document.baseURI + "/Payment/GetAchApproveOnePlanList",
                 data: filtermodel,//JSON.stringify({ 'Roles': '' }),
                 //cache: false,
                 success: function (res) {
@@ -415,7 +415,7 @@
                 //var formData = $('#formid').serialize();
 
                 $.ajax({
-                    url: document.baseURI + "/Achievement/AchievePlanApprove",
+                    url: document.baseURI + "/Payment/PostLevelOnePayment",
                     type: "Post",
                     data: formData,
                     //contentType: "application/json; charset=utf-8",

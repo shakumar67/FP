@@ -5,6 +5,16 @@ using System.Web;
 
 namespace FP.Models
 {
+    public class CMMIPModel
+    {
+        public Nullable<int> DistrictId { get; set; }
+        public Nullable<int> BlockId { get; set; }
+        public Nullable<int> ClusterId { get; set; }
+        public Nullable<int> Month { get; set; }
+        public Nullable<int> Year { get; set; }
+        public virtual CMMIncentivePayModel CMMIncentivePayModel { get; set; }
+        public string ApprovedRemarks { get; set; }
+    }
     public class CMMIncentivePayModel
     {
         public CMMIncentivePayModel() { CMMIPId_pk = Guid.Empty; }
@@ -32,5 +42,8 @@ namespace FP.Models
         public string Approved3By { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedUpdatedOn { get; set; }
+        public int PlanApprove { get; set; }
+        public Guid ReportedByUserId { get; set; }
+        
     }
 }

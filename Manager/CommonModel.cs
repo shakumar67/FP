@@ -1867,7 +1867,7 @@ namespace FP.Manager
 
         #endregion
 
-        #region Payment Module Calucation Part
+        #region Payment Module Calucation Part CNRP
         public static int GetClaimApprove(int NoofPlan = 0, string TypeOfRole = "")
         {
             if (!string.IsNullOrWhiteSpace(TypeOfRole))
@@ -1875,6 +1875,11 @@ namespace FP.Manager
                 if (TypeOfRole == CommonModel.RoleNameCont.CNRP)
                 {
                     var am = Convert.ToInt32(Enums.eAmount.CNRMonthly) * NoofPlan;
+                    return am;
+                }
+                if (TypeOfRole == CommonModel.RoleNameCont.CM)
+                {
+                    var am = Convert.ToInt32(Enums.eAmount.CMMonthly) * NoofPlan;
                     return am;
                 }
             }

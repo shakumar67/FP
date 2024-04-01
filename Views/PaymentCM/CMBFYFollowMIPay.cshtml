@@ -246,41 +246,38 @@
             }
         }
 
-       function CUData() {
+        function CUData() {
           debugger;
-          var isvalid = $("#formid").valid();
-          var IsCheck = true;
+            var isvalid = $("#formid").valid();
+            var IsCheck = true; var ApprovedRemarks = $('textarea[id=ApprovedRemarks]').val();
               if ($('#DistrictId').val() == '' || $('#BlockId').val() == ''
                   || $('#CLFId').val() == '' || $('#Month').val() == '' || $('#Year').val() == ''
           ) {
               toastr.error("Error", "Please Select District, Block & Cluster");
               return false;
           }
-           //if ($('#ApprovedRemarks').val()!='') {
-           //    toastr.error("Error", "Enter the Remarks.");
-           //    return false;
-           //} 
+            if (ApprovedRemarks =='') {
+               toastr.error("Error", "Enter the Remarks.");
+               return false;
+           }
 
           jQuery.event.trigger("ajaxStart");
           //var vl = $.validator.unobtrusive.parse("#formid");
           //var Isvalid= $("#formid").validate();//CreatePlanformid
 
          // IsCheck = $('#BFYID_fk').val() == '' ? false : true;
-          var tblpushdata = [];
+            var tblpushdata = []; var modellist = [];
           var formData = new FormData();
-          formData.append('DistrictId_fk', $('#DistrictId_fk').val());
-          formData.append('BlockId_fk', $('#BlockId_fk').val());
-          formData.append('ClusterId_fk', $('#ClusterId_fk').val());
-          //formData.append('PanchayatId_fk', $('#PanchayatId_fk').val());
-          formData.append('PlanYear', $('#PlanYear').val());
-          formData.append('PlanMonth', $('#PlanMonth').val());
-           var countrecject = 0;
-         // $('#DataList').each(function () {
+            formData.append('DistrictId', $('#DistrictId').val());
+            formData.append('BlockId', $('#BlockId').val());
+            formData.append('ClusterId', $('#CLFId').val());
+            formData.append('Year', $('#Year').val());
+            formData.append('Month', $('#Month').val());
+            formData.append('ApprovedRemarks', ApprovedRemarks);
 
               let table2 = $('#tbl').DataTable();
-              table2.$('input[name=check]').each(function (i, row) {
-
-                  var achvplanid = $(row).attr('data-achvplanid');
+            table2.$('input[name=check]').each(function (i, row) {
+                debugger;
                   var cmmipid = $(row).attr('data-cmmipid');
                   var bfyid = $(row).attr('data-bfyid');
                   var folloupid = $(row).attr('data-folloupid');
@@ -289,10 +286,10 @@
                   var clfid = $(row).attr('data-clfid');
                   var pchytid = $(row).attr('data-pchytid');
                   var vorgid = $(row).attr('data-vorgid');
-                  var ApprovedRemarks = $('#ApprovedRemarks').val();
+                var ReportedByUserId = $(row).attr('data-reportedbyuserid');
 
                   debugger;
-                  if (bfyid != '' && bfyid != '@Guid.Empty') {
+                  if (bfyid != '' && bfyid != '@Guid.Empty' && bfyid != undefined) {
                       if ($(this).is(':checked')) {
                           tblpushdata.push({
                               CMMIPId_pk: cmmipid,
@@ -303,21 +300,19 @@
                               ClusterId_fk: clfid,
                               PanchayatId_fk: pchytid,
                               VoId_fk: vorgid,
-                              MIMonth: $('#Month').val(),
-                              MIYear: $('#Year').val(),
-                              ApprovedRemarks: ApprovedRemarks,
+                              ReportedByUserId: ReportedByUserId,
                               PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Approve)',
                           });
                       }
                   }
           });
-       
-          if (tblpushdata.length == 0) {
-              toastr.error("Error", "Please choice at least one.");
-              return false;
-          }
 
-              formData.append('modellist', JSON.stringify(tblpushdata));
+            if (tblpushdata.length == 0) {
+                toastr.error("Error", "Please choice at least one.");
+                return false;
+            }
+            formData.append('CMMIPModel', JSON.stringify(tblpushdata));
+            //modellist.push(JSON.stringify(tblpushdata));
 
           if (isvalid && IsCheck) {
              // document.getElementById("btnsubmit").disabled = true;
@@ -326,6 +321,8 @@
               $.ajax({
                   url: document.baseURI + "/PaymentCM/PostDataCMMIPay",
                   type: "Post",
+                  //data: JSON.stringify(model),
+                  contentType: "application/json; charset=utf-8",
                   data: formData,
                   //contentType: "application/json; charset=utf-8",
                   dataType: "json",
