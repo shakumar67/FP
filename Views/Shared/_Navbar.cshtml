@@ -12,250 +12,307 @@
 </style>
 
 <div class="sidebar pe-4 pb-3">
-    <nav class="navbar navbar-light">
-        <a href="/" class="navbar-brand mx-4 mb-3">
-            <h6 class="text-primary">
-                <img src="~/Content/img/fp-logo.png" alt="Logo" class="fp-logo" />
-                खुशहाल परिवार
-            </h6>
-        </a>
-        <div class="d-flex align-items-center ms-4 mb-4">
-            <div class="position-relative">
-                <img class="rounded-circle" src="~/Content/img/user.png" alt="" style="width: 40px; height: 40px;">
-                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-            </div>
-            <div class="ms-3">
-                <h6 class="mb-0">
-                    @{ if (User.Identity.IsAuthenticated)
-                        {
-                            @u.Name
-                        }
-                    }
-                </h6>
-                @*<span>@u.Role</span>*@
-            </div>
+    <a href="/" class="navbar-brand mx-4 mb-3">
+        <h6 class="text-primary">
+            <img src="~/Content/img/fp-logo.png" alt="Logo" class="fp-logo" />
+            खुशहाल परिवार
+        </h6>
+    </a>
+    <div class="d-flex align-items-center ms-4 mb-4">
+        <div class="position-relative">
+            <img class="rounded-circle" src="~/Content/img/user.png" alt="" style="width: 40px; height: 40px;">
+            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
         </div>
-        @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.Admin) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.State))
-        {
-            <div class="navbar-nav w-100">
-                <a href="~/Home/Index" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
-                        <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa  fa-arrow-up me-2"></i>Follow up</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Beneficiary/BFYFollow" class="dropdown-item">Follow up</a>
-                        <a href="~/Beneficiary/FollowupList" class="dropdown-item">Follow List</a>
-                    </div>
-                </div>
-                <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Achievement</a>
-                <a href="~/Service/AddServiceCNRP" class="nav-item nav-link"><i class="fa fa-database me-2"></i>Service-CNRP</a>
-                <div class="navbar-nav w-100">
-                    <div class="nav-item dropdown">
-                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="~/Payment/LevelOnePayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP  (@CommonModel.RoleNameCont.MRP)</a>
-                            <a href="~/Payment/LevelTwoPayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP (@CommonModel.RoleNameCont.CC)</a>
-                            <a href="~/Payment/LevelThreePayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP (@CommonModel.RoleNameCont.BPM)</a>
+        <div class="ms-3">
+            <h6 class="mb-0">
+                @{ if (User.Identity.IsAuthenticated)
+                    {
+                        @u.Name
+                    }
+                }
+            </h6>
+        </div>
+    </div>
 
-                            <a href="~/PaymentCM/CMBFYFollowMIPay" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CM (@CommonModel.RoleNameCont.MRP)</a>
-                            @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
+    <div class="nav-side-menu"> 
+        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+        <div class="menu-list">
+            <ul id="menu-content" class="menu-content collapse out">
+                <li class="active"> <a href="#"> <i class="fa fa-tachometer-alt me-2"></i> Dashboard </a> </li>
+                <li data-toggle="collapse" data-target="#Beneficiary" class="collapsed">
+                    <a href="javascript:void(0)"><i class="fa fa-laptop me-2"></i>Beneficiary <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="Beneficiary">
+                    <li><a href="~/Beneficiary/Beneficiary">Add Beneficiary</a></li>
+                    <li><a href="~/Beneficiary/BFYList">Beneficiary List</a></li>
+                    <li data-toggle="collapse" data-target="#fame" class="collapsed">
+                        <a href="#">
+                            New <span class="arrow"></span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="sub-menu collapse" id="fame">
+                    <li>New New 1</li>
+                    <li>New New 2</li>
+                    <li>New New 2</li>
+                </ul>
+                <li data-toggle="collapse" data-target="#follow-up" class="collapsed">
+                    <a href="#">
+                        <i class="fa  fa-arrow-up me-2"></i>Follow up <span class="arrow"></span>
+                    </a>
+                </li>
+                <ul class="sub-menu collapse" id="follow-up">
+                    <li><a href="~/Beneficiary/BFYFollow">Follow up</a></li>
+                    <li><a href="~/Beneficiary/FollowupList">Follow List</a></li>
+                </ul>
+                <li> <a href="/Achievement/AddAchievePlan"> <i class="fa fa-fa fa-users me-2"></i> Achievement </a> </li>
+                <li data-toggle="collapse" data-target="#plan" class="collapsed">
+                    <a href="#">
+                        <i class="fas fa-tasks me-2"></i> Plan <span class="arrow"></span>
+                    </a>
+                </li>
+                <ul class="sub-menu collapse" id="plan">
+                    <li><a href="/Plan/CreatePlan">Add Plan</a></li>
+                    <li><a href="/Plan/PlanList">Planning List</a></li>
+                </ul>
+                <li data-toggle="collapse" data-target="#accountt" class="collapsed">
+                    <a href="#">
+                        <i class="fa fa-users me-2"></i> Account <span class="arrow"></span>
+                    </a>
+                </li>
+                <ul class="sub-menu collapse" id="accountt">
+                    <li><a href="~/Account/Register">Registration</a></li>
+                    <li><a href="~/Master/UserDetaillist">User List</a></li>
+                </ul>
+                <li data-toggle="collapse" data-target="#Report" class="collapsed">
+                    <a href="#">
+                        <i class="fa fa-file me-2"></i> Report <span class="arrow"></span>
+                    </a>
+                </li>
+                <ul class="sub-menu collapse" id="Report">
+                    <li><a href="~/Report/PrapatraOne">Prapatra-1 List</a></li>
+                    <li><a href="~/Report/LetterTwo">Prapatra-2 List</a></li>
+                    <li><a href="~/Report/ServiceBFYList">Service Details</a></li>
+                </ul>
+                <li data-toggle="collapse" data-target="#Master" class="collapsed">
+                    <a href="#">
+                        <i class="fa fa-database me-2"></i> Master <span class="arrow"></span>
+                    </a>
+                </li>
+                <ul class="sub-menu collapse" id="Master">
+                    <li>
+                        <a href="~/Master/CLFMaster">@CommonModel.DispLevel.Cluster</a>
+                    </li>
+                    <li><a href="~/Master/PanchayatMaster">@CommonModel.DispLevel.Panchayat</a></li>
+                    <li><a href="~/Master/VillMaster">@CommonModel.DispLevel.VO</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</div>
+@*<div class="sidebar pe-4 pb-3">
+        <nav class="navbar navbar-light">
+            <a href="/" class="navbar-brand mx-4 mb-3">
+                <h6 class="text-primary">
+                    <img src="~/Content/img/fp-logo.png" alt="Logo" class="fp-logo" />
+                    खुशहाल परिवार
+                </h6>
+            </a>
+            <div class="d-flex align-items-center ms-4 mb-4">
+                <div class="position-relative">
+                    <img class="rounded-circle" src="~/Content/img/user.png" alt="" style="width: 40px; height: 40px;">
+                    <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                </div>
+                <div class="ms-3">
+                    <h6 class="mb-0">
+                        @{ if (User.Identity.IsAuthenticated)
+                            {
+                                @u.Name
+                            }
+                        }
+                    </h6>
+                </div>
+            </div>
+            @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.Admin) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.State))
+            {
+                <div class="navbar-nav w-100">
+                    <a href="~/Home/Index" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
+                            <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa  fa-arrow-up me-2"></i>Follow up</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Beneficiary/BFYFollow" class="dropdown-item">Follow up</a>
+                            <a href="~/Beneficiary/FollowupList" class="dropdown-item">Follow List</a>
+                        </div>
+                    </div>
+                    <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Achievement</a>
+                    <a href="~/Service/AddServiceCNRP" class="nav-item nav-link"><i class="fa fa-database me-2"></i>Service-CNRP</a>
+                    <div class="navbar-nav w-100">
+                        <div class="nav-item dropdown">
+                            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="~/Payment/LevelOnePayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP  (@CommonModel.RoleNameCont.MRP)</a>
+                                <a href="~/Payment/LevelTwoPayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP (@CommonModel.RoleNameCont.CC)</a>
+                                <a href="~/Payment/LevelThreePayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP (@CommonModel.RoleNameCont.BPM)</a>
+                                <a href="~/PaymentCM/CMBFYFollowMIPay" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CM (@CommonModel.RoleNameCont.MRP)</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Account/Register" class="dropdown-item">Registration</a>
+                            <a href="~/Master/UserDetaillist" class="dropdown-item">User List</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
+                            <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
+                            <a href="~/Report/ServiceBFYList" class="dropdown-item">Service Details</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-database me-2"></i>Master</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Master/CLFMaster" class="nav-item nav-link actives6">@CommonModel.DispLevel.Cluster</a>
+                            <a href="~/Master/PanchayatMaster" class="nav-item nav-link actives6">@CommonModel.DispLevel.Panchayat</a>
+                            <a href="~/Master/VillMaster" class="nav-item nav-link actives6">@CommonModel.DispLevel.VO</a>
                         </div>
                     </div>
                 </div>
-                @*<div class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-tasks me-2"></i>Plan</a>
-            <div class="dropdown-menu bg-transparent border-0">
-                <a href="~/Plan/CreatePlan" class="dropdown-item">Add Plan</a>
-                <a href="~/Plan/PlanList" class="dropdown-item">Planning List</a>
-            </div>
-        </div>*@
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Account/Register" class="dropdown-item">Registration</a>
-                        <a href="~/Master/UserDetaillist" class="dropdown-item">User List</a>
+            }
+            else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.Viewer))
+            {
+                <div class="navbar-nav w-100">
+                    <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
+                        </div>
+                    </div>
+                    <a href="~/Master/UserDetaillist" class="nav-item nav-link"><i class="fa fa-list"></i>User List</a>
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
+                            <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
+                        </div>
                     </div>
                 </div>
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
-                        <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
-                        @*<a href="~/Report/AchBFYList" class="dropdown-item">Achievement Details</a>*@
-                        <a href="~/Report/ServiceBFYList" class="dropdown-item">Service Details</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-database me-2"></i>Master</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Master/CLFMaster" class="nav-item nav-link actives6">@CommonModel.DispLevel.Cluster</a>
-                        <a href="~/Master/PanchayatMaster" class="nav-item nav-link actives6">@CommonModel.DispLevel.Panchayat</a>
-                        <a href="~/Master/VillMaster" class="nav-item nav-link actives6">@CommonModel.DispLevel.VO</a>
-                    </div>
-                </div>
-
-                @*<a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-        <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-        <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>*@
-                @*<div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
-            <div class="dropdown-menu bg-transparent border-0">
-                <a href="signin.html" class="dropdown-item">Sign In</a>
-                <a href="signup.html" class="dropdown-item">Sign up</a>
-                <a href="signup.html" class="dropdown-item">Sign up</a>
-                <a href="404.html" class="dropdown-item">404 Error</a>
-                <a href="blank.html" class="dropdown-item">Blank Page</a>
-            </div>
-        </div>*@
-            </div>
-        }
-        else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.Viewer))
-        {
-            <div class="navbar-nav w-100">
-                <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
-                    </div>
-                </div>
-                <a href="~/Master/UserDetaillist" class="nav-item nav-link"><i class="fa fa-list"></i>User List</a>
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
-                        <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
-                        @*<a href="~/Report/AchBFYList" class="dropdown-item">Achievement Details</a>*@
-                    </div>
-                </div>
-            </div>
-        }
-        else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CM))
-        {
-    <div class="navbar-nav w-100">
-        <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-        <div class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
-            <div class="dropdown-menu bg-transparent border-0">
-                <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
-                <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
-            </div>
-        </div>
-        <div class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-arrow-up me-2"></i>Follow up</a>
-            <div class="dropdown-menu bg-transparent border-0">
-                <a href="~/Beneficiary/BFYFollow" class="dropdown-item">Follow up</a>
-            </div>
-        </div>
-        @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP))
-        {
-            <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Achievement</a>
-            <a href="~/Service/AddServiceCNRP" class="nav-item nav-link"><i class="fa fa-tasks me-2"></i>Service-CNRP</a>
-            @*<div class="nav-item dropdown">
-                <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-tasks me-2"></i>Plan</a>
-                <div class="dropdown-menu bg-transparent border-0">
-                    <a href="~/Plan/CreatePlan" class="dropdown-item">Add Plan</a>
-                    <a href="~/Plan/PlanList" class="dropdown-item">Planning List</a>
-                </div>
-            </div>*@
+            }
+            else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CM))
+            {
+        <div class="navbar-nav w-100">
+            <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
             <div class="nav-item dropdown">
-                <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
+                <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="~/Account/Register" class="dropdown-item">Registration</a>
-                    <a href="~/Master/UserDetaillist" class="dropdown-item">User List</a>
+                    <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
+                    <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
                 </div>
             </div>
-
-            <a href="~/Master/VillMaster" class="nav-item nav-link"><i class="fa fa-database"></i>Village Organization</a>
-        }
-        <div class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
-            <div class="dropdown-menu bg-transparent border-0">
-                <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
-                <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
-                <a href="~/Report/ServiceBFYList" class="dropdown-item">Service List</a>
-                @*<a href="~/Report/AchBFYList" class="dropdown-item">Achievement Details</a>*@
-            </div>
-        </div>
-    </div>
-        }
-        else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPM) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPIU) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.District))
-        {
-            <div class="navbar-nav w-100">
-                <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
-                        <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
-                    </div>
+            <div class="nav-item dropdown">
+                <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-arrow-up me-2"></i>Follow up</a>
+                <div class="dropdown-menu bg-transparent border-0">
+                    <a href="~/Beneficiary/BFYFollow" class="dropdown-item">Follow up</a>
                 </div>
+            </div>
+            @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP))
+            {
+                <a href="~/Achievement/AddAchievePlan" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Achievement</a>
+                <a href="~/Service/AddServiceCNRP" class="nav-item nav-link"><i class="fa fa-tasks me-2"></i>Service-CNRP</a>
                 <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="~/Account/Register" class="dropdown-item">Registration</a>
                         <a href="~/Master/UserDetaillist" class="dropdown-item">User List</a>
                     </div>
                 </div>
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
-                        <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
-                        @*<a href="~/Report/AchBFYList" class="dropdown-item">Achievement Detail</a>*@
-                    </div>
+                <a href="~/Master/VillMaster" class="nav-item nav-link"><i class="fa fa-database"></i>Village Organization</a>
+            }
+            <div class="nav-item dropdown">
+                <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
+                <div class="dropdown-menu bg-transparent border-0">
+                    <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
+                    <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
+                    <a href="~/Report/ServiceBFYList" class="dropdown-item">Service List</a>
                 </div>
             </div>
-        }
-        else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.MRP))
-        {
-            <div class="navbar-nav w-100" style="display:none;">
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Payment/LevelOnePayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP (@CommonModel.RoleNameCont.MRP)</a>
-                        <a href="~/PaymentCM/CMBFYFollowMIPay" class="nav-item nav-link actives">Monthly Incentive @CommonModel.RoleNameCont.CM (@CommonModel.RoleNameCont.MRP)</a>
+        </div>
+            }
+            else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPM) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPIU) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.District))
+            {
+                <div class="navbar-nav w-100">
+                    <a href="/" class="nav-item nav-link actives"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Beneficiary</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Beneficiary/Beneficiary" class="dropdown-item">Add Beneficiary</a>
+                            <a href="~/Beneficiary/BFYList" class="dropdown-item">Beneficiary List</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>Account</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Account/Register" class="dropdown-item">Registration</a>
+                            <a href="~/Master/UserDetaillist" class="dropdown-item">User List</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Report</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Report/PrapatraOne" class="dropdown-item">Prapatra-1 List</a>
+                            <a href="~/Report/LetterTwo" class="dropdown-item">Prapatra-2 List</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.MRP))
+            {
+                <div class="navbar-nav w-100" style="display:none;">
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Payment/LevelOnePayment" class="nav-item nav-link">Monthly Incentive @CommonModel.RoleNameCont.CNRP (@CommonModel.RoleNameCont.MRP)</a>
+                            <a href="~/PaymentCM/CMBFYFollowMIPay" class="nav-item nav-link actives">Monthly Incentive @CommonModel.RoleNameCont.CM (@CommonModel.RoleNameCont.MRP)</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CC))
+            {
+                <div class="navbar-nav w-100" style="display:none;">
+                    <div class="nav-item dropdown">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="~/Payment/LevelTwoPayment" class="nav-item nav-link">Monthly Incentive  @CommonModel.RoleNameCont.CNRP  (@CommonModel.RoleNameCont.CC)</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPM))
+            {
+        <div class="navbar-nav w-100" style="display:none;">
+            <div class="nav-item dropdown">
+                <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
+                <div class="dropdown-menu bg-transparent border-0">
+                    <a href="~/Payment/LevelThreePayment" class="nav-item nav-link">Monthly Incentive  @CommonModel.RoleNameCont.CNRP  (@CommonModel.RoleNameCont.BPM)</a>
 
-                        @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
-                    </div>
                 </div>
             </div>
-        }
-        else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CC))
-        {
-            <div class="navbar-nav w-100" style="display:none;">
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Payment/LevelTwoPayment" class="nav-item nav-link">Monthly Incentive  @CommonModel.RoleNameCont.CNRP  (@CommonModel.RoleNameCont.CC)</a>
-                        @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
-                    </div>
-                </div>
-            </div>
-        }
-        else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.BPM))
-        {
-            <div class="navbar-nav w-100" style="display:none;">
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tasks me-2"></i>Payment</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="~/Payment/LevelThreePayment" class="nav-item nav-link">Monthly Incentive  @CommonModel.RoleNameCont.CNRP  (@CommonModel.RoleNameCont.BPM)</a>
-                        @*<a href="~/Achievement/AchieveApprovedList" class="dropdown-item">Approve List</a>*@
-                    </div>
-                </div>
-            </div>
-        }
-
-    </nav>
-</div>
-<!-- Sidebar End -->
-
+        </div>
+            }
+        </nav>
+    </div>*@
 <script>
     setTimeout(function () {
         currentUrl = $(location).attr("href");

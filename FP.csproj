@@ -521,6 +521,10 @@
     <Content Include="Content\lib\waypoints\links.php" />
     <Content Include="Content\lib\waypoints\waypoints.min.js" />
     <Content Include="Content\Logincss.css" />
+    <Content Include="Content\sider-nav\bootstrap.min.css" />
+    <Content Include="Content\sider-nav\bootstrap.min.js" />
+    <Content Include="Content\sider-nav\jquery-1.10.2.min.js" />
+    <Content Include="Content\sider-nav\verticalmenu.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
