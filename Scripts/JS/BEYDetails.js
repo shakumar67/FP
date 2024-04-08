@@ -1,4 +1,7 @@
-﻿function BFYDetailView(BFYId) { 
+﻿var baseurl = document.baseURI;
+$(function () {
+});
+function BFYDetailView(BFYId) { 
     $("#data-modelview").html(''); $("#data-modelview").css('color', '');
     var filtermodel = new Object();
     filtermodel.BFYId = BFYId;

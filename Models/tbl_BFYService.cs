@@ -36,5 +36,22 @@ namespace FP.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public Nullable<int> DistrictId_fk { get; set; }
+        public Nullable<int> BlockId_fk { get; set; }
+        public Nullable<int> ClusterId_fk { get; set; }
+        public Nullable<int> PanchayatId_fk { get; set; }
+        public Nullable<int> VoId_fk { get; set; }
+        public Nullable<bool> Approved1Status { get; set; }
+        public Nullable<System.DateTime> Approved1Date { get; set; }
+        public string Approved1Remarks { get; set; }
+        public string Approved1By { get; set; }
+        public Nullable<bool> Approved2Status { get; set; }
+        public Nullable<System.DateTime> Approved2Date { get; set; }
+        public string Approved2Remarks { get; set; }
+        public string Approved2By { get; set; }
+        public Nullable<bool> Approved3Status { get; set; }
+        public Nullable<System.DateTime> Approved3Date { get; set; }
+        public string Approved3Remarks { get; set; }
+        public string Approved3By { get; set; }
     }
 }

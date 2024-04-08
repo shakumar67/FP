@@ -17,17 +17,22 @@
     .trdisableAprroved {
         color: #fff;
         pointer-events: none !important;
-        background-color: #90c767 !important
+        background-color: #478718 !important
     }
 
     .trdisableReject {
         color: #fff;
         /*pointer-events: none !important;*/
-        background-color: #c86c6c !important
+        background-color: #b72525 !important
     }
 
     .trcolor {
         color: #000;
+    }
+
+    .table-bordered > tbody > tr:hover {
+        background: white;
+        color: black;
     }
 </style>
 <div class="row row-deck">
@@ -35,7 +40,7 @@
         <div class="card">
             <div class="table-responsive">
 
-                <table class="table table-bordered table-hover dt-responsive display" id="DataList" bSort="false" width="100%">
+                <table class="table table-bordered dt-responsive display" id="DataList" bSort="false" width="100%">
                     <thead>
                         <tr>
                             <th>@CommonModel.DisAchvlbl.Name</th>
@@ -43,6 +48,7 @@
                             <th>@CommonModel.DisAchvlbl.ClaimAmount</th>
                             <th>@CommonModel.DisAchvlbl.ApproveAmount</th>
                             <th></th>
+                            <th>@CommonModel.DispLevel.Cluster</th>
                             <th>@CommonModel.DispLevel.Panchayat</th>
                             <th>@CommonModel.DispLevel.VO</th>
                             <th>@CommonModel.DisAchvlbl.MeetingDate</th>
@@ -95,6 +101,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
+                                            <td></td>
                                             <td width="50%"></td>
                                         </tr>
                                     }
@@ -134,6 +141,7 @@
                                                                            data-planstatus="@dr1["PlanStatus"]"
                                                                            value="@dr1["AchieveId_pk"]" @strchecked />
                                                                 </td>
+                                                                <td data-title="Panchayat">@dr1["CLFName"]</td>
                                                                 <td data-title="Panchayat">@dr1["Panchayat"]</td>
                                                                 <td data-title="VO">@dr1["VO"]</td>
                                                                 <td data-title="Meetingheld">@(CommonModel.FormateDtDMY(dr1["Meetingheld"].ToString()))</td>
@@ -162,7 +170,7 @@
                             }
                             else
                             {
-                                <tr><td colspan="11" class="text-danger text-center"><strong>@(Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound))</strong></td></tr>
+                                <tr><td colspan="12" class="text-danger text-center"><strong>@(Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound))</strong></td></tr>
                             }
                         }
 

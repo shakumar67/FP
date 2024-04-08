@@ -308,6 +308,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AchievementController.cs" />
+    <Compile Include="Controllers\MobilizationPaymentController.cs" />
     <Compile Include="Controllers\PaymentCMController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -756,6 +757,8 @@
     <Content Include="Views\Payment\_LevelThreePaymentData.cshtml" />
     <Content Include="Views\PaymentCM\CMBFYFollowMIPay.cshtml" />
     <Content Include="Views\PaymentCM\_MIncPayBFYData.cshtml" />
+    <Content Include="Views\MobilizationPayment\MobilizationIPayment.cshtml" />
+    <Content Include="Views\MobilizationPayment\_MobilizationIPBFYData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

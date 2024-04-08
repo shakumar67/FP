@@ -26,6 +26,9 @@ namespace FP.Models
         public Nullable<decimal> ApprovedAmount { get; set; }
         public Nullable<int> PayMonth { get; set; }
         public Nullable<int> PayYear { get; set; }
+        public string TypeofPayment { get; set; }
+        public Nullable<decimal> MobilizationCNRP { get; set; }
+        public Nullable<decimal> MobilizationCM { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

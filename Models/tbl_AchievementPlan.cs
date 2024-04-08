@@ -23,6 +23,7 @@ namespace FP.Models
         public Nullable<int> PlanMonth { get; set; }
         public Nullable<int> PlanYear { get; set; }
         public Nullable<System.DateTime> Meetingheld { get; set; }
+        public Nullable<decimal> ClaimedAmount { get; set; }
         public Nullable<int> Noofparticipant { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }

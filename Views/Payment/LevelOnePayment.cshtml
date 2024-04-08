@@ -29,7 +29,7 @@
     }
 
     .liApprove::before {
-        color: #90c767;
+        color: #478718;
         content: '■';
         position: absolute;
         left: -0.8em; /* Adjust this value so that it appears where you want. */
@@ -37,7 +37,7 @@
     }
 
     .liReject::before {
-        color: #da3f3f;
+        color: #b72525;
         content: '■';
         position: absolute;
         left: -0.8em; /* Adjust this value so that it appears where you want. */
@@ -185,6 +185,12 @@
             //if ($('#PanchayatId_fk').val() != "") {
             //    GetVOrg(".Void_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#ClusterId_fk').val(), $(this).val());
             //}
+            /* Role Wise */
+            BindRolewise("DistrictId_fk", "BlockId_fk", "ClusterId_fk");//,"PanchayatId_fk", "VOId_fk"
+            if ($('#DistrictId_fk').val() != "" && $('#BlockId_fk').val() != "" && $('#ClusterId_fk').val() != ""
+                && $('#PlanYear').val() != "" && $('#PlanMonth').val() != "") {
+                BindData();
+            }
             $('#PlanYear').change(function () {
                 BindData();
             });
@@ -192,8 +198,7 @@
                 BindData();
             });
 
-            /* Role Wise */
-            BindRolewise("DistrictId_fk", "BlockId_fk", "ClusterId_fk", "PanchayatId_fk", "VOId_fk");
+           
 
             $("#formid").submit(function (e) {
                 e.preventDefault();

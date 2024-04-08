@@ -24,6 +24,7 @@ namespace FP.Models
         public Nullable<System.Guid> FollowupId_fk { get; set; }
         public Nullable<int> MIMonth { get; set; }
         public Nullable<int> MIYear { get; set; }
+        public Nullable<decimal> ClaimedAmount { get; set; }
         public Nullable<bool> Approved1Status { get; set; }
         public Nullable<System.DateTime> Approved1Date { get; set; }
         public string Approved1Remarks { get; set; }

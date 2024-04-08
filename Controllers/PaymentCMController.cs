@@ -22,10 +22,12 @@ namespace FP.Controllers
             return View();
         }
 
-        #region CM Level Monthly Incentive 2nd Monthly Payment Level Approved Planning (MRP Level First)
-        public ActionResult CMBFYFollowMIPay()
+        #region CM Level Monthly Incentive One Monthly Payment Level Approved Planning (MRP Level First)
+        public ActionResult CMBFYFollowMIPay(int TypeLayer = 1)
         {
             FilterModel model = new FilterModel();
+            model.TypeLayer = TypeLayer;
+            model.BtnType = TypeLayer == 1 ? "Validate" : TypeLayer == 2 ? "Checked" : TypeLayer == 3 ? "Approved" : "Submit";
             return View(model);
         }
         public ActionResult GetCMMRPBFYFollowList(FilterModel model)
@@ -46,18 +48,18 @@ namespace FP.Controllers
             catch (Exception ex)
             {
                 string er = ex.Message;
-                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+                return Json(new { IsSuccess = false, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult BFYDetailFollowData(Guid BFYId)
-        {
-            FilterModel model = new FilterModel();
-            if (BFYId != null && BFYId != Guid.Empty)
-            {
-                model.BFYId = Convert.ToString(BFYId);
-            }
-            return View(model);
-        }
+        //public ActionResult BFYDetailFollowData(Guid BFYId)
+        //{
+        //    FilterModel model = new FilterModel();
+        //    if (BFYId != null && BFYId != Guid.Empty)
+        //    {
+        //        model.BFYId = Convert.ToString(BFYId);
+        //    }
+        //    return View(model);
+        //}
         [HttpPost]
         public ActionResult PostDataCMMIPay(CMMIPModel model)
         {
@@ -75,6 +77,7 @@ namespace FP.Controllers
                     {
                         if (mlist.Count() > 0)
                         {
+                            var isvaliddb = false;
                             if (model.Month == null || model.Month == 0 || model.Year == null || model.Year == 0)
                             {
                                 response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.AllFieldsRequired), Data = null };
@@ -82,19 +85,48 @@ namespace FP.Controllers
                                 resResponse4.MaxJsonLength = int.MaxValue;
                                 return resResponse4;
                             }
-                            if (db_.tbl_CMMIncentivePayment.Any(x => x.DistrictId_fk == model.DistrictId && x.BlockId_fk == model.BlockId && x.ClusterId_fk == model.ClusterId && x.MIMonth == model.Month && x.MIYear == model.Year))
+                            if (CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role)
                             {
-                                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.Already), Data = null };
-                                var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
-                                resResponse4.MaxJsonLength = int.MaxValue;
-                                return resResponse4;
+                                if (db_.tbl_CMMIncentivePayment.Any(x => x.DistrictId_fk == model.DistrictId && x.BlockId_fk == model.BlockId && x.ClusterId_fk == model.ClusterId && x.MIMonth == model.Month && x.MIYear == model.Year))
+                                {
+                                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.Already), Data = null };
+                                    var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+                                    resResponse4.MaxJsonLength = int.MaxValue;
+                                    return resResponse4;
+                                }
                             }
-
+                            //if (CommonModel.RoleNameCont.BPM == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role)
+                            //{
+                            //    if (db_.tbl_CMMIncentivePayment.Any(x => x.DistrictId_fk == model.DistrictId && x.BlockId_fk == model.BlockId && x.MIMonth == model.Month && x.MIYear == model.Year))
+                            //    {
+                            //        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.Already), Data = null };
+                            //        var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+                            //        resResponse4.MaxJsonLength = int.MaxValue;
+                            //        return resResponse4;
+                            //    }
+                            //}
+                            if (CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role || CommonModel.RoleNameCont.CC == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role)
+                            {
+                                if (mlist.Count() > 0 && model.DistrictId != null && model.BlockId != null && model.ClusterId != null
+                                   && model.Month != null && model.Year != null)
+                                {
+                                    isvaliddb = true;
+                                }
+                            }
+                            if (CommonModel.RoleNameCont.BPM == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role)
+                            {
+                                if (mlist.Count() > 0 && model.DistrictId != null && model.BlockId != null
+                                  && model.Month != null && model.Year != null)
+                                {
+                                    isvaliddb = true;
+                                }
+                            }
                             tbl_CMMIncentivePayment tbl;
                             List<tbl_CMMIncentivePayment> tbl_list = new List<tbl_CMMIncentivePayment>();
-                            if (model.DistrictId != null && model.BlockId != null && model.ClusterId != null
-                               && model.Month != null && model.Year != null)
+                            if (isvaliddb)
                             {
+                                var getFollowdata = db_.tbl_BFYFollowup.Where(x => x.FMonth == model.Month && x.FYear == model.Year)
+                                                           .OrderByDescending(x => x.CreatedOn).ToList();
                                 foreach (var m in mlist)
                                 {
                                     if (m.BFYId_fk != Guid.Empty &&
@@ -107,29 +139,63 @@ namespace FP.Controllers
                                         {
                                             if (m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve))
                                             {
-                                                if (m.CMMIPId_pk == Guid.Empty)
+                                                //
+                                                if (m.DistrictId_fk == model.DistrictId && m.BlockId_fk == model.BlockId)
                                                 {
-                                                    tbl.CMMIPId_pk = Guid.NewGuid();
-                                                    if (m.DistrictId_fk == model.DistrictId && m.BlockId_fk == model.BlockId && m.ClusterId_fk == model.ClusterId)
+                                                    if (m.CMMIPId_pk == Guid.Empty && m.ClusterId_fk == model.ClusterId)
                                                     {
-                                                        tbl.DistrictId_fk = m.DistrictId_fk;
-                                                        tbl.BlockId_fk = m.BlockId_fk;
-                                                        tbl.ClusterId_fk = m.ClusterId_fk;
+                                                        if (tbl.Approved1Status != true && (CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role || model.TypeLayer == 1))
+                                                        {
+                                                            var FollowId = getFollowdata.Where(x => x.BFYID_fk == m.BFYId_fk && x.FMonth == model.Month && x.FYear == model.Year)
+                                                             .OrderByDescending(x => x.CreatedOn).Take(1)?.FirstOrDefault()?.FollowupID_pk;
 
-                                                        tbl.PanchayatId_fk = m.PanchayatId_fk;
-                                                        tbl.VoId_fk = m.VoId_fk;
-                                                        tbl.BFYId_fk = m.BFYId_fk;
-                                                        tbl.FollowupId_fk = m.FollowupId_fk;
-                                                        tbl.MIMonth = model.Month;
-                                                        tbl.MIYear = model.Year;
-                                                        tbl.Approved1Status = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
-                                                        tbl.Approved1Date = cdt;
-                                                        tbl.Approved1Remarks = model.ApprovedRemarks;
-                                                        tbl.Approved1By = MvcApplication.CUser.Id;
+                                                            tbl.DistrictId_fk = m.DistrictId_fk;
+                                                            tbl.BlockId_fk = m.BlockId_fk;
+                                                            tbl.ClusterId_fk = m.ClusterId_fk;
+
+                                                            tbl.PanchayatId_fk = m.PanchayatId_fk;
+                                                            tbl.VoId_fk = m.VoId_fk;
+                                                            tbl.BFYId_fk = m.BFYId_fk;
+                                                            tbl.FollowupId_fk = FollowId;
+                                                            tbl.MIMonth = model.Month;
+                                                            tbl.MIYear = model.Year;
+                                                            tbl.CMMIPId_pk = Guid.NewGuid();
+
+                                                            tbl.ClaimedAmount = CommonModel.GetClaimApprove(1, CommonModel.RoleNameCont.CM);
+                                                            tbl.Approved1Status = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
+                                                            tbl.Approved1Date = cdt;
+                                                            tbl.Approved1Remarks = model.ApprovedRemarks;
+                                                            tbl.Approved1By = MvcApplication.CUser.Id;
+
+                                                        }
+
                                                         tbl.IsActive = true;
+                                                        tbl.CreatedUpdatedOn = cdt;
                                                         tbl_list.Add(tbl);
                                                     }
+                                                    else if (m.CMMIPId_pk != Guid.Empty)
+                                                    {
+                                                        //CC
+                                                        if (tbl.CMMIPId_pk != Guid.Empty && m.ClusterId_fk == model.ClusterId && tbl.Approved2Status != true && (CommonModel.RoleNameCont.CC == MvcApplication.CUser.Role || model.TypeLayer == 2))
+                                                        {
+                                                            tbl.Approved2Status = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
+                                                            tbl.Approved2Date = cdt;
+                                                            tbl.Approved2Remarks = model.ApprovedRemarks;
+                                                            tbl.Approved2By = MvcApplication.CUser.Id;
+                                                            results += db_.SaveChanges();
+                                                        }
+                                                        //BPM
+                                                        else if (tbl.CMMIPId_pk != Guid.Empty && tbl.Approved3Status != true && (CommonModel.RoleNameCont.BPM == MvcApplication.CUser.Role || model.TypeLayer == 3))
+                                                        {
+                                                            tbl.Approved3Status = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
+                                                            tbl.Approved3Date = cdt;
+                                                            tbl.Approved3Remarks = model.ApprovedRemarks;
+                                                            tbl.Approved3By = MvcApplication.CUser.Id;
+                                                            results += db_.SaveChanges();
+                                                        }
+                                                    }
                                                 }
+
                                             }
                                         }
                                     }
@@ -140,8 +206,27 @@ namespace FP.Controllers
                                     results += db_.SaveChanges();
                                 }
                                 // results += db_.SaveChanges();
+                                var strjoin = "";
                                 var groups = mlist.GroupBy(x => x.ReportedByUserId);
-                                var grplist = tbl_list.Select(x => x.CMMIPId_pk);
+                                if (CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role)
+                                {
+                                    if (tbl_list.Count > 0)
+                                    {
+                                        var grplist = tbl_list.Select(x => x.CMMIPId_pk);
+                                        strjoin = string.Join(",", grplist).ToUpper();
+                                    }
+                                    else
+                                    {
+                                        var grplist = mlist.Select(x => x.CMMIPId_pk);
+                                        strjoin = string.Join(",", grplist).ToUpper();
+                                    }
+                                }
+                                else
+                                {
+                                    var grplist = mlist.Select(x => x.CMMIPId_pk);
+                                    strjoin = string.Join(",", grplist).ToUpper();
+                                }
+
                                 if (groups != null && results > 0)
                                 {
                                     foreach (var group in groups)
@@ -149,11 +234,12 @@ namespace FP.Controllers
                                         var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).ToList();
                                         tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
                                         tblpay.PaymentHistoryId_pk = Guid.NewGuid();
-                                        tblpay.ApprovedAchvId = string.Join(",", grplist).ToUpper();
+                                        tblpay.ApprovedAchvId = strjoin;
                                         tblpay.NoofApproved = appovlist.Count;
                                         tblpay.VerifyUserTypeId = Guid.Parse(MvcApplication.CUser.RoleId);
                                         tblpay.TargetUserTypeId = Guid.Parse(db_.AspNetRoles.First(x => x.Name == CommonModel.RoleNameCont.CM).Id);
                                         tblpay.TargetUserId = group.Key;
+                                        tblpay.TypeofPayment = Enums.GetEnumDescription(eTypeOfPayment.MonthlyCM);
                                         tblpay.ClaimAmount = CommonModel.GetClaimApprove(appovlist.Count, CommonModel.RoleNameCont.CM);
                                         tblpay.ApprovedAmount = CommonModel.GetClaimApprove(appovlist.Count, CommonModel.RoleNameCont.CM);
                                         tblpay.PayMonth = model.Month;
@@ -167,6 +253,14 @@ namespace FP.Controllers
                                         results += db_.SaveChanges();
                                     }
                                 }
+
+                                if (results > 0)
+                                {
+                                    response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Congratulations,Monthly Incentive" + GetEnumDescription(Enums.eReturnReg.Insert) + "Successfully! \r\n", Data = null };
+                                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                                    resResponse3.MaxJsonLength = int.MaxValue;
+                                    return resResponse3;
+                                }
                             }
                             else
                             {
@@ -178,10 +272,10 @@ namespace FP.Controllers
                         }
                     }
                 }
-                response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Congratulations,Monthly Incentive" + GetEnumDescription(Enums.eReturnReg.Insert) + "Successfully! \r\n", Data = null };
-                var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
-                resResponse3.MaxJsonLength = int.MaxValue;
-                return resResponse3;
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.AllFieldsRequired) + "\r\n", Data = null };
+                var resResponseerr1 = Json(response, JsonRequestBehavior.AllowGet);
+                resResponseerr1.MaxJsonLength = int.MaxValue;
+                return resResponseerr1;
             }
             catch (Exception)
             {

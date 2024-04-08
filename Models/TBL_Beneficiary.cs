@@ -56,5 +56,9 @@ namespace FP.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public Nullable<System.Guid> ServiceBFYId_fk { get; set; }
+        public Nullable<System.DateTime> ServiceBFYDate { get; set; }
+        public string ServicedBy { get; set; }
+        public Nullable<System.DateTime> ServicedOn { get; set; }
     }
 }

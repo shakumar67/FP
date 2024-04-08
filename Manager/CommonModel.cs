@@ -961,7 +961,7 @@ namespace FP.Manager
         }
         public static List<SelectListItem> GetServiceProvider()
         {
-            FP_DBEntities fP_=new FP_DBEntities();
+            FP_DBEntities fP_ = new FP_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
             list = new SelectList(fP_.ServiceProvider_Master.Where(x => x.IsActive == true), "ID", "ServiceProvider").OrderBy(x => x.Text).ToList();
             return list.OrderByDescending(x => x.Text).ToList();
@@ -1867,7 +1867,7 @@ namespace FP.Manager
 
         #endregion
 
-        #region Payment Module Calucation Part CNRP
+        #region Payment Module Calucation Part CNRP && CM Monthly Incentive Payment
         public static int GetClaimApprove(int NoofPlan = 0, string TypeOfRole = "")
         {
             if (!string.IsNullOrWhiteSpace(TypeOfRole))
@@ -1884,6 +1884,20 @@ namespace FP.Manager
                 }
             }
             return 0;
+        }
+        #endregion
+        #region Payment Module Calucation Part CNRP && CM Monthly mobilization incentive Payment
+        public static MobilizationAmount GetClaimMobilization()
+        {
+            MobilizationAmount mobn = new MobilizationAmount();
+            mobn.CNRP = Convert.ToInt32(Enums.eAmount.CNPMobilization) * 1;
+            mobn.CM = Convert.ToInt32(Enums.eAmount.CMMobilization) * 1;
+            return mobn;
+        }
+        public class MobilizationAmount
+        {
+            public int CNRP { get; set; }
+            public int CM { get; set; }
         }
         #endregion
         public static decimal ToDecimal(string str)
@@ -1936,10 +1950,10 @@ namespace FP.Manager
             public const string ApproveAmount = "Approved \r\n Amount";//\r\n
             public const string ApprovedByMRP = "Approved MRP";//\r\n
             public const string ApprovedByCC = "Approved CC";//\r\n
-            public const string ApprovedByBPIU = "Approved BPIU";//\r\n
-            public const string ApprovedDTMRP = "Approved Date MRP";//\r\n
-            public const string ApprovedDTCC = "Approved Date CC";//\r\n
-            public const string ApprovedDTBPIU = "Approved Date BPIU";//\r\n
+            public const string ApprovedBy3 = "Approved BPM";//\r\n
+            public const string ApprovedDTMRP = "Validate MRP";//\r\n
+            public const string ApprovedDTCC = "Checked CC";//\r\n
+            public const string ApprovedD3 = "Approved BPM";//\r\n
         }
     }
 }

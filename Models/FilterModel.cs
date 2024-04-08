@@ -45,6 +45,7 @@ namespace FP.Models
         public string IsPlanAchved { get; set; }
         public int Type { get; set; }
         public int TypeLayer { get; set; }
+        public string BtnType { get; set; }
     }
    
 }

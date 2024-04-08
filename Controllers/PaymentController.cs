@@ -153,10 +153,11 @@ namespace FP.Controllers
                                         var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).Select(x => x.AchieveId_pk).ToList();
                                         tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
                                         tblpay.PaymentHistoryId_pk = Guid.NewGuid();
-                                        tblpay.ApprovedAchvId = string.Join(",", appovlist);
-                                        tblpay.RejectedAchvId = string.Join(",", rejectlist);
+                                        tblpay.ApprovedAchvId = string.Join(",", appovlist).ToUpper();
+                                        tblpay.RejectedAchvId = string.Join(",", rejectlist).ToUpper();
                                         tblpay.NoofApproved = appovlist.Count;
                                         tblpay.NoofRejected = rejectlist.Count;
+                                        tblpay.TypeofPayment = Enums.GetEnumDescription(eTypeOfPayment.MonthlyCNRP);
                                         tblpay.VerifyUserTypeId = Guid.Parse(MvcApplication.CUser.RoleId);
                                         tblpay.TargetUserTypeId = Guid.Parse(db_.AspNetRoles.First(x => x.Name == CommonModel.RoleNameCont.CNRP).Id);
                                         tblpay.TargetUserId = group.Key;
@@ -332,10 +333,11 @@ namespace FP.Controllers
                                         var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).Select(x => x.AchieveId_pk).ToList();
                                         tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
                                         tblpay.PaymentHistoryId_pk = Guid.NewGuid();
-                                        tblpay.ApprovedAchvId = string.Join(",", appovlist);
-                                        tblpay.RejectedAchvId = string.Join(",", rejectlist);
+                                        tblpay.ApprovedAchvId = string.Join(",", appovlist).ToUpper();
+                                        tblpay.RejectedAchvId = string.Join(",", rejectlist).ToUpper();
                                         tblpay.NoofApproved = appovlist.Count;
                                         tblpay.NoofRejected = rejectlist.Count;
+                                        tblpay.TypeofPayment = Enums.GetEnumDescription(eTypeOfPayment.MonthlyCNRP);
                                         tblpay.VerifyUserTypeId = Guid.Parse(MvcApplication.CUser.RoleId);
                                         tblpay.TargetUserTypeId = Guid.Parse(db_.AspNetRoles.First(x => x.Name == CommonModel.RoleNameCont.CNRP).Id);
                                         tblpay.TargetUserId = group.Key;
@@ -427,7 +429,7 @@ namespace FP.Controllers
                         {
                             tbl_AchievementPlan tbl;
                             List<tbl_AchievementPlan> tbl_list = new List<tbl_AchievementPlan>();
-                            if (model.DistrictId_fk != null && model.BlockId_fk != null && model.ClusterId_fk != null
+                            if (model.DistrictId_fk != null && model.BlockId_fk != null
                                && model.PlanYear != null && model.PlanMonth != null)
                             {
                                 foreach (var m in mlist)
@@ -513,10 +515,11 @@ namespace FP.Controllers
                                         var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).Select(x => x.AchieveId_pk).ToList();
                                         tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
                                         tblpay.PaymentHistoryId_pk = Guid.NewGuid();
-                                        tblpay.ApprovedAchvId = string.Join(",", appovlist);
-                                        tblpay.RejectedAchvId = string.Join(",", rejectlist);
+                                        tblpay.ApprovedAchvId = string.Join(",", appovlist).ToUpper();
+                                        tblpay.RejectedAchvId = string.Join(",", rejectlist).ToUpper();
                                         tblpay.NoofApproved = appovlist.Count;
                                         tblpay.NoofRejected = rejectlist.Count;
+                                        tblpay.TypeofPayment = Enums.GetEnumDescription(eTypeOfPayment.MonthlyCNRP);
                                         tblpay.VerifyUserTypeId = Guid.Parse(MvcApplication.CUser.RoleId);
                                         tblpay.TargetUserTypeId = Guid.Parse(db_.AspNetRoles.First(x => x.Name == CommonModel.RoleNameCont.CNRP).Id);
                                         tblpay.TargetUserId = group.Key;

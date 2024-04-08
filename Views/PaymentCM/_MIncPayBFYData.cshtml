@@ -8,6 +8,11 @@
     table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
         padding-right: 0px !important;
     }
+    .row-disabled {
+        background-color: rgba(236, 240, 241, 0.5);
+        pointer-events: none;
+        width: 100%;
+    }
 </style>
 <div class="bg-light rounded h-100 p-4">
     <div class="table-responsive">
@@ -17,11 +22,23 @@
                     <th>Check All<input type="checkbox" class="allChecked" name="selectAll" id="selectAll" value="all" checked onchange="CheckUnchecked(this)" /></th>
                     <th>Srno.</th>
                     <th>Beneficiary<br /> ID</th>
-                    <th>Panchayat</th>
-                    <th>Village <br />Organization</th>
                     <th>Reporting <br />Month</th>
                     <th>Name of<br />Beneficiary</th>
-                    <th>Beneficiary Mobile No</th>
+                    <th>Reporting By</th>
+                    <th>Claimed Amount </th>
+                    <th>Cluster </th>
+                    <th>Panchayat </th>
+                    <th>V.Org </th>
+                    @if (CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role
+                        || CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role
+                        || CommonModel.RoleNameCont.CC == MvcApplication.CUser.Role
+                        || CommonModel.RoleNameCont.BPM == MvcApplication.CUser.Role
+                        )
+                    {
+                        <th>@CommonModel.RoleNameCont.MRP Validated</th>
+                        <th>@CommonModel.RoleNameCont.CC Checked</th>
+                        <th>@CommonModel.RoleNameCont.BPM Approved</th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -31,30 +48,82 @@
                         int srno = 1;
                         foreach (DataRow dr in dt.Rows)
                         {
-                            <tr>
+                            var bgcolor = ""; var strchecked = "";
+                            if ((CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role) && dr["Approved1Statusval"].ToString() == "1")
+                            {
+                                bgcolor = dr["Approved1bgColor"].ToString();
+                                strchecked = "row-disabled";
+                            }
+                            if ((CommonModel.RoleNameCont.CC == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role) && dr["Approved2Statusval"].ToString() == "1")
+                            {
+                                bgcolor = dr["Approved2bgColor"].ToString();
+                                strchecked = "row-disabled";
+                            }
+                            if ((CommonModel.RoleNameCont.BPM == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role) && dr["Approved3Statusval"].ToString() == "1")
+                            {
+                                bgcolor = dr["Approved3bgColor"].ToString();
+                                strchecked = "row-disabled";
+                            }
+                            <tr class="@bgcolor @strchecked">
                                 <td>
                                     <input type="checkbox" class="check" name="check" id="check@(srno)" checked onchange="CheckUnchecked(this)"
                                            data-cmmipid="@dr["CMMIPId_pk"]" data-bfyid="@dr["BpkID"]" data-folloupid="@dr["FollowupId"]"
                                            data-disid="@dr["DistrictId_pk"]" data-blckid="@dr["BlockId_pk"]"
-                                           data-clfid="@dr["CLF_ID_pk"]" data-pchytid="@dr["Panchayatid_pk"]" 
+                                           data-clfid="@dr["CLF_ID_pk"]" data-pchytid="@dr["Panchayatid_pk"]"
                                            data-vorgid="@dr["Void_pk"]" data-reportedbyuserid="@dr["ReportedByUserId"]" />
                                 </td>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-center">
                                     <a href="javascript:void(0);" onclick="BFYDetailView('@dr["BpkID"]')" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>
                                 </td>
-                                <td class="text-left">@dr["Panchayat"]</td>
-                                <td class="text-left">@dr["VO"]</td>
                                 <td class="text-center">@dr["ReportingDate"]</td>
                                 <td class="text-left">@dr["BFYName"]</td>
-                                <td class="text-center">@dr["BFYMobileNo"]</td>
+                                <td class="text-center text-warning fw-bold">@dr["ReportedBy"]</td>
+                                <td class="text-centxer text-warning fw-bold">@dr["ClaimedAmount"]</td>
+                                <td class="text-centxer">@dr["CLFName"]</td>
+                                <td class="text-centxer">@dr["Panchayat"]</td>
+                                <td class="text-centxer">@dr["VO"]</td>
+                                @if ((CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role
+                                    || CommonModel.RoleNameCont.CC == MvcApplication.CUser.Role
+                                    || CommonModel.RoleNameCont.BPM == MvcApplication.CUser.Role
+                                    || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role
+                                    ))
+                                {
+                                    if (dr["Approved1Statusval"].ToString() == "1")
+                                    {
+                                        <td class="text-centxer text-warning fw-bold"> @dr["Approved1dt"]</td>
+                                        if (dr["Approved2Statusval"].ToString() == "1")
+                                        {
+                                            <td class="text-centxer text-warning fw-bold"> @dr["Approved2dt"]</td>
+                                            if (dr["Approved3Statusval"].ToString() == "1")
+                                            {
+                                                <td class="text-centxer text-warning fw-bold"> @dr["Approved3dt"]</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                            <td></td>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    }
+                                }
                             </tr>
                         }
                     }
                     else
                     {
                         <tr>
-                            <td colspan="8" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                            <td colspan="15" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
                         </tr>
                     }
                 }

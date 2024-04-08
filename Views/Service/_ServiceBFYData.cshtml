@@ -27,9 +27,8 @@
                     int srno = 1;
                     foreach (DataRow dr in dt.Rows)
                     {
-                        var fcl = !string.IsNullOrWhiteSpace(dr["AchbgColor"].ToString()) ? "#fff;" : "";
-
-                        <tr class="@dr["AchbgColor"]" style="color:@fcl">
+                        var fcl = !string.IsNullOrWhiteSpace(dr["AchbgColor"].ToString()) ? "#fff;" : "";//style="color:@fcl"@dr["AchbgColor"]
+                        <tr class="" >
                             <td class="text-center">@(srno++)</td>
                             <td class="text-center">@dr["BFYRegId"]</td>
                             <td class="text-center">@CommonModel.FormateDtDMY(dr["BFYReportingDate"].ToString())</td>
@@ -40,11 +39,11 @@
                             <td>
                                 @if (!string.IsNullOrWhiteSpace(dr["NoofService"].ToString()) && dr["NoofService"].ToString() != "0")
                                 {
-                                    <a href="javascript:void(0);" onclick="BFYServiceDataView('@dr["BFYPKId"]','@dr["ServiceBFYId_pk"]','')" class="btn btn-outline-success btn-sm"><i class="fa fa-view"></i> View</a>
+                                    <a href="javascript:void(0);" onclick="BFYServiceDataView('@dr["BFYPKId"]','@dr["ServiceBFYId_pk"]','')" class="btn btn-info btn-sm"><i class="fa fa-view"></i> View</a>
                                 }
                             </td>
                             <td class="text-center">
-                                        <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BFYPKId"]','@dr["BFYRegId"]','@dr["ServiceBFYId_pk"]')" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add</a>
+                               <a href="javascript:void(0);" onclick="DisplayPOP('@dr["BFYPKId"]','@dr["BFYRegId"]','@dr["ServiceBFYId_pk"]')" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add</a>
                             </td>
                         </tr>
                     }

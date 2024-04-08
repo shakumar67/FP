@@ -92,6 +92,7 @@ namespace FP.Controllers
             {
                 FP_DBEntities _db = new FP_DBEntities();
                 JsonResponseData response = new JsonResponseData();
+
                 if (!ModelState.IsValid)
                 {
                     var d = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired);
@@ -118,6 +119,7 @@ namespace FP.Controllers
                 }
                 if (model != null)
                 {
+                    var dt = DateTime.Now;
                     var tbl = model.ServiceBFYId_pk != Guid.Empty ? _db.tbl_BFYService.Find(model.ServiceBFYId_pk) : new tbl_BFYService();
                     if (tbl != null)
                     {
@@ -130,12 +132,12 @@ namespace FP.Controllers
                             tbl.ContraceptionOther = (model.IsContraception == true && model.ContraceptionId_fk == 4) ? model.ContraceptionOther : null;
                             tbl.UseMethodId_fk = (model.IsContraception == true && model.ContraceptionId_fk != null && model.UseMethodId_fk != null) ? model.UseMethodId_fk : null;
 
-                            tbl.Location = model.Isservice == true ? model.Location : null;
                             if (model.ContraceptionId_fk != 3)
                             {
                                 tbl.Isservice = model.ContraceptionId_fk != 3 ? model.Isservice == true : false;
                                 tbl.ServiceProvider = model.Isservice == true ? model.ServiceProvider : null;
                                 tbl.ServiceRevcDt = model.Isservice == true ? model.ServiceRevcDt : null;
+                                tbl.Location = model.Isservice == true ? model.Location : null;
                             }
                         }
                         else
@@ -155,19 +157,51 @@ namespace FP.Controllers
                             tbl.ServiceBFYId_pk = Guid.NewGuid();
                             tbl.ServiceYearId = model.ServiceYearId;
                             tbl.ServiceMonthId = model.ServiceMonthId;
-                            tbl.FollowId_fk = model.FollowId_fk;
+                            var bfytbl = _db.TBL_Beneficiary.Where(x => x.Beneficiary_Id_pk == model.BFYId_fk )?.FirstOrDefault();
                             tbl.BFYId_fk = model.BFYId_fk;
+                            tbl.DistrictId_fk = bfytbl.DistrictId_fk;
+                            tbl.BlockId_fk = bfytbl.BlockId_fk;
+                            tbl.ClusterId_fk = bfytbl.CLFId_fk;
+                            tbl.PanchayatId_fk = bfytbl.PanchayatId_fk;
+                            tbl.VoId_fk = bfytbl.VillageOId_fk;
+
+                            var FollowId = _db.tbl_BFYFollowup.Where(x => x.BFYID_fk == model.BFYId_fk && x.FMonth == model.ServiceMonthId && x.FYear == model.ServiceYearId)
+                                .OrderByDescending(x => x.CreatedOn).Take(1)?.FirstOrDefault()?.FollowupID_pk;
+                            tbl.FollowId_fk = FollowId;
+
                             tbl.CreatedBy = MvcApplication.CUser.Id;
-                            tbl.CreatedOn = DateTime.Now;
+                            tbl.CreatedOn = dt;
+                            if (model.IsContraception == true)
+                            {
+                                if (model.ContraceptionId_fk != 3 && model.ContraceptionId_fk != 4)
+                                {
+                                    if (model.UseMethodId_fk > 0)
+                                    {
+                                        if (model.UseMethodId_fk == 5 || model.UseMethodId_fk == 6
+                                            || model.UseMethodId_fk == 7 || model.UseMethodId_fk == 8)
+                                        {
+                                            tbl.CMEligible = CommonModel.GetClaimMobilization().CM;
+                                            tbl.CNRPEligible = CommonModel.GetClaimMobilization().CNRP;
+                                        }
+                                    }
+                                }
+                            }
                             db.tbl_BFYService.Add(tbl);
                             res = db.SaveChanges();
 
                             TBL_Beneficiary tblBFY = _db.TBL_Beneficiary.Find(model.BFYId_fk);
-                            tblBFY.Q15 = model.ContraceptionId_fk;
-                            tblBFY.Q16 = model.ContraceptionId_fk == 1 ? model.UseMethodId_fk : null;
-                            tblBFY.Q17 = model.ContraceptionId_fk == 2 ? model.UseMethodId_fk : null;
-                            tblBFY.Q18 = model.ContraceptionId_fk == 4 ? model.ContraceptionOther : null;
-                            res += _db.SaveChanges();
+                            if (model.IsContraception == true && model.ContraceptionId_fk > 0)
+                            {
+                                tblBFY.ServiceBFYId_fk = tbl.ServiceBFYId_pk;
+                                tblBFY.ServicedBy = MvcApplication.CUser.Id;
+                                tblBFY.ServicedOn = dt;
+                                tblBFY.ServiceBFYDate = model.Isservice == true ? model.ServiceRevcDt : null;
+                                tblBFY.Q15 = model.ContraceptionId_fk;
+                                tblBFY.Q16 = model.ContraceptionId_fk == 1 ? model.UseMethodId_fk : null;
+                                tblBFY.Q17 = model.ContraceptionId_fk == 2 ? model.UseMethodId_fk : null;
+                                tblBFY.Q18 = model.ContraceptionId_fk == 4 ? model.ContraceptionOther : null;
+                                res += _db.SaveChanges();
+                            }
                         }
                         else
                         {

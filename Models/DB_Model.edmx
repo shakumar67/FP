@@ -171,6 +171,7 @@
           <Property Name="PlanMonth" Type="int" />
           <Property Name="PlanYear" Type="int" />
           <Property Name="Meetingheld" Type="date" />
+          <Property Name="ClaimedAmount" Type="decimal" Precision="18" Scale="5" />
           <Property Name="Noofparticipant" Type="int" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
@@ -246,8 +247,12 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedOn" Type="datetime" />
-          <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="ServiceBFYId_fk" Type="uniqueidentifier" />
+          <Property Name="ServiceBFYDate" Type="date" />
+          <Property Name="ServicedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="ServicedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_BFYFollowup">
           <Key>
@@ -291,13 +296,30 @@
           <Property Name="ServiceRevcDt" Type="date" />
           <Property Name="ServiceProvider" Type="int" />
           <Property Name="Location" Type="nvarchar(max)" />
-          <Property Name="CMEligible" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="CNRPEligible" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CMEligible" Type="decimal" Precision="18" Scale="5" />
+          <Property Name="CNRPEligible" Type="decimal" Precision="18" Scale="5" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="DistrictId_fk" Type="int" />
+          <Property Name="BlockId_fk" Type="int" />
+          <Property Name="ClusterId_fk" Type="int" />
+          <Property Name="PanchayatId_fk" Type="int" />
+          <Property Name="VoId_fk" Type="int" />
+          <Property Name="Approved1Status" Type="bit" />
+          <Property Name="Approved1Date" Type="datetime" />
+          <Property Name="Approved1Remarks" Type="nvarchar(max)" />
+          <Property Name="Approved1By" Type="nvarchar" MaxLength="200" />
+          <Property Name="Approved2Status" Type="bit" />
+          <Property Name="Approved2Date" Type="datetime" />
+          <Property Name="Approved2Remarks" Type="nvarchar(max)" />
+          <Property Name="Approved2By" Type="nvarchar" MaxLength="200" />
+          <Property Name="Approved3Status" Type="bit" />
+          <Property Name="Approved3Date" Type="datetime" />
+          <Property Name="Approved3Remarks" Type="nvarchar(max)" />
+          <Property Name="Approved3By" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="tbl_CLF_Emp">
           <Key>
@@ -333,6 +355,7 @@
           <Property Name="FollowupId_fk" Type="uniqueidentifier" />
           <Property Name="MIMonth" Type="int" />
           <Property Name="MIYear" Type="int" />
+          <Property Name="ClaimedAmount" Type="decimal" Precision="18" Scale="5" />
           <Property Name="Approved1Status" Type="bit" />
           <Property Name="Approved1Date" Type="datetime" />
           <Property Name="Approved1Remarks" Type="nvarchar(max)" />
@@ -403,6 +426,9 @@
           <Property Name="ApprovedAmount" Type="decimal" Precision="18" Scale="5" />
           <Property Name="PayMonth" Type="int" />
           <Property Name="PayYear" Type="int" />
+          <Property Name="TypeofPayment" Type="nvarchar" MaxLength="200" />
+          <Property Name="MobilizationCNRP" Type="decimal" Precision="18" Scale="5" />
+          <Property Name="MobilizationCM" Type="decimal" Precision="18" Scale="5" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedOn" Type="datetime" />
@@ -675,12 +701,12 @@
           <EntitySet Name="TBL_Emp" EntityType="FP_DBModel.TBL_Emp" />
           <EntitySet Name="tbl_CLFPlanReject" EntityType="FP_DBModel.tbl_CLFPlanReject" />
           <EntitySet Name="tbl_Plan" EntityType="FP_DBModel.tbl_Plan" />
-          <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
           <EntitySet Name="tbl_Achievement_Log" EntityType="FP_DBModel.tbl_Achievement_Log" />
-          <EntitySet Name="tbl_PaymentHistory" EntityType="FP_DBModel.tbl_PaymentHistory" />
-          <EntitySet Name="tbl_BFYService" EntityType="FP_DBModel.tbl_BFYService" />
+          <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
           <EntitySet Name="tbl_AchievementPlan" EntityType="FP_DBModel.tbl_AchievementPlan" />
+          <EntitySet Name="tbl_BFYService" EntityType="FP_DBModel.tbl_BFYService" />
           <EntitySet Name="tbl_CMMIncentivePayment" EntityType="FP_DBModel.tbl_CMMIncentivePayment" />
+          <EntitySet Name="tbl_PaymentHistory" EntityType="FP_DBModel.tbl_PaymentHistory" />
         </EntityContainer>
         <EntityType Name="Contraceptive_Child_Master">
           <Key>
@@ -906,6 +932,19 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="tbl_Achievement_Log">
+          <Key>
+            <PropertyRef Name="LogId_pk" />
+          </Key>
+          <Property Name="LogId_pk" Type="Guid" Nullable="false" />
+          <Property Name="AchieveId_fk" Type="Guid" />
+          <Property Name="PlanStatus" Type="Int32" />
+          <Property Name="PlanStatusDate" Type="DateTime" Precision="0" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="TBL_Beneficiary">
           <Key>
             <PropertyRef Name="Beneficiary_Id_pk" />
@@ -950,70 +989,12 @@
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="tbl_Achievement_Log">
-          <Key>
-            <PropertyRef Name="LogId_pk" />
-          </Key>
-          <Property Name="LogId_pk" Type="Guid" Nullable="false" />
-          <Property Name="AchieveId_fk" Type="Guid" />
-          <Property Name="PlanStatus" Type="Int32" />
-          <Property Name="PlanStatusDate" Type="DateTime" Precision="0" />
-          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="tbl_PaymentHistory">
-          <Key>
-            <PropertyRef Name="PaymentHistoryId_pk" />
-          </Key>
-          <Property Name="PaymentHistoryId_pk" Type="Guid" Nullable="false" />
-          <Property Name="ApprovedAchvId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RejectedAchvId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NoofApproved" Type="Int32" />
-          <Property Name="NoofRejected" Type="Int32" />
-          <Property Name="VerifyUserTypeId" Type="Guid" />
-          <Property Name="TargetUserTypeId" Type="Guid" />
-          <Property Name="TargetUserId" Type="Guid" />
-          <Property Name="ClaimAmount" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="ApprovedAmount" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="PayMonth" Type="Int32" />
-          <Property Name="PayYear" Type="Int32" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="tbl_BFYService">
-          <Key>
-            <PropertyRef Name="ServiceBFYId_pk" />
-          </Key>
-          <Property Name="ServiceBFYId_pk" Type="Guid" Nullable="false" />
-          <Property Name="FollowId_fk" Type="Guid" />
-          <Property Name="BFYId_fk" Type="Guid" />
-          <Property Name="ServiceYearId" Type="Int32" />
-          <Property Name="ServiceMonthId" Type="Int32" />
-          <Property Name="IsPeerPresent" Type="Boolean" />
-          <Property Name="IsFollowUpHV" Type="Boolean" />
-          <Property Name="IsContraception" Type="Boolean" />
-          <Property Name="ContraceptionId_fk" Type="Int32" />
-          <Property Name="ContraceptionOther" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="UseMethodId_fk" Type="Int32" />
-          <Property Name="Isservice" Type="Boolean" />
-          <Property Name="ServiceRevcDt" Type="DateTime" Precision="0" />
-          <Property Name="ServiceProvider" Type="Int32" />
-          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CMEligible" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CNRPEligible" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ServiceBFYId_fk" Type="Guid" />
+          <Property Name="ServiceBFYDate" Type="DateTime" Precision="0" />
+          <Property Name="ServicedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ServicedOn" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_AchievementPlan">
           <Key>
@@ -1028,6 +1009,7 @@
           <Property Name="PlanMonth" Type="Int32" />
           <Property Name="PlanYear" Type="Int32" />
           <Property Name="Meetingheld" Type="DateTime" Precision="0" />
+          <Property Name="ClaimedAmount" Type="Decimal" Precision="18" Scale="5" />
           <Property Name="Noofparticipant" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -1059,6 +1041,50 @@
           <Property Name="Level3RejectBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Remark3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="tbl_BFYService">
+          <Key>
+            <PropertyRef Name="ServiceBFYId_pk" />
+          </Key>
+          <Property Name="ServiceBFYId_pk" Type="Guid" Nullable="false" />
+          <Property Name="FollowId_fk" Type="Guid" />
+          <Property Name="BFYId_fk" Type="Guid" />
+          <Property Name="ServiceYearId" Type="Int32" />
+          <Property Name="ServiceMonthId" Type="Int32" />
+          <Property Name="IsPeerPresent" Type="Boolean" />
+          <Property Name="IsFollowUpHV" Type="Boolean" />
+          <Property Name="IsContraception" Type="Boolean" />
+          <Property Name="ContraceptionId_fk" Type="Int32" />
+          <Property Name="ContraceptionOther" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="UseMethodId_fk" Type="Int32" />
+          <Property Name="Isservice" Type="Boolean" />
+          <Property Name="ServiceRevcDt" Type="DateTime" Precision="0" />
+          <Property Name="ServiceProvider" Type="Int32" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CMEligible" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="CNRPEligible" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="DistrictId_fk" Type="Int32" />
+          <Property Name="BlockId_fk" Type="Int32" />
+          <Property Name="ClusterId_fk" Type="Int32" />
+          <Property Name="PanchayatId_fk" Type="Int32" />
+          <Property Name="VoId_fk" Type="Int32" />
+          <Property Name="Approved1Status" Type="Boolean" />
+          <Property Name="Approved1Date" Type="DateTime" Precision="3" />
+          <Property Name="Approved1Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Approved1By" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Approved2Status" Type="Boolean" />
+          <Property Name="Approved2Date" Type="DateTime" Precision="3" />
+          <Property Name="Approved2Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Approved2By" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Approved3Status" Type="Boolean" />
+          <Property Name="Approved3Date" Type="DateTime" Precision="3" />
+          <Property Name="Approved3Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Approved3By" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="tbl_CMMIncentivePayment">
           <Key>
             <PropertyRef Name="CMMIPId_pk" />
@@ -1073,6 +1099,7 @@
           <Property Name="FollowupId_fk" Type="Guid" />
           <Property Name="MIMonth" Type="Int32" />
           <Property Name="MIYear" Type="Int32" />
+          <Property Name="ClaimedAmount" Type="Decimal" Precision="18" Scale="5" />
           <Property Name="Approved1Status" Type="Boolean" />
           <Property Name="Approved1Date" Type="DateTime" Precision="3" />
           <Property Name="Approved1Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -1087,6 +1114,31 @@
           <Property Name="Approved3By" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedUpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_PaymentHistory">
+          <Key>
+            <PropertyRef Name="PaymentHistoryId_pk" />
+          </Key>
+          <Property Name="PaymentHistoryId_pk" Type="Guid" Nullable="false" />
+          <Property Name="ApprovedAchvId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RejectedAchvId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NoofApproved" Type="Int32" />
+          <Property Name="NoofRejected" Type="Int32" />
+          <Property Name="VerifyUserTypeId" Type="Guid" />
+          <Property Name="TargetUserTypeId" Type="Guid" />
+          <Property Name="TargetUserId" Type="Guid" />
+          <Property Name="ClaimAmount" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="ApprovedAmount" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="PayMonth" Type="Int32" />
+          <Property Name="PayYear" Type="Int32" />
+          <Property Name="TypeofPayment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MobilizationCNRP" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="MobilizationCM" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1390,9 +1442,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Achievement_Log">
+            <EntityTypeMapping TypeName="FP_DBModel.tbl_Achievement_Log">
+              <MappingFragment StoreEntitySet="tbl_Achievement_Log">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="PlanStatusDate" ColumnName="PlanStatusDate" />
+                <ScalarProperty Name="PlanStatus" ColumnName="PlanStatus" />
+                <ScalarProperty Name="AchieveId_fk" ColumnName="AchieveId_fk" />
+                <ScalarProperty Name="LogId_pk" ColumnName="LogId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBL_Beneficiary">
             <EntityTypeMapping TypeName="FP_DBModel.TBL_Beneficiary">
               <MappingFragment StoreEntitySet="TBL_Beneficiary">
+                <ScalarProperty Name="ServicedOn" ColumnName="ServicedOn" />
+                <ScalarProperty Name="ServicedBy" ColumnName="ServicedBy" />
+                <ScalarProperty Name="ServiceBFYDate" ColumnName="ServiceBFYDate" />
+                <ScalarProperty Name="ServiceBFYId_fk" ColumnName="ServiceBFYId_fk" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
@@ -1438,71 +1508,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Achievement_Log">
-            <EntityTypeMapping TypeName="FP_DBModel.tbl_Achievement_Log">
-              <MappingFragment StoreEntitySet="tbl_Achievement_Log">
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="PlanStatusDate" ColumnName="PlanStatusDate" />
-                <ScalarProperty Name="PlanStatus" ColumnName="PlanStatus" />
-                <ScalarProperty Name="AchieveId_fk" ColumnName="AchieveId_fk" />
-                <ScalarProperty Name="LogId_pk" ColumnName="LogId_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_PaymentHistory">
-            <EntityTypeMapping TypeName="FP_DBModel.tbl_PaymentHistory">
-              <MappingFragment StoreEntitySet="tbl_PaymentHistory">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="PayYear" ColumnName="PayYear" />
-                <ScalarProperty Name="PayMonth" ColumnName="PayMonth" />
-                <ScalarProperty Name="ApprovedAmount" ColumnName="ApprovedAmount" />
-                <ScalarProperty Name="ClaimAmount" ColumnName="ClaimAmount" />
-                <ScalarProperty Name="TargetUserId" ColumnName="TargetUserId" />
-                <ScalarProperty Name="TargetUserTypeId" ColumnName="TargetUserTypeId" />
-                <ScalarProperty Name="VerifyUserTypeId" ColumnName="VerifyUserTypeId" />
-                <ScalarProperty Name="NoofRejected" ColumnName="NoofRejected" />
-                <ScalarProperty Name="NoofApproved" ColumnName="NoofApproved" />
-                <ScalarProperty Name="RejectedAchvId" ColumnName="RejectedAchvId" />
-                <ScalarProperty Name="ApprovedAchvId" ColumnName="ApprovedAchvId" />
-                <ScalarProperty Name="PaymentHistoryId_pk" ColumnName="PaymentHistoryId_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_BFYService">
-            <EntityTypeMapping TypeName="FP_DBModel.tbl_BFYService">
-              <MappingFragment StoreEntitySet="tbl_BFYService">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CNRPEligible" ColumnName="CNRPEligible" />
-                <ScalarProperty Name="CMEligible" ColumnName="CMEligible" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="ServiceProvider" ColumnName="ServiceProvider" />
-                <ScalarProperty Name="ServiceRevcDt" ColumnName="ServiceRevcDt" />
-                <ScalarProperty Name="Isservice" ColumnName="Isservice" />
-                <ScalarProperty Name="UseMethodId_fk" ColumnName="UseMethodId_fk" />
-                <ScalarProperty Name="ContraceptionOther" ColumnName="ContraceptionOther" />
-                <ScalarProperty Name="ContraceptionId_fk" ColumnName="ContraceptionId_fk" />
-                <ScalarProperty Name="IsContraception" ColumnName="IsContraception" />
-                <ScalarProperty Name="IsFollowUpHV" ColumnName="IsFollowUpHV" />
-                <ScalarProperty Name="IsPeerPresent" ColumnName="IsPeerPresent" />
-                <ScalarProperty Name="ServiceMonthId" ColumnName="ServiceMonthId" />
-                <ScalarProperty Name="ServiceYearId" ColumnName="ServiceYearId" />
-                <ScalarProperty Name="BFYId_fk" ColumnName="BFYId_fk" />
-                <ScalarProperty Name="FollowId_fk" ColumnName="FollowId_fk" />
-                <ScalarProperty Name="ServiceBFYId_pk" ColumnName="ServiceBFYId_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_AchievementPlan">
             <EntityTypeMapping TypeName="FP_DBModel.tbl_AchievementPlan">
               <MappingFragment StoreEntitySet="tbl_AchievementPlan">
@@ -1536,6 +1541,7 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Noofparticipant" ColumnName="Noofparticipant" />
+                <ScalarProperty Name="ClaimedAmount" ColumnName="ClaimedAmount" />
                 <ScalarProperty Name="Meetingheld" ColumnName="Meetingheld" />
                 <ScalarProperty Name="PlanYear" ColumnName="PlanYear" />
                 <ScalarProperty Name="PlanMonth" ColumnName="PlanMonth" />
@@ -1545,6 +1551,51 @@
                 <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
                 <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
                 <ScalarProperty Name="AchieveId_pk" ColumnName="AchieveId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_BFYService">
+            <EntityTypeMapping TypeName="FP_DBModel.tbl_BFYService">
+              <MappingFragment StoreEntitySet="tbl_BFYService">
+                <ScalarProperty Name="Approved3By" ColumnName="Approved3By" />
+                <ScalarProperty Name="Approved3Remarks" ColumnName="Approved3Remarks" />
+                <ScalarProperty Name="Approved3Date" ColumnName="Approved3Date" />
+                <ScalarProperty Name="Approved3Status" ColumnName="Approved3Status" />
+                <ScalarProperty Name="Approved2By" ColumnName="Approved2By" />
+                <ScalarProperty Name="Approved2Remarks" ColumnName="Approved2Remarks" />
+                <ScalarProperty Name="Approved2Date" ColumnName="Approved2Date" />
+                <ScalarProperty Name="Approved2Status" ColumnName="Approved2Status" />
+                <ScalarProperty Name="Approved1By" ColumnName="Approved1By" />
+                <ScalarProperty Name="Approved1Remarks" ColumnName="Approved1Remarks" />
+                <ScalarProperty Name="Approved1Date" ColumnName="Approved1Date" />
+                <ScalarProperty Name="Approved1Status" ColumnName="Approved1Status" />
+                <ScalarProperty Name="VoId_fk" ColumnName="VoId_fk" />
+                <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
+                <ScalarProperty Name="ClusterId_fk" ColumnName="ClusterId_fk" />
+                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
+                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CNRPEligible" ColumnName="CNRPEligible" />
+                <ScalarProperty Name="CMEligible" ColumnName="CMEligible" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ServiceProvider" ColumnName="ServiceProvider" />
+                <ScalarProperty Name="ServiceRevcDt" ColumnName="ServiceRevcDt" />
+                <ScalarProperty Name="Isservice" ColumnName="Isservice" />
+                <ScalarProperty Name="UseMethodId_fk" ColumnName="UseMethodId_fk" />
+                <ScalarProperty Name="ContraceptionOther" ColumnName="ContraceptionOther" />
+                <ScalarProperty Name="ContraceptionId_fk" ColumnName="ContraceptionId_fk" />
+                <ScalarProperty Name="IsContraception" ColumnName="IsContraception" />
+                <ScalarProperty Name="IsFollowUpHV" ColumnName="IsFollowUpHV" />
+                <ScalarProperty Name="IsPeerPresent" ColumnName="IsPeerPresent" />
+                <ScalarProperty Name="ServiceMonthId" ColumnName="ServiceMonthId" />
+                <ScalarProperty Name="ServiceYearId" ColumnName="ServiceYearId" />
+                <ScalarProperty Name="BFYId_fk" ColumnName="BFYId_fk" />
+                <ScalarProperty Name="FollowId_fk" ColumnName="FollowId_fk" />
+                <ScalarProperty Name="ServiceBFYId_pk" ColumnName="ServiceBFYId_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1565,6 +1616,7 @@
                 <ScalarProperty Name="Approved1Remarks" ColumnName="Approved1Remarks" />
                 <ScalarProperty Name="Approved1Date" ColumnName="Approved1Date" />
                 <ScalarProperty Name="Approved1Status" ColumnName="Approved1Status" />
+                <ScalarProperty Name="ClaimedAmount" ColumnName="ClaimedAmount" />
                 <ScalarProperty Name="MIYear" ColumnName="MIYear" />
                 <ScalarProperty Name="MIMonth" ColumnName="MIMonth" />
                 <ScalarProperty Name="FollowupId_fk" ColumnName="FollowupId_fk" />
@@ -1575,6 +1627,32 @@
                 <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
                 <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
                 <ScalarProperty Name="CMMIPId_pk" ColumnName="CMMIPId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PaymentHistory">
+            <EntityTypeMapping TypeName="FP_DBModel.tbl_PaymentHistory">
+              <MappingFragment StoreEntitySet="tbl_PaymentHistory">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MobilizationCM" ColumnName="MobilizationCM" />
+                <ScalarProperty Name="MobilizationCNRP" ColumnName="MobilizationCNRP" />
+                <ScalarProperty Name="TypeofPayment" ColumnName="TypeofPayment" />
+                <ScalarProperty Name="PayYear" ColumnName="PayYear" />
+                <ScalarProperty Name="PayMonth" ColumnName="PayMonth" />
+                <ScalarProperty Name="ApprovedAmount" ColumnName="ApprovedAmount" />
+                <ScalarProperty Name="ClaimAmount" ColumnName="ClaimAmount" />
+                <ScalarProperty Name="TargetUserId" ColumnName="TargetUserId" />
+                <ScalarProperty Name="TargetUserTypeId" ColumnName="TargetUserTypeId" />
+                <ScalarProperty Name="VerifyUserTypeId" ColumnName="VerifyUserTypeId" />
+                <ScalarProperty Name="NoofRejected" ColumnName="NoofRejected" />
+                <ScalarProperty Name="NoofApproved" ColumnName="NoofApproved" />
+                <ScalarProperty Name="RejectedAchvId" ColumnName="RejectedAchvId" />
+                <ScalarProperty Name="ApprovedAchvId" ColumnName="ApprovedAchvId" />
+                <ScalarProperty Name="PaymentHistoryId_pk" ColumnName="PaymentHistoryId_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

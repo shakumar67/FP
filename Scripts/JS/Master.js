@@ -90,7 +90,6 @@ $(".numberonly").on("input", function (evt) {
 });
 
 /* -------------------------------------------- Date Range -------------------------------*/
-
 function toDate(dateString) {
 
     var parts = dateString.split('/');

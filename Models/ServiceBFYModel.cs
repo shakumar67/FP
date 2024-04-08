@@ -8,6 +8,17 @@ using System.Web;
 
 namespace FP.Models
 {
+    public class ServiceBFYMainModel
+    {
+        public Nullable<int> Month { get; set; }
+        public Nullable<int> Year { get; set; }
+        public Nullable<int> DistrictId { get; set; }
+        public Nullable<int> BlockId { get; set; }
+        public Nullable<int> ClusterId { get; set; }
+        public string ApprovedRemarks { get; set; }
+        public int TypeLayer { get; set; }
+       
+    }
     public class ServiceBFYModel
     {
         public ServiceBFYModel()
@@ -16,6 +27,11 @@ namespace FP.Models
         }
         [Key]
         public System.Guid ServiceBFYId_pk { get; set; }
+        public Nullable<int> DistrictId_fk { get; set; }
+        public Nullable<int> BlockId_fk { get; set; }
+        public Nullable<int> ClusterId_fk { get; set; }
+        public Nullable<int> PanchayatId_fk { get; set; }
+        public Nullable<int> VoId_fk { get; set; }
         [Required]
         [Display(Name = DisplayAchBFY.ServiceYearId)]
         public Nullable<int> ServiceYearId { get; set; }
@@ -24,7 +40,7 @@ namespace FP.Models
         public Nullable<int> ServiceMonthId { get; set; }
         //[Required]
         public Nullable<System.Guid> FollowId_fk { get; set; }
-       // public Nullable<System.Guid> PlanId_fk { get; set; }
+        // public Nullable<System.Guid> PlanId_fk { get; set; }
         [Required]
         public Nullable<System.Guid> BFYId_fk { get; set; }
 
@@ -72,18 +88,31 @@ namespace FP.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
-
+        public Nullable<bool> Approved1Status { get; set; }
+        public Nullable<System.DateTime> Approved1Date { get; set; }
+        public string Approved1Remarks { get; set; }
+        public string Approved1By { get; set; }
+        public Nullable<bool> Approved2Status { get; set; }
+        public Nullable<System.DateTime> Approved2Date { get; set; }
+        public string Approved2Remarks { get; set; }
+        public string Approved2By { get; set; }
+        public Nullable<bool> Approved3Status { get; set; }
+        public Nullable<System.DateTime> Approved3Date { get; set; }
+        public string Approved3Remarks { get; set; }
+        public string Approved3By { get; set; }
+        public int PlanApprove { get; set; }
+        public Guid ReportedByUserId { get; set; }
     }
     public static class DisplayAchBFY
     {
         public const string ServiceYearId = "Year";
         public const string ServiceMonthId = "Month";
-        public const string IsPPresent= "Present in Peer Group Meeting";
+        public const string IsPPresent = "Present in Peer Group Meeting";
         public const string IsFUpHV = "FollowUp/HV in Current Month";
         public const string IsPPrIsCt = "Want to use contraception after meeting/HV";
-        public const string Ct= "Method of contraception";
-        public const string Ctusemethod= "Use method";
-        public const string CtusemethodOther= "Other use method ";
+        public const string Ct = "Method of contraception";
+        public const string Ctusemethod = "Use method";
+        public const string CtusemethodOther = "Other use method ";
         public const string Isservice = "Linked to ASHA for service";
         public const string ServiceRevcDt = "Service Received Date";
         public const string ServiceProvider = "Service Provider";

@@ -350,6 +350,26 @@ namespace FP.Manager
             sp.Command.AddParameter("@Year", model.Year, DbType.String);
             sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
             sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
+            sp.Command.AddParameter("@TypeLayer", model.TypeLayer, DbType.Int16);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        #endregion
+
+        #region Adopted Service CNRP && CM Level Mobilization Incentive Payment Approved
+        public static DataTable SPMobilizationIPaymentBFY(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_MobilizationIPaymentBFY");
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@CLFId", model.CLFId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", MvcApplication.CUser.Role, DbType.String);
+            sp.Command.AddParameter("@CutUser", MvcApplication.CUser.Name, DbType.String);
+            sp.Command.AddParameter("@TypeLayer", model.TypeLayer, DbType.Int16);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

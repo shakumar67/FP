@@ -107,6 +107,15 @@ namespace FP.Manager
             [Description("Default")]
             Default = 3,
         }
+        public enum eTypeOfPayment
+        {
+            [Description("MonthlyCNRP")]
+            MonthlyCNRP = 1,
+            [Description("MonthlyCM")]
+            MonthlyCM = 2,
+            [Description("MobilizationCMCNRP")]
+            MobilizationCMCNRP = 3,
+        }
         public enum ParticipantTypeValue
         {
 

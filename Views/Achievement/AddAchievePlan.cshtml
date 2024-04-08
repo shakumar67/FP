@@ -120,7 +120,7 @@
                                                 <tr>
                                                     <td class="index"></td>
                                                     <td>
-                                                        <select name="Void_fk" class="Void_fk form-select" required></select>
+                                                        <select name="Void_fk" id="Void_fk" class="Void_fk form-select" required></select>
                                                     </td>
                                                     <td>
                                                         <input type="text" name="MDt" value="" class="form-control col-md-4 mdt" minlength="10" maxlength="15" required />
@@ -144,10 +144,10 @@
 
                     <div class="mb-3">
                         <span class="check-spacer">
-                            <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Submit" />
+                            <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-info" value="Submit" />
                         </span>&nbsp;&nbsp;&nbsp;
                         <span class="check-spacer">
-                            <a href="~/Achievement/AddAchievePlan" class="btn btn-info" id="hrfid"><i class="fa fa-refresh"></i>Refresh</a>
+                            <a href="~/Achievement/AddAchievePlan" class="btn btn-warning" id="hrfid"><i class="fa fa-refresh"></i></a>
                         </span>
                     </div>
                 </div>
@@ -202,8 +202,11 @@
                 BindDataTable();
                 BindData();
             });
+            /* Role Wise */
+            BindRolewise("DistrictId_fk", "BlockId_fk", "ClusterId_fk", "PanchayatId_fk");//, "VOId_fk"
+
             if ($('#PanchayatId_fk').val() != "") {
-                GetVOrg(".Void_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#ClusterId_fk').val(), $(this).val());
+                GetVOrg(".Void_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#ClusterId_fk').val(), $('#PanchayatId_fk').val());
             }
             $('#PlanYear').change(function () {
                 BindDataTable();
@@ -213,9 +216,6 @@
                 BindDataTable();
                 BindData();
             });
-
-            /* Role Wise */
-            BindRolewise("DistrictId_fk", "BlockId_fk", "ClusterId_fk", "PanchayatId_fk", "VOId_fk");
 
             $("#formid").submit(function (e) {
                 e.preventDefault();

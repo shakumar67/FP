@@ -14,6 +14,7 @@ namespace FP.Models
         public Nullable<int> Year { get; set; }
         public virtual CMMIncentivePayModel CMMIncentivePayModel { get; set; }
         public string ApprovedRemarks { get; set; }
+        public int TypeLayer { get; set; }
     }
     public class CMMIncentivePayModel
     {

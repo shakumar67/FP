@@ -17,17 +17,22 @@
     .trdisableAprroved {
         color: #fff;
         pointer-events: none !important;
-        background-color: #90c767 !important
+        background-color: #478718 !important
     }
 
     .trdisableReject {
         color: #fff;
         /*pointer-events: none !important;*/
-        background-color: #c86c6c !important
+        background-color: #b72525 !important
     }
 
     .trcolor {
         color: #000;
+    }
+
+    .table-bordered > tbody > tr:hover {
+        background: white;
+        color: black;
     }
 </style>
 <div class="row row-deck">
@@ -35,7 +40,7 @@
         <div class="card">
             <div class="table-responsive">
 
-                <table class="table table-bordered table-hover dt-responsive display" id="DataList" bSort="false" width="100%">
+                <table class="table table-bordered dt-responsive display" id="DataList" bSort="false" width="100%">
                     <thead>
                         <tr>
                             <th>@CommonModel.DisAchvlbl.Name</th>
