@@ -41,7 +41,7 @@
                 <li> <a href="~/Home/Index"> <i class="fa fa-tachometer-alt me-2"></i> Dashboard </a> </li>
                 @if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.Admin) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.State))
                 {
-                    <li>
+                    <li data-toggle="collapse" data-target="#Beneficiary" class="collapsed">
                         <a href="javascript:void(0)"><i class="fa fa-laptop me-2"></i>Beneficiary <span class="arrow"></span></a>
                     </li>
                     <ul class="sub-menu collapse" id="Beneficiary">
@@ -56,7 +56,7 @@
                     </li>
                     <ul class="sub-menu collapse" id="Payment">
                         <li data-toggle="collapse" data-target="#PaymentMICNRP" class="collapsed">
-                            <a href="#" style="font-size: 12px !important;">
+                            <a href="javascript:void(0);" style="font-size: 12px !important;">
                                 Monthly Incentive @CommonModel.RoleNameCont.CNRP <span class="arrow"></span>
                             </a>
                         </li>
@@ -78,7 +78,7 @@
                             </li>
                         </ul>
                         <li data-toggle="collapse" data-target="#PaymentMICM" class="collapsed">
-                            <a href="#">
+                            <a href="javascript:void(0);">
                                 Monthly Incentive @CommonModel.RoleNameCont.CM <span class="arrow"></span>
                             </a>
                         </li>
@@ -90,18 +90,18 @@
                             </li>
                             <li>
                                 <a href="~/PaymentCM/CMBFYFollowMIPay?TypeLayer=2">
-                                    Validate (@CommonModel.RoleNameCont.CC)
+                                    Checked (@CommonModel.RoleNameCont.CC)
                                 </a>
                             </li>
                             <li>
                                 <a href="~/PaymentCM/CMBFYFollowMIPay?TypeLayer=3">
-                                    Validate (@CommonModel.RoleNameCont.BPM)
+                                    Approved (@CommonModel.RoleNameCont.BPM)
                                 </a>
                             </li>
                         </ul>
 
                         <li data-toggle="collapse" data-target="#MobilizationPayment" class="collapsed">
-                            <a href="#">
+                            <a href="javascript:void(0);">
                                 Mobilization Payment <span class="arrow"></span>
                             </a>
                         </li>
@@ -124,18 +124,19 @@
                         </ul>
                     </ul>
                     <li data-toggle="collapse" data-target="#Report" class="collapsed">
-                        <a href="#">
+                        <a href="javascript:void(0);">
                             <i class="fa fa-file me-2"></i> Report <span class="arrow"></span>
                         </a>
                     </li>
                     <ul class="sub-menu collapse" id="Report">
+                        <li><a href="~/Beneficiary/PaymentSummaryList">Payment Summaey</a></li>
                         <li><a href="~/Beneficiary/FollowupList">Follow List</a></li>
                         <li><a href="~/Report/PrapatraOne">Prapatra-1 List</a></li>
                         <li><a href="~/Report/LetterTwo">Prapatra-2 List</a></li>
                         <li><a href="~/Report/ServiceBFYList">Service Details</a></li>
                     </ul>
                     <li data-toggle="collapse" data-target="#accountt" class="collapsed">
-                        <a href="#">
+                        <a href="javascript:void(0);">
                             <i class="fa fa-users me-2"></i> Account <span class="arrow"></span>
                         </a>
                     </li>
@@ -144,7 +145,7 @@
                         <li><a href="~/Master/UserDetaillist">User List</a></li>
                     </ul>
                     <li data-toggle="collapse" data-target="#Master" class="collapsed">
-                        <a href="#">
+                        <a href="javascript:void(0);">
                             <i class="fa fa-database me-2"></i> Master <span class="arrow"></span>
                         </a>
                     </li>
@@ -159,7 +160,7 @@
                 else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CNRP) || HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.CM))
                 {
                     <li data-toggle="collapse" data-target="#Beneficiary" class="collapsed">
-                        <a href="#">
+                        <a href="javascript:void(0);">
                             <i class="fa fa-database me-2"></i> Beneficiary <span class="arrow"></span>
                         </a>
                     </li>
@@ -173,7 +174,7 @@
                         <li> <a href="/Achievement/AddAchievePlan"> <i class="fa fa-fa fa-users me-2"></i> Achievement </a> </li>
                         <li> <a href="~/Service/AddServiceCNRP"> <i class="fas fa-calendar me-2"></i> Service-CNRP </a> </li>
                         <li data-toggle="collapse" data-target="#accountt" class="collapsed">
-                            <a href="#">
+                            <a href="javascript:void(0);">
                                 <i class="fa fa-users me-2"></i> Account <span class="arrow"></span>
                             </a>
                         </li>
@@ -182,7 +183,7 @@
                             <li><a href="~/Master/UserDetaillist">User List</a></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#Master" class="collapsed">
-                            <a href="#">
+                            <a href="javascript:void(0);">
                                 <i class="fa fa-database me-2"></i> Master <span class="arrow"></span>
                             </a>
                         </li>
@@ -195,7 +196,7 @@
                         </ul>
                     }
                     <li data-toggle="collapse" data-target="#Report" class="collapsed">
-                        <a href="#">
+                        <a href="javascript:void(0);">
                             <i class="fa fa-file me-2"></i> Report <span class="arrow"></span>
                         </a>
                     </li>
@@ -213,7 +214,7 @@
                     </li>
                     <ul class="sub-menu collapse" id="Payment">
                         <li data-toggle="collapse" data-target="#PaymentMICNRP" class="collapsed">
-                            <a href="#" style="font-size: 12px !important;">
+                            <a href="javascript:void(0);" style="font-size: 12px !important;">
                                 Monthly Incentive @CommonModel.RoleNameCont.CNRP <span class="arrow"></span>
                             </a>
                         </li>
@@ -225,7 +226,7 @@
                             </li>
                         </ul>
                         <li data-toggle="collapse" data-target="#PaymentMICM" class="collapsed">
-                            <a href="#">
+                            <a href="javascript:void(0);">
                                 Monthly Incentive @CommonModel.RoleNameCont.CM <span class="arrow"></span>
                             </a>
                         </li>
@@ -238,7 +239,7 @@
 
                         </ul>
                         <li data-toggle="collapse" data-target="#MobilizationPayment" class="collapsed">
-                            <a href="#">
+                            <a href="javascript:void(0);">
                                 Mobilization Payment <span class="arrow"></span>
                             </a>
                         </li>
@@ -251,7 +252,7 @@
                         </ul>
                     </ul>
                     <li data-toggle="collapse" data-target="#Report" class="collapsed">
-                        <a href="#">
+                        <a href="javascript:void(0);">
                             <i class="fa fa-file me-2"></i> Report <span class="arrow"></span>
                         </a>
                     </li>
@@ -269,7 +270,7 @@
                     </li>
                     <ul class="sub-menu collapse" id="Payment">
                         <li data-toggle="collapse" data-target="#PaymentMICNRP" class="collapsed">
-                            <a href="#" style="font-size: 12px !important;">
+                            <a href="javascript:void(0);" style="font-size: 12px !important;">
                                 Monthly Incentive @CommonModel.RoleNameCont.CNRP <span class="arrow"></span>
                             </a>
                         </li>
@@ -281,7 +282,7 @@
                             </li>
                         </ul>
                         <li data-toggle="collapse" data-target="#PaymentMICM" class="collapsed">
-                            <a href="#">
+                            <a href="javascript:void(0);">
                                 Monthly Incentive @CommonModel.RoleNameCont.CM <span class="arrow"></span>
                             </a>
                         </li>
@@ -293,7 +294,7 @@
                             </li>
                         </ul>
                         <li data-toggle="collapse" data-target="#MobilizationPayment" class="collapsed">
-                            <a href="#">
+                            <a href="javascript:void(0);">
                                 Mobilization Payment <span class="arrow"></span>
                             </a>
                         </li>
@@ -306,7 +307,7 @@
                         </ul>
                     </ul>
                     <li data-toggle="collapse" data-target="#Report" class="collapsed">
-                        <a href="#">
+                        <a href="javascript:void(0);">
                             <i class="fa fa-file me-2"></i> Report <span class="arrow"></span>
                         </a>
                     </li>
@@ -324,7 +325,7 @@
                     </li>
                     <ul class="sub-menu collapse" id="Payment">
                         <li data-toggle="collapse" data-target="#PaymentMICNRP" class="collapsed">
-                            <a href="#" style="font-size: 12px !important;">
+                            <a href="javascript:void(0);" style="font-size: 12px !important;">
                                 Monthly Incentive @CommonModel.RoleNameCont.CNRP <span class="arrow"></span>
                             </a>
                         </li>
@@ -337,7 +338,7 @@
 
                         </ul>
                         <li data-toggle="collapse" data-target="#PaymentMICM" class="collapsed">
-                            <a href="#">
+                            <a href="javascript:void(0);">
                                 Monthly Incentive @CommonModel.RoleNameCont.CM <span class="arrow"></span>
                             </a>
                         </li>
@@ -349,7 +350,7 @@
                             </li>
                         </ul>
                         <li data-toggle="collapse" data-target="#MobilizationPayment" class="collapsed">
-                            <a href="#">
+                            <a href="javascript:void(0);">
                                 Mobilization Payment <span class="arrow"></span>
                             </a>
                         </li>
@@ -362,7 +363,7 @@
                         </ul>
                     </ul>
                     <li data-toggle="collapse" data-target="#Report" class="collapsed">
-                        <a href="#">
+                        <a href="javascript:void(0);">
                             <i class="fa fa-file me-2"></i> Report <span class="arrow"></span>
                         </a>
                     </li>
@@ -376,7 +377,7 @@
                 else if (HttpContext.Current.User.IsInRole(CommonModel.RoleNameCont.Viewer))
                 {
                     <li data-toggle="collapse" data-target="#Report" class="collapsed">
-                        <a href="#">
+                        <a href="javascript:void(0);">
                             <i class="fa fa-file me-2"></i> Report <span class="arrow"></span>
                         </a>
                     </li>
@@ -404,6 +405,8 @@
                 $(item).parent('li').addClass('active');
                 $(item).parent('li').parent('ul').addClass('in');
                 $(item).parent('li').parent('ul').prev('li').removeClass('collapsed');
+                $(item).parent('li').parent('ul.sub-menu').parent('ul.sub-menu').prev('li').removeClass('collapsed');
+                $(item).parent('li').parent('ul.sub-menu').parent('ul.sub-menu').addClass('in');
             }
         });
 

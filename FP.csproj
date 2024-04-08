@@ -759,6 +759,8 @@
     <Content Include="Views\PaymentCM\_MIncPayBFYData.cshtml" />
     <Content Include="Views\MobilizationPayment\MobilizationIPayment.cshtml" />
     <Content Include="Views\MobilizationPayment\_MobilizationIPBFYData.cshtml" />
+    <Content Include="Views\Report\PaymentSummaryList.cshtml" />
+    <Content Include="Views\Report\_PaymentSmyData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

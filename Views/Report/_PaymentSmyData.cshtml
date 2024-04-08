@@ -1,0 +1,142 @@
+﻿@using System.Data
+@using FP.Manager
+@{
+    DataSet ds = new DataSet();
+    DataTable dtg = new DataTable();
+    DataTable dtm = new DataTable();
+    if (Model != null)
+    {
+        //ds = Model;
+        dtg = Model;
+    }
+    DataView view = new DataView(dtg);//.Select("CNRPName<>'_All' And UserCNRPId<>'__All'"
+    DataTable dtsn = view.ToTable(true, "CNRPName");
+    DataTable dtts = view.ToTable(true, "UserCNRPId");
+}
+<style>
+    .trdisableAprroved {
+        color: #fff;
+        pointer-events: none !important;
+        background-color: #478718 !important
+    }
+
+    .trdisableReject {
+        color: #fff;
+        /*pointer-events: none !important;*/
+        background-color: #b72525 !important
+    }
+
+    .trcolor {
+        color: #000;
+    }
+
+    .table-bordered > tbody > tr:hover {
+        background: white;
+        color: black;
+    }
+</style>
+<div class="row row-deck">
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="table-responsive">
+
+                <table class="table table-bordered dt-responsive display" id="DataList" bSort="false" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Name of CNRP</th>
+                            <th>District</th>
+                            <th>Block</th>
+                            <th>Cluster</th>
+                            <th>Panchayat</th>
+                            <th>V.Org</th>
+                            <th>Name of CM</th>
+                            <th>Monthly Approved Amount</th>
+                            <th>Mobilization Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 1; int indx = 1;
+                            if (dtg.Rows.Count > 0)
+                            {
+                                foreach (DataRow dr in dtg.Rows)
+                                {
+                                    var clam = 0; var appvam = 0;
+                                    string CNRPName = Convert.ToString(dr["CNRPName"]);
+                                    string UserCNRPId = Convert.ToString(dr["UserCNRPId"]);
+
+                                    if (!string.IsNullOrWhiteSpace(UserCNRPId.ToLower()) && !string.IsNullOrWhiteSpace(CNRPName.ToLower()))
+                                    {
+
+                                        <tr style="color:#1b6907;" data-empid="@UserCNRPId">
+                                            <td data-title="CNRPName" class="@("CNRPName-" + CNRPName.Replace(" ", "_").ToLower())">@CNRPName</td>
+                                            <td>@Convert.ToString(dr["DistrictName"])</td>
+                                            <td>@Convert.ToString(dr["Block"])</td>
+                                            <td>@Convert.ToString(dr["CLFName"])</td>
+                                            <td>@Convert.ToString(dr["Panchayat"])</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@Convert.ToString(dr["CNRPAmount"])</td>
+                                            <td>@Convert.ToString(dr["CNRPEligibleAmount"])</td>
+                                        </tr>
+                                    }
+                                    if (UserCNRPId.ToLower() != "")
+                                    {
+                                        if (!string.IsNullOrWhiteSpace(dr["MonthId"].ToString()))
+                                        {
+                                            FP.Models.FilterModel model = new FP.Models.FilterModel();
+                                            model.UserID = dr["UserCNRPId"].ToString();
+                                            model.MonthId = Convert.ToInt32(dr["MonthId"].ToString());
+                                            model.YearId = Convert.ToInt32(dr["YearId"].ToString());
+                                            dtm = FP.Manager.SP_Model.SPCMPaymentSummary(model);
+                                            if (dtm.Rows.Count > 0)
+                                            {
+                                                var dtsdetails = dtm.AsEnumerable().CopyToDataTable();
+                                                {
+                                                    if (dtsdetails != null)
+                                                    {
+                                                        foreach (DataRow dr1 in dtsdetails.Rows)
+                                                        {
+                                                            <tr class="@("cnrpname-" + CNRPName.Replace(" ", "_").ToLower())">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>@Convert.ToString(dr1["VOrg"])</td>
+                                                                <td>@Convert.ToString(dr1["CMName"])</td>
+                                                                <td>@Convert.ToString(dr1["CMAmount"])</td>
+                                                                <td>@Convert.ToString(dr1["CMEligibleAmount"])</td>
+                                                            </tr>
+                                                            indx++;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="10" class="text-danger text-center"><strong>@(Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound))</strong></td></tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+                @{
+                    foreach (DataRow dr in dtsn.Rows)
+                    {
+                        string group = "cnrpname-" + Convert.ToString(dr["CNRPName"]).ToLower();
+                        <script>
+                                CreateGroup('@group');
+                        </script>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

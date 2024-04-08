@@ -473,6 +473,7 @@ namespace FP.Controllers
                                                     tblu.IsLevel3Approve = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
                                                     tblu.Level3ApproveDt = cdt;
                                                     tblu.Level3ApproveBy = MvcApplication.CUser.Id;
+                                                    tblu.ClaimedAmount= CommonModel.GetClaimApprove(1, CommonModel.RoleNameCont.CNRP);
                                                     results += db_.SaveChanges();
                                                 }
                                             }

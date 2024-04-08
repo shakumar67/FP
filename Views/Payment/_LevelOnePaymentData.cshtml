@@ -139,7 +139,7 @@
                                                                 <td data-title="Noofparticipant">@dr1["Noofparticipant"]</td>
                                                                 <td data-title="PlanMonthYear">@dr1["PlanMonthYear"]</td>
                                                                 <td data-title="Remark" width="300px">
-                                                                    <textarea id="remark-@dr1["AchieveId_pk"]" value="" name="Remark-@dr1["AchieveId_pk"]" class="form-control" rows="5" cols="12">@dr1["Remark1"].ToString()</textarea>
+                                                                    <textarea id="remark-@dr1["AchieveId_pk"]" name="Remark-@dr1["AchieveId_pk"]" class="form-control" rows="5" cols="12">@dr1["Remark1"].ToString()</textarea>
                                                                     <span id="remark-@dr1["AchieveId_pk"]-error" class="text-danger"></span>
                                                                     @dr1["Level1RejectDt"].ToString()
                                                                     @*@if (dr1["PlanStatus"].ToString() != appr && "trdisableAprroved" != distbl)

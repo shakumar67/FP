@@ -46,6 +46,8 @@ namespace FP.Models
         public int Type { get; set; }
         public int TypeLayer { get; set; }
         public string BtnType { get; set; }
+
+        public string UserID { get; set; }
     }
    
 }

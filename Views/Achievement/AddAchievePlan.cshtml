@@ -207,6 +207,8 @@
 
             if ($('#PanchayatId_fk').val() != "") {
                 GetVOrg(".Void_fk", 0, $('#DistrictId_fk').val(), $('#BlockId_fk').val(), $('#ClusterId_fk').val(), $('#PanchayatId_fk').val());
+                BindDataTable();
+                BindData();
             }
             $('#PlanYear').change(function () {
                 BindDataTable();
