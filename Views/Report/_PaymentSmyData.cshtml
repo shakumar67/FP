@@ -50,7 +50,7 @@
                             <th>Panchayat</th>
                             <th>V.Org</th>
                             <th>Name of CM</th>
-                            <th>Monthly Approved Amount</th>
+                            <th>Monthly Incentive Amount</th>
                             <th>Mobilization Amount</th>
                         </tr>
                     </thead>
@@ -69,15 +69,15 @@
                                     {
 
                                         <tr style="color:#1b6907;" data-empid="@UserCNRPId">
-                                            <td data-title="CNRPName" class="@("CNRPName-" + CNRPName.Replace(" ", "_").ToLower())">@CNRPName</td>
+                                            <td data-title="CNRPName" class="@("cnrpname-" + CNRPName.Replace(" ", "_").ToLower())">@CNRPName</td>
                                             <td>@Convert.ToString(dr["DistrictName"])</td>
                                             <td>@Convert.ToString(dr["Block"])</td>
                                             <td>@Convert.ToString(dr["CLFName"])</td>
                                             <td>@Convert.ToString(dr["Panchayat"])</td>
                                             <td></td>
                                             <td></td>
-                                            <td>@Convert.ToString(dr["CNRPAmount"])</td>
-                                            <td>@Convert.ToString(dr["CNRPEligibleAmount"])</td>
+                                            <td>@(string.Format("{0:00}", dr["CNRPAmount"]))</td>
+                                            <td>@(string.Format("{0:00}", dr["CNRPEligibleAmount"]))</td>
                                         </tr>
                                     }
                                     if (UserCNRPId.ToLower() != "")
@@ -105,8 +105,8 @@
                                                                 <td></td>
                                                                 <td>@Convert.ToString(dr1["VOrg"])</td>
                                                                 <td>@Convert.ToString(dr1["CMName"])</td>
-                                                                <td>@Convert.ToString(dr1["CMAmount"])</td>
-                                                                <td>@Convert.ToString(dr1["CMEligibleAmount"])</td>
+                                                                <td>@(string.Format("{0:00}", dr1["CMAmount"]))</td>
+                                                                <td>@(string.Format("{0:00}", dr1["CMEligibleAmount"]))</td>
                                                             </tr>
                                                             indx++;
                                                         }
@@ -124,7 +124,7 @@
                         }
 
                     </tbody>
-
+                       
                 </table>
                 @{
                     foreach (DataRow dr in dtsn.Rows)

@@ -19,6 +19,7 @@
         display: flex;
         gap: 10px;
     }
+
     .table th {
         font-size: 14px;
         background: #fff;
@@ -38,7 +39,7 @@
     }*/
 </style>
 <div class="breadcrumb">
-    <h2>Beneficiary Lists</h2>
+    <h2>Payment Summary</h2>
     <strong id="div-download"></strong>
 </div>
 
@@ -132,8 +133,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <link href="~/Content/css/TreeTable.css" rel="stylesheet" />
     <script src="~/Scripts/JS/Master.js"></script>
-    <script src="~/Scripts/JS/BEYDetails.js"></script>
+    <script src="~/Scripts/JS/TreeTable.js"></script>
+
 
     <script>
         $(document).ready(function () {
@@ -187,32 +190,36 @@
                 success: function (res) {
                     if (res.IsSuccess) {
                         $("#subdata").html(res.Data);
-
-                        if ($.fn.dataTable.isDataTable('#tbl')) {
-                            $("#tbl").dataTable().fnDestroy();
-                        }
-                        table = $('#tbl').DataTable({
-                            //scrollY: "400px",
-                            //scrollX: true,
-                            //scrollCollapse: true,
-                            //paging: false,
-                            pageLength: 100,
-                            fixedColumns: {
-                                leftColumns: 1,
-                                rightColumns: 1
-                            },
-                            buttons: [{
-                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Payment Summary Lists',//$('#IDDistrict option:selected').text() +
-                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
-                                filename: 'Beneficiary List',
-                                exportOptions: { modifier: { page: 'all' } }
-                            }],
+                        $("#DataList").DataTable({
+                            "ordering": false,
+                            pageLength: 500,
+                            lengthChange: false
                         });
-                        $('.dataTables_filter input[type="search"]').css(
-                            { 'width': '500px', 'display': 'inline-block' }
-                        );
-                        $('#div-download').empty();
-                        table.buttons().container().appendTo($('#div-download'));
+                        //if ($.fn.dataTable.isDataTable('#tbl')) {
+                        //    $("#tbl").dataTable().fnDestroy();
+                        //}
+                        //table = $('#tbl').DataTable({
+                        //    //scrollY: "400px",
+                        //    //scrollX: true,
+                        //    //scrollCollapse: true,
+                        //    //paging: false,
+                        //    pageLength: 100,
+                        //    fixedColumns: {
+                        //        leftColumns: 1,
+                        //        rightColumns: 1
+                        //    },
+                        //    buttons: [{
+                        //        extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Payment Summary Lists',//$('#IDDistrict option:selected').text() +
+                        //        className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                        //        filename: 'Beneficiary List',
+                        //        exportOptions: { modifier: { page: 'all' } }
+                        //    }],
+                        //});
+                        //$('.dataTables_filter input[type="search"]').css(
+                        //    { 'width': '500px', 'display': 'inline-block' }
+                        //);
+                        //$('#div-download').empty();
+                        //table.buttons().container().appendTo($('#div-download'));
                     }
                     else {
                         $("#subdata").html(res.Data);
