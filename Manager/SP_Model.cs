@@ -500,6 +500,21 @@ namespace FP.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SP_GetPaymentReport(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetPaymentReport");
+            sp.Command.AddParameter("@DisId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@BlkId", model.BlockId, DbType.String);
+            sp.Command.AddParameter("@CLFId", model.CLFId, DbType.String);
+            sp.Command.AddParameter("@PytId", model.PanchayatId, DbType.String);
+            sp.Command.AddParameter("@VoId", model.VOId, DbType.String);
+            sp.Command.AddParameter("@Month", model.Month, DbType.String);
+            sp.Command.AddParameter("@Year", model.Year, DbType.String);
+            sp.Command.AddParameter("@Role", model.RoleId, DbType.String);
+            sp.Command.AddParameter("@CutUser", model.CutUser, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         public static DataTable SPCMPaymentSummary(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_CMPaymentSummary");

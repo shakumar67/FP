@@ -23,7 +23,7 @@ namespace FP.Controllers
         {
             FilterModel model = new FilterModel();
             model.TypeLayer = TypeLayer;
-            model.BtnType = TypeLayer == 1 ? "Validate" : TypeLayer == 2 ? "Checked" : TypeLayer == 3 ? "Approved" : "Submit";
+            model.BtnType = TypeLayer == 1 ? "Validate" : TypeLayer == 2 ? "Checked" : TypeLayer == 3 ? "Recommend" : "Submit";
             return View(model);
         }
         public ActionResult GetMobilizationIPayList(FilterModel model)

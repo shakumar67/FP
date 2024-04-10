@@ -51,15 +51,15 @@
             <div class="row g-4">
                 <div class="col-sm-12">
                     <div class="bg-light rounded h-100 p-4">
-                        <div class="row mb-3">
-                            <div class="col-sm-3">
+                        <div class="row mb-3" style="display:none">
+                            <div class="col-sm-3" style="display:none">
                                 <div class="position-relative form-group">
                                     @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label" })
                                     @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select " })
                                     @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3" style="display:none">
                                 <div class="position-relative form-group">
                                     @Html.LabelFor(model => model.BlockId, htmlAttributes: new { @class = "control-label" })
                                     @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select " })
@@ -67,54 +67,61 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-3">
+                            <div class="col-sm-3" style="display:none">
                                 <div class="position-relative form-group">
                                     @Html.LabelFor(model => model.CLFId, htmlAttributes: new { @class = "control-label" })
                                     @Html.DropDownListFor(m => m.CLFId, new List<SelectListItem>(), null, new { @class = "form-select " })
                                     @Html.ValidationMessageFor(model => model.CLFId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3" style="display:none">
                                 <div class="position-relative form-group">
                                     @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
                                     @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
                                     @Html.ValidationMessageFor(model => model.PanchayatId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-4" style="display:none;">
-                                    <div class="position-relative form-group">
-                                        @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                        @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="position-relative form-group">
-                                        @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                        @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="position-relative form-group">
-                                        @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                        @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
-                                    </div>
+
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4" style="display:none;">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <span class="check-spacer">
-                                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-info" value="Filter" />
-                                </span>&nbsp;&nbsp;&nbsp;
-                                <span class="check-spacer">
-                                    <a href="~/Report/PaymentSummaryList" class="btn btn-warning"><i class="fa-solid fa-rotate-right"></i></a>
-                                </span>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    <br />
+                                    <div class="mb-3">
+                                        <span class="check-spacer">
+                                            <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-info" value="Filter" />
+                                        </span>&nbsp;&nbsp;&nbsp;
+                                        <span class="check-spacer">
+                                            <a href="~/Report/PaymentSummaryList" class="btn btn-warning"><i class="fa-solid fa-rotate-right"></i></a>
+                                        </span>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+
                             </div>
                         </div>
-                    </div>
-                </div>
             </div>
         }
     </fieldset>
@@ -160,14 +167,15 @@
             /* Role Wise */
             BindRolewise("DistrictId", "BlockId", "CLFId", "PanchayatId", "VOId");
 
-            BindData();
+            //BindData();
 
             $("#formid").submit(function (e) {
                 e.preventDefault();
-                BindData();
+                BindPaymentReportData();
             });
 
-            setTimeout(BindData, 2000);
+            //setTimeout(BindData, 2000);
+            setTimeout(BindPaymentReportData, 200);
             //BindData();
         });
         function BindData() {
@@ -220,6 +228,45 @@
                         //);
                         //$('#div-download').empty();
                         //table.buttons().container().appendTo($('#div-download'));
+                    }
+                    else {
+                        $("#subdata").html(res.Data);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+
+        function BindPaymentReportData() {
+            $("#subdata").html('');
+            var filtermodel = new Object();
+            filtermodel.DistrictId = $('#DistrictId').val() == '' ? '' : $('#DistrictId').val();
+            filtermodel.BlockId = $('#BlockId').val() == '' ? '' : $('#BlockId').val();
+            filtermodel.CLFId = $('#CLFId').val() == '' ? '' : $('#CLFId').val();
+            filtermodel.PanchayatId = $('#PanchayatId').val() == '' ? '' : $('#PanchayatId').val();
+            filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
+            filtermodel.Year = $('#Year').val() == '' ? '' : $('#Year').val();
+            filtermodel.Month = $('#Month').val() == '' ? '' : $('#Month').val();
+            var formData = $('#formid').serialize();
+
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Report/GetPaymentReport",
+                data: filtermodel,//JSON.stringify({ 'Roles': '' }),
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+                        $("#DataList").DataTable({
+                            "ordering": false,
+                            pageLength: 500,
+                            lengthChange: false
+                        });
+                       
                     }
                     else {
                         $("#subdata").html(res.Data);

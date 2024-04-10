@@ -1,0 +1,196 @@
+﻿@using System.Data
+@using FP.Manager
+@{
+    DataSet ds = new DataSet();
+    DataTable dtg = new DataTable();
+    DataTable dtm = new DataTable();
+    if (Model != null)
+    {
+        //ds = Model;
+        dtg = Model;
+    }
+}
+<style>
+    .trdisableAprroved {
+        color: #fff;
+        pointer-events: none !important;
+        background-color: #478718 !important
+    }
+
+    .trdisableReject {
+        color: #fff;
+        /*pointer-events: none !important;*/
+        background-color: #b72525 !important
+    }
+
+    .trcolor {
+        color: #000;
+    }
+
+    .table-bordered > tbody > tr:hover {
+        background: white;
+        color: black;
+    }
+</style>
+<div class="row row-deck">
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="table-responsive">
+
+                <table class="table table-bordered dt-responsive display" id="DataList" bSort="false" width="100%">
+                    <thead>
+                        <tr>
+                            <th>District</th>
+                            <th>Block</th>
+                            <th>Panchayat</th>
+                            <th>Cader</th>
+                            <th>Name</th>
+                            <th>Monthly Incentive</th>
+                            <th>Mobilization Incentive </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 1; int indx = 1;
+                            if (dtg.Rows.Count > 0)
+                            {
+                                foreach (DataRow dr in dtg.Rows)
+                                {
+                                    var clam = 0; var appvam = 0;
+                                    string DistrictName = Convert.ToString(dr["DistrictName"]);
+                                    string Block = Convert.ToString(dr["Block"]);
+                                    string Panchayat = Convert.ToString(dr["Panchayat"]);
+                                    string Cadre = Convert.ToString(dr["Cadre"]);
+                                    string Name = Convert.ToString(dr["Name"]);
+
+                                    if (DistrictName != "zz_grandTotal" && Block.ToLower() == "_all")
+                                    {
+                                        <tr style="color:#1b6907;" data-key="@("d-"+DistrictName)">
+                                            <td data-title="District" class="@("d-" + DistrictName.Replace(" ", "_").ToLower())">@DistrictName</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@(string.Format("{0:00}", dr["Monthly_Incentive"]))</td>
+                                            <td>@(string.Format("{0:00}", dr["Mobilization_Incentive"]))</td>
+                                        </tr>
+                                    }
+                                    else if (Block != "_all" && Panchayat.ToLower() == "__all")
+                                    {
+                                        <tr style="color:#1b6907;" data-key="@("b-"+Block)" class="@("d-" + DistrictName.Replace(" ", "_").ToLower())">
+                                            <td></td>
+                                            <td data-title="Block" class="@("d-" + DistrictName.Replace(" ", "_").ToLower() +"-b-"+ Block.Replace(" ", "_").ToLower())">@Block</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@(string.Format("{0:00}", dr["Monthly_Incentive"]))</td>
+                                            <td>@(string.Format("{0:00}", dr["Mobilization_Incentive"]))</td>
+                                        </tr>
+                                    }
+                                    else if (Panchayat.ToLower() != "__all" && Cadre == "_total")
+                                    {
+                                        <tr style="color:#1b6907;" data-key="@("p-"+Panchayat)" class="@("d-" + DistrictName.Replace(" ", "_").ToLower() +"-b-"+ Block.Replace(" ", "_").ToLower())">
+                                            <td></td>
+                                            <td></td>
+                                            <td data-title="Panchayat" class="@("d-" + DistrictName.Replace(" ", "_").ToLower() +"-b-"+ Block.Replace(" ", "_").ToLower()+"-p-"+Panchayat.Replace(" ", "_").ToLower())">@Panchayat</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@(string.Format("{0:00}", dr["Monthly_Incentive"]))</td>
+                                            <td>@(string.Format("{0:00}", dr["Mobilization_Incentive"]))</td>
+                                        </tr>
+                                    }
+                                    else if (Cadre != "_total" && string.IsNullOrWhiteSpace(Name))
+                                    {
+                                        <tr style="color:#1b6907;" data-key="@("c-"+Cadre)" class="@("d-" + DistrictName.Replace(" ", "_").ToLower() +"-b-"+ Block.Replace(" ", "_").ToLower()+"-p-"+Panchayat.Replace(" ", "_").ToLower())">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td data-title="Cadre" class="@("d-" + DistrictName.Replace(" ", "_").ToLower() +"-b-"+ Block.Replace(" ", "_").ToLower()+"-p-"+Panchayat.Replace(" ", "_").ToLower()+"-c-"+Cadre.Replace(" ", "_").ToLower())">@Cadre</td>
+                                            <td></td>
+                                            <td>@(string.Format("{0:00}", dr["Monthly_Incentive"]))</td>
+                                            <td>@(string.Format("{0:00}", dr["Mobilization_Incentive"]))</td>
+                                        </tr>
+                                    }
+                                    else if (!string.IsNullOrWhiteSpace(Name))
+                                    {
+                                        <tr style="color:#1b6907;" data-key="@("n-"+dr["Name"])" class="@("d-" + DistrictName.Replace(" ", "_").ToLower() +"-b-"+ Block.Replace(" ", "_").ToLower()+"-p-"+Panchayat.Replace(" ", "_").ToLower()+"-c-"+Cadre.Replace(" ", "_").ToLower())">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td data-title="Name">@dr["Name"]</td>
+                                            <td>@(string.Format("{0:00}", dr["Monthly_Incentive"]))</td>
+                                            <td>@(string.Format("{0:00}", dr["Mobilization_Incentive"]))</td>
+                                        </tr>
+                                    }
+                                    else//Grand Total
+                                    {
+                                        <tr style="color:#1b6907;" data-key="grandTotal">
+                                            <td>
+                                                Grand Total
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@(string.Format("{0:00}", dr["Monthly_Incentive"]))</td>
+                                            <td>@(string.Format("{0:00}", dr["Mobilization_Incentive"]))</td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="10" class="text-danger text-center"><strong>@(Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound))</strong></td></tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+                @{
+                    if (dtg.Rows.Count > 0)
+                    {
+
+                        DataView view = new DataView(dtg);//.Select("CNRPName<>'_All' And UserCNRPId<>'__All'"
+                        DataTable dtD = view.ToTable(true, "DistrictName", "Block").Select("DistrictName<>'zz_grandTotal' and Block ='_all'").CopyToDataTable();
+                        DataTable dtB = view.ToTable(true, "DistrictName", "Block", "Panchayat").Select("DistrictName<>'zz_grandTotal' and Block<>'_all' and Panchayat='__all'").CopyToDataTable();
+                        DataTable dtP = view.ToTable(true, "DistrictName", "Block", "Panchayat", "Cadre").Select("DistrictName<>'zz_grandTotal' and Block<>'_all' and Panchayat<>'__all' and Cadre='_total'").CopyToDataTable();
+                        DataTable dtC = view.ToTable(true, "DistrictName", "Block", "Panchayat", "Cadre", "Name").Select("DistrictName<>'zz_grandTotal' and Block<>'_all' and Panchayat<>'__all' and Cadre<>'_total' and Name is null").CopyToDataTable();
+
+                        foreach (DataRow dr in dtD.Rows)
+                        {
+                            string group = "d-" + Convert.ToString(dr["DistrictName"]).ToLower();
+                            <script>
+                                CreateGroup('@group');
+                            </script>
+                        }
+                        foreach (DataRow dr in dtB.Rows)
+                        {
+                            string group = "d-" + dr["DistrictName"].ToString().Replace(" ", "_").ToLower() + "-b-" + dr["Block"].ToString().Replace(" ", "_").ToLower();
+                            <script>
+                                CreateGroup('@group');
+                            </script>
+                        }
+                        foreach (DataRow dr in dtP.Rows)
+                        {
+                            string group = "d-" + dr["DistrictName"].ToString().Replace(" ", "_").ToLower() + "-b-" + dr["Block"].ToString().Replace(" ", "_").ToLower() + "-p-" + Convert.ToString(dr["Panchayat"]).ToLower();
+                            <script>
+                                CreateGroup('@group');
+                            </script>
+                        }
+                        foreach (DataRow dr in dtC.Rows)
+                        {
+                            string group = "d-" + dr["DistrictName"].ToString().Replace(" ", "_").ToLower() + "-b-" + dr["Block"].ToString().Replace(" ", "_").ToLower() + "-p-" + Convert.ToString(dr["Panchayat"]).ToLower() + "-c-" + Convert.ToString(dr["Cadre"]).ToLower();
+                            <script>
+                                CreateGroup('@group');
+                            </script>
+                        }
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

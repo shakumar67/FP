@@ -1904,6 +1904,12 @@ namespace FP.Manager
         {
             return Decimal.TryParse(str, out decimal res) ? res : 0M;
         }
+        public class LevelConst
+        {
+            public const string Validate = "Validate";
+            public const string Checked = "Checked";
+            public const string Recommend = "Recommend";
+        }
         public class RoleNameCont
         {
             public const string Admin = "Admin";
