@@ -24,9 +24,10 @@
                     <th>Panchayat</th>
                     <th>Village <br />Organization</th>
                     <th>Follow-Up <br />Month</th>
-                    <th>Health <br />Center </th>
+                    <th>Parity</th>
                     <th>Name of<br />Beneficiary</th>
-                    <th>Beneficiary Mobile No</th>
+                    <th>@FP.Models.DisplayFollowBFY.Ct</th>
+                    <th>@FP.Models.DisplayFollowBFY.Ctusemethod</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,9 +51,10 @@
                                 <td class="text-left">@dr["Panchayat"]</td>
                                 <td class="text-left">@dr["VO"]</td>
                                 <td class="text-center">@dr["FollowupReportDate"]</td>
-                                <td class="text-left">@dr["HealthCenter"]</td>
+                                <td class="text-center">@dr["Parity"]</td>
                                 <td class="text-left">@dr["BFYName"]</td>
-                                <td class="text-center">@dr["BFYMobileNo"]</td>
+                                <td class="text-center">@dr["C_Name"]</td>
+                                <td class="text-center">@dr["Method_Name"]</td>
                             </tr>
                         }
                     }

@@ -96,6 +96,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
+                                                    <th>@CommonModel.DisAchvlbl.Activities</th>
                                                     <th>@CommonModel.DispLevel.VOFull</th>
                                                     <th>@CommonModel.DisAchvlbl.MeetingDate</th>
                                                     <th>@CommonModel.DisAchvlbl.NoofParticipant</th>
@@ -119,6 +120,15 @@
                                             <tfoot style="display:none;">
                                                 <tr>
                                                     <td class="index"></td>
+                                                    <td>
+                                                        <select name="Activities_fk" id="Activities_fk" class="Activities_fk form-select" required>
+                                                            <option value="0" selected="selected">Select</option>
+                                                            <option value="1">Peer group meeting</option>
+                                                            <option value="2">Home Visit</option>
+                                                            <option value="3">Linkage of beneficiary with health service provider</option>
+                                                            <option value="4">Participated in FP campaign</option>
+                                                        </select>
+                                                    </td>
                                                     <td>
                                                         <select name="Void_fk" id="Void_fk" class="Void_fk form-select" required></select>
                                                     </td>

@@ -107,7 +107,7 @@ namespace FP.Models
     {
         public const string ServiceYearId = "Year";
         public const string ServiceMonthId = "Month";
-        public const string IsPPresent = "Present in Peer Group Meeting";
+        public const string IsPPresent = "Availed contraception after meeting/HV";
         public const string IsFUpHV = "FollowUp/HV in Current Month";
         public const string IsPPrIsCt = "Want to use contraception after meeting/HV";
         public const string Ct = "Method of contraception";

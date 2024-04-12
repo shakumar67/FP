@@ -52,9 +52,16 @@ namespace FP.Models
         [Display(Name = "Name of Beneficiary")]
         public string Q3 { get; set; }
         [Required]
+        [Display(Name = "")]
+        public int IsDOB { get; set; }
+        [Required]
         [Display(Name = "Date Of Birth")]
         //[GreaterThanOrEqualTo("Q12")]
         public Nullable<System.DateTime> BFYDOB { get; set; }
+        [Required]
+        [Display(Name = "Year of Birth")]
+        //[GreaterThanOrEqualTo("Q12")]
+        public Nullable<int> BFYDOBYear { get; set; }
         [Display(Name = "Age of Beneficiary (In year/Month)")]
         public Nullable<double> Q4 { get; set; }
         [Required]
@@ -122,6 +129,24 @@ namespace FP.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        [Required]
+        public bool IsPregnant { get; set; }
+        public string DPregnant
+        {
+            get
+            {
+                string CN = string.Empty;
+                if (HindiEng == 1)
+                {
+                    CN = "Is Beneficiary pregnant at present";
+                }
+                else if (HindiEng == 2)
+                {
+                    CN = "क्या लाभार्थी वर्तमान में गर्भवती है?";
+                }
+                return CN;
+            }
+        }
         public string DDis
         {
             get
@@ -475,6 +500,22 @@ namespace FP.Models
                 return CN;
             }
         }
+        //public string QDOBYearD
+        //{
+        //    get
+        //    {
+        //        string CN = string.Empty;
+        //        if (HindiEng == 1)
+        //        {
+        //            CN = "Date of Birth (Youngest Child)";
+        //        }
+        //        else if (HindiEng == 2)
+        //        {
+        //            CN = "सबसे छोटे बच्चे की जन्मतिथि";
+        //        }
+        //        return CN;
+        //    }
+        //}
         public string Q12_1D
         {
             get

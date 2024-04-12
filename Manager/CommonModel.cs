@@ -983,6 +983,14 @@ namespace FP.Manager
             list.Add(new SelectListItem { Value = "2", Text = "Year of marriage" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
+        public static List<SelectListItem> GetDOBYear()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "1", Text = "Date of Birth", Selected = true });
+            list.Add(new SelectListItem { Value = "2", Text = "Year of Birth" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         public static List<SelectListItem> GetModuleRollout()
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -1944,6 +1952,7 @@ namespace FP.Manager
         {
             public const string Name = "Name";//MeetingHeld
             public const string MeetingDate = "Meeting Conducted On";//MeetingHeld
+            public const string Activities = "Activities";//\r\n
             public const string TotalNoofParticipant = "No of Plan";
             public const string NoofParticipant = "No of Participant";
             public const string AchvPlanDate = "Planning Month\r\nYear ";//
@@ -1960,6 +1969,7 @@ namespace FP.Manager
             public const string ApprovedDTMRP = "Validate MRP";//\r\n
             public const string ApprovedDTCC = "Checked CC";//\r\n
             public const string ApprovedD3 = "Approved BPM";//\r\n
+          
         }
     }
 }

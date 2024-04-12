@@ -105,10 +105,26 @@
                         @Html.ValidationMessageFor(m => m.Q3, "", new { @class = "text-danger" })
                     </div>
                     <div class="mb-3">
-                        @Html.Label(Model.Q4D, htmlAttributes: new { @class = "" })
-                        @Html.EditorFor(m => m.BFYDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker clage" } })@*//, minlength = "10", maxlength = "10"*@
+                        <div class="position-relative form-group">
+                            <div class="checkbox">
+                                @foreach (var item in CommonModel.GetDOBYear())
+                                {
+                                    <span class="check-spacer">
+                                        @Html.RadioButtonFor(model => model.IsDOB, item.Value, new { id = "Q6DOBYear" + item.Value, @required = "required" }) @item.Text
+                                    </span>
+                                }
+                                @Html.ValidationMessageFor(model => model.IsDOB, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3" id="div-BFYDOBYear" style="display:none;">
+                        @Html.Label(Model.Q4D, htmlAttributes: new { @class = "cl-BFYDOB" })
+                        @Html.EditorFor(m => m.BFYDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker clage cl-BFYDOB" } })@*//, minlength = "10", maxlength = "10"*@
                         <strong id="bfyage" class="text-success"></strong>
                         @Html.ValidationMessageFor(m => m.BFYDOB, "", new { @class = "text-danger" })
+                        @Html.LabelFor(m => m.BFYDOBYear, htmlAttributes: new { @class = "cl-BFYDOBYear", @style = "display:none;" })
+                        @Html.EditorFor(m => m.BFYDOBYear, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly cl-BFYDOBYear", min = "4", maxlength = "4", @style = "display:none;" } })
+                        @Html.ValidationMessageFor(m => m.BFYDOBYear, "", new { @class = "text-danger cl-BFYDOBYear" })
                     </div>
                     <div class="mb-3">
                         @Html.Label(Model.Q5D, htmlAttributes: new { @class = "" })
@@ -173,6 +189,20 @@
                         @Html.Label(Model.Q11D, htmlAttributes: new { @class = "" })
                         @Html.EditorFor(m => m.Q11, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "99", maxlength = "2" } })
                         @Html.ValidationMessageFor(m => m.Q11, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label(Model.DPregnant, htmlAttributes: new { @class = "" })
+                        <div class="position-relative form-group">
+                            <div class="checkbox">
+                                @foreach (var item in CommonModel.GetYesNotrue())
+                                {
+                                    <span class="check-spacer">
+                                        @Html.RadioButtonFor(model => model.IsPregnant, item.Value, new { id = "IsPregnant" + item.Value, @required = "required" }) @item.Text
+                                    </span>
+                                }
+                                @Html.ValidationMessageFor(model => model.IsPregnant, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-3">
                         @Html.Label(Model.Q12_1D, htmlAttributes: new { @class = "" })
@@ -324,6 +354,19 @@
                 else if ($(this).val() == "2") {
                     $('.cl-Q6_Year').css('display', 'block');
                     $('#Q6_Year').attr('required', 'required');
+                }
+            });
+            $('input[name=IsDOB]').click(function () {
+                $('#div-BFYDOBYear').css('display', 'block');
+                $('#BFYDOB').val(''); $('#BFYDOBYear').val(''); $('.cl-BFYDOB').css('display', 'none'); $('.cl-BFYDOBYear').css('display', 'none');
+                $('#BFYDOB').removeAttr('required'); $('#BFYDOBYear').removeAttr('required');
+                if ($(this).val() == "1") {
+                    $('.cl-BFYDOB').css('display', 'block');
+                    $('#BFYDOB').attr('required', 'required');
+                }
+                else if ($(this).val() == "2") {
+                    $('.cl-BFYDOBYear').css('display', 'block');
+                    $('#BFYDOBYear').attr('required', 'required');
                 }
             });
 
