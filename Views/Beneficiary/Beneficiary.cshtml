@@ -117,7 +117,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3" id="div-BFYDOBYear" style="display:none;">
+                    <div class="mb-3">
                         @Html.Label(Model.Q4D, htmlAttributes: new { @class = "cl-BFYDOB" })
                         @Html.EditorFor(m => m.BFYDOB, new { htmlAttributes = new { @class = "form-control col-md-4 date_picker clage cl-BFYDOB" } })@*//, minlength = "10", maxlength = "10"*@
                         <strong id="bfyage" class="text-success"></strong>
@@ -293,7 +293,7 @@
               rel='stylesheet'>
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>*@
 
-    <script>
+<script>
         $(document).ready(function () {
 
             $('.count-input').unbind('keyup change input paste').bind('keyup change input paste', function (e) {
@@ -602,10 +602,21 @@
             BeneficiaryModel.HealthCenter = $('#HealthCenter').val();
             BeneficiaryModel.Q1= $('#Q1').val();
             BeneficiaryModel.Q2= $('#Q2').val();
-            BeneficiaryModel.Q3= $('#Q3').val();
-            if ($('#BFYDOB').val()) {
-                BeneficiaryModel.BFYDOB = toDate($('#BFYDOB').val());
-            }
+                BeneficiaryModel.Q3 = $('#Q3').val();
+                if ($('input[name=IsDOB]:checked').val() == "1") {
+                    $('#BFYDOBYear').val('');
+                    if ($('#BFYDOB').val()) {
+                        BeneficiaryModel.BFYDOB = toDate($('#BFYDOB').val());
+                    }
+                }
+                if ($('input[name=IsDOB]:checked').val() == "2") {
+                    $('#BFYDOB').val('');
+                    if ($('#BFYDOBYear').val()) {
+                        BeneficiaryModel.BFYDOBYear = toDate($('#BFYDOBYear').val());
+                    }
+                }
+                BeneficiaryModel.IsPregnant = $('input[name=IsPregnant]:checked').val();
+
             BeneficiaryModel.Q5 = $('#Q5').val();
             BeneficiaryModel.Q6DOMYear = $('input[name=Q6DOMYear]:checked').val();
             if ($('#Q6').val()) {
@@ -693,7 +704,23 @@
              $('#Q1').val('@Model.Q1');
              $('#Q2').val('@Model.Q2');
              $('#Q3').val('@Model.Q3');
-            $('#BFYDOB').val(moment('@Model.BFYDOB').format("DD/MM/YYYY"));
+            $('#div-BFYDOBYear').css('dispaly', 'block');
+            if ($('input[name=IsDOB]:checked').val() == "1") {
+                $('#BFYDOBYear').val('');
+                $('.cl-BFYDOBYear').css('dispaly', 'none');
+                $('.cl-BFYDOB').css('dispaly', 'block');
+                if ($('#BFYDOB').val()) {
+                    $('#BFYDOB').val(moment('@Model.BFYDOB').format("DD/MM/YYYY"));
+                }
+            }
+            if ($('input[name=IsDOB]:checked').val() == "2") {
+                $('#BFYDOB').val('');
+                $('.cl-BFYDOB').css('dispaly', 'none'); $('.cl-BFYDOBYear').css('dispaly', 'block');
+                if ($('#BFYDOBYear').val()) {
+                    $('#BFYDOBYear').val('@Model.BFYDOBYear');
+                }
+            }
+            $('input[name=IsPregnant]:checked').val('@Model.IsPregnant');
             //var DOB = getAge($('#BFYDOB').val());
             //$('#bfyage').html(DOB);
              $('#Q5').val('@Model.Q5');
@@ -862,5 +889,5 @@
 
     }
 
-    </script>
+</script>
 }

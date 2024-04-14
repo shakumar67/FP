@@ -23,6 +23,7 @@ function addRow(tbl) {
         $('.index', lastRow).text(index);
 
         $('input.mdt', lastRow).attr('id', 'mdt-' + index);
+        $('select.ActivityId_fk', lastRow).attr('id', 'actid-' + index);
         $('select.Void_fk', lastRow).attr('id', 'void-' + index);
         $('input.noofpart', lastRow).attr('id', 'noofpart-' + index);
 
@@ -113,9 +114,11 @@ function BindDataTable() {
                     $('.index', row).text(index);
 
                     $('input.mdt', row).attr('id', 'mdt-' + index);
-                    $('select', row).attr('id', 'void-' + index);
+                    $('select.ActivityId_fk', row).attr('id', 'actid-' + index);
+                    $('select.Void_fk', row).attr('id', 'void-' + index);
                     $('input.noofpart', row).attr('id', 'noofpart-' + index);
 
+                    $('select[id=actid-' + index + ']', row).val(item.ActivityId_fk);
                     $('select[id=void-' + index + ']', row).val(item.VoId_fk);
                     $('input[id=mdt-' + index + ']', row).val(moment(item.Meetingheld).format("DD/MM/YYYY"));
                     $('input[id=noofpart-' + index + ']', row).val(item.Noofparticipant);
@@ -157,9 +160,11 @@ function BindDataTable() {
                 $('.index', row).text(index);
 
                 $('input.mdt', row).attr('id', 'mdt-' + index);
-                $('select', row).attr('id', 'void-' + index);
+                $('select.ActivityId_fk', row).attr('id', 'actid-' + index);
+                $('select.Void_fk', row).attr('id', 'void-' + index);
                 $('input.noofpart', row).attr('id', 'noofpart-' + index);
 
+                $('select[id=actid-' + index + ']', row).val('');
                 $('select[id=void-' + index + ']', row).val('');
                 $('input[id=mdt-' + index + ']', row).val('');
                 $('input[id=noofpart-' + index + ']', row).val('');

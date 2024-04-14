@@ -47,7 +47,9 @@ namespace FP.Controllers
                     model.Q2 = tbl.Q2;
                     model.Q3 = tbl.Q3;
                     //model.Q4 = tbl.Q4;
+                    model.IsDOB = tbl.IsDOB.Value;
                     model.BFYDOB = tbl.BFYDOB;
+                    model.BFYDOBYear = tbl.BFYDOBYear;
                     model.Q5 = tbl.Q5;
                     model.Q6DOMYear = tbl.Q6DOMYear;
                     model.Q6 = tbl.Q6;
@@ -69,6 +71,7 @@ namespace FP.Controllers
                     model.Q20 = tbl.Q20;
                     model.Q21 = tbl.Q21;
                     model.BFYVillageName = tbl.BFYVillageName;
+                    model.IsPregnant = tbl.IsPregnant.Value;
                 }
             }
             return View(model);
@@ -128,7 +131,9 @@ namespace FP.Controllers
                         tbl.Q2 = item.Q2;
                         tbl.Q3 = item.Q3;
                         //tbl.Q4 = item.Q4;
-                        tbl.BFYDOB = item.BFYDOB;
+                        tbl.IsDOB = item.IsDOB;
+                        tbl.BFYDOB = item.IsDOB == 1 ? item.BFYDOB : null;
+                        tbl.BFYDOBYear = item.IsDOB == 2 ? item.BFYDOBYear : null;
                         tbl.Q5 = item.Q5;
                         tbl.Q6DOMYear = item.Q6DOMYear;
                         tbl.Q6 = item.Q6DOMYear == 1 ? item.Q6 : null;
@@ -147,6 +152,7 @@ namespace FP.Controllers
                         tbl.Q16 = item.Q15 == 1 ? item.Q16 : null;
                         tbl.Q17 = item.Q15 == 2 ? item.Q17 : null;
                         tbl.Q18 = item.Q15 == 4 ? item.Q18 : null;
+                        tbl.IsPregnant = item.IsPregnant;
                         ////tbl.Q20 = item.Q20;
                         ////tbl.Q21 = item.Q21;
                         tbl.IsActive = true;
@@ -245,8 +251,8 @@ namespace FP.Controllers
                 bool IsCheck = false;
                 DataSet ds = SP_Model.SPBFYDetailView(model);
                 DataTable dt = SP_Model.SPFollowMultipleView(model).Copy();
-                dt.TableName= "BFYFollowList";
-                ds.Tables[0].TableName= "BFYDetail";
+                dt.TableName = "BFYFollowList";
+                ds.Tables[0].TableName = "BFYDetail";
                 ds.Tables.Add(dt);
                 if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {

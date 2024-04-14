@@ -69,6 +69,7 @@ namespace FP.Controllers
                                                 ClusterId_fk = model.ClusterId_fk,
                                                 PlanYear = model.PlanYear,
                                                 PlanMonth = model.PlanMonth,
+                                                ActivityId_fk = m.ActivityId_fk,
                                                 VoId_fk = m.VoId_fk,
                                                 Meetingheld = m.Meetingheld,
                                                 Noofparticipant = m.Noofparticipant,
@@ -83,6 +84,7 @@ namespace FP.Controllers
                                     {
                                         var tblu = db_.tbl_AchievementPlan.Find(m.AchieveId_pk);
                                         tblu.VoId_fk = m.VoId_fk;
+                                        tblu.ActivityId_fk = m.ActivityId_fk;
                                         tblu.Meetingheld = m.Meetingheld;
                                         tblu.Noofparticipant = m.Noofparticipant;
                                         tblu.UpdatedBy = MvcApplication.CUser.Id;

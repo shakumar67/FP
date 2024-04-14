@@ -54,13 +54,11 @@ namespace FP.Models
         [Required]
         [Display(Name = "")]
         public int IsDOB { get; set; }
-        [Required]
+        [RequiredIf("IsDOB", 1)]
         [Display(Name = "Date Of Birth")]
-        //[GreaterThanOrEqualTo("Q12")]
         public Nullable<System.DateTime> BFYDOB { get; set; }
-        [Required]
+        [RequiredIf("IsDOB", 2)]
         [Display(Name = "Year of Birth")]
-        //[GreaterThanOrEqualTo("Q12")]
         public Nullable<int> BFYDOBYear { get; set; }
         [Display(Name = "Age of Beneficiary (In year/Month)")]
         public Nullable<double> Q4 { get; set; }

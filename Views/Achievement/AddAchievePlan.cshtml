@@ -121,12 +121,12 @@
                                                 <tr>
                                                     <td class="index"></td>
                                                     <td>
-                                                        <select name="Activities_fk" id="Activities_fk" class="Activities_fk form-select" required>
-                                                            <option value="0" selected="selected">Select</option>
+                                                        <select name="ActivityId_fk" id="ActivityId_fk" class="ActivityId_fk form-select" required>
+                                                            @*<option value="0" selected="selected">Select</option>
                                                             <option value="1">Peer group meeting</option>
                                                             <option value="2">Home Visit</option>
                                                             <option value="3">Linkage of beneficiary with health service provider</option>
-                                                            <option value="4">Participated in FP campaign</option>
+                                                            <option value="4">Participated in FP campaign</option>*@
                                                         </select>
                                                     </td>
                                                     <td>
@@ -196,6 +196,7 @@
             GetYearList("PlanYear", 0);
             GetMonthList("PlanMonth", 0);
             GetDistrict("DistrictId_fk", 0);
+            GetActivityList("ActivityId_fk", 0);
             BindData();
             $('#DistrictId_fk').change(function () {
                 GetBlock("BlockId_fk", 0, $(this).val());
@@ -351,6 +352,7 @@
                     var id = $(row).attr('data-id');
                     id = id == "" ? '@Guid.Empty' : id;
                     var vogid = $('select[id=void-' + index + ']').val();
+                    var actid = $('select[id=actid-' + index + ']').val();
                     var mdt = $('input[id=mdt-' + index + ']').val();
                     var noofpart = $('input[id=noofpart-' + index + ']').val();
                     if ($('#DistrictId_fk').val() != '' && $('#BlockId_fk').val() != ''
@@ -363,6 +365,7 @@
                             tblpushdata.push({
                                 AchieveId_pk: id,
                                 VoId_fk: vogid,
+                                ActivityId_fk: actid,
                                 Meetingheld: toDate(mdt),
                                 Noofparticipant: noofpart,
                             });

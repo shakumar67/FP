@@ -23,6 +23,7 @@
                     <th>@CommonModel.DispLevel.Cluster</th>
                     <th>@CommonModel.DispLevel.Panchayat</th>
                     <th>@CommonModel.DispLevel.VO</th>
+                    <th>@CommonModel.DispLevel.Activities</th>
                     <th>@CommonModel.DisAchvlbl.MeetingDate</th>
                     <th>@CommonModel.DisAchvlbl.NoofParticipant</th>
                 </tr>
@@ -42,6 +43,7 @@
                                 <td class="text-left">@dr["CLFName"]</td>
                                 <td class="text-left">@dr["Panchayat"]</td>
                                 <td class="text-left">@dr["VO"]</td>
+                                <td class="text-left">@dr["ActivityName"]</td>
                                 <td class="text-left">@CommonModel.FormateDtDMY(dr["Meetingheld"].ToString())</td>
                                 <td class="text-center bg-info"><strong class="text-white">@dr["Noofparticipant"]</strong></td>
                             </tr>

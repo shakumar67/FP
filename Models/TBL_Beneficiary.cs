@@ -28,7 +28,9 @@ namespace FP.Models
         public string Q1 { get; set; }
         public string Q2 { get; set; }
         public string Q3 { get; set; }
+        public Nullable<int> IsDOB { get; set; }
         public Nullable<System.DateTime> BFYDOB { get; set; }
+        public Nullable<int> BFYDOBYear { get; set; }
         public Nullable<double> Q4 { get; set; }
         public string Q5 { get; set; }
         public Nullable<int> Q6DOMYear { get; set; }
@@ -51,6 +53,7 @@ namespace FP.Models
         public Nullable<int> Q19 { get; set; }
         public Nullable<int> Q20 { get; set; }
         public Nullable<int> Q21 { get; set; }
+        public Nullable<bool> IsPregnant { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

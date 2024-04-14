@@ -991,6 +991,13 @@ namespace FP.Manager
             list.Add(new SelectListItem { Value = "2", Text = "Year of Birth" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
+        public static List<SelectListItem> GetActivity()
+        {
+            FP_DBEntities dBE = new FP_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+            list = new SelectList(dBE.Activities_Master.Where(x => x.IsActive == true), "ID", "Activity").OrderBy(x => x.Text).ToList();
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         public static List<SelectListItem> GetModuleRollout()
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -1939,6 +1946,7 @@ namespace FP.Manager
             public const string Cluster = "Cluster";
             public const string Panchayat = "Panchayat";
             public const string VO = "Village Org.";
+            public const string Activities = "Activities";
             public const string VOFull = "Village Organization";
             public const string Month = "Month";
             public const string Year = "Year";
