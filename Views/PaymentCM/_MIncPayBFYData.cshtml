@@ -3,11 +3,24 @@
 @{
     DataTable dt = new DataTable();
     dt = Model;
+    var strcheck = ""; var strcheck1 = ""; var strcheck2 = ""; var strcheckedAll = "checked";
+    //DataView view = new DataView(dt);
+    if (dt.Rows.Count > 0)
+    {
+        //DataTable dt1 = view.ToTable(true, "Approved1Statusval").Rows[0].Table;
+        //DataTable dt2 = view.ToTable(true, "Approved2Statusval");
+        //DataTable dt3 = view.ToTable(true, "Approved3Statusval");
+        strcheck = dt.Compute("sum(Approved1Statusval)", "Approved1Statusval = 1").ToString();
+        strcheck1 = dt.Compute("sum(Approved1Statusval)", "Approved2Statusval = 1").ToString();
+        strcheck2 = dt.Compute("sum(Approved1Statusval)", "Approved3Statusval = 1").ToString();
+        strcheckedAll = !string.IsNullOrWhiteSpace(strcheck)?"":!string.IsNullOrWhiteSpace(strcheck1) ?"": !string.IsNullOrWhiteSpace(strcheck) ?"": "checked";
+    }
 }
 <style>
     table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
         padding-right: 0px !important;
     }
+
     .row-disabled {
         background-color: rgba(236, 240, 241, 0.5);
         pointer-events: none;
@@ -19,13 +32,13 @@
         <table class="table table-bordered table-striped" id="tbl">
             <thead class="text-center">
                 <tr>
-                    <th>Check All<input type="checkbox" class="allChecked" name="selectAll" id="selectAll" value="all" checked onchange="CheckUnchecked(this)" /></th>
+                    <th>Check All <br /><input type="checkbox" class="allChecked" name="selectAll" id="selectAll" value="all" @strcheckedAll onchange="CheckUnchecked(this)" /></th>
                     <th>Srno.</th>
                     <th>Beneficiary<br /> ID</th>
                     <th>Reporting <br />Month</th>
                     <th>Name of<br />Beneficiary</th>
-                    <th>Reporting By</th>
-                    <th>Claimed Amount </th>
+                    <th>@CommonModel.RoleNameCont.CM</th>
+                    @*<th>Claimed Amount </th>*@
                     <th>Cluster </th>
                     <th>Panchayat </th>
                     <th>V.Org </th>
@@ -48,25 +61,29 @@
                         int srno = 1;
                         foreach (DataRow dr in dt.Rows)
                         {
-                            var bgcolor = ""; var strchecked = "";
+                            var bgcolor = ""; var strchecked = "";var chked = "";
                             if ((CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role) && dr["Approved1Statusval"].ToString() == "1")
                             {
                                 bgcolor = dr["Approved1bgColor"].ToString();
-                                strchecked = "row-disabled";
+                                strchecked = "row-disabled"; chked = "checked";
                             }
                             if ((CommonModel.RoleNameCont.CC == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role) && dr["Approved2Statusval"].ToString() == "1")
                             {
                                 bgcolor = dr["Approved2bgColor"].ToString();
-                                strchecked = "row-disabled";
+                                strchecked = "row-disabled"; chked = "checked";
                             }
                             if ((CommonModel.RoleNameCont.BPM == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role) && dr["Approved3Statusval"].ToString() == "1")
                             {
                                 bgcolor = dr["Approved3bgColor"].ToString();
-                                strchecked = "row-disabled";
+                                strchecked = "row-disabled"; chked = "checked";
+                            }
+                            if (!string.IsNullOrWhiteSpace(strcheckedAll))
+                            {
+                                chked = "checked";
                             }
                             <tr class="@bgcolor @strchecked">
                                 <td>
-                                    <input type="checkbox" class="check" name="check" id="check@(srno)" checked onchange="CheckUnchecked(this)"
+                                    <input type="checkbox" class="check" name="check" id="check@(srno)" @chked onchange="CheckUnchecked(this)"
                                            data-cmmipid="@dr["CMMIPId_pk"]" data-bfyid="@dr["BpkID"]" data-folloupid="@dr["FollowupId"]"
                                            data-disid="@dr["DistrictId_pk"]" data-blckid="@dr["BlockId_pk"]"
                                            data-clfid="@dr["CLF_ID_pk"]" data-pchytid="@dr["Panchayatid_pk"]"
@@ -79,7 +96,7 @@
                                 <td class="text-center">@dr["ReportingDate"]</td>
                                 <td class="text-left">@dr["BFYName"]</td>
                                 <td class="text-center text-warning fw-bold">@dr["ReportedBy"]</td>
-                                <td class="text-centxer text-warning fw-bold">@dr["ClaimedAmount"]</td>
+                                @*<td class="text-centxer text-warning fw-bold">@dr["ClaimedAmount"]</td>*@
                                 <td class="text-centxer">@dr["CLFName"]</td>
                                 <td class="text-centxer">@dr["Panchayat"]</td>
                                 <td class="text-centxer">@dr["VO"]</td>

@@ -207,7 +207,9 @@ namespace FP.Controllers
                     tbLe.UpdatedOn = DateTime.Now;
                     tbLu.Email = model.MobileNo + "@gmail.com";
                     tbLu.PhoneNumber = model.MobileNo.Trim();
-                    model.Password = !string.IsNullOrEmpty(model.Password) ? model.Password : model.MobileNo.Trim();
+                    var Passwordh = !string.IsNullOrEmpty(model.Password) ? model.Password : model.MobileNo.Trim();
+                    var passwordHasher = new Microsoft.AspNet.Identity.PasswordHasher();
+                    model.Password = passwordHasher.HashPassword(Passwordh);
                     var tblrole_name = dbe.AspNetRoles.Where(x => x.Id == model.Roles)?.FirstOrDefault().Name;
                     if (FP.Manager.CommonModel.RoleNameCont.State == tblrole_name
                         || FP.Manager.CommonModel.RoleNameCont.Admin == tblrole_name

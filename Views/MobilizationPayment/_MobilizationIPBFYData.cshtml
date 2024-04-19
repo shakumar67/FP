@@ -3,6 +3,14 @@
 @{
     DataTable dt = new DataTable();
     dt = Model;
+    var strcheck = ""; var strcheck1 = ""; var strcheck2 = ""; var strcheckedAll = "checked";
+    if (dt.Rows.Count > 0)
+    {
+        strcheck = dt.Compute("sum(Approved1Statusval)", "Approved1Statusval = 1").ToString();
+        strcheck1 = dt.Compute("sum(Approved1Statusval)", "Approved2Statusval = 1").ToString();
+        strcheck2 = dt.Compute("sum(Approved1Statusval)", "Approved3Statusval = 1").ToString();
+        strcheckedAll = !string.IsNullOrWhiteSpace(strcheck) ? "" : !string.IsNullOrWhiteSpace(strcheck1) ? "" : !string.IsNullOrWhiteSpace(strcheck) ? "" : "checked";
+    }
 }
 <style>
     .row-disabled {
@@ -15,7 +23,7 @@
     <table class="table table-bordered table-striped" id="tbl">
         <thead class="text-center">
             <tr>
-                <th>Check All<input type="checkbox" class="allChecked" name="selectAll" id="selectAll" value="all" checked onchange="CheckUnchecked(this)" /></th>
+                <th>Check All<br /><input type="checkbox" class="allChecked" name="selectAll" id="selectAll" value="all" @strcheckedAll onchange="CheckUnchecked(this)" /></th>
                 <th>Beneficiary<br /> ID</th>
                 <th>Name of<br />Beneficiary</th>
                 <th>Month/Year</th>
@@ -50,25 +58,29 @@
                     int srno = 1;
                     foreach (DataRow dr in dt.Rows)
                     {
-                        var bgcolor = ""; var strchecked = "";
+                        var bgcolor = ""; var strchecked = ""; var chked = "";
                         if ((CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role) && dr["Approved1Statusval"].ToString() == "1")
                         {
                             bgcolor = dr["Approved1bgColor"].ToString();
-                            strchecked = "row-disabled";
+                            strchecked = "row-disabled"; chked = "checked";
                         }
                         if ((CommonModel.RoleNameCont.CC == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role) && dr["Approved2Statusval"].ToString() == "1")
                         {
                             bgcolor = dr["Approved2bgColor"].ToString();
-                            strchecked = "row-disabled";
+                            strchecked = "row-disabled"; chked = "checked";
                         }
                         if ((CommonModel.RoleNameCont.BPM == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role) && dr["Approved3Statusval"].ToString() == "1")
                         {
                             bgcolor = dr["Approved3bgColor"].ToString();
-                            strchecked = "row-disabled";
+                            strchecked = "row-disabled"; chked = "checked";
+                        }
+                        if (!string.IsNullOrWhiteSpace(strcheckedAll))
+                        {
+                            chked = "checked";
                         }
                         <tr class="@bgcolor @strchecked">
                             <td class="text-center">
-                                <input type="checkbox" class="check" name="check" id="check@(srno)" checked onchange="CheckUnchecked(this)"
+                                <input type="checkbox" class="check" name="check" id="check@(srno)" @chked  onchange="CheckUnchecked(this)"
                                        data-serviceid="@dr["ServiceBFYId_pk"]" data-bfyid="@dr["BFYId_fk"]" />
                             </td>
                             <td class="text-center">
