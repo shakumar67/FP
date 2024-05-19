@@ -995,8 +995,9 @@ namespace FP.Manager
         {
             FP_DBEntities dBE = new FP_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
-            list = new SelectList(dBE.Activities_Master.Where(x => x.IsActive == true), "ID", "Activity").OrderBy(x => x.Text).ToList();
-            return list.OrderByDescending(x => x.Text).ToList();
+            list = new SelectList(dBE.Activities_Master.Where(x => x.IsActive == true), "ID", "Activity").ToList();
+            //return list.OrderByDescending(x => x.Text).ToList();
+            return list;
         }
         public static List<SelectListItem> GetModuleRollout()
         {

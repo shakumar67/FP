@@ -71,6 +71,8 @@ namespace FP.Controllers
                                                 PlanMonth = model.PlanMonth,
                                                 ActivityId_fk = m.ActivityId_fk,
                                                 VoId_fk = m.VoId_fk,
+                                                VoIds_fk = m.VoIds_fk,//for multiple VO selecection
+                                                BfyIds = m.BfyIds,
                                                 Meetingheld = m.Meetingheld,
                                                 Noofparticipant = m.Noofparticipant,
                                                 CreatedBy = MvcApplication.CUser.Id,
@@ -84,6 +86,8 @@ namespace FP.Controllers
                                     {
                                         var tblu = db_.tbl_AchievementPlan.Find(m.AchieveId_pk);
                                         tblu.VoId_fk = m.VoId_fk;
+                                        tblu.VoIds_fk = m.VoIds_fk;//for multiple VO selecection
+                                        tblu.BfyIds = m.BfyIds;//for multiple VO selecection
                                         tblu.ActivityId_fk = m.ActivityId_fk;
                                         tblu.Meetingheld = m.Meetingheld;
                                         tblu.Noofparticipant = m.Noofparticipant;
@@ -133,6 +137,14 @@ namespace FP.Controllers
                 && x.PlanYear == model.PlanYear && x.PlanMonth == model.PlanMonth).ToList();
                 if (items != null && items.Count > 0)
                 {
+                    foreach (var item in items)
+                    {
+                        if (item.ActivityId_fk == 1 || item.ActivityId_fk == 2)
+                        {
+                            var VoIds_fk = item.VoIds_fk.Split(',').Select(x => Convert.ToInt32(x)).ToList();
+                            item.VONames = string.Join(",", db_.VO_Master.Where(x => VoIds_fk.Any(s => s == x.Void_pk)).Select(x => x.Village_Organization));
+                        }
+                    }
                     var data = JsonConvert.SerializeObject(items);
                     return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
                 }
@@ -165,6 +177,27 @@ namespace FP.Controllers
             }
         }
         #endregion
+
+        public ActionResult GetBFYListByVOIds(string voIds)
+        {
+            FP_DBEntities db_ = new FP_DBEntities();
+            try
+            {
+                var VoIds_fk = voIds.Trim(',').Split(',').Select(x => Convert.ToInt32(x)).ToList();
+                var items = db_.TBL_Beneficiary.Where(x => VoIds_fk.Any(s => s == x.VillageOId_fk)).ToList();
+                if (items != null && items.Count > 0)
+                {
+                   // var data = JsonConvert.SerializeObject(items);
+                    var html = ConvertViewToString("_BFList", items);
+                    return Json(new { IsSuccess = true, Data = html }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, Data = Enums.GetEnumDescription(eReturnReg.RecordNotFound) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, Data = "There was a communication error!." }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         //#region 2nd Level Approved Planning (CC Level)
         //public ActionResult LevelSecAchvApprove()

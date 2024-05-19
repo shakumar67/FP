@@ -26,9 +26,14 @@ function addRow(tbl) {
         $('select.ActivityId_fk', lastRow).attr('id', 'actid-' + index);
         $('select.Void_fk', lastRow).attr('id', 'void-' + index);
         $('input.noofpart', lastRow).attr('id', 'noofpart-' + index);
+        $('a.part-detail', lastRow).attr('id', 'part-detail-' + index).css('display','none');
+        $('span.Void_fk-Name', lastRow).attr('id', 'Void_fk-Name-' + index).css('display', 'none');
+        $('span.NoofPart-multiple-VO', lastRow).attr('id', 'NoofPart-multiple-VO-' + index).css('display', 'none');
+        $('input.NoofPart-multiple-BfyIds', lastRow).attr('id', 'NoofPart-multiple-BfyIds-' + index);
 
         $('tbody', rowfyable).append(lastRow);
         $('tbody tr button', rowfyable).hide();
+        //showHidenParticipantDetails(0, lastRow);
         if (index > 1) {
             $('tbody tr:not(:last) button.rowfy-deleterow', rowfyable).show();
         }
@@ -39,7 +44,7 @@ function addRow(tbl) {
     }
 }
 
-addRow($("#tbl"));
+//addRow($("#tbl"));
 
 /*Delete row event*/
 $(document).on('click', '.rowfy-deleterow', function () {
@@ -117,11 +122,19 @@ function BindDataTable() {
                     $('select.ActivityId_fk', row).attr('id', 'actid-' + index);
                     $('select.Void_fk', row).attr('id', 'void-' + index);
                     $('input.noofpart', row).attr('id', 'noofpart-' + index);
+                    $('span.Void_fk-Name', row).attr('id', 'Void_fk-Name-' + index).css('display', 'none');
+                    $('span.NoofPart-multiple-VO', row).attr('id', 'NoofPart-multiple-VO-' + index).css('display', 'none');
+                    $('input.NoofPart-multiple-BfyIds', row).attr('id', 'NoofPart-multiple-BfyIds-' + index);
 
                     $('select[id=actid-' + index + ']', row).val(item.ActivityId_fk);
                     $('select[id=void-' + index + ']', row).val(item.VoId_fk);
                     $('input[id=mdt-' + index + ']', row).val(moment(item.Meetingheld).format("DD/MM/YYYY"));
                     $('input[id=noofpart-' + index + ']', row).val(item.Noofparticipant);
+                    $('span[id=Void_fk-Name-' + index + ']', row).text(item.VONames).attr('data-ids', item.VoIds_fk);
+                    $('span[id=NoofPart-multiple-VO-' + index + ']', row).text(item.Noofparticipant);
+                    $('input[id=NoofPart-multiple-BfyIds-' + index + ']', row).val(item.BfyIds);
+
+                    showHidenParticipantDetails(item.ActivityId_fk, row);
 
                     //$('input', row).removeClass('hasDatepicker');
                     //$('#mdt-' + index, row).datepicker({
@@ -163,11 +176,16 @@ function BindDataTable() {
                 $('select.ActivityId_fk', row).attr('id', 'actid-' + index);
                 $('select.Void_fk', row).attr('id', 'void-' + index);
                 $('input.noofpart', row).attr('id', 'noofpart-' + index);
+                $('a.part-detail', row).attr('id', 'part-detail-' + index).css('display', 'none');
+                $('span.Void_fk-Name', row).attr('id', 'Void_fk-Name-' + index).css('display', 'none');
+                $('span.NoofPart-multiple-VO', row).attr('id', 'NoofPart-multiple-VO-' + index).css('display', 'none');
 
                 $('select[id=actid-' + index + ']', row).val('');
                 $('select[id=void-' + index + ']', row).val('');
                 $('input[id=mdt-' + index + ']', row).val('');
                 $('input[id=noofpart-' + index + ']', row).val('');
+                $('span[id=Void_fk-Name-' + index + ']', row).text('').attr('data-ids','');
+                $('span[id=NoofPart-multiple-VO-' + index + ']', row).text('');
 
                 $(".rowfy tbody").append(row);
                 //$('table#tbl > tbody > tr').not(':last').remove();
@@ -187,4 +205,20 @@ function BindDataTable() {
             $("#msg").html(errormsg);
         }
     });
+}
+
+function showHidenParticipantDetails(val,row) {
+    if (val == 1 || val == 2) {
+        $('a.part-detail', row).show();
+        $('span.Void_fk-Name', row).show();
+        $('span.NoofPart-multiple-VO', row).show();
+        $('select.Void_fk', row).hide().val('');
+        $('input[name=NoofPart]', row).hide().val('');
+    } else {
+        $('a.part-detail', row).hide();
+        $('span.Void_fk-Name', row).hide();
+        $('span.NoofPart-multiple-VO', row).hide();
+        $('select.Void_fk', row).show();
+        $('input[name=NoofPart]', row).show();
+    }
 }

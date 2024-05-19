@@ -123,20 +123,25 @@
                                                     <td>
                                                         <select name="ActivityId_fk" id="ActivityId_fk" class="ActivityId_fk form-select" required>
                                                             @*<option value="0" selected="selected">Select</option>
-                                                            <option value="1">Peer group meeting</option>
-                                                            <option value="2">Home Visit</option>
-                                                            <option value="3">Linkage of beneficiary with health service provider</option>
-                                                            <option value="4">Participated in FP campaign</option>*@
+                                                                <option value="1">Peer group meeting</option>
+                                                                <option value="2">Home Visit</option>
+                                                                <option value="3">Linkage of beneficiary with health service provider</option>
+                                                                <option value="4">Participated in FP campaign</option>*@
                                                         </select>
+
                                                     </td>
                                                     <td>
                                                         <select name="Void_fk" id="Void_fk" class="Void_fk form-select" required></select>
+                                                        <span class="Void_fk-Name" id="Void_fk-Name" data-ids=""></span>
                                                     </td>
                                                     <td>
                                                         <input type="text" name="MDt" value="" class="form-control col-md-4 mdt" minlength="10" maxlength="15" required />
                                                     </td>
                                                     <td>
                                                         <input type="text" name="NoofPart" value="" class="form-control col-md-4 numbersOnly noofpart" minlength="1" maxlength="3" required />
+                                                        <a href="javascript:void(0);" class="part-detail btn btn-outline-primary">Details</a>
+                                                        <span class="NoofPart-multiple-VO" id="NoofPart-multiple-VO"></span>
+                                                        <input type="hidden" class="NoofPart-multiple-BfyIds" name="NoofPart-multiple-BfyIds" id="NoofPart-multiple-BfyIds" value="" />
                                                     </td>
                                                     <td class="action">
                                                         <button type="button" class="btn btn-sm rowfy-addrow btn-success" style="display:none">+</button>
@@ -174,6 +179,44 @@
         <div class="col=md-6"></div>
         <div class="col-md-12">
             <div id="subdata"></div>
+        </div>
+    </div>
+
+    <div class="modal fade show" id="modalNoOfParticipant" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-modal="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalTitle"></h5>
+                    <button type="button" class="closed" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="modal-rowIndex" id="modal-rowIndex" />
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="col-sm-12 col-md-12">
+                            <label>Village Organization</label>
+                            <select name="modal-Void_fk" id="modal-Void_fk" class="modal-Void_fk form-select mb-3 js-select2" multiple="multiple"></select>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12">
+                            <label>No of Participant</label>
+                            <input type="number" name="modal-NoofPart" id="modal-NoofPart" class="form-control col-md-4 numbersOnly modal-noofpart" readonly minlength="1" maxlength="3" />
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <label>Beneficiary List</label>
+                            <input type="hidden" name="modal-NoofPart-BfyIds" id="modal-NoofPart-BfyIds" />
+                            <div id="modal-div-bfy"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12 col-xl-12">
+                        <button type="button" class="btn btn-primary float-right" id="modalNoOfParticipantOk">OK</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -238,6 +281,94 @@
                 e.preventDefault();
                 BindDataTable();
                 // document.getElementById("btnsubmit").disabled = false;
+            });
+            $("select[name=ActivityId_fk]").change(function () {
+                var rowIndex = $(this).attr('id').replace('actid-','');
+                var row = $("#tbl tr[data-index=" + rowIndex + "]");
+                var val = $(this).val();
+                showHidenParticipantDetails(val, row);
+            });
+
+            $(document).on('click', 'a.part-detail', function () {
+                var row = $(this).closest('tr');
+                var rowIndex = $(row).attr('data-index');
+                $("#modal-rowIndex").val(rowIndex);
+                $("select.Void_fk option", row).each(function () {
+                    if ($(this).val() && !$('#modal-Void_fk').find("option[value='" + $(this).val() + "']").length) {
+                        var data = { id: $(this).val(), text: $(this).text() };
+                        var newOption = new Option(data.text, data.id, false, false);
+                        // Append it to the select
+                        $('#modal-Void_fk').append(newOption).trigger('change');
+                    }
+                });
+
+                var activityName = $('select.ActivityId_fk', row).find(":selected").text();
+                $('#modalNoOfParticipant #myModalTitle').html(activityName);
+                $('#modalNoOfParticipant').modal('show');
+
+                $('#modal-Void_fk').val($('span[id=Void_fk-Name-' + rowIndex + ']', row).attr('data-ids').split(',')).change();
+                $("#modal-NoofPart").val($("span#NoofPart-multiple-VO-" + rowIndex, row).text());
+                $("#modal-NoofPart-BfyIds").val($("input#NoofPart-multiple-BfyIds-" + rowIndex, row).val());
+
+                var VoidfkIDs = $('span[id=Void_fk-Name-' + rowIndex + ']', row).attr('data-ids');
+                GetVOWiseBFYList(VoidfkIDs.replace(/,*$/, ''));
+
+            });
+
+            $('#modal-Void_fk').on('select2:select', function (e) {
+                var data = $('#modal-Void_fk').select2('data');
+                var VoidfkIDs = '';
+                $.each(data, function (i, item) {
+                    VoidfkIDs += item.id + ',';
+                });
+                GetVOWiseBFYList(VoidfkIDs.replace(/,*$/, ''));
+            });
+
+            $('#modal-Void_fk').on('select2:unselect', function (e) {
+                var data = $('#modal-Void_fk').select2('data');
+                var VoidfkIDs = '';
+                $.each(data, function (i, item) {
+                    VoidfkIDs += item.id + ',';
+                });
+                GetVOWiseBFYList(VoidfkIDs.replace(/,*$/, ''));
+            });
+            $('#modal-Void_fk').on('select2:clear', function (e) {
+                var data = $('#modal-Void_fk').select2('data');
+                var VoidfkIDs = '';
+                $.each(data, function (i, item) {
+                    VoidfkIDs += item.id + ',';
+                });
+                GetVOWiseBFYList(VoidfkIDs.replace(/,*$/, ''));
+            });
+            $("#modalNoOfParticipantOk").click(function (e) {
+                e.preventDefault();
+                var rowIndex = $("#modal-rowIndex").val();
+
+
+                var data = $('#modal-Void_fk').select2('data');
+                if ($("#modal-NoofPart").val() && data.length) {
+                    var VoidfkNames = '';
+                    var VoidfkIDs = '';
+                    $.each(data, function (i, item) {
+                        VoidfkNames += item.text + ',';
+                        VoidfkIDs += item.id + ',';
+                    });
+                    $("span#Void_fk-Name-" + rowIndex).text(VoidfkNames.replace(/,*$/, '')).attr('data-ids', VoidfkIDs.replace(/,*$/, ''));
+                    $("span#NoofPart-multiple-VO-" + rowIndex).text($("#modal-NoofPart").val());
+                    $("input#noofpart-" + rowIndex).val($("#modal-NoofPart").val());
+
+                    var bfyIds = '';
+                    $.each($('#tblbfy>tbody input:checkbox:checked'), function (i, item) {
+                        bfyIds += $(item).attr('data-bfyid') + ',';
+                    });
+                    $("input#NoofPart-multiple-BfyIds-" + rowIndex).val(bfyIds.replace(/,*$/, ''));
+                } else {
+                    $("span#Void_fk-Name-" + rowIndex).text('').attr('data-ids', '');
+                    $("span#NoofPart-multiple-VO-" + rowIndex).text('');
+                    $("input#noofpart-" + rowIndex).val('');
+                    $("input#NoofPart-multiple-BfyIds-" + rowIndex).val('');
+                }
+                $('#modalNoOfParticipant').modal('hide');
             });
 
 
@@ -352,19 +483,26 @@
                     var id = $(row).attr('data-id');
                     id = id == "" ? '@Guid.Empty' : id;
                     var vogid = $('select[id=void-' + index + ']').val();
+                    var vogids = $('span#Void_fk-Name-' + index).attr('data-ids') || '';
+                    var BfyIds = $("input#NoofPart-multiple-BfyIds-" + index).val() || '';
                     var actid = $('select[id=actid-' + index + ']').val();
                     var mdt = $('input[id=mdt-' + index + ']').val();
                     var noofpart = $('input[id=noofpart-' + index + ']').val();
                     if ($('#DistrictId_fk').val() != '' && $('#BlockId_fk').val() != ''
-                        && $('#ClusterId_fk').val() != '' && $('#PanchayatId_fk').val() != '' && vogid != ''
+                        && $('#ClusterId_fk').val() != '' && $('#PanchayatId_fk').val() != '' && actid
                         && $('#PlanYear').val() != '' && $('#PlanMonth').val() != ''
-                        && (mdt && mdt != '' && mdt != 'Invalid Date') && noofpart != '') {
-
+                        && (mdt && mdt != '' && mdt != 'Invalid Date') && noofpart != '' && (((actid == 1 || actid == 2) && vogids) || vogid)) {
+                        var parts = vogids.split(',');
+                        if ((actid == 1 || actid == 2) && parts.length) {
+                            vogid = parts[0];
+                        }
                         var existingIndex = tblpushdata.findIndex(x => moment(x.Meetingheld).isSame(moment(toDate(mdt))) && x.VoId_fk == vogid);
-                        if (existingIndex == -1) {
+                        if (existingIndex == -1 || (actid == 1 || actid == 2)) {
                             tblpushdata.push({
                                 AchieveId_pk: id,
                                 VoId_fk: vogid,
+                                VoIds_fk: vogids,
+                                BfyIds: BfyIds,
                                 ActivityId_fk: actid,
                                 Meetingheld: toDate(mdt),
                                 Noofparticipant: noofpart,
@@ -441,6 +579,62 @@
             }
 
         }
+
+        function CheckUnchecked(cur) {
+            if ($(cur).attr('id') == 'selectAll') {
+                $('#tblbfy tbody tr .check').each(function (i, item) {
+                    $(item).prop('checked', $(cur).prop('checked'));
+                });
+            } else {
+                var isallChecked = true;
+                $('#tblbfy tbody tr .check').each(function (i, item) {
+                    if (!$(item).prop('checked')) {
+                        isallChecked = false;
+                        return;
+                    }
+                });
+                $('#selectAll').prop('checked', isallChecked);
+            }
+            $('#modal-NoofPart').val($('#tblbfy>tbody input:checkbox:checked').length);
+        }
+
+
+        function GetVOWiseBFYList(voIds) {
+            $("#modal-div-bfy").html('');
+            $("#modal-NoofPart").val('');
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Achievement/GetBFYListByVOIds",
+                data: { 'voIds': voIds },
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#modal-div-bfy").html(res.Data);
+                    }
+                    else {
+                        $("#modal-div-bfy").html(res.Data);
+                    }
+
+                    if ($("#modal-NoofPart-BfyIds").val()) {
+                        var ids = $("#modal-NoofPart-BfyIds").val().split(',');
+                        $.each($('#tblbfy>tbody input:checkbox'), function (i, item) {
+                            var isExists = ids.findIndex(x => x == $(item).attr('data-bfyid')) > -1;
+                            $(item).prop('checked', isExists);
+                        });
+                    }
+
+
+                    $('#modal-NoofPart').val($('#tblbfy>tbody input:checkbox:checked').length);
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                    $("#modal-div-bfy").html(errormsg);
+                }
+            });
+        }
+
     </script>
 }
 

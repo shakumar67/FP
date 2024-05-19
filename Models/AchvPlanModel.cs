@@ -35,6 +35,8 @@ namespace FP.Models
         public Nullable<int> ClusterId { get; set; }
         public Nullable<int> PanchayatId { get; set; }
         public Nullable<int> VoId_fk { get; set; }
+        public string VoIds_fk { get; set; }
+        public string BfyIds { get; set; }
         public Nullable<int> ActivityId_fk { get; set; }
         public Nullable<Guid> UserId { get; set; }
         public Nullable<Guid> empId { get; set; }

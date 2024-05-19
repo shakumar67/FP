@@ -319,6 +319,7 @@
     <Compile Include="Controllers\PlanController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Models\tbl_AchievementPlanModels.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -765,6 +766,7 @@
     <Content Include="Views\Report\PaymentSummaryList.cshtml" />
     <Content Include="Views\Report\_PaymentSmyData.cshtml" />
     <Content Include="Views\Report\_PaymentReportData.cshtml" />
+    <Content Include="Views\Achievement\_BFList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

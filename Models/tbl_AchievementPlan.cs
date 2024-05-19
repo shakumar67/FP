@@ -20,6 +20,8 @@ namespace FP.Models
         public Nullable<int> ClusterId_fk { get; set; }
         public Nullable<int> PanchayatId_fk { get; set; }
         public Nullable<int> VoId_fk { get; set; }
+        public string VoIds_fk { get; set; }
+        public string BfyIds { get; set; }
         public Nullable<int> ActivityId_fk { get; set; }
         public Nullable<int> PlanMonth { get; set; }
         public Nullable<int> PlanYear { get; set; }

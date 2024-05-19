@@ -176,6 +176,8 @@
           <Property Name="ClusterId_fk" Type="int" />
           <Property Name="PanchayatId_fk" Type="int" />
           <Property Name="VoId_fk" Type="int" />
+          <Property Name="VoIds_fk" Type="nvarchar" MaxLength="100" />
+          <Property Name="BfyIds" Type="nvarchar(max)" />
           <Property Name="ActivityId_fk" Type="int" />
           <Property Name="PlanMonth" Type="int" />
           <Property Name="PlanYear" Type="int" />
@@ -718,9 +720,9 @@
           <EntitySet Name="tbl_BFYService" EntityType="FP_DBModel.tbl_BFYService" />
           <EntitySet Name="tbl_CMMIncentivePayment" EntityType="FP_DBModel.tbl_CMMIncentivePayment" />
           <EntitySet Name="tbl_PaymentHistory" EntityType="FP_DBModel.tbl_PaymentHistory" />
-          <EntitySet Name="tbl_AchievementPlan" EntityType="FP_DBModel.tbl_AchievementPlan" />
           <EntitySet Name="TBL_Beneficiary" EntityType="FP_DBModel.TBL_Beneficiary" />
           <EntitySet Name="Activities_Master" EntityType="FP_DBModel.Activities_Master" />
+          <EntitySet Name="tbl_AchievementPlan" EntityType="FP_DBModel.tbl_AchievementPlan" />
         </EntityContainer>
         <EntityType Name="Contraceptive_Child_Master">
           <Key>
@@ -1058,52 +1060,6 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tbl_AchievementPlan">
-          <Key>
-            <PropertyRef Name="AchieveId_pk" />
-          </Key>
-          <Property Name="AchieveId_pk" Type="Guid" Nullable="false" />
-          <Property Name="DistrictId_fk" Type="Int32" />
-          <Property Name="BlockId_fk" Type="Int32" />
-          <Property Name="ClusterId_fk" Type="Int32" />
-          <Property Name="PanchayatId_fk" Type="Int32" />
-          <Property Name="VoId_fk" Type="Int32" />
-          <Property Name="ActivityId_fk" Type="Int32" />
-          <Property Name="PlanMonth" Type="Int32" />
-          <Property Name="PlanYear" Type="Int32" />
-          <Property Name="Meetingheld" Type="DateTime" Precision="0" />
-          <Property Name="ClaimedAmount" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="Noofparticipant" Type="Int32" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="FinalApproved" Type="Int32" />
-          <Property Name="FinalApprovedDate" Type="DateTime" Precision="3" />
-          <Property Name="FinalApprovedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsLevel1Approve" Type="Boolean" />
-          <Property Name="Level1ApproveDt" Type="DateTime" Precision="3" />
-          <Property Name="Level1ApproveBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsLevel2Approve" Type="Boolean" />
-          <Property Name="Level2ApproveDt" Type="DateTime" Precision="3" />
-          <Property Name="Level2ApproveBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsLevel1Reject" Type="Boolean" />
-          <Property Name="Level1RejectBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Level1RejectDt" Type="DateTime" Precision="3" />
-          <Property Name="Remark1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsLevel2Reject" Type="Boolean" />
-          <Property Name="Level2RejectDt" Type="DateTime" Precision="3" />
-          <Property Name="Level2RejectBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Remark2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsLevel3Approve" Type="Boolean" />
-          <Property Name="Level3ApproveDt" Type="DateTime" Precision="3" />
-          <Property Name="Level3ApproveBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsLevel3Reject" Type="Boolean" />
-          <Property Name="Level3RejectDt" Type="DateTime" Precision="3" />
-          <Property Name="Level3RejectBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Remark3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="TBL_Beneficiary">
           <Key>
             <PropertyRef Name="Beneficiary_Id_pk" />
@@ -1165,6 +1121,54 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Activity" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tbl_AchievementPlan">
+          <Key>
+            <PropertyRef Name="AchieveId_pk" />
+          </Key>
+          <Property Name="AchieveId_pk" Type="Guid" Nullable="false" />
+          <Property Name="DistrictId_fk" Type="Int32" />
+          <Property Name="BlockId_fk" Type="Int32" />
+          <Property Name="ClusterId_fk" Type="Int32" />
+          <Property Name="PanchayatId_fk" Type="Int32" />
+          <Property Name="VoId_fk" Type="Int32" />
+          <Property Name="VoIds_fk" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BfyIds" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityId_fk" Type="Int32" />
+          <Property Name="PlanMonth" Type="Int32" />
+          <Property Name="PlanYear" Type="Int32" />
+          <Property Name="Meetingheld" Type="DateTime" Precision="0" />
+          <Property Name="ClaimedAmount" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="Noofparticipant" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="FinalApproved" Type="Int32" />
+          <Property Name="FinalApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="FinalApprovedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsLevel1Approve" Type="Boolean" />
+          <Property Name="Level1ApproveDt" Type="DateTime" Precision="3" />
+          <Property Name="Level1ApproveBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsLevel2Approve" Type="Boolean" />
+          <Property Name="Level2ApproveDt" Type="DateTime" Precision="3" />
+          <Property Name="Level2ApproveBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsLevel1Reject" Type="Boolean" />
+          <Property Name="Level1RejectBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Level1RejectDt" Type="DateTime" Precision="3" />
+          <Property Name="Remark1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsLevel2Reject" Type="Boolean" />
+          <Property Name="Level2RejectDt" Type="DateTime" Precision="3" />
+          <Property Name="Level2RejectBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Remark2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsLevel3Approve" Type="Boolean" />
+          <Property Name="Level3ApproveDt" Type="DateTime" Precision="3" />
+          <Property Name="Level3ApproveBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsLevel3Reject" Type="Boolean" />
+          <Property Name="Level3RejectDt" Type="DateTime" Precision="3" />
+          <Property Name="Level3RejectBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Remark3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1584,53 +1588,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_AchievementPlan">
-            <EntityTypeMapping TypeName="FP_DBModel.tbl_AchievementPlan">
-              <MappingFragment StoreEntitySet="tbl_AchievementPlan">
-                <ScalarProperty Name="Remark3" ColumnName="Remark3" />
-                <ScalarProperty Name="Level3RejectBy" ColumnName="Level3RejectBy" />
-                <ScalarProperty Name="Level3RejectDt" ColumnName="Level3RejectDt" />
-                <ScalarProperty Name="IsLevel3Reject" ColumnName="IsLevel3Reject" />
-                <ScalarProperty Name="Level3ApproveBy" ColumnName="Level3ApproveBy" />
-                <ScalarProperty Name="Level3ApproveDt" ColumnName="Level3ApproveDt" />
-                <ScalarProperty Name="IsLevel3Approve" ColumnName="IsLevel3Approve" />
-                <ScalarProperty Name="Remark2" ColumnName="Remark2" />
-                <ScalarProperty Name="Level2RejectBy" ColumnName="Level2RejectBy" />
-                <ScalarProperty Name="Level2RejectDt" ColumnName="Level2RejectDt" />
-                <ScalarProperty Name="IsLevel2Reject" ColumnName="IsLevel2Reject" />
-                <ScalarProperty Name="Remark1" ColumnName="Remark1" />
-                <ScalarProperty Name="Level1RejectDt" ColumnName="Level1RejectDt" />
-                <ScalarProperty Name="Level1RejectBy" ColumnName="Level1RejectBy" />
-                <ScalarProperty Name="IsLevel1Reject" ColumnName="IsLevel1Reject" />
-                <ScalarProperty Name="Level2ApproveBy" ColumnName="Level2ApproveBy" />
-                <ScalarProperty Name="Level2ApproveDt" ColumnName="Level2ApproveDt" />
-                <ScalarProperty Name="IsLevel2Approve" ColumnName="IsLevel2Approve" />
-                <ScalarProperty Name="Level1ApproveBy" ColumnName="Level1ApproveBy" />
-                <ScalarProperty Name="Level1ApproveDt" ColumnName="Level1ApproveDt" />
-                <ScalarProperty Name="IsLevel1Approve" ColumnName="IsLevel1Approve" />
-                <ScalarProperty Name="FinalApprovedBy" ColumnName="FinalApprovedBy" />
-                <ScalarProperty Name="FinalApprovedDate" ColumnName="FinalApprovedDate" />
-                <ScalarProperty Name="FinalApproved" ColumnName="FinalApproved" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Noofparticipant" ColumnName="Noofparticipant" />
-                <ScalarProperty Name="ClaimedAmount" ColumnName="ClaimedAmount" />
-                <ScalarProperty Name="Meetingheld" ColumnName="Meetingheld" />
-                <ScalarProperty Name="PlanYear" ColumnName="PlanYear" />
-                <ScalarProperty Name="PlanMonth" ColumnName="PlanMonth" />
-                <ScalarProperty Name="ActivityId_fk" ColumnName="ActivityId_fk" />
-                <ScalarProperty Name="VoId_fk" ColumnName="VoId_fk" />
-                <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
-                <ScalarProperty Name="ClusterId_fk" ColumnName="ClusterId_fk" />
-                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
-                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
-                <ScalarProperty Name="AchieveId_pk" ColumnName="AchieveId_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_Beneficiary">
             <EntityTypeMapping TypeName="FP_DBModel.TBL_Beneficiary">
               <MappingFragment StoreEntitySet="TBL_Beneficiary">
@@ -1692,6 +1649,55 @@
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Activity" ColumnName="Activity" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AchievementPlan">
+            <EntityTypeMapping TypeName="FP_DBModel.tbl_AchievementPlan">
+              <MappingFragment StoreEntitySet="tbl_AchievementPlan">
+                <ScalarProperty Name="Remark3" ColumnName="Remark3" />
+                <ScalarProperty Name="Level3RejectBy" ColumnName="Level3RejectBy" />
+                <ScalarProperty Name="Level3RejectDt" ColumnName="Level3RejectDt" />
+                <ScalarProperty Name="IsLevel3Reject" ColumnName="IsLevel3Reject" />
+                <ScalarProperty Name="Level3ApproveBy" ColumnName="Level3ApproveBy" />
+                <ScalarProperty Name="Level3ApproveDt" ColumnName="Level3ApproveDt" />
+                <ScalarProperty Name="IsLevel3Approve" ColumnName="IsLevel3Approve" />
+                <ScalarProperty Name="Remark2" ColumnName="Remark2" />
+                <ScalarProperty Name="Level2RejectBy" ColumnName="Level2RejectBy" />
+                <ScalarProperty Name="Level2RejectDt" ColumnName="Level2RejectDt" />
+                <ScalarProperty Name="IsLevel2Reject" ColumnName="IsLevel2Reject" />
+                <ScalarProperty Name="Remark1" ColumnName="Remark1" />
+                <ScalarProperty Name="Level1RejectDt" ColumnName="Level1RejectDt" />
+                <ScalarProperty Name="Level1RejectBy" ColumnName="Level1RejectBy" />
+                <ScalarProperty Name="IsLevel1Reject" ColumnName="IsLevel1Reject" />
+                <ScalarProperty Name="Level2ApproveBy" ColumnName="Level2ApproveBy" />
+                <ScalarProperty Name="Level2ApproveDt" ColumnName="Level2ApproveDt" />
+                <ScalarProperty Name="IsLevel2Approve" ColumnName="IsLevel2Approve" />
+                <ScalarProperty Name="Level1ApproveBy" ColumnName="Level1ApproveBy" />
+                <ScalarProperty Name="Level1ApproveDt" ColumnName="Level1ApproveDt" />
+                <ScalarProperty Name="IsLevel1Approve" ColumnName="IsLevel1Approve" />
+                <ScalarProperty Name="FinalApprovedBy" ColumnName="FinalApprovedBy" />
+                <ScalarProperty Name="FinalApprovedDate" ColumnName="FinalApprovedDate" />
+                <ScalarProperty Name="FinalApproved" ColumnName="FinalApproved" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Noofparticipant" ColumnName="Noofparticipant" />
+                <ScalarProperty Name="ClaimedAmount" ColumnName="ClaimedAmount" />
+                <ScalarProperty Name="Meetingheld" ColumnName="Meetingheld" />
+                <ScalarProperty Name="PlanYear" ColumnName="PlanYear" />
+                <ScalarProperty Name="PlanMonth" ColumnName="PlanMonth" />
+                <ScalarProperty Name="ActivityId_fk" ColumnName="ActivityId_fk" />
+                <ScalarProperty Name="BfyIds" ColumnName="BfyIds" />
+                <ScalarProperty Name="VoIds_fk" ColumnName="VoIds_fk" />
+                <ScalarProperty Name="VoId_fk" ColumnName="VoId_fk" />
+                <ScalarProperty Name="PanchayatId_fk" ColumnName="PanchayatId_fk" />
+                <ScalarProperty Name="ClusterId_fk" ColumnName="ClusterId_fk" />
+                <ScalarProperty Name="BlockId_fk" ColumnName="BlockId_fk" />
+                <ScalarProperty Name="DistrictId_fk" ColumnName="DistrictId_fk" />
+                <ScalarProperty Name="AchieveId_pk" ColumnName="AchieveId_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
