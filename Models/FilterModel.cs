@@ -48,6 +48,7 @@ namespace FP.Models
         public string BtnType { get; set; }
 
         public string UserID { get; set; }
+        public string EmpId { get; set; }
     }
    
 }

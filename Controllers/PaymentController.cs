@@ -200,6 +200,31 @@ namespace FP.Controllers
                 return resResponse1;
             }
         }
+
+
+        public ActionResult GetAchievementDetailsByUser(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                model.TypeLayer = (int)Enums.eTypeLayer.MRP;
+                var tbllist = SP_Model.SP_GetAchvPlanApproveChild(model.UserID, model.EmpId, model.MonthId, model.YearId, model.TypeLayer);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_LevelOneAchvDetails", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+
         #endregion
 
         #region CNR Monthly Incentive 2nd Monthly Payment Level Approved Planning (CC Level Two)

@@ -143,6 +143,30 @@
         }
     </fieldset>
 
+    <div class="modal fade show" id="modalAchievementDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-modal="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalTitle"></h5>
+                    <button type="button" class="closed" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="modal-rowIndex" id="modal-rowIndex" />
+                    <div class="col-sm-12 col-xl-12">
+                       <div id="div-achv-table"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12 col-xl-12">
+                        <button type="button" class="btn btn-primary float-right" id="modalOk">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -457,6 +481,44 @@
                 return false;
             }
 
+        }
+
+        function AchievementDetailsByUser(empId, eName) {
+            
+            $('#modalAchievementDetails #myModalTitle').html(eName);
+            $("#div-achv-table").html('');
+
+            var filtermodel = new Object();
+            filtermodel.UserID = '';
+            filtermodel.EmpId = empId;
+            filtermodel.YearId = $('#PlanYear').val() == '' ? '' : $('#PlanYear').val();
+            filtermodel.MonthId = $('#planMonth').val() == '' ? '' : $('#PlanMonth').val();
+
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Payment/GetAchievementDetailsByUser",
+                data: filtermodel,//JSON.stringify({ 'Roles': '' }),
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#div-achv-table").html(res.Data);
+                    }
+                    else {
+                        $("#div-achv-table").html(res.Data);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+
+            $('#modalAchievementDetails').modal('show');
+        }
+        function modalAchievementDetailsOk() {
+
+            $('#modalAchievementDetails').modal('hide');
         }
     </script>
 }

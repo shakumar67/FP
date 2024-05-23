@@ -1,0 +1,56 @@
+﻿@using System.Data
+@using FP.Manager
+@{
+    var indx = 0;
+    var dtm = Model;
+    if (dtm.Rows.Count > 0)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Activity</th>
+                    <th>Panchayat</th>
+                    <th>VO</th>
+                    <th>Meeting held</th>
+                    <th>Participant</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (DataRow dr1 in dtm.Rows)
+                {
+                    var appr = Convert.ToInt16(Enums.eTypeApprove.Approve).ToString();
+                    var Reject = Convert.ToInt16(Enums.eTypeApprove.Reject).ToString();
+                    var distbl = dr1["IsLevel1Approve"].ToString() == appr ? "trdisableAprroved" :
+                    dr1["IsLevel1Reject"].ToString() == "1" && dr1["PlanStatus"].ToString() == Reject ? "trdisableReject" : "trcolor";
+                    var strchecked = dr1["IsLevel1Approve"].ToString() == "1"
+                    ? "checked=checked" : dr1["IsLevel1Reject"].ToString() == "1" ? "" : "checked=checked";
+                    <tr>
+
+                        <td>
+                            <input type="checkbox" name="chkApprove" data-achvplanid="@dr1["AchieveId_pk"]"
+                                   data-uid="@dr1["UserID_fk"]" data-empid="@dr1["Emp_ID"]"
+                                   data-disid="@dr1["DistrictId_pk"]" data-blckid="@dr1["BlockId_pk"]"
+                                   data-clfid="@dr1["CLF_ID_pk"]" data-pchytid="@dr1["Panchayatid_pk"]" data-vorgid="@dr1["Void_pk"]"
+                                   data-planstatus="@dr1["PlanStatus"]"
+                                   value="@dr1["AchieveId_pk"]" @strchecked />
+                        </td>
+                        <td>@dr1["Activity"]</td>
+                        <td data-title="Panchayat">@dr1["Panchayat"]</td>
+                        <td data-title="VO">@dr1["VO"]</td>
+                        <td data-title="Meetingheld">@(CommonModel.FormateDtDMY(dr1["Meetingheld"].ToString()))</td>
+                        <td data-title="Noofparticipant">@dr1["Noofparticipant"]</td>
+                        <td data-title="Remark" width="300px">
+                            <textarea id="remark-@dr1["AchieveId_pk"]" name="Remark-@dr1["AchieveId_pk"]" class="form-control" rows="1" cols="12">@dr1["Remark1"].ToString()</textarea>
+                            <span id="remark-@dr1["AchieveId_pk"]-error" class="text-danger"></span>
+                            @dr1["Level1RejectDt"].ToString()
+
+                        </td>
+                    </tr>
+                    indx++;
+                }
+            </tbody>
+        </table>
+    }
+}
