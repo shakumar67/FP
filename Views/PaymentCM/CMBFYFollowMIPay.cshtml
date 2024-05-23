@@ -295,28 +295,31 @@
             table2.$('input[name=check]').each(function (i, row) {
                 debugger;
                   var cmmipid = $(row).attr('data-cmmipid');
-                  var bfyid = $(row).attr('data-bfyid');
-                  var folloupid = $(row).attr('data-folloupid');
+                 // var bfyid = $(row).attr('data-bfyid');
+               //   var folloupid = $(row).attr('data-folloupid');
                   var disid = $(row).attr('data-disid');
                   var blckid = $(row).attr('data-blckid');
                   var clfid = $(row).attr('data-clfid');
                   var pchytid = $(row).attr('data-pchytid');
                   var vorgid = $(row).attr('data-vorgid');
-                var ReportedByUserId = $(row).attr('data-reportedbyuserid');
+                //var ReportedByUserId = $(row).attr('data-reportedbyuserid');
+                var cmId = $(row).attr('data-cmid');
+                var Guidempty='@Guid.Empty'
 
                   debugger;
-                  if (bfyid != '' && bfyid != '@Guid.Empty' && bfyid != undefined) {
+                if (cmId != '' && cmId != '@Guid.Empty' && cmId != undefined) {
                       if ($(this).is(':checked')) {
                           tblpushdata.push({
                               CMMIPId_pk: cmmipid == "" ? '@Guid.Empty' : cmmipid,
-                              BFYId_fk: bfyid,
-                              FollowupId_fk: folloupid == "" ? '@Guid.Empty' : folloupid,
+                              CMId: cmId,
+                              BFYId_fk: Guidempty,
+                              FollowupId_fk: Guidempty,
                               DistrictId_fk: disid,
                               BlockId_fk: blckid,
                               ClusterId_fk: clfid,
                               PanchayatId_fk: pchytid,
                               VoId_fk: vorgid,
-                              ReportedByUserId: ReportedByUserId,
+                              //ReportedByUserId: ReportedByUserId,
                               PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Approve)',
                           });
                       }

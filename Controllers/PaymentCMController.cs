@@ -35,7 +35,7 @@ namespace FP.Controllers
             try
             {
                 bool IsCheck = false;
-                var tbllist = SP_Model.SPMIPayBFYApproved(model);
+                var tbllist = SP_Model.SP_MIPayBFYApprovedGroupBy(model);
                 if (tbllist.Rows.Count > 0)
                 {
                     IsCheck = true;
@@ -85,9 +85,39 @@ namespace FP.Controllers
                                 resResponse4.MaxJsonLength = int.MaxValue;
                                 return resResponse4;
                             }
-                            if (CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role)
+                            if (CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role)
                             {
-                                if (db_.tbl_CMMIncentivePayment.Any(x => x.DistrictId_fk == model.DistrictId && x.BlockId_fk == model.BlockId && x.ClusterId_fk == model.ClusterId && x.MIMonth == model.Month && x.MIYear == model.Year))
+                                if (db_.tbl_CMMIncentivePayment.Any(x => x.DistrictId_fk == model.DistrictId && x.BlockId_fk == model.BlockId && x.ClusterId_fk == model.ClusterId && x.MIMonth == model.Month && x.MIYear == model.Year && model.TypeLayer == 1 && !(x.Approved1By == null || x.Approved1By.Trim() == string.Empty)))
+                                {
+                                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.Already), Data = null };
+                                    var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+                                    resResponse4.MaxJsonLength = int.MaxValue;
+                                    return resResponse4;
+                                }
+                            }
+                            else if (CommonModel.RoleNameCont.CC == MvcApplication.CUser.Role )
+                            {
+                                if (db_.tbl_CMMIncentivePayment.Any(x => x.DistrictId_fk == model.DistrictId && x.BlockId_fk == model.BlockId && x.ClusterId_fk == model.ClusterId && x.MIMonth == model.Month && x.MIYear == model.Year && model.TypeLayer == 2 && !(x.Approved2By == null || x.Approved2By.Trim() == string.Empty)))
+                                {
+                                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.Already), Data = null };
+                                    var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+                                    resResponse4.MaxJsonLength = int.MaxValue;
+                                    return resResponse4;
+                                }
+                            }
+                            else if (CommonModel.RoleNameCont.BPM == MvcApplication.CUser.Role)
+                            {
+                                if (db_.tbl_CMMIncentivePayment.Any(x => x.DistrictId_fk == model.DistrictId && x.BlockId_fk == model.BlockId && x.ClusterId_fk == model.ClusterId && x.MIMonth == model.Month && x.MIYear == model.Year && model.TypeLayer == 3 && !(x.Approved3By == null || x.Approved3By.Trim() == string.Empty)))
+                                {
+                                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.Already), Data = null };
+                                    var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+                                    resResponse4.MaxJsonLength = int.MaxValue;
+                                    return resResponse4;
+                                }
+                            }
+                            else 
+                            {
+                                if (db_.tbl_CMMIncentivePayment.Any(x => x.DistrictId_fk == model.DistrictId && x.BlockId_fk == model.BlockId && x.ClusterId_fk == model.ClusterId && x.MIMonth == model.Month && x.MIYear == model.Year && ((model.TypeLayer == 1 && !(x.Approved1By == null || x.Approved1By.Trim() == string.Empty)) || (model.TypeLayer == 2 && !(x.Approved2By == null || x.Approved2By.Trim() == string.Empty)) || (model.TypeLayer == 3 && !(x.Approved3By == null || x.Approved3By.Trim() == string.Empty)))))
                                 {
                                     response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = GetEnumDescription(Enums.eReturnReg.Already), Data = null };
                                     var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
@@ -129,7 +159,8 @@ namespace FP.Controllers
                                                            .OrderByDescending(x => x.CreatedOn).ToList();
                                 foreach (var m in mlist)
                                 {
-                                    if (m.BFYId_fk != Guid.Empty &&
+                                    // m.BFYId_fk != Guid.Empty &&
+                                    if (
                                         m.DistrictId_fk != null && m.BlockId_fk != null && m.ClusterId_fk != null &&
                                         m.PanchayatId_fk != null && m.VoId_fk != null)
                                     {
@@ -149,6 +180,7 @@ namespace FP.Controllers
                                                             var FollowId = getFollowdata.Where(x => x.BFYID_fk == m.BFYId_fk && x.FMonth == model.Month && x.FYear == model.Year)
                                                              .OrderByDescending(x => x.CreatedOn).Take(1)?.FirstOrDefault()?.FollowupID_pk;
 
+                                                            tbl.CMId = m.CMId;
                                                             tbl.DistrictId_fk = m.DistrictId_fk;
                                                             tbl.BlockId_fk = m.BlockId_fk;
                                                             tbl.ClusterId_fk = m.ClusterId_fk;
@@ -207,7 +239,7 @@ namespace FP.Controllers
                                 }
                                 // results += db_.SaveChanges();
                                 var strjoin = "";
-                                var groups = mlist.GroupBy(x => x.ReportedByUserId);
+
                                 if (CommonModel.RoleNameCont.MRP == MvcApplication.CUser.Role || CommonModel.RoleNameCont.Admin == MvcApplication.CUser.Role)
                                 {
                                     if (tbl_list.Count > 0)
@@ -227,6 +259,7 @@ namespace FP.Controllers
                                     strjoin = string.Join(",", grplist).ToUpper();
                                 }
 
+                                var groups = mlist.GroupBy(x => x.CMId);
                                 if (groups != null && results > 0)
                                 {
                                     foreach (var group in groups)

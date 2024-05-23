@@ -15,6 +15,7 @@ namespace FP.Models
     public partial class tbl_CMMIncentivePayment
     {
         public System.Guid CMMIPId_pk { get; set; }
+        public Nullable<System.Guid> CMId { get; set; }
         public Nullable<int> DistrictId_fk { get; set; }
         public Nullable<int> BlockId_fk { get; set; }
         public Nullable<int> ClusterId_fk { get; set; }
