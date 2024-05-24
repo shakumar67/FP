@@ -55,10 +55,10 @@ namespace FP.Models
         [ExpressiveAnnotations.Attributes.RequiredIf("(IsContraception==true && (ContraceptionId_fk == 1 || ContraceptionId_fk == 2))")]
         [Display(Name = DisplayFollowBFY.Ctusemethod)]
         public Nullable<int> UseMethodId_fk { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = DisplayFollowBFY.ModuleRollout)]
         public Nullable<int> ModuleRollout { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = DisplayFollowBFY.ModuleRolloutId_fk)]
         public Nullable<int> ModuleRolloutId_fk { get; set; }
         public Nullable<bool> IsActive { get; set; }

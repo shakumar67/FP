@@ -205,14 +205,14 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12" style="display:none;">
                                             <div lass="position-relative form-group">
                                                 @Html.LabelFor(m => m.ModuleRollout, new { @class = "control-label" })<em>*</em>
                                                 @Html.EditorFor(m => m.ModuleRollout, new { htmlAttributes = new { @class = "form-control col-md-4 numbersOnly", min = "0", oninput = "maxLengthCheck(this)", max = "999", maxlength = "3" } })
                                                 @Html.ValidationMessageFor(m => m.ModuleRollout, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12" style="display:none;">
                                             <div lass="position-relative form-group">
                                                 @Html.LabelFor(m => m.ModuleRolloutId_fk, new { @class = "control-label" })<em>*</em>
                                                 @Html.DropDownListFor(m => m.ModuleRolloutId_fk, CommonModel.GetModuleRollout(), "Select", new { @class = "form-control col-md-4" })

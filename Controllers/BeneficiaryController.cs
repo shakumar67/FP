@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using static FP.Manager.Enums;
 
@@ -153,8 +152,8 @@ namespace FP.Controllers
                         tbl.Q17 = item.Q15 == 2 ? item.Q17 : null;
                         tbl.Q18 = item.Q15 == 4 ? item.Q18 : null;
                         tbl.IsPregnant = item.IsPregnant;
-                        ////tbl.Q20 = item.Q20;
-                        ////tbl.Q21 = item.Q21;
+                        tbl.Q20 = item.Q20;
+                        tbl.Q21 = item.Q21;
                         tbl.IsActive = true;
                         if (item.Beneficiary_Id_pk == Guid.Empty)
                         {
@@ -376,8 +375,8 @@ namespace FP.Controllers
                     tblf.ContraceptionId_fk = model.ContraceptionId_fk;
                     tblf.ContraceptionOther = model.ContraceptionOther;
                     tblf.UseMethodId_fk = model.UseMethodId_fk;
-                    tblf.ModuleRollout = model.ModuleRollout;
-                    tblf.ModuleRolloutId_fk = model.ModuleRolloutId_fk;
+                    //tblf.ModuleRollout = model.ModuleRollout;
+                    // tblf.ModuleRolloutId_fk = model.ModuleRolloutId_fk;
                     tblf.Totalnoof_malechild = model.Totalnoof_malechild;
                     tblf.Totalnoof_Femalechild = model.Totalnoof_Femalechild;
                     if (model.FollowupID_pk == Guid.Empty)
@@ -393,8 +392,8 @@ namespace FP.Controllers
                         tblBFY.Q16 = model.ContraceptionId_fk == 1 ? model.UseMethodId_fk : null;
                         tblBFY.Q17 = model.ContraceptionId_fk == 2 ? model.UseMethodId_fk : null;
                         tblBFY.Q18 = model.ContraceptionId_fk == 4 ? model.ContraceptionOther : null;
-                        tblBFY.Q20 = model.ModuleRollout;
-                        tblBFY.Q21 = model.ModuleRolloutId_fk;
+                        //tblBFY.Q20 = model.ModuleRollout;
+                        //tblBFY.Q21 = model.ModuleRolloutId_fk;
                         tblBFY.Q10 = model.Totalnoof_malechild;
                         tblBFY.Q11 = model.Totalnoof_Femalechild;
                         tblBFY.UpdatedBy = MvcApplication.CUser.Id;

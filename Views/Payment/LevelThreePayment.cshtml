@@ -1,6 +1,7 @@
 ﻿@model FP.Models.AchvPlanModel
 @using FP.Manager
 @{
+    ViewBag.Title = "Mobilization Incentive";
 }
 <style>
     .table th {
@@ -52,7 +53,7 @@
     }
 </style>
 <div class="breadcrumb">
-    <h2>Monthly Incentive (@CommonModel.RoleNameCont.BPM)</h2>
+    <h2>@ViewBag.Title (@CommonModel.RoleNameCont.BPM)</h2>
 </div>
 <div class="container-fluid pt-4 px-4">
     <fieldset class="border rounded-3 p-3">

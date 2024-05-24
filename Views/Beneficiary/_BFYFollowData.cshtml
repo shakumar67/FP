@@ -19,17 +19,20 @@
                     <th>Srno.</th>
                     <th>Follow up</th>
                     <th>Beneficiary<br /> ID <span class="text-success">(View)</span></th>
-                    <th>District</th>
-                    <th>Block</th>
-                    <th>Cluster</th>
-                    <th>Panchayat</th>
-                    <th>Village <br />Organization</th>
-                    <th>Reporting <br />Month</th>
-                    <th>Parity</th>
-                    <th>Name of<br />Beneficiary</th>
-                    <th>@FP.Models.DisplayFollowBFY.Ct</th>
-                    <th>@FP.Models.DisplayFollowBFY.Ctusemethod</th>
-                </tr>
+                    @if (CommonModel.RoleNameCont.CNRP == MvcApplication.CUser.Role || CommonModel.RoleNameCont.CM == MvcApplication.CUser.Role)
+                    {
+                        <th>District</th>
+                        <th>Block</th>
+                    }
+                        <th>Cluster</th>
+                        <th>Panchayat</th>
+                        <th>Village <br />Organization</th>
+                        <th>Reporting <br />Month</th>
+                        <th>Parity</th>
+                        <th>Name of<br />Beneficiary</th>
+                        <th>@FP.Models.DisplayFollowBFY.Ct</th>
+                        <th>@FP.Models.DisplayFollowBFY.Ctusemethod</th>
+                    </tr>
             </thead>
             <tbody>
                 @{
@@ -59,17 +62,20 @@
                                     <td class="text-center">
                                         <a href="javascript:void(0);" onclick="BFYFollowDataView('@dr["BpkID"]','',1)" class="btn btn-success btn-sm"><i class="fa fa-view"></i>@dr["BFYID"]</a>
                                     </td>
-                                    <td class="text-left">@dr["DistrictName"]</td>
-                                    <td class="text-left">@dr["Block"]</td>
-                                    <td class="text-left">@dr["CLFName"]</td>
-                                    <td class="text-left">@dr["Panchayat"]</td>
-                                    <td class="text-left">@dr["VO"]</td>
-                                    <td class="text-center">@dr["ReportingDate"]</td>
-                                    <td class="text-center">@dr["Parity"]</td>
-                                    <td class="text-left">@dr["BFYName"]</td>
-                                    <td class="text-center">@dr["C_Name"]</td>
-                                    <td class="text-center">@dr["Method_Name"]</td>
-                                </tr>
+                                    @if (CommonModel.RoleNameCont.CNRP == MvcApplication.CUser.Role || CommonModel.RoleNameCont.CM == MvcApplication.CUser.Role)
+                                    {
+                                        <td class="text-left">@dr["DistrictName"]</td>
+                                        <td class="text-left">@dr["Block"]</td>
+                                    }
+                                        <td class="text-left">@dr["CLFName"]</td>
+                                        <td class="text-left">@dr["Panchayat"]</td>
+                                        <td class="text-left">@dr["VO"]</td>
+                                        <td class="text-center">@dr["ReportingDate"]</td>
+                                        <td class="text-center">@dr["Parity"]</td>
+                                        <td class="text-left">@dr["BFYName"]</td>
+                                        <td class="text-center">@dr["C_Name"]</td>
+                                        <td class="text-center">@dr["Method_Name"]</td>
+                                    </tr>
                         }
                     }
                     else
