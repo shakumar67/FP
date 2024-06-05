@@ -118,7 +118,15 @@
         <div class="col=md-6"></div>
         <div class="col-md-12">
             <div id="subdata"></div>
-            Comments :  <textarea id="ApprovedRemarks" name="ApprovedRemarks" class="form-control" cols="2" rows="4" required></textarea>
+            <div>
+                <label>Selected CMs : </label>
+                <textarea id="cmNames" name="cmNames" class="form-control" cols="2" rows="2" readonly></textarea>
+            </div>
+            <div>
+                <label>Comments : </label>
+                 <textarea id="ApprovedRemarks" name="ApprovedRemarks" class="form-control" cols="2" rows="4" required></textarea>
+            </div>
+           
             <br />
             <div class="mb-3 offset-10">
                 <span class="check-spacer">
@@ -220,6 +228,8 @@
                         );
                         $('#div-download').empty();
                         table.buttons().container().appendTo($('#div-download'));
+
+                        CheckUnchecked();
                     }
                     else {
                         $("#subdata").html(res.Data);
@@ -235,9 +245,13 @@
 
         function CheckUnchecked(cur) {
             debugger;
+            var names = '';
             if ($(cur).attr('id') == 'selectAll') {
                 $('#tbl tbody tr .check').each(function (i, item) {
                     $(item).prop('checked', $(cur).prop('checked'));
+                    if ($(cur).prop('checked')) {
+                        names += $(item).attr('data-cmname') + ', ';
+                    }
                 });
             } else {
                 var isallChecked = true;
@@ -245,10 +259,13 @@
                     if (!$(item).prop('checked')) {
                         isallChecked = false;
                         return;
+                    } else {
+                        names += $(item).attr('data-cmname') + ', ';
                     }
                 });
                 $('#selectAll').prop('checked', isallChecked);
             }
+            $('#cmNames').val(names);
         }
 
         function CUData() {

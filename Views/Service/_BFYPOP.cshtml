@@ -66,7 +66,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6" style="display:none">
+                                    <div class="col-sm-6" >
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(model => model.IsFollowUpHV, htmlAttributes: new { @class = "control-label" })
                                             <div class="checkbox">
@@ -147,11 +147,18 @@
                                                         @Html.ValidationMessageFor(model => model.ServiceRevcDt, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-12">
+                                                <div class="col-sm-6">
                                                     <div lass="position-relative form-group" id="div-Location" style="display:block;">
                                                         @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label" })
                                                         @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
                                                         @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div lass="position-relative form-group" id="div-AashaName" style="display:block;">
+                                                        @Html.LabelFor(model => model.AashaName, htmlAttributes: new { @class = "control-label" })
+                                                        @Html.EditorFor(model => model.AashaName, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.AashaName, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
 

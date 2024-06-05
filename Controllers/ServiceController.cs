@@ -138,6 +138,7 @@ namespace FP.Controllers
                                 tbl.ServiceProvider = model.Isservice == true ? model.ServiceProvider : null;
                                 tbl.ServiceRevcDt = model.Isservice == true ? model.ServiceRevcDt : null;
                                 tbl.Location = model.Isservice == true ? model.Location : null;
+                                tbl.AashaName = model.Isservice == true ? model.AashaName : null;
                             }
                         }
                         else

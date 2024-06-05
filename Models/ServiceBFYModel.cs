@@ -76,10 +76,17 @@ namespace FP.Models
         //[RequiredIf("Isservice", true)]
         [ExpressiveAnnotations.Attributes.RequiredIf("(IsContraception==true && Isservice==true && (ContraceptionId_fk == 1 || ContraceptionId_fk == 2))")]
         public Nullable<int> ServiceProvider { get; set; }
+
         //[RequiredIf("Isservice", true)]
         [Display(Name = DisplayAchBFY.Location)]
         [ExpressiveAnnotations.Attributes.RequiredIf("(IsContraception==true && Isservice==true && (ContraceptionId_fk == 1 || ContraceptionId_fk == 2))")]
         public string Location { get; set; }
+
+        //[RequiredIf("Isservice", true)]
+        [Display(Name = DisplayAchBFY.AashaName)]
+        [ExpressiveAnnotations.Attributes.RequiredIf("(IsContraception==true && Isservice==true && (ContraceptionId_fk == 1 || ContraceptionId_fk == 2))")]
+        public string AashaName { get; set; }
+
         //[Display(Name = DisplayAchBFY.CMEligible)]
         public Nullable<decimal> CMEligible { get; set; }
         public Nullable<decimal> CNRPEligible { get; set; }
@@ -117,6 +124,7 @@ namespace FP.Models
         public const string ServiceRevcDt = "Service Received Date";
         public const string ServiceProvider = "Service Provider";
         public const string Location = "Facility Name (Location)";
+        public const string AashaName = "Aasha Name";
         public const string CMEligible = "CM Eligible for Incentive";//If Copper T/Antara inj/Permanent 20
         public const string CNRPEligible = "CNRP Eligible for Incentive";// 80
     }

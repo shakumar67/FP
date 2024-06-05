@@ -29,6 +29,7 @@ namespace FP.Models
         public Nullable<System.DateTime> ServiceRevcDt { get; set; }
         public Nullable<int> ServiceProvider { get; set; }
         public string Location { get; set; }
+        public string AashaName { get; set; }
         public Nullable<decimal> CMEligible { get; set; }
         public Nullable<decimal> CNRPEligible { get; set; }
         public Nullable<bool> IsActive { get; set; }

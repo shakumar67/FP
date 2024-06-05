@@ -753,12 +753,12 @@
     <Content Include="Views\Service\_BFYPOP.cshtml" />
     <Content Include="Views\Service\_ServiceBFYData.cshtml" />
     <Content Include="Views\Service\AddServiceCNRP.cshtml" />
-    <Content Include="Views\Payment\LevelTwoPayment.cshtml" />
-    <Content Include="Views\Payment\_LevelTwoPaymentData.cshtml" />
+    <Content Include="Views\Payment\LevelTwoPayment_Old.cshtml" />
+    <Content Include="Views\Payment\_LevelTwoPaymentData_old.cshtml" />
     <Content Include="Views\Report\_ServiceBFYListData.cshtml" />
     <Content Include="Views\Report\ServiceBFYList.cshtml" />
-    <Content Include="Views\Payment\LevelThreePayment.cshtml" />
-    <Content Include="Views\Payment\_LevelThreePaymentData.cshtml" />
+    <Content Include="Views\Payment\LevelThreePayment_Old.cshtml" />
+    <Content Include="Views\Payment\_LevelThreePaymentData_Old.cshtml" />
     <Content Include="Views\PaymentCM\CMBFYFollowMIPay.cshtml" />
     <Content Include="Views\PaymentCM\_MIncPayBFYData.cshtml" />
     <Content Include="Views\MobilizationPayment\MobilizationIPayment.cshtml" />
@@ -768,6 +768,12 @@
     <Content Include="Views\Report\_PaymentReportData.cshtml" />
     <Content Include="Views\Achievement\_BFList.cshtml" />
     <Content Include="Views\Payment\_LevelOneAchvDetails.cshtml" />
+    <Content Include="Views\Payment\_LevelTwoAchvDetails.cshtml" />
+    <Content Include="Views\Payment\_LevelTwoPaymentData.cshtml" />
+    <Content Include="Views\Payment\LevelTwoPayment.cshtml" />
+    <Content Include="Views\Payment\LevelThreePayment.cshtml" />
+    <Content Include="Views\Payment\_LevelThreePaymentData.cshtml" />
+    <Content Include="Views\Payment\_LevelThreeAchvDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

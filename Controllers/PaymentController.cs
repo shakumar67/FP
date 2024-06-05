@@ -202,28 +202,7 @@ namespace FP.Controllers
         }
 
 
-        public ActionResult GetAchievementDetailsByUser(FilterModel model)
-        {
-            try
-            {
-                bool IsCheck = false;
-                model.TypeLayer = (int)Enums.eTypeLayer.MRP;
-                var tbllist = SP_Model.SP_GetAchvPlanApproveChild(model.UserID, model.EmpId, model.MonthId, model.YearId, model.TypeLayer);
-                if (tbllist.Rows.Count > 0)
-                {
-                    IsCheck = true;
-                }
-                var html = ConvertViewToString("_LevelOneAchvDetails", tbllist);
-                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
-                res.MaxJsonLength = int.MaxValue;
-                return res;
-            }
-            catch (Exception ex)
-            {
-                string er = ex.Message;
-                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
-            }
-        }
+        
 
         #endregion
 
@@ -233,7 +212,7 @@ namespace FP.Controllers
             AchvPlanModel model = new AchvPlanModel();
             return View(model);
         }
-        public ActionResult GetAchApprovePlanList(FilterModel model)
+        public ActionResult GetAchApproveTwoPlanList(FilterModel model)
         {
             try
             {
@@ -413,7 +392,7 @@ namespace FP.Controllers
             AchvPlanModel model = new AchvPlanModel();
             return View(model);
         }
-        public ActionResult GetApproveThreePlanList(FilterModel model)
+        public ActionResult GetAchApproveThreePlanList(FilterModel model)
         {
             try
             {
@@ -590,6 +569,46 @@ namespace FP.Controllers
             }
         }
         #endregion
+
+
+        public ActionResult GetAchievementDetailsByUser(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SP_GetAchvPlanApproveChild(model.UserID, model.EmpId, model.MonthId, model.YearId, model.TypeLayer);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = "";
+                switch (model.TypeLayer)
+                {
+                    case (int)Enums.eTypeLayer.MRP:
+                        html = ConvertViewToString("_LevelOneAchvDetails", tbllist);
+                        break;
+                    case (int)Enums.eTypeLayer.CC:
+                        html = ConvertViewToString("_LevelTwoAchvDetails", tbllist);
+                        break;
+                    case (int)Enums.eTypeLayer.BPIU:
+                        html = ConvertViewToString("_LevelThreeAchvDetails", tbllist);
+                        break;
+                    default:
+                        html = ConvertViewToString("_LevelOneAchvDetails", tbllist);
+                        break;
+                }
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+
+
         public ActionResult AppPlanList()
         {
             FilterModel model = new FilterModel();
