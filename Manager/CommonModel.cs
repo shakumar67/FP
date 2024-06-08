@@ -1935,7 +1935,7 @@ namespace FP.Manager
             public const string BPM = "BPM";
             public const string BPIU = "BPIU";
             public const string CLF = "CLF";//1st Level Parallel Cluster
-            public const string MRP = "MRP";//2nd Level Parallel  Cluster
+            public const string MRP = "MRP-CLF";//2nd Level Parallel  Cluster
             public const string CC = "CC";//3rd Level Parallel Cluster
             public const string CNRP = "CNRP";
             public const string CM = "CM";
@@ -1959,7 +1959,7 @@ namespace FP.Manager
         }
         public static class DisAchvlbl
         {
-            public const string Name = "Name";//MeetingHeld
+            public const string Name = "CNPR";//MeetingHeld
             public const string MeetingDate = "Meeting Conducted On";//MeetingHeld
             public const string Activities = "Activities";//\r\n
             public const string TotalNoofParticipant = "No of Plan";

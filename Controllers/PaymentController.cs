@@ -112,6 +112,11 @@ namespace FP.Controllers
                                                     tblu.IsLevel1Approve = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
                                                     tblu.Level1ApproveDt = cdt;
                                                     tblu.Level1ApproveBy = MvcApplication.CUser.Id;
+
+                                                    tblu.CLFValidation = model.CLFValidation;
+                                                    tblu.CLFLeadersPresident = model.CLFLeadersPresident;
+                                                    tblu.CLFLeadersSecretary = model.CLFLeadersSecretary;
+                                                    tblu.CLFLeadersTreasurer = model.CLFLeadersTreasurer;
                                                     results += db_.SaveChanges();
                                                 }
                                             }
@@ -137,6 +142,12 @@ namespace FP.Controllers
                                                     tblu.IsLevel1Reject = true;
                                                     tblu.Level1RejectDt = cdt;
                                                     tblu.Level1RejectBy = MvcApplication.CUser.Id;
+
+                                                    tblu.CLFValidation = model.CLFValidation;
+                                                    tblu.CLFLeadersPresident = model.CLFLeadersPresident;
+                                                    tblu.CLFLeadersSecretary = model.CLFLeadersSecretary;
+                                                    tblu.CLFLeadersTreasurer = model.CLFLeadersTreasurer;
+
                                                     results_Reject += db_.SaveChanges();
                                                 }
                                             }
@@ -202,7 +213,7 @@ namespace FP.Controllers
         }
 
 
-        
+
 
         #endregion
 
@@ -446,7 +457,7 @@ namespace FP.Controllers
                                         var tblu = db_.tbl_AchievementPlan.Find(m.AchieveId_pk);
                                         if (tblu != null)
                                         {
-                                            
+
                                             tbl_Achievement_Log tblLog = new tbl_Achievement_Log();
                                             tblLog.LogId_pk = Guid.NewGuid();
                                             tblLog.AchieveId_fk = m.AchieveId_pk;
@@ -477,7 +488,7 @@ namespace FP.Controllers
                                                     tblu.IsLevel3Approve = m.PlanApprove == Convert.ToInt16(eTypeApprove.Approve) ? true : false;
                                                     tblu.Level3ApproveDt = cdt;
                                                     tblu.Level3ApproveBy = MvcApplication.CUser.Id;
-                                                    tblu.ClaimedAmount= CommonModel.GetClaimApprove(1, CommonModel.RoleNameCont.CNRP);
+                                                    tblu.ClaimedAmount = CommonModel.GetClaimApprove(1, CommonModel.RoleNameCont.CNRP);
                                                     results += db_.SaveChanges();
                                                 }
                                             }
@@ -516,7 +527,7 @@ namespace FP.Controllers
                                 {
                                     foreach (var group in groups)
                                     {
-                                        var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).Select(x=>x.AchieveId_pk).ToList();
+                                        var appovlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Approve)).Select(x => x.AchieveId_pk).ToList();
                                         var rejectlist = group.Where(x => x.PlanApprove == Convert.ToInt16(Enums.eTypeApprove.Reject)).Select(x => x.AchieveId_pk).ToList();
                                         tbl_PaymentHistory tblpay = new tbl_PaymentHistory();
                                         tblpay.PaymentHistoryId_pk = Guid.NewGuid();

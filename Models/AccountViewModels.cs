@@ -142,7 +142,7 @@ namespace FP.Models
                 }
                 else if (Roles == "2AF72EC4-82A8-4CBD-A5AC-AC7CF7FA0582")
                 {
-                    CN = "Name of MRP";
+                    CN = "Name of MRP-CLF";
                 }
                 else if (Roles == "1DB70ECF-3205-43CB-90C0-287CC784292D")
                 {

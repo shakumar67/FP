@@ -57,5 +57,9 @@ namespace FP.Models
         public Nullable<System.DateTime> Level3RejectDt { get; set; }
         public string Level3RejectBy { get; set; }
         public string Remark3 { get; set; }
+        public Nullable<bool> CLFValidation { get; set; }
+        public Nullable<bool> CLFLeadersPresident { get; set; }
+        public Nullable<bool> CLFLeadersSecretary { get; set; }
+        public Nullable<bool> CLFLeadersTreasurer { get; set; }
     }
 }

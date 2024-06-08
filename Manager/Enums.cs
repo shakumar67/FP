@@ -90,7 +90,7 @@ namespace FP.Manager
         }
         public enum eTypeLayer
         {
-            [Description("MRP")]
+            [Description("MRP-CLF")]
             MRP = 1,
             [Description("CC")]
             CC = 2,

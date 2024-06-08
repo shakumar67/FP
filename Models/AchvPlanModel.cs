@@ -21,7 +21,12 @@ namespace FP.Models
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<int> PlanStatus { get; set; }
         public Nullable<System.DateTime> PlanStatusDate { get; set; }
-    
+
+        public Nullable<bool> CLFValidation { get; set; }
+        public Nullable<bool> CLFLeadersPresident { get; set; }
+        public Nullable<bool> CLFLeadersSecretary { get; set; }
+        public Nullable<bool> CLFLeadersTreasurer { get; set; }
+
     }
     public class AVPlanModel
     {
@@ -49,6 +54,11 @@ namespace FP.Models
         public Nullable<int> Level2Reject { get; set; }
         public Nullable<System.DateTime> Level2RejectDt { get; set; }
         public string Remark2 { get; set; }
+
+        public Nullable<bool> CLFValidation { get; set; }
+        public Nullable<bool> CLFLeadersPresident { get; set; }
+        public Nullable<bool> CLFLeadersSecretary { get; set; }
+        public Nullable<bool> CLFLeadersTreasurer { get; set; }
 
     }
 

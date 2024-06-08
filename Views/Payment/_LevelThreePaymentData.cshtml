@@ -43,7 +43,7 @@
                     <thead>
                         <tr>
                             <th>@CommonModel.DisAchvlbl.Name</th>
-                            <th>@CommonModel.DisAchvlbl.TotalNoofParticipant</th>
+                            @*<th>@CommonModel.DisAchvlbl.TotalNoofParticipant</th>*@
                             <th>@CommonModel.DisAchvlbl.ClaimAmount</th>
                             <th>@CommonModel.DisAchvlbl.ApproveAmount</th>
                             <th>Peer group meeting</th>
@@ -82,7 +82,7 @@
                                                     clam = CommonModel.GetClaimApprove(peerGM, CommonModel.RoleNameCont.CNRP);
                                         <tr style="color:#1b6907;" data-empid="@Emp_ID">
                                             <td data-title="EmpName" class="@("empname-" + EmpName.Replace(" ", "_").ToLower())">@EmpName</td>
-                                            <td data-title="NoOfMeetingHeld">@dr["NoOfMeetingHeld"]</td>
+                                            @*<td data-title="NoOfMeetingHeld">@dr["NoOfMeetingHeld"]</td>*@
                                             <td data-title="@CommonModel.DisAchvlbl.ClaimAmount">
                                                 @clam
                                             </td>

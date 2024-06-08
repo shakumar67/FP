@@ -88,12 +88,12 @@
                                 </div>
                             </div>
                             @*<div class="col-sm-2">
-            <div class="position-relative form-group">
-                @Html.Label(CommonModel.DispLevel.Panchayat, htmlAttributes: new { @class = "control-label" })
-                @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
-                @Html.ValidationMessageFor(model => model.PanchayatId_fk, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+                                    <div class="position-relative form-group">
+                                        @Html.Label(CommonModel.DispLevel.Panchayat, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.PanchayatId_fk, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                        @Html.ValidationMessageFor(model => model.PanchayatId_fk, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
                             <div class="col-sm-2">
                                 <div class="position-relative form-group">
                                     @Html.Label(CommonModel.DispLevel.Year, htmlAttributes: new { @class = "control-label" })
@@ -136,13 +136,13 @@
                             <div class="col-md-12">
                                 <div id="subdata"></div>
                                 @*<div class="mb-3 offset-8" id="div-btn" style="display:none;">
-                <span class="check-spacer">
-                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-info" value="Validate" />
-                </span>&nbsp;&nbsp;&nbsp;
-                <span class="check-spacer">
-                    <a href="~/Payment/LevelOnePayment" class="btn btn-warning" id="hrfid"><i class="fa fa-refresh"></i></a>
-                </span>
-            </div>*@
+                                        <span class="check-spacer">
+                                            <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-info" value="Validate" />
+                                        </span>&nbsp;&nbsp;&nbsp;
+                                        <span class="check-spacer">
+                                            <a href="~/Payment/LevelOnePayment" class="btn btn-warning" id="hrfid"><i class="fa fa-refresh"></i></a>
+                                        </span>
+                                    </div>*@
                             </div>
                         </div>
 
@@ -160,14 +160,50 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="myModalTitle"></h5>
                     <button type="button" class="closed" data-bs-dismiss="modal" aria-label="Close">
-                            <i class="fa fa-times"></i>
-                        </button>
+                        <i class="fa fa-times"></i>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="modal-rowIndex" id="modal-rowIndex" />
                     <div class="col-sm-12 col-xl-12">
                         <div id="div-achv-table"></div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="position-relative form-group">
+                            <label class="" for="CLFValidation">CLF Validation</label>
+                            <div class="checkbox">
+                                <span class="check-spacer">
+                                    <input id="CLFValidationYes" name="CLFValidation" required="required" type="radio" value="1"> Yes
+                                </span>
+                                <span class="check-spacer">
+                                    <input id="CLFValidationNo" name="CLFValidation" required="required" type="radio" value="0"> No
+                                </span>
+                                <span class="text-danger" id="error-CLFValidation" style="display:none;">Required</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-xl-12" id="CLFLeaders" style="display:none;">
+                        <div class="position-relative form-group">
+                            <label class="" for="CLFLeaders">CLF Leaders</label>
+                            <div class="checkbox">
+                                <span class="check-spacer">
+                                    <input id="CLFLeadersPresident" name="CLFLeaders" type="checkbox" value="1"> President
+                                </span>
+                                <span class="check-spacer">
+                                    <input id="CLFLeadersSecretary" name="CLFLeaders" type="checkbox" value="2"> Secretary
+                                </span>
+                                <span class="check-spacer">
+                                    <input id="CLFLeadersTreasurer" name="CLFLeaders" type="checkbox" value="3"> Treasurer
+                                </span>
+                                <br />
+                                <span class="text-danger" id="error-CLFLeaders" style="display:none">Please select atleast one leader</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <div class="col-sm-12 col-xl-12">
@@ -194,7 +230,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
 
-<script>
+    <script>
         $(document).ready(function () {
 
             GetYearList("PlanYear", 0);
@@ -232,7 +268,13 @@
                 BindData();
             });
 
-
+            $("input[name=CLFValidation]").change(function () {
+                if ($(this).val() == 1) {
+                    $("#CLFLeaders").show();
+                } else {
+                    $("#CLFLeaders").hide();
+                }
+            });
 
             //$("#formid").submit(function (e) {
             //    e.preventDefault();
@@ -243,23 +285,6 @@
                 BindDataTable();
                // document.getElementById("btnsubmit").disabled = false;
             });
-
-            //$(document).on("change", "input[name=chkApprove]", function (e) {
-            //    e.preventDefault();
-
-            //    CalculateApprovedAmount();
-            //});
-
-            //$('#mdt-1').datepicker({
-            //    dateformat: 'dd-mm-yy',
-            //    maxdate: '0',
-            //    changemonth: true,
-            //    changeyear: true,
-            //    onSelect: function (dateText, inst) {
-            //        $(this).val(moment(dateText).format("DD-MM-YYYY"));
-            //        //$("#mdt-1").datepicker('option', 'maxDate', ge_today_date(new Date()) );
-            //    }
-            //});
 
         });
 
@@ -332,152 +357,175 @@
                 toastr.error("Error", "Please Select District, Block & Cluster");
                 return false;
             }
+            var tblpushdata = [];
+            var formData = new FormData();
+            formData.append('DistrictId_fk', $('#DistrictId_fk').val());
+            formData.append('BlockId_fk', $('#BlockId_fk').val());
+            formData.append('ClusterId_fk', $('#ClusterId_fk').val());
+            //formData.append('PanchayatId_fk', $('#PanchayatId_fk').val());
+            formData.append('PlanYear', $('#PlanYear').val());
+            formData.append('PlanMonth', $('#PlanMonth').val());
 
-                jQuery.event.trigger("ajaxStart");
-                //var vl = $.validator.unobtrusive.parse("#formid");
-                //var Isvalid= $("#formid").validate();//CreatePlanformid
+            formData.append('CLFLeadersPresident', $("#CLFLeadersPresident").prop("checked"));
+            formData.append('CLFLeadersSecretary', $("#CLFLeadersSecretary").prop("checked"));
+            formData.append('CLFLeadersTreasurer', $("#CLFLeadersTreasurer").prop("checked"));
 
-               // IsCheck = $('#BFYID_fk').val() == '' ? false : true;
-                var tblpushdata = [];
-                var formData = new FormData();
-                formData.append('DistrictId_fk', $('#DistrictId_fk').val());
-                formData.append('BlockId_fk', $('#BlockId_fk').val());
-                formData.append('ClusterId_fk', $('#ClusterId_fk').val());
-                //formData.append('PanchayatId_fk', $('#PanchayatId_fk').val());
-                formData.append('PlanYear', $('#PlanYear').val());
-                formData.append('PlanMonth', $('#PlanMonth').val());
-                 var countrecject = 0;
-               // $('#DataList').each(function () {
+            if ($("#CLFValidationYes").prop("checked")) {
+                $('#error-CLFValidation').hide();
+                formData.append('CLFValidation', true);
 
-                    //let table2 = $('#DataList').DataTable();
-                     $('input[name=chkApprove]').each(function (i, row) {
+                if ($('input[type=checkbox][name=CLFLeaders]:checked').length) {
+                    $('#error-CLFLeaders').hide();
+                } else {
+                    $('#error-CLFLeaders').show();
+                    toastr.error("Error", "Please select atleast one leader");
+                    return false;
+                }
 
-                        var achvplanid = $(row).attr('data-achvplanid');
-                        var uid = $(row).attr('data-uid');
-                        var empid = $(row).attr('data-empid');
-                        var disid = $(row).attr('data-disid');
-                        var blckid = $(row).attr('data-blckid');
-                        var clfid = $(row).attr('data-clfid');
-                        var pchytid = $(row).attr('data-pchytid');
-                        var vorgid = $(row).attr('data-vorgid');
+            } else if ($("#CLFValidationNo").prop("checked")) {
+                formData.append('CLFValidation', false);
+            } else {
+                $('#error-CLFValidation').show();
+                toastr.error("Error", "Please Select CLF validation");
+                return false;
+            }
 
-                        debugger;
-                          if (achvplanid != '' && achvplanid != '@Guid.Empty') {
-                            //(!Achvplanid_reject || Achvplanid_reject == undefined) &&
-                            if ($(this).is(':checked')) {
-                                tblpushdata.push({
-                                    AchieveId_pk: achvplanid,
-                                    DistrictId: disid,
-                                    BlockId: blckid,
-                                    ClusterId: clfid,
-                                    PanchayatId: pchytid,
-                                    VoId_fk: vorgid,
-                                    UserId: uid,
-                                    empId: empid,
-                                    PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Approve)',
-                                });
-                            }
-                            //Achvplanid_reject && Achvplanid_reject != undefined && achvplanid == Achvplanid_reject &&
-                            else if (!$(this).is(':checked')) {
-                                var remark1 = $('#remark-' + achvplanid).val();
-                                $('textarea[id=remark-' + achvplanid + ']').attr('requied', 'requied');
-                                if (remark1 != '') {
-                                    tblpushdata.push({
-                                        AchieveId_pk: achvplanid,
-                                        DistrictId: disid,
-                                        BlockId: blckid,
-                                        ClusterId: clfid,
-                                        PanchayatId: pchytid,
-                                        VoId_fk: vorgid,
-                                        UserId: uid,
-                                        empId: empid,
-                                        Remark1: remark1,
-                                        PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Reject)',
-                                    });
-                                }
-                                else {
-                                    IsCheck = false;
-                                    countrecject += 1;
-                                    //toastr.error("Error", "Enter the Remarks");
-                                    //return false;
-                                }
-                            }
+            var countrecject = 0;
+            $('input[name=chkApprove]').each(function (i, row) {
+
+                var achvplanid = $(row).attr('data-achvplanid');
+                var uid = $(row).attr('data-uid');
+                var empid = $(row).attr('data-empid');
+                var disid = $(row).attr('data-disid');
+                var blckid = $(row).attr('data-blckid');
+                var clfid = $(row).attr('data-clfid');
+                var pchytid = $(row).attr('data-pchytid');
+                var vorgid = $(row).attr('data-vorgid');
+
+                if (achvplanid != '' && achvplanid != '@Guid.Empty') {
+                    //(!Achvplanid_reject || Achvplanid_reject == undefined) &&
+                    if ($(this).is(':checked')) {
+                        tblpushdata.push({
+                            AchieveId_pk: achvplanid,
+                            DistrictId: disid,
+                            BlockId: blckid,
+                            ClusterId: clfid,
+                            PanchayatId: pchytid,
+                            VoId_fk: vorgid,
+                            UserId: uid,
+                            empId: empid,
+                            PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Approve)',
+                        });
+                    }
+                    //Achvplanid_reject && Achvplanid_reject != undefined && achvplanid == Achvplanid_reject &&
+                    else if (!$(this).is(':checked')) {
+                        var remark1 = $('#remark-' + achvplanid).val();
+                        $('textarea[id=remark-' + achvplanid + ']').attr('requied', 'requied');
+                        if (remark1 != '') {
+                            tblpushdata.push({
+                                AchieveId_pk: achvplanid,
+                                DistrictId: disid,
+                                BlockId: blckid,
+                                ClusterId: clfid,
+                                PanchayatId: pchytid,
+                                VoId_fk: vorgid,
+                                UserId: uid,
+                                empId: empid,
+                                Remark1: remark1,
+                                PlanApprove: '@Convert.ToInt16(Enums.eTypeApprove.Reject)',
+                            });
                         }
+                        else {
+                            IsCheck = false;
+                            countrecject += 1;
+                            //toastr.error("Error", "Enter the Remarks");
+                            //return false;
+                        }
+                    }
+                }
 
-                        //if ($('#DistrictId_fk').val() != '' && $('#BlockId_fk').val() != ''
-                        //    && $('#ClusterId_fk').val() != '' && $('#PanchayatId_fk').val() != '' && vogid != ''
-                        //    && $('#PlanYear').val() != '' && $('#PlanMonth').val() != ''
-                        //    && (mdt != '' && mdt !='Invalid Date') && noofpart!='') {
-                        //    tblpushdata.push({
-                        //        AchieveId_pk: id,
-                        //        VoId_fk: vogid,
-                        //        Meetingheld: toDate(mdt),
-                        //        Noofparticipant: noofpart,
-                        //    });
-                        //}
-
-                    //});
-                });
+            });
             if (countrecject > 0) {
                 toastr.error("Error", "Enter the Remarks.");
                 return false;
             } else { countrecject = 0; }
-                if (tblpushdata.length == 0) {
-                    toastr.error("Error", "Please choice at least one.");
-                    return false;
-                }
-
-                formData.append('AVPlanModel', JSON.stringify(tblpushdata));
-
-                if (isvalid && IsCheck) {
-                   // document.getElementById("btnsubmit").disabled = true;
-                    //var formData = $('#formid').serialize();
-
-                    $.ajax({
-                        url: document.baseURI + "/Payment/PostLevelOnePayment",
-                        type: "Post",
-                        data: formData,
-                        //contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        // processData: false, contentType: false,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        //data: JSON.stringify(model),
-                        success: function (resp) {
-                            if (resp.StatusType == "success") {
-                                toastr.success("Success", resp.Message);
-                                //$("#followupformid")[0].reset();
-                                BindData();
-                            }
-                            else {
-                                toastr.error("Error", resp.Message);
-                                document.getElementById("btnsubmit").disabled = false;
-                                jQuery.event.trigger("ajaxStop");
-                            }
-                        },
-                        error: function (req, error) {
-                            if (error === 'error') { error = req.statusText; }
-                            var errormsg = 'There was a communication error: ' + error;
-                            toastr.error("Error", errormsg);
-                            document.getElementById("btnsubmit").disabled = false;
-                            jQuery.event.trigger("ajaxStop");
-                            return false;
-                        }
-                    });
-                }
-                else {
-                    toastr.error('Error', "Please fill all required fields!!");
-                    jQuery.event.trigger("ajaxStop");
-                    return false;
-                }
-
+            if (tblpushdata.length == 0) {
+                toastr.error("Error", "Please choice at least one.");
+                return false;
             }
 
-        function AchievementDetailsByUser(empId, eName) {
+            formData.append('AVPlanModel', JSON.stringify(tblpushdata));
+
+            if (isvalid && IsCheck) {
+                jQuery.event.trigger("ajaxStart");
+                $.ajax({
+                    url: document.baseURI + "/Payment/PostLevelOnePayment",
+                    type: "Post",
+                    data: formData,
+                    dataType: "json",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (resp) {
+                        if (resp.StatusType == "success") {
+                            toastr.success("Success", resp.Message);
+                            BindData();
+                            $('#modalAchievementDetails').modal('hide');
+                        }
+                        else {
+                            toastr.error("Error", resp.Message);
+                            document.getElementById("btnsubmit").disabled = false;
+                        }
+                        jQuery.event.trigger("ajaxStop");
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
+                        document.getElementById("btnsubmit").disabled = false;
+                        jQuery.event.trigger("ajaxStop");
+                        return false;
+                    }
+                });
+                }
+            else {
+                toastr.error('Error', "Please fill all required fields!!");
+                jQuery.event.trigger("ajaxStop");
+                return false;
+            }
+
+        }
+
+        function AchievementDetailsByUser(empId, eName, CLFValidation, CLFLeadersPresident, CLFLeadersSecretary, CLFLeadersTreasurer) {
 
             $('#modalAchievementDetails #myModalTitle').html(eName);
             $("#div-achv-table").html('');
+
+            $("input[name=CLFValidation]").prop('checked', false);
+            if (CLFValidation == 'True') {
+                $("#CLFValidationYes").prop('checked', true);
+                $("#CLFLeaders").show();
+            } else {
+                $("#CLFValidationNo").prop('checked', true);
+                $("#CLFLeaders").hide();
+            }
+            
+
+            if (CLFLeadersPresident == 'True') {
+                $("#CLFLeadersPresident").prop('checked', true);
+            } else {
+                $("#CLFLeadersPresident").prop('checked', false);
+            }
+            if (CLFLeadersSecretary == 'True') {
+                $("#CLFLeadersSecretary").prop('checked', true);
+            } else {
+                $("#CLFLeadersSecretary").prop('checked', false);
+            }
+            if (CLFLeadersTreasurer == 'True') {
+                $("#CLFLeadersTreasurer").prop('checked', true);
+            } else {
+                $("#CLFLeadersTreasurer").prop('checked', false);
+            }
 
             var filtermodel = new Object();
             filtermodel.TypeLayer = @eTypeLayer;
@@ -513,7 +561,7 @@
             var isValid = CalculateApprovedAmount();
             if (isValid) {
                 CUData();
-                $('#modalAchievementDetails').modal('hide');
+
             }
 
         }
@@ -549,6 +597,6 @@
             });
             return isvalid;
         }
-</script>
+    </script>
 }
 
