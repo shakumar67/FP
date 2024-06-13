@@ -214,6 +214,7 @@
           <Property Name="Level3RejectBy" Type="nvarchar" MaxLength="200" />
           <Property Name="Remark3" Type="nvarchar(max)" />
           <Property Name="CLFValidation" Type="bit" />
+          <Property Name="CLFValidationDate" Type="datetime" />
           <Property Name="CLFLeadersPresident" Type="bit" />
           <Property Name="CLFLeadersSecretary" Type="bit" />
           <Property Name="CLFLeadersTreasurer" Type="bit" />
@@ -1178,6 +1179,7 @@
           <Property Name="Level3RejectBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Remark3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CLFValidation" Type="Boolean" />
+          <Property Name="CLFValidationDate" Type="DateTime" Precision="3" />
           <Property Name="CLFLeadersPresident" Type="Boolean" />
           <Property Name="CLFLeadersSecretary" Type="Boolean" />
           <Property Name="CLFLeadersTreasurer" Type="Boolean" />
@@ -1672,6 +1674,7 @@
                 <ScalarProperty Name="CLFLeadersTreasurer" ColumnName="CLFLeadersTreasurer" />
                 <ScalarProperty Name="CLFLeadersSecretary" ColumnName="CLFLeadersSecretary" />
                 <ScalarProperty Name="CLFLeadersPresident" ColumnName="CLFLeadersPresident" />
+                <ScalarProperty Name="CLFValidationDate" ColumnName="CLFValidationDate" />
                 <ScalarProperty Name="CLFValidation" ColumnName="CLFValidation" />
                 <ScalarProperty Name="Remark3" ColumnName="Remark3" />
                 <ScalarProperty Name="Level3RejectBy" ColumnName="Level3RejectBy" />

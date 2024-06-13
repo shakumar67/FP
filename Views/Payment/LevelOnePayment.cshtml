@@ -185,6 +185,13 @@
                         </div>
                     </div>
 
+                    <div class="col-sm-12 col-xl-12" id="CLFValidationDateDiv" style="display:none;">
+                        <div class="position-relative form-group">
+                            <label class="" for="CLFValidation">CLF Validation Date</label>
+                            <input type="text" name="CLFValidationDate" value="" class="form-control col-md-4" id="CLFValidationDate">
+                        </div>
+                    </div>
+
                     <div class="col-sm-12 col-xl-12" id="CLFLeaders" style="display:none;">
                         <div class="position-relative form-group">
                             <label class="" for="CLFLeaders">CLF Leaders</label>
@@ -270,10 +277,28 @@
 
             $("input[name=CLFValidation]").change(function () {
                 if ($(this).val() == 1) {
-                    $("#CLFLeaders").show();
-                } else {
+                    $("#CLFValidationDateDiv").show();
                     $("#CLFLeaders").hide();
+                } else {
+                    $("#CLFValidationDateDiv").hide();
+                    $("#CLFLeaders").show();
                 }
+            });
+            $(document).on('focus', "input[id=CLFValidationDate]", function () {
+                $(this).datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    maxdate: new Date(),
+                    onSelect: function (dateText, inst) {
+                        //$(this).val(moment(dateText).format("DD-MM-YYYY"));
+                        console.log(dateText);
+                        var dt = moment(dateText).format("DD-MM-YYYY");
+                        console.log(inst);
+                        console.log(dt);
+                        //document.getElementById(this.id).value = `${dt.selectedDay}-${dt.selectedMonth+1}-${dt.selectedYear}`;
+                    }
+                });
             });
 
             //$("#formid").submit(function (e) {
@@ -373,6 +398,14 @@
             if ($("#CLFValidationYes").prop("checked")) {
                 $('#error-CLFValidation').hide();
                 formData.append('CLFValidation', true);
+                if (!$('#CLFValidationDate').val()) {
+                    toastr.error("Error", "Please enter validation date");
+                    return false;
+                }
+                formData.append('CLFValidationDate', $('#CLFValidationDate').val());
+
+            } else if ($("#CLFValidationNo").prop("checked")) {
+                formData.append('CLFValidation', false);
 
                 if ($('input[type=checkbox][name=CLFLeaders]:checked').length) {
                     $('#error-CLFLeaders').hide();
@@ -381,9 +414,6 @@
                     toastr.error("Error", "Please select atleast one leader");
                     return false;
                 }
-
-            } else if ($("#CLFValidationNo").prop("checked")) {
-                formData.append('CLFValidation', false);
             } else {
                 $('#error-CLFValidation').show();
                 toastr.error("Error", "Please Select CLF validation");
@@ -496,7 +526,7 @@
 
         }
 
-        function AchievementDetailsByUser(empId, eName, CLFValidation, CLFLeadersPresident, CLFLeadersSecretary, CLFLeadersTreasurer) {
+        function AchievementDetailsByUser(empId, eName, CLFValidation, CLFValidationDate, CLFLeadersPresident, CLFLeadersSecretary, CLFLeadersTreasurer) {
 
             $('#modalAchievementDetails #myModalTitle').html(eName);
             $("#div-achv-table").html('');
@@ -504,10 +534,13 @@
             $("input[name=CLFValidation]").prop('checked', false);
             if (CLFValidation == 'True') {
                 $("#CLFValidationYes").prop('checked', true);
-                $("#CLFLeaders").show();
+                $("#CLFValidationDateDiv").show();
+                $("#CLFValidationDate").val(CLFValidationDate);
+                $("#CLFLeaders").hide();
             } else {
                 $("#CLFValidationNo").prop('checked', true);
-                $("#CLFLeaders").hide();
+                $("#CLFValidationDateDiv").hide();
+                $("#CLFLeaders").show();
             }
             
 

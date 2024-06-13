@@ -114,6 +114,7 @@ namespace FP.Controllers
                                                     tblu.Level1ApproveBy = MvcApplication.CUser.Id;
 
                                                     tblu.CLFValidation = model.CLFValidation;
+                                                    tblu.CLFValidationDate = model.CLFValidationDate;
                                                     tblu.CLFLeadersPresident = model.CLFLeadersPresident;
                                                     tblu.CLFLeadersSecretary = model.CLFLeadersSecretary;
                                                     tblu.CLFLeadersTreasurer = model.CLFLeadersTreasurer;
@@ -144,6 +145,7 @@ namespace FP.Controllers
                                                     tblu.Level1RejectBy = MvcApplication.CUser.Id;
 
                                                     tblu.CLFValidation = model.CLFValidation;
+                                                    tblu.CLFValidationDate = model.CLFValidationDate;
                                                     tblu.CLFLeadersPresident = model.CLFLeadersPresident;
                                                     tblu.CLFLeadersSecretary = model.CLFLeadersSecretary;
                                                     tblu.CLFLeadersTreasurer = model.CLFLeadersTreasurer;

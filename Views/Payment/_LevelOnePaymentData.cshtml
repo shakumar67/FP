@@ -65,6 +65,7 @@
                                     string Emp_ID = Convert.ToString(dr["Emp_ID"]);
                                     int peerGM = dr["Peer group meeting"] == null ? 0 : Convert.ToInt32(dr["Peer group meeting"]);
                                     var CLFValidation = dr["CLFValidation"] is DBNull ? false : Convert.ToBoolean(dr["CLFValidation"]);
+                                    string CLFValidationDate = (dr["CLFValidationDate"] is DBNull || dr["CLFValidationDate"] == null) ? "" : Convert.ToDateTime(dr["CLFValidationDate"].ToString()).ToDateTimeddMMyyyy();
                                     var CLFLeadersPresident = dr["CLFLeadersPresident"] is DBNull ? false : Convert.ToBoolean(dr["CLFLeadersPresident"]);
                                     var CLFLeadersSecretary = dr["CLFLeadersSecretary"] is DBNull ? false : Convert.ToBoolean(dr["CLFLeadersSecretary"]);
                                     var CLFLeadersTreasurer = dr["CLFLeadersTreasurer"] is DBNull ? false : Convert.ToBoolean(dr["CLFLeadersTreasurer"]);
@@ -99,7 +100,7 @@
                                             <td>@dr["Home Visit"]</td>
                                             <td>@dr["Linkage of beneficiary with health service provider"]</td>
                                             <td>@dr["Participated in FP campaign"]</td>
-                                            <td><a href="javascript:void(0);" class="btn btn-primary" onclick="AchievementDetailsByUser('@dr["Emp_ID"].ToString()', '@dr["EmpName"].ToString()', '@CLFValidation.ToString()', '@CLFLeadersPresident.ToString()', '@CLFLeadersSecretary.ToString()', '@CLFLeadersTreasurer.ToString()' )" >Details</a></td>
+                                            <td><a href="javascript:void(0);" class="btn btn-primary" onclick="AchievementDetailsByUser('@dr["Emp_ID"].ToString()', '@dr["EmpName"].ToString()', '@CLFValidation.ToString()', '@CLFValidationDate', '@CLFLeadersPresident.ToString()', '@CLFLeadersSecretary.ToString()', '@CLFLeadersTreasurer.ToString()' )" >Details</a></td>
                                         </tr>
                                     }
                                 }

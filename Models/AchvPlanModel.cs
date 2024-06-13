@@ -23,6 +23,7 @@ namespace FP.Models
         public Nullable<System.DateTime> PlanStatusDate { get; set; }
 
         public Nullable<bool> CLFValidation { get; set; }
+        public Nullable<DateTime> CLFValidationDate { get; set; }
         public Nullable<bool> CLFLeadersPresident { get; set; }
         public Nullable<bool> CLFLeadersSecretary { get; set; }
         public Nullable<bool> CLFLeadersTreasurer { get; set; }

@@ -172,6 +172,20 @@
                 </div>
                 <div class="modal-footer">
                     <div class="col-sm-12 col-xl-12">
+                        <div class="position-relative form-group">
+                            <label class="" for="CLFValidation">CLF Validation</label>: <span id="CLFValidationValue"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-xl-12" id="CLFLeaders" style="display:none;">
+                        <div class="position-relative form-group">
+                            <label class="" for="CLFLeaders">CLF Leaders</label>: <span id="CLFLeadersValue"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12 col-xl-12">
                         <button type="button" class="btn btn-primary float-right" id="modalOk" onclick="modalAchievementDetailsOk()">Recommend</button>
                     </div>
                 </div>
@@ -475,10 +489,31 @@
 
             }
 
-        function AchievementDetailsByUser(empId, eName) {
+        function AchievementDetailsByUser(empId, eName, CLFValidation, CLFValidationDate, CLFLeadersPresident, CLFLeadersSecretary, CLFLeadersTreasurer) {
 
             $('#modalAchievementDetails #myModalTitle').html(eName);
             $("#div-achv-table").html('');
+
+            $("#CLFValidationValue").removeClass();
+            if (CLFValidation == 'True') {
+                $("#CLFValidationValue").text('Yes ' + CLFValidationDate).addClass('text-success');
+                $("#CLFLeaders").hide();
+            } else {
+                $("#CLFValidationValue").text('No').addClass('text-danger');
+                $("#CLFLeaders").show();
+            }
+
+            var CLFLeadersValue = '';
+            if (CLFLeadersPresident == 'True') {
+                CLFLeadersValue += ', President';
+            }
+            if (CLFLeadersSecretary == 'True') {
+                CLFLeadersValue += ', Secretary';
+            }
+            if (CLFLeadersTreasurer == 'True') {
+                CLFLeadersValue += ', Treasurer';
+            }
+            $("#CLFLeadersValue").text(CLFLeadersValue.replace(/^,+|,+$/g, '').trim());
 
             var filtermodel = new Object();
             filtermodel.TypeLayer = @eTypeLayer;

@@ -37,9 +37,14 @@ namespace FP.Manager
             return !(dateTime == DateTime.MinValue) ? dateTime.ToString("dd-MMM-yyyy") : string.Empty;
         }
 
-        public static string ToDateTimeDDMMYYYY(this DateTime? dateTime)
+        public static string ToDateTimeDDMMMYYYY(this DateTime? dateTime)
         {
             return dateTime.DateTimeNullOrEmpty() ? string.Empty : dateTime.Value.ToString("dd-MMM-yyyy");
+        }
+
+        public static string ToDateTimeddMMyyyy(this DateTime dateTime)
+        {
+            return dateTime.DateTimeNullOrEmpty() ? string.Empty : dateTime.ToString("dd/MM/yyyy");
         }
 
         public static string ToDateTimeyyyyMMdd(this DateTime dateTime)
