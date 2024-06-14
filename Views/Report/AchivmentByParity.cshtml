@@ -1,0 +1,242 @@
+﻿
+@{
+    ViewBag.Title = "Achivment By Parity";
+}
+
+@model FP.Models.FilterModel
+@{
+
+}
+<style>
+    .closed {
+        border: none;
+        padding: 5px 12px;
+        background: #009A3F;
+        color: #fff;
+        border-radius: 100%;
+    }
+
+    .modal-dialog {
+        max-width: 900px !important;
+    }
+
+    .benefit {
+        display: flex;
+        gap: 10px;
+    }
+
+    .table th {
+        font-size: 14px;
+        background: #fff;
+    }
+
+    .table td {
+        font-size: 13px;
+    }
+
+    .dataTables_filter, .dataTables_length {
+        margin-bottom: 15px;
+    }
+    /*  .actives2 {
+        color: #009CFF !important;
+        background: #FFFFFF;
+        border-color: #009CFF;
+    }*/
+</style>
+<div class="breadcrumb">
+    <h2>Achivment By Parity</h2>
+    <strong id="div-download"></strong>
+</div>
+
+<div class="container-fluid pt-4 px-4">
+    <fieldset class="border rounded-3 p-3">
+        <legend class="float-none w-auto px-2">Search By</legend>
+        @using (Html.BeginForm("GetAchivmentByParity", "Report", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+        {
+            <div class="row g-4">
+                <div class="col-sm-12">
+                    <div class="bg-light rounded h-100 p-4">
+                        <div class="row mb-3" >
+                            <div class="col-sm-3">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.BlockId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.BlockId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.CLFId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.CLFId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.CLFId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3" >
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.PanchayatId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4" >
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                    @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="position-relative form-group">
+                                    <br />
+                                    <div class="mb-3">
+                                        <span class="check-spacer">
+                                            <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-info" value="Filter" />
+                                        </span>&nbsp;&nbsp;&nbsp;
+                                        <span class="check-spacer">
+                                            <a href="~/Report/GetAchivmentByParity" class="btn btn-warning"><i class="fa-solid fa-rotate-right"></i></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </fieldset>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div id="subdata"></div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <link href="~/Content/css/TreeTable.css" rel="stylesheet" />
+    <script src="~/Scripts/JS/Master.js"></script>
+    <script src="~/Scripts/JS/TreeTable.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            GetYearList("Year", 0, 1);
+            GetMonthList("Month", 0, 1);
+            GetDistrict("DistrictId", 0);
+            $('#DistrictId').change(function () {
+                GetBlock("BlockId", 0, $(this).val());
+            });
+            $('#BlockId').change(function () {
+                GetCLF("CLFId", 0, $('#DistrictId').val(), $(this).val());
+            });
+            $('#CLFId').change(function () {
+                GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+            });
+
+            $('#PanchayatId').change(function () {
+                GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $('#CLFId').val(), $(this).val());
+            });
+            /* Role Wise */
+            BindRolewise("DistrictId", "BlockId", "CLFId", "PanchayatId", "VOId");
+
+            //BindData();
+
+            $("#formid").submit(function (e) {
+                e.preventDefault();
+                BindReportData();
+            });
+
+            setTimeout(BindReportData, 200);
+        });
+        function BindReportData() {
+            $("#subdata").html('');
+            var filtermodel = new Object();
+            filtermodel.DistrictId = $('#DistrictId').val() == '' ? '' : $('#DistrictId').val();
+            filtermodel.BlockId = $('#BlockId').val() == '' ? '' : $('#BlockId').val();
+            filtermodel.CLFId = $('#CLFId').val() == '' ? '' : $('#CLFId').val();
+            filtermodel.PanchayatId = $('#PanchayatId').val() == '' ? '' : $('#PanchayatId').val();
+            filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
+            filtermodel.Year = $('#Year').val() == '' ? '' : $('#Year').val();
+            filtermodel.Month = $('#Month').val() == '' ? '' : $('#Month').val();
+            var formData = $('#formid').serialize();
+
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Report/GetAchivmentByParity",
+                data: filtermodel,//JSON.stringify({ 'Roles': '' }),
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        var data = JSON.parse(res.Data);
+                        var table = `<table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <td>Activity</td>
+                                <td>Parity 0</td>
+                                <td>Parity 1</td>
+                                <td>Parity 2</td>
+                                <td>Parity 2+</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        `
+                        for (var i = 0; i < data.length; i++) {
+                            table += `<tr>
+                            <td>${data[i].Activity}</td>
+                            <td>${data[i].Parity_0}</td>
+                            <td>${data[i].Parity_1}</td>
+                            <td>${data[i].Parity_2}</td>
+                            <td>${data[i].Parity_2Plus}</td>
+                            </tr>`;
+                        }
+                        table += `</tbody></table>`;
+
+                        $("#subdata").html(table);
+                    }
+                    else {
+                        $("#subdata").html('');
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+
+
+    </script>
+}
+
+

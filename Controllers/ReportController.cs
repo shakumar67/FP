@@ -204,6 +204,36 @@ namespace FP.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult AchivmentByParity()
+        {
+            FilterModel model = new FilterModel();
+            return View(model);
+        }
+        public JsonResult GetAchivmentByParity(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SP_AchivmentByParity(model);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var res = Json(new { IsSuccess = IsCheck, Data = JsonConvert.SerializeObject(tbllist) }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
+
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

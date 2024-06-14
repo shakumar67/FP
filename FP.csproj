@@ -774,6 +774,7 @@
     <Content Include="Views\Payment\LevelThreePayment.cshtml" />
     <Content Include="Views\Payment\_LevelThreePaymentData.cshtml" />
     <Content Include="Views\Payment\_LevelThreeAchvDetails.cshtml" />
+    <Content Include="Views\Report\AchivmentByParity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
