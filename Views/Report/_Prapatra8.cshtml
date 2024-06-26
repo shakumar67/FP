@@ -101,7 +101,7 @@
             <p>सेवा में, </p>
             <p>अध्यक्ष ...................................................................... संकुल संघ</p>
             <p>
-                विषय:प्रतिवेदित माह ..................................... वर्ष ................................. का
+                विषय:प्रतिवेदित माह @dr["ReportingMonth"]............................ वर्ष <span style="width:200px; border-bottom:dotted">@dr["ReportingYear"]</span> का
                 प्रोत्साहान राशि सह मांग प्रपत्र समर्पित
                 करने के सम्बन्ध में,
             </p>
@@ -109,7 +109,7 @@
                 <tr>
                     <td colspan="4">
                         सी एन आर पी का नाम
-                        ............................................................................. वर्ष
+                        <span style="width:200px; border-bottom:dotted">@dr["EmpName"]</span>..................................................... वर्ष
                         ............................. का प्रोत्साहन राशि सह मांग प्रपत्र
                         समर्पित करने के संवंध में
                     </td>
@@ -117,9 +117,9 @@
                 <tr>
                     <td colspan="4">
                         कुल ग्राम संगठन की संख्या .......................... प्रखंड का नाम
-                        ..................................................................................... जिला
+                        <span style="width:200px; border-bottom:dotted">@dr["Block"]</span>........................................................ जिला
                         का नाम
-                        ....................................................................................
+                        <span style="width:200px; border-bottom:dotted">@dr["DistrictName"]</span>.................................................................
                     </td>
                 </tr>
                 <tr>
@@ -135,27 +135,27 @@
                 <tr>
                     <td>i)</td>
                     <td>नव दंपत्ति / वैसी महिलाओं की संख्या जिन्हें अभी बच्चा नहीं है</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S1_NoChild"]</td>
                 </tr>
                 <tr>
                     <td>ii)</td>
                     <td>वैसी महिलाओं की संख्या जिन्हें । बच्चा है</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S1_OneChild"]</td>
                 </tr>
                 <tr>
                     <td>iii)</td>
                     <td>वैसी महिलाओं की संख्या जिन्हें 2 बच्चे हैं</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S1_TwoChild"]</td>
                 </tr>
                 <tr>
                     <td>iv)</td>
                     <td>वैसी महिलाओं की संख्या जिन्हें 2 से अधिक बच्चे है</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S1_MoreChild"]</td>
                 </tr>
                 <tr>
                     <td>v)</td>
                     <td>क़ सं i), ii), iii) एवं iv) में गर्भवती महिलाओं की संख्या</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S1_TotalChild"]</td>
                 </tr>
                 <tr>
                     <td class="bgr">ख .</td>
@@ -222,47 +222,47 @@
                 <tr>
                     <td>i)</td>
                     <td>कंडोम</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S4_Condom"]</td>
                 </tr>
                 <tr>
                     <td>ii)</td>
                     <td>दैनिक गर्भनिरोधक गोली (माला-एन)</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S4_MalaN"]</td>
                 </tr>
                 <tr>
                     <td>iii)</td>
                     <td>साप्ताहिक गर्भनिरोधक गोली (छाया)</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S4_Chhaya"]</td>
                 </tr>
                 <tr>
                     <td>iv)</td>
                     <td>आपातकालीन गर्भनिरोधक गोली</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S4_EzyPill"]</td>
                 </tr>
                 <tr>
                     <td>v)</td>
                     <td>गर्भनिरोधक सूई</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S4_Antarainj"]</td>
                 </tr>
                 <tr>
                     <td>vi)</td>
                     <td>कॉपर टी</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S4_CopperT"]</td>
                 </tr>
                 <tr>
                     <td>vii)</td>
                     <td>महिला बंध्याकरण</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S4_FemaleSterilization"]</td>
                 </tr>
                 <tr>
                     <td>viii)</td>
                     <td>पुरुष नसबंदी</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S4_MaleSterilization"]</td>
                 </tr>
                 <tr>
                     <td>ix)</td>
                     <td>अन्य</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">@dr["S4_OtherMethod"]</td>
                 </tr>
             </table>
             <p>महोदया,</p>
