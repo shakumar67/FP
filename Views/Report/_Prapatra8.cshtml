@@ -1,0 +1,312 @@
+﻿@using System.Data
+@using FP.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet">
+<style>
+        body {
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            color: #000;
+            -webkit-print-color-adjust: exact !important;
+        }
+
+        h3,
+        h2,
+        h1 {
+            margin: 0px;
+        }
+
+        p {
+            font-size: 12px;
+            margin: 3px 0;
+            color: #000;
+        }
+
+        .form-design {
+            margin: auto;
+            max-width: 1200px;
+            color: #000;
+        }
+
+        .form-design h3 {
+            text-align: right;
+            font-size: 13px;
+        }
+
+        .form-design h2 {
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .form-design h1 {
+            text-align: center;
+            font-size: 19px;
+            margin-top: 8px;
+        }
+
+        .form-design h1 span {
+            padding: 4px 25px;
+            border-radius: 30px;
+            background: #333333;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        table tr td {
+            color: #000 !important;
+            font-size: 12px;
+            padding: 1px 5px;
+        }
+
+        .form-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .b1,
+        .b2,
+        .b3 {
+            flex: 1;
+        }
+
+        .bgr {
+            background: #E4E6DC;
+            font-weight: 500;
+        }
+
+        @@media print {
+            table tr td {
+                font-size: 10px;
+                font-weight: 300;
+                color: #333;
+            }
+        }
+</style>
+
+@if (dt.Rows.Count > 0)
+{
+    foreach (DataRow dr in dt.Rows)
+    {
+
+
+        <div class="form-design">
+            <h3>प्रपत्र-8</h3>
+            <h2>परिवार नियोजन अभिसरण कार्यक्रम </h2>
+            <h1><span>सी.एन.आर.पी. मासिक प्रोत्साहन राशि सह मांग प्रपत्र</span></h1>
+            <p>सेवा में, </p>
+            <p>अध्यक्ष ...................................................................... संकुल संघ</p>
+            <p>
+                विषय:प्रतिवेदित माह ..................................... वर्ष ................................. का
+                प्रोत्साहान राशि सह मांग प्रपत्र समर्पित
+                करने के सम्बन्ध में,
+            </p>
+            <table border="1" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td colspan="4">
+                        सी एन आर पी का नाम
+                        ............................................................................. वर्ष
+                        ............................. का प्रोत्साहन राशि सह मांग प्रपत्र
+                        समर्पित करने के संवंध में
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        कुल ग्राम संगठन की संख्या .......................... प्रखंड का नाम
+                        ..................................................................................... जिला
+                        का नाम
+                        ....................................................................................
+                    </td>
+                </tr>
+                <tr>
+                    <td>क्र.सं.</td>
+                    <td>गतिविधियों का नाम</td>
+                    <td colspan="2">वर्तमान कुत माह में (कुल संख्या)</td>
+                </tr>
+                <tr>
+                    <td class="bgr">क.</td>
+                    <td class="bgr">समूह परिवार के फुत लक्षित लाभार्थियों का श्रेणीबद्ध सूचि निर्माण</td>
+                    <td class="bgr" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>i)</td>
+                    <td>नव दंपत्ति / वैसी महिलाओं की संख्या जिन्हें अभी बच्चा नहीं है</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>ii)</td>
+                    <td>वैसी महिलाओं की संख्या जिन्हें । बच्चा है</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>iii)</td>
+                    <td>वैसी महिलाओं की संख्या जिन्हें 2 बच्चे हैं</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>iv)</td>
+                    <td>वैसी महिलाओं की संख्या जिन्हें 2 से अधिक बच्चे है</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>v)</td>
+                    <td>क़ सं i), ii), iii) एवं iv) में गर्भवती महिलाओं की संख्या</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td class="bgr">ख .</td>
+                    <td class="bgr">लाभार्थी समूहों के साथ बैठक संचालन</td>
+                    <td class="bgr">बैठक में भाग लेने वाले संभावित लाभारतीयों की संख्या </td>
+                    <td class="bgr">बैठक में उपस्थित लाभारतीयों की संख्या </td>
+                </tr>
+                <tr>
+                    <td>i)</td>
+                    <td>नव दंपत्ति / वैसी महिलायें जिन्हें अभी बच्चा नहीं है एवं 1 बच्चे वाली महिलाओं का समूह</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ii)</td>
+                    <td>2 एवं दो से अधिक बच्चे वाली महिलाओं का</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="bgr">ग . </td>
+                    <td class="bgr">लाभार्थियों का गृह भ्रमण</td>
+                    <td class="bgr">गृह भर्मण के लिए लक्षित लाभार्थिकी संभावित संख्या</td>
+                    <td class="bgr">गृह भर्मण के दौरान संपर्क किये गए लाभार्थी की संख्या </td>
+                </tr>
+                <tr>
+                    <td>i)</td>
+                    <td>नव दंपत्ति/ वैसी महिलाओं की संख्या जिन्हें अभी बच्चा नहीं है</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ii)</td>
+                    <td>1 बच्चे वाली महिलाओं की संख्या</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>iii)</td>
+                    <td>2 बच्चों वाली महिलाओं की संख्या</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>iii)</td>
+                    <td>2 से अधिक बच्चों वाली महिलाओं की संख्या</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>v)</td>
+                    <td>क़ सं i), ii), iii) एवं iv) में से कुल गर्भवती महिलाओं की संख्या</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="bgr">घ . </td>
+                    <td class="bgr">
+                        परिवार नियोजन सेवा का लाभ लेने हेतु सी.एन.आर.पी. द्वारा आशा से जोड़े जाने वाते
+                        लाभार्थियों की संख्या
+                    </td>
+                    <td class="bgr" colspan="2">वर्तमान माह में संख्या </td>
+                </tr>
+                <tr>
+                    <td>i)</td>
+                    <td>कंडोम</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>ii)</td>
+                    <td>दैनिक गर्भनिरोधक गोली (माला-एन)</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>iii)</td>
+                    <td>साप्ताहिक गर्भनिरोधक गोली (छाया)</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>iv)</td>
+                    <td>आपातकालीन गर्भनिरोधक गोली</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>v)</td>
+                    <td>गर्भनिरोधक सूई</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>vi)</td>
+                    <td>कॉपर टी</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>vii)</td>
+                    <td>महिला बंध्याकरण</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>viii)</td>
+                    <td>पुरुष नसबंदी</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>ix)</td>
+                    <td>अन्य</td>
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+            <p>महोदया,</p>
+            <p>
+                उपर्युक्त वर्णित कार्य मेरे द्वारा दस कार्य दिवस में संपन्न किया गया है। अनुरोध है की प्रतिवेदित कार्य की
+                प्रोत्साहन राशि भुगतान करने की कृपा करें।
+            </p>
+            <div class="form-flex">
+                <div class="b1">
+                    <p>संकुल संघ द्वारा प्रतिवेदन सत्यापित की स्थितिः </p>
+                </div>
+                <div class="b2">
+                    <p>हाँ <input type="text"></p>
+                </div>
+                <div class="b3">
+                    <p>सी.एन.आर.पी. का नाम एवं हस्ताक्षर</p>
+                </div>
+            </div>
+            <div class="form-flex">
+                <div class="b1">
+                    <p></p>
+                </div>
+                <div class="b2">
+                    <p>नहीं <input type="text"></p>
+                </div>
+                <div class="b3">
+                    <p>दिनांक ...........................................................</p>
+                </div>
+            </div>
+            <div class="form-flex">
+                <div class="b1">
+                    <p>संकुल संघ के अध्यक्ष / सचिव / कोषाध्यक्ष का हस्ताक्षर</p>
+                </div>
+                <div class="b2">
+                </div>
+                <div class="b3">
+                    <p>अभियुक्ति <textarea></textarea></p>
+                </div>
+            </div>
+            <p>...............................................................................</p>
+            <p>संबंधित AC / CC का हस्ताक्षर :</p>
+            <p>............................................................................................</p>
+            <p>निर्देश: CLF को इस प्रपत्र की एक प्रति BPILU में जमा करना है।</p>
+        </div>
+
+    }
+}

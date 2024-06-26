@@ -775,6 +775,10 @@
     <Content Include="Views\Payment\_LevelThreePaymentData.cshtml" />
     <Content Include="Views\Payment\_LevelThreeAchvDetails.cshtml" />
     <Content Include="Views\Report\AchivmentByParity.cshtml" />
+    <Content Include="Views\Report\_Prapatra2.cshtml" />
+    <Content Include="Views\Report\Prapatra2.cshtml" />
+    <Content Include="Views\Report\Prapatra8.cshtml" />
+    <Content Include="Views\Report\_Prapatra8.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

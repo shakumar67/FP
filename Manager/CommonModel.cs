@@ -1959,7 +1959,7 @@ namespace FP.Manager
         }
         public static class DisAchvlbl
         {
-            public const string Name = "CNPR";//MeetingHeld
+            public const string Name = "CNRP";//MeetingHeld
             public const string MeetingDate = "Meeting Conducted On";//MeetingHeld
             public const string Activities = "Activities";//\r\n
             public const string TotalNoofParticipant = "No of Plan";

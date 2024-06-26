@@ -1,0 +1,296 @@
+﻿@using System.Data
+@using FP.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        font-family: "Hind", sans-serif;
+        font-weight: 400;
+        color: #000;
+        -webkit-print-color-adjust: exact !important;
+    }
+
+    h3,
+    h2,
+    h1 {
+        margin: 0px;
+    }
+
+    p {
+        font-size: 13px;
+        margin: 2px 0;
+        color: #000;
+    }
+
+    .form-design {
+        margin: auto;
+        max-width: 1200px;
+        color: #000;
+    }
+
+        .form-design h3 {
+            text-align: right;
+            font-size: 13px;
+        }
+
+        .form-design h2 {
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .form-design h1 {
+            text-align: center;
+            font-size: 19px;
+            margin-top: 8px;
+        }
+
+            .form-design h1 span {
+                padding: 3px 25px;
+                border-radius: 30px;
+                background: #333333;
+                color: #fff;
+                font-weight: 500;
+            }
+
+    table tr td {
+        color: #000 !important;
+        font-size: 13px;
+        padding: 2px 6px;
+    }
+
+    .form-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .b1,
+    .b2,
+    .b3 {
+        flex: 1;
+    }
+
+    .bgr {
+        background: #E4E6DC;
+        font-weight: 500;
+    }
+</style>
+@if (dt.Rows.Count > 0)
+{
+    foreach (DataRow dr in dt.Rows)
+    {
+        var colSum1 = (!string.IsNullOrEmpty(dr["Noofnochild"].ToString()) && !string.IsNullOrEmpty(dr["Noofnochild1"].ToString()))
+            ? (Convert.ToInt32(dr["Noofnochild"]) + Convert.ToInt32(dr["Noofnochild1"])) : 0;
+        var colSum2 = (!string.IsNullOrEmpty(dr["Noofonechild"].ToString()) && !string.IsNullOrEmpty(dr["Noofonechild1"].ToString()))
+           ? (Convert.ToInt32(dr["Noofonechild"]) + Convert.ToInt32(dr["Noofonechild1"])) : 0;
+        var colSum3 = (!string.IsNullOrEmpty(dr["Nooftwochild"].ToString()) && !string.IsNullOrEmpty(dr["Nooftwochild1"].ToString()))
+           ? (Convert.ToInt32(dr["Nooftwochild"]) + Convert.ToInt32(dr["Nooftwochild1"])) : 0;
+        var colSum4 = (!string.IsNullOrEmpty(dr["Noofmorechild"].ToString()) && !string.IsNullOrEmpty(dr["Noofmorechild1"].ToString()))
+           ? (Convert.ToInt32(dr["Noofmorechild"]) + Convert.ToInt32(dr["Noofmorechild1"])) : 0;
+
+        var colSum5 = (!string.IsNullOrEmpty(dr["Noofrolevideo"].ToString()) && !string.IsNullOrEmpty(dr["Noofrolevideo1"].ToString()))
+           ? (Convert.ToInt32(dr["Noofrolevideo"]) + Convert.ToInt32(dr["Noofrolevideo1"])) : 0;
+        var colSum6 = (!string.IsNullOrEmpty(dr["Noofmoduleroleout"].ToString()) && !string.IsNullOrEmpty(dr["Noofmoduleroleout1"].ToString()))
+           ? (Convert.ToInt32(dr["Noofmoduleroleout"]) + Convert.ToInt32(dr["Noofmoduleroleout1"])) : 0;
+
+        var colSum7 = (!string.IsNullOrEmpty(dr["Nooffollowup"].ToString()) && !string.IsNullOrEmpty(dr["Nooffollowup1"].ToString()))
+           ? (Convert.ToInt32(dr["Nooffollowup"]) + Convert.ToInt32(dr["Nooffollowup1"])) : 0;
+        var colSum8 = (!string.IsNullOrEmpty(dr["NooffwupPm"].ToString()) && !string.IsNullOrEmpty(dr["NooffwupPm1"].ToString()))
+           ? (Convert.ToInt32(dr["NooffwupPm"]) + Convert.ToInt32(dr["NooffwupPm1"])) : 0;
+        var colSum9 = (!string.IsNullOrEmpty(dr["NooffwupTm"].ToString()) && !string.IsNullOrEmpty(dr["NooffwupTm1"].ToString()))
+           ? (Convert.ToInt32(dr["NooffwupTm"]) + Convert.ToInt32(dr["NooffwupTm1"])) : 0;
+        var colSum10 = (!string.IsNullOrEmpty(dr["NoofOm"].ToString()) && !string.IsNullOrEmpty(dr["NoofOm1"].ToString()))
+           ? (Convert.ToInt32(dr["NoofOm"]) + Convert.ToInt32(dr["NoofOm1"])) : 0;
+        var colSum11 = (!string.IsNullOrEmpty(dr["NoofPm"].ToString()) && !string.IsNullOrEmpty(dr["NoofPm1"].ToString()))
+           ? (Convert.ToInt32(dr["NoofPm"]) + Convert.ToInt32(dr["NoofPm1"])) : 0;
+        var colSum12 = (!string.IsNullOrEmpty(dr["NoofTm"].ToString()) && !string.IsNullOrEmpty(dr["NoofTm1"].ToString()))
+           ? (Convert.ToInt32(dr["NoofTm"]) + Convert.ToInt32(dr["NoofTm1"])) : 0;
+
+      <div class="form-design">
+          <h3>प्रपत्र-2</h3>
+          <h2>परिवार नियोजन अभिसरण कार्यक्रम सी.एम. का मासिक प्रतिवेदन सह प्रोत्साहन राशि मांग प्रपत्र</h2>
+          <h1>
+              <span>
+                  CM का मासिक प्रतिवेदन - सह - प्रोत्साहन राशि मांग प्रपत्र
+              </span>
+          </h1>
+          <p>सेवा में,</p>
+          <p>
+              अध्यक्ष
+              .............................................................................................................................
+              ग्राम
+              संगठन,
+              पंचायत
+              ..........................................................................................................................................
+          </p>
+          <p>
+              विषयः प्रतिवेदित माह <span style="width:200px; border-bottom:dotted">@dr["ReportingMonth"]</span> वर्ष <span style="width:200px; border-bottom:dotted">@dr["ReportingYear"]</span>
+              ......................................... का
+              प्रतिवेदन सह प्रोत्साहन राशि मांग प्रपत्र
+              समर्पित करने के सम्बन्ध में,
+          </p>
+          <table border="1" width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                  <td colspan="3">
+                      सी.एम. का नाम
+                      <span style="width:200px; border-bottom:dotted">@dr["EmpName"]</span>
+                      ................................................................................................................................................................
+                  </td>
+              </tr>
+              <tr>
+                  <td colspan="3">
+                      ग्राम संगठन का नाम
+                      <span style="width:200px; border-bottom:dotted">@dr["Village_Organization"]</span>
+                      ....................................................................................................................
+                      कुल स्वयं सहायता समूह
+                      ................................................................................................
+                  </td>
+              </tr>
+              <tr>
+                  <td>क्र.सं.</td>
+                  <td>गतिविधियों का नाम</td>
+                  <td>वर्तमान माह में कुल(संख्या में)</td>
+              </tr>
+              <tr>
+                  <td rowspan="4">क.समूह परिवार के कुत तक्षित ताभार्थियों का सूची निर्माण</td>
+                  <td>i) नव दंपत्ति / वैसी महिलाओं की संख्या जिन्हें अभी बच्चा नहीं है</td>
+                  <td>@dr["Noofnochild1"]</td>
+              </tr>
+              <tr>
+                  <td>ii) वैसी महिताओं की संख्या जिन्हें 1 बच्चा है</td>
+                  <td>@dr["Noofonechild1"]</td>
+              </tr>
+              <tr>
+                  <td>iii) वैसी महिलाओं की संख्या जिन्हें 2 बच्चे हैं</td>
+                  <td>@dr["Nooftwochild1"]</td>
+              </tr>
+              <tr>
+                  <td>iv) वैसी महिलाओं की संख्या जिन्हें 2 से अधिक बच्चे है</td>
+                  <td>@dr["Noofmorechild1"]</td>
+              </tr>
+              <tr>
+                  <td></td>
+                  <td></td>
+                  <td>वर्तमान माह में कुल संख्या</td>
+              </tr>
+              <tr>
+                  <td rowspan="2">ख. समूह बैठक पंजी के अनुसार (माड्यूल रोल आउट/ विडियो प्रसारण</td>
+                  <td>i) कितने समूह में मॉडयूल रोत जाउट के माध्यम से जागरूक किया गया</td>
+                  <td>@dr["Noofrolevideo1"]</td>
+              </tr>
+              <tr>
+                  <td>ii) कितने समूह में विडिओ के माध्यम से जागरूक किया गया</td>
+                  <td>@dr["Noofmoduleroleout"]</td>
+              </tr>
+              <tr>
+                  <td rowspan="6">ग. लाभार्थी से फॉलो-अप</td>
+                  <td>i) कितने लाभार्थियों के यहाँ फॉलो अप किया गया</td>
+                  <td>@dr["Nooffollowup1"]</td>
+              </tr>
+              <tr>
+                  <td>ii) कितने लाभार्थी अस्थाई साधन का उपयोग कर रहे हैं</td>
+                  <td>@dr["NooffwupPm1"]</td>
+              </tr>
+              <tr>
+                  <td>iii) कितने ताभार्थी स्थाई साधन का उपयोग कर रहे है </td>
+                  <td>@dr["NooffwupTm1"]</td>
+              </tr>
+              <tr>
+                  <td>iv) कितने लाभार्थी परिवार नियोजन के कोई भी साधन उपयोग नहीं कर रहे है</td>
+                  <td>@dr["NoofOm1"]</td>
+              </tr>
+              <tr>
+                  <td>v) कितने लाभार्थी अस्थाई साधन का उपयोग करना चाहते हैं</td>
+                  <td>@dr["NoofPm1"]</td>
+              </tr>
+              <tr>
+                  <td>vi) कितने लाभार्थी स्थाई साधन का उपयोग करना चाहते है</td>
+                  <td>@dr["NoofTm1"]</td>
+              </tr>
+          </table>
+          <p>महोदया,</p>
+          <p>
+              उपर्युक्त वर्णित कार्य मेरे द्वारा संपन्न किया गया है। कृपया प्रोत्साहन राशि रू. 300/- मात्र भुगतान करने की
+              कृपा करें।
+          </p>
+          <div class="form-flex">
+              <div class="b1">
+                  <p>सी. एन. आर. पी. द्वारा सत्यापित</p>
+              </div>
+              <div class="b2">
+
+              </div>
+              <div class="b3">
+                  <p>सी एम् का नाम एवं हस्ताक्षर</p>
+              </div>
+          </div>
+          <div class="form-flex">
+              <div class="b1">
+                  <p>(नाम एवं हस्ताक्षर)</p>
+              </div>
+              <div class="b2">
+              </div>
+              <div class="b3">
+                  <p>
+                      दिनांक
+                      .............................................................................
+                  </p>
+              </div>
+          </div>
+          <div class="form-flex">
+              <div class="b1">
+                  <p>
+                      दिनांक
+                      .............................................................................
+                  </p>
+              </div>
+              <div class="b2">
+              </div>
+              <div class="b3">
+                  <p>
+                      मो नंo
+                      <span style="width:200px; border-bottom:dotted">@dr["MobileNo"]</span>
+                      ............................................................................
+                  </p>
+              </div>
+          </div>
+          <div class="form-flex">
+              <div class="b1">
+                  <p>ग्राम संगठन द्वारा प्रतिवेदन सत्यापित की</p>
+              </div>
+              <div class="b2">
+                  <p>हाँ <input type="text"></p>
+              </div>
+              <div class="b3">
+                  <p>अभियुक्ति <input type="text"></p>
+              </div>
+          </div>
+          <div class="form-flex">
+              <div class="b1">
+                  <p>स्थितिः</p>
+              </div>
+              <div class="b2">
+                  <p>नहीं <input type="text"></p>
+              </div>
+              <div class="b3">
+              </div>
+          </div>
+          <p>दिनांक .....................................................................................</p>
+          <p>ए.सी/सी.सी द्वारा अनुशंसित</p>
+          <p>(नाम एवं हस्ताक्षर)</p>
+          <div class="form-flex">
+              <div class="b1">
+                  <p>दिनांक..........................................................................................</p>
+              </div>
+              <div class="b2">
+              </div>
+              <div class="b3">
+                  <p>ग्राम संगठन के अध्यक्ष / सचिव/ कोषाध्यक्ष का हस्ताक्षर</p>
+              </div>
+          </div>
+      </div>
+    }
+}
