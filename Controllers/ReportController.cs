@@ -232,6 +232,60 @@ namespace FP.Controllers
         }
 
 
+        public ActionResult Prapatra2()
+        {
+            FilterModel model = new FilterModel();
+            return View(model);
+        }
+        public ActionResult GetPrapatra2(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SP_Prapatra2(model);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_Prapatra2", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        public ActionResult Prapatra8()
+        {
+            FilterModel model = new FilterModel();
+            return View(model);
+        }
+        public ActionResult GetPrapatra8(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SP_Model.SP_Prapatra8(model);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_Prapatra8", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
 
         private string ConvertViewToString(string viewName, object model)
